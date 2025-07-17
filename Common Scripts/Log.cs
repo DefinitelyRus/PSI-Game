@@ -4,7 +4,6 @@ using System.IO;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using Godot;
-
 namespace CommonScripts;
 
 public partial class Log : Node {
@@ -93,7 +92,5 @@ public partial class Log : Node {
     }
 
     #endregion
-
-
 }
 
