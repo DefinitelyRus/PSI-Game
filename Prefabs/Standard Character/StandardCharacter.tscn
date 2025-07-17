@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://daotyvqai4b36"]
+
+[ext_resource type="Script" uid="uid://dbkinu8656olu" path="res://Prefabs/Standard Character/StandardCharacter.cs" id="1_udvt5"]
+[ext_resource type="Texture2D" uid="uid://bjipwk6ac5bx0" path="res://Sprites/Legionnaires/Template/Idle.png" id="2_r87il"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jvbue"]
+radius = 6.4
+height = 23.5
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+script = ExtResource("1_udvt5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_jvbue")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+y_sort_enabled = true
+texture_filter = 1
+texture = ExtResource("2_r87il")
+region_enabled = true
+region_rect = Rect2(16, 338, 19, 26)
