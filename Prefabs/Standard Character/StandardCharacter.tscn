@@ -1,14 +1,20 @@
-[gd_scene load_steps=4 format=3 uid="uid://daotyvqai4b36"]
+[gd_scene load_steps=6 format=3 uid="uid://daotyvqai4b36"]
 
 [ext_resource type="Script" uid="uid://dbkinu8656olu" path="res://Prefabs/Standard Character/StandardCharacter.cs" id="1_udvt5"]
 [ext_resource type="Texture2D" uid="uid://bjipwk6ac5bx0" path="res://Sprites/Legionnaires/Template/Idle.png" id="2_r87il"]
+[ext_resource type="Script" uid="uid://cavubcy1osm40" path="res://Common Scripts/ControlSurface.cs" id="3_r87il"]
+[ext_resource type="Script" uid="uid://cgxfjkqqik5s8" path="res://Common Scripts/InputManager.cs" id="4_gn58p"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jvbue"]
 radius = 6.4
 height = 23.5
 
-[node name="CharacterBody2D" type="CharacterBody2D"]
+[node name="CharacterBody2D" type="CharacterBody2D" node_paths=PackedStringArray("Control")]
+physics_interpolation_mode = 1
+motion_mode = 1
 script = ExtResource("1_udvt5")
+CharacterName = "Teto"
+Control = NodePath("Control Surface")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_jvbue")
@@ -18,4 +24,12 @@ y_sort_enabled = true
 texture_filter = 1
 texture = ExtResource("2_r87il")
 region_enabled = true
-region_rect = Rect2(16, 338, 19, 26)
+region_rect = Rect2(0, 320, 48, 64)
+
+[node name="Control Surface" type="Node2D" parent="."]
+script = ExtResource("3_r87il")
+LogPhysics = true
+
+[node name="Input Manager" type="Node2D" parent="."]
+script = ExtResource("4_gn58p")
+MovementMode = 1
