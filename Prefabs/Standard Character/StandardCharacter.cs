@@ -1,5 +1,5 @@
-using CommonScripts;
 using Godot;
+namespace CommonScripts;
 
 public partial class StandardCharacter : CharacterBody2D
 {

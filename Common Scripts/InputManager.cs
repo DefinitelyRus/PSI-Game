@@ -1,6 +1,5 @@
-using CommonScripts;
 using Godot;
-using static Godot.SpringBoneSimulator3D;
+namespace CommonScripts;
 
 public partial class InputManager : Node2D {
 
