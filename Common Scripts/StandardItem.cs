@@ -269,6 +269,67 @@ public partial class StandardItem : Node2D
 
 	#endregion
 
+	#region Cooldown
+
+	/// <summary>
+	/// The amount of time to wait in seconds before the item can be used again. <br/><br/>
+	/// This is a setter/getter for <see cref="_cooldownTime"/>.
+	/// Setting this value will clamp it between <c>0</c> and <see cref="float.MaxValue"/>.
+	/// </summary>
+	/// <remarks>Not to be confused with <see cref="CooldownRemaining"/>.</remarks>
+	[ExportSubgroup("Cooldown")]
+	[Export] public float CooldownTime {
+		get => _cooldownTime;
+		set { _cooldownTime = Mathf.Clamp(value, 0f, float.MaxValue); }
+	}
+
+	/// <summary>
+	/// The amount of time to wait in seconds before the item can be used again. <br/><br/>
+	/// Do not set this value directly; use <see cref="CooldownTime"/> instead.
+	/// </summary>
+	/// <remarks>Not to be confused with <see cref="CooldownRemaining"/>.</remarks>
+	private float _cooldownTime = 0f;
+
+	/// <summary>
+	/// The amount of time <b>remaining</b> in seconds before the item can be used again. <br/><br/>
+	/// This is a setter/getter for <see cref="_cooldownRemaining"/>.
+	/// Setting this value will clamp it between <c>0</c> and <see cref="CooldownTime"/>.
+	/// </summary>
+	/// <remarks>Not to be confused with <see cref="CooldownTime"/>.</remarks>
+	[Export] public float CooldownRemaining {
+		get => _cooldownRemaining;
+		set { _cooldownRemaining = Mathf.Clamp(value, 0f, CooldownTime); }
+	}
+
+	/// <summary>
+	/// The amount of time <b>remaining</b> in seconds before the item can be used again. <br/><br/>
+	/// Do not set this value directly; use <see cref="CooldownRemaining"/> instead.
+	/// </summary>
+	/// <remarks>Not to be confused with <see cref="CooldownTime"/>.</remarks>
+	private float _cooldownRemaining = 0f;
+
+	/// <summary>
+	/// Whether the item is currently on cooldown. <br/><br/>
+	/// This value cannot be set manually and returns true if <see cref="CooldownRemaining"/> greater than <c>0</c>.
+	/// </summary>
+	public bool IsOnCooldown => CooldownRemaining > 0f;
+
+	/// <summary>
+	/// Depletes the cooldown time by the specified delta time. <br/><br/>
+	/// This method is intended to be called in the <see cref="Node2D.Process(float)"/> or <see cref="Node2D.PhysicsProcess(float)"/> methods.
+	/// </summary>
+	/// <param name="delta">The time between this frame and the last.</param>
+	/// <param name="v">Do verbose logging? Use <c>v</c> to follow the same verbosity as the encapsulating function, if available.</param>
+	/// <param name="s">Stack depth. Use <c>0</c> if on a root function, or <c>s + 1</c> if <c>s</c> is available in the encapsulating function.</param>
+	protected void CoolDown(float delta, bool v = false, int s = 0) {
+		if (CooldownRemaining <= 0f) return;
+		CooldownRemaining -= delta;
+		if (CooldownRemaining < 0f) CooldownRemaining = 0f;
+		Log.Me(() => $"Cooldown remaining: {CooldownRemaining}/{CooldownTime} seconds.", v, s + 1);
+	}
+
+	#endregion
+
 	#endregion
 
 	#region Nodes & Components
