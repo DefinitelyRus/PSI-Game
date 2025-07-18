@@ -121,7 +121,7 @@ public partial class InputManager : Node2D {
 
 	#endregion
 
-		#region Facing Inputs
+	#region Facing Inputs
 
 	[ExportSubgroup("Facing Inputs")]
     [Export] public string FaceUp = "face_up";
