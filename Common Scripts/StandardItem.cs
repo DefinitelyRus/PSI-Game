@@ -436,14 +436,44 @@ public partial class StandardItem : Node2D
 		return;
 	}
 
+	/// <summary>
+	/// Degrades the item by the specified amount.
+	/// </summary>
+	/// <param name="amount">The amount of durability to remove from the item.</param>
+	/// <param name="v">Do verbose logging? Use <c>v</c> to follow the same verbosity as the encapsulating function, if available.</param>
+	/// <param name="s">Stack depth. Use <c>0</c> if on a root function, or <c>s + 1</c> if <c>s</c> is available in the encapsulating function.</param>
 	public virtual void Degrade(int amount = 1, bool v = false, int s = 0) {
+
+		// Cannot be degraded
 		if (!CanDegrade) {
 			Log.Me(() => $"\"{ItemName}\" ({ItemID}) cannot be degraded. Returning...", v, s + 1);
 			return;
 		}
+
+		// Invalid amount
+		if (amount <= 0) {
+			Log.Me(() => $"Cannot degrade \"{ItemName}\" (ItemID: {ItemID}) by {amount}. Amount must be greater than 0.", v, s + 1);
+			return;
+		}
+
+		// Already broken
+		if (IsBroken) {
+			Log.Me(() => $"\"{ItemName}\" (ItemID: {ItemID}) is already broken. Cannot degrade further.", v, s + 1);
+			return;
+		}
+
+		// Degrade the item
 		Log.Me(() => $"Degrading \"{ItemName}\" (ItemID: {ItemID})...", v, s + 1);
+		Durability -= amount;
 
-
+		// Replace if broken
+		if (RemoveQuantityOnBreak) {
+			if (IsBroken) {
+				Log.Me(() => $"\"{ItemName}\" (ItemID: {ItemID}) is broken! Removing quantity and replenishing durability...", v, s + 1);
+				RemoveQuantity(1, v, s + 1);
+				Durability = BaseDurability;
+			}
+		}
 
 		Log.Me(() => $"Degraded \"{ItemName}\" (ItemID: {ItemID}) by {amount} ({Durability}/{BaseDurability})...", v, s + 1);
 	}
