@@ -63,8 +63,21 @@ public partial class StandardItem : Node2D
 
 	#region Live Properties
 
+	/// <summary>
+	/// How this item is represented in the game world.
+	/// </summary>
 	[ExportGroup("Live Properties")]
 	[Export] public EntityTypes EntityType = EntityTypes.Undefined;
+
+	/// <summary>
+	/// The different ways an item can be stored or represented in the game world. <br/><br/>
+	/// <list type="bullet">
+	/// <item><c>Undefined</c>: The item is not defined in any specific entity type.</item>
+	/// <item><c>World</c>: The item exists in the world, such as on the ground or in a container.</item>
+	/// <item><c>Inventory</c>: The item is in the player's inventory.</item>
+	/// <item><c>Equipped</c>: The item is equipped by the player, such as in a weapon slot or armor slot.</item>
+	/// </list>
+	/// </summary>
 	public enum EntityTypes {
 		Undefined,
 		World,
@@ -492,6 +505,8 @@ public partial class StandardItem : Node2D
 	/// Uses the item. <br/><br/>
 	/// This method is intended to be called when the item is used, such as when a player consumes it or interacts with it.
 	/// </summary>
+	/// <param name="v">Do verbose logging? Use <c>v</c> to follow the same verbosity as the encapsulating function, if available.</param>
+	/// <param name="s">Stack depth. Use <c>0</c> if on a root function, or <c>s + 1</c> if <c>s</c> is available in the encapsulating function.</param>
 	public virtual void Use(bool v = false, int s = 0) {
 		Log.Me(() => $"`UseItem` on \"{ItemName}\" (ItemID: {ItemID}) is not implemented! Override to add custom functionality.", v, s + 1);
 		return;
