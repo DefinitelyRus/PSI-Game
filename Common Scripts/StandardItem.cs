@@ -353,26 +353,48 @@ public partial class StandardItem : Node2D
 	#region Cooldown
 
 	/// <summary>
-	/// The amount of time to wait in seconds before the item can be used again. <br/><br/>
-	/// This is a setter/getter for <see cref="_cooldownTime"/>.
+	/// The base amount of time to wait in seconds before the item can be used again. <br/><br/>
+	/// This is a setter/getter for <see cref="_cooldownTime"/>. <br/>
 	/// Setting this value will clamp it between <c>0</c> and <see cref="float.MaxValue"/>.
 	/// </summary>
-	/// <remarks>Not to be confused with <see cref="CooldownRemaining"/>.</remarks>
 	[ExportSubgroup("Cooldown")]
+	[Export] public float BaseCooldownTime {
+		get => _baseCooldownTime;
+		set => Mathf.Clamp(value, 0f, float.MaxValue);
+	}
+
+	/// <summary>
+	/// The base amount of time to wait in seconds <b>total</b> before the item can be used again. <br/><br/>
+	/// Do not set this value directly; use <see cref="CooldownTime"/> instead.
+	/// </summary>
+	private float _baseCooldownTime = 0f;
+
+	/// <summary>
+	/// The amount of time to wait in seconds <b>total</b> before the item can be used again. <br/><br/>
+	/// This is calculated based on <see cref="BaseCooldownTime"/>
+	/// and any modifiers targeting <c>"BaseCooldownTime"</c> or <c>"CooldownTime"</c>, in that order. <br/><br/>
+	/// <b>Important</b>: Setting this value ignores the value provided
+	/// and instead recalculates it based on the current modifiers. <br/><br/>
+	/// Related: <seealso cref="StatModifier"/>
+	/// </summary>
+	/// <remarks>Not to be confused with <see cref="CooldownRemaining"/>.</remarks>
 	[Export] public float CooldownTime {
 		get => _cooldownTime;
-		set { _cooldownTime = Mathf.Clamp(value, 0f, float.MaxValue); }
+		set {
+			float result = CalculateModifiedValue(nameof(BaseCooldownTime), nameof(CooldownTime), BaseCooldownTime, false);
+			_cooldownTime = Mathf.Clamp(result, 0f, float.MaxValue);
+		}
 	}
 
 	/// <summary>
 	/// The amount of time to wait in seconds before the item can be used again. <br/><br/>
 	/// Do not set this value directly; use <see cref="CooldownTime"/> instead.
 	/// </summary>
-	/// <remarks>Not to be confused with <see cref="CooldownRemaining"/>.</remarks>
+	/// <remarks>Not to be confused with <see cref="_cooldownRemaining"/>.</remarks>
 	private float _cooldownTime = 0f;
 
 	/// <summary>
-	/// The amount of time <b>remaining</b> in seconds before the item can be used again. <br/><br/>
+	/// The amount of time in seconds <b>remaining</b> before the item can be used again. <br/><br/>
 	/// This is a setter/getter for <see cref="_cooldownRemaining"/>.
 	/// Setting this value will clamp it between <c>0</c> and <see cref="CooldownTime"/>.
 	/// </summary>
@@ -383,10 +405,10 @@ public partial class StandardItem : Node2D
 	}
 
 	/// <summary>
-	/// The amount of time <b>remaining</b> in seconds before the item can be used again. <br/><br/>
+	/// The amount of time in seconds <b>remaining</b> before the item can be used again. <br/><br/>
 	/// Do not set this value directly; use <see cref="CooldownRemaining"/> instead.
 	/// </summary>
-	/// <remarks>Not to be confused with <see cref="CooldownTime"/>.</remarks>
+	/// <remarks>Not to be confused with <see cref="_cooldownTime"/>.</remarks>
 	private float _cooldownRemaining = 0f;
 
 	/// <summary>
@@ -403,9 +425,11 @@ public partial class StandardItem : Node2D
 	/// <param name="v">Do verbose logging? Use <c>v</c> to follow the same verbosity as the encapsulating function, if available.</param>
 	/// <param name="s">Stack depth. Use <c>0</c> if on a root function, or <c>s + 1</c> if <c>s</c> is available in the encapsulating function.</param>
 	protected void CoolDown(float delta, bool v = false, int s = 0) {
-		if (CooldownRemaining <= 0f) return;
+		if (CooldownRemaining == 0f) return;
+
 		CooldownRemaining -= delta;
 		if (CooldownRemaining < 0f) CooldownRemaining = 0f;
+
 		Log.Me(() => $"Cooldown remaining: {CooldownRemaining}/{CooldownTime} seconds.", v, s + 1);
 	}
 
