@@ -244,7 +244,10 @@ public partial class StandardWeapon : StandardItem
 
 	#region Overridable Methods
 
-
+	public virtual void Attack(bool v = false, int s = 0) {
+		Log.Me(() => $"`Attack` on \"{ItemName}\" (ItemID: {ItemID}) is not implemented! Override to add custom functionality.", v, s + 1);
+		return;
+	}
 
 	#endregion
 
