@@ -2,6 +2,11 @@ using System;
 using Godot;
 namespace CommonScripts;
 
+/// <summary>
+/// A standard weapon class that can be derived from to create specific weapon types. <br/><br/>
+/// Given its nature, it does not imply whether the weapon is ranged or melee, or if it's a projectile or hitscan weapon.
+/// Such details are left to the implementation of the weapon itself.
+/// </summary>
 public partial class StandardWeapon : StandardItem
 {
 	#region Weapon Stats
