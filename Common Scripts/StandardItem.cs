@@ -84,7 +84,10 @@ public partial class StandardItem : Node2D
 	#region Live Properties
 
 	/// <summary>
-	/// How this item is represented in the game world.
+	/// How this item is represented in the game world. <br/><br/>
+	/// This value is just a marker to indicate the current state of the item.
+	/// Changing its value does not affect the item's functionality, behavior, or appearance.<br/>
+	/// If such changes are desired, please implement them in the relevant item management systems.
 	/// </summary>
 	[ExportGroup("Live Properties")]
 	[Export] public EntityTypes EntityType = EntityTypes.Undefined;
@@ -138,6 +141,7 @@ public partial class StandardItem : Node2D
 	/// This is a getter/setter for <see cref="_quantity"/>.
 	/// Setting this value will clamp it between <c>0</c> and <see cref="MaxQuantity"/>.
 	/// </summary>
+	/// <remarks>This value cannot be modified by a <see cref="StatModifier"/>.</remarks>
 	[Export] public int Quantity {
 		get => _quantity;
 		set { _quantity = Mathf.Clamp(value, 0, MaxQuantity); }
@@ -292,6 +296,7 @@ public partial class StandardItem : Node2D
 	/// This is a getter/setter for <see cref="_durability"/>. <br/>
 	/// Setting this value will clamp it between <c>0</c> and <see cref="int.MaxValue"/>.
 	/// </summary>
+	/// <remarks>This value cannot be modified by a <see cref="StatModifier"/>.</remarks>
 	[Export] public int Durability {
 		get => _durability;
 		set { _durability = Mathf.Clamp(value, 0, int.MaxValue); }
