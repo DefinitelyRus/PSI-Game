@@ -5,6 +5,9 @@ using System.Reflection;
 using Godot;
 namespace CommonScripts;
 
+/// <summary>
+/// A standard item class that can be derived from to create various types of items in the game. <br/><br/>
+/// </summary>
 public partial class StandardItem : Node2D
 {
 	#region Permanent Properties
@@ -268,8 +271,8 @@ public partial class StandardItem : Node2D
 	#region Durability
 
 	/// <summary>
-	/// How much durability the item has before it breaks. <br/><br/>
-	/// This is a getter/setter for <see cref="_baseDurability"/>.
+	/// Determines how many times this item can be used. <br/><br/>
+	/// This is a getter/setter for <see cref="_baseDurability"/>. <br/>
 	/// Setting this value will clamp it between <c>1</c> and <see cref="int.MaxValue"/>.
 	/// </summary>
 	[ExportSubgroup("Durability")]
@@ -279,7 +282,7 @@ public partial class StandardItem : Node2D
 	}
 
 	/// <summary>
-	/// How much durability the item has before it breaks. <br/><br/>
+	/// Determines how many times this item can be used. <br/><br/>
 	/// Do not set this value directly; use <see cref="Durability"/> instead.
 	/// </summary>
 	private int _baseDurability = 100;
@@ -302,7 +305,7 @@ public partial class StandardItem : Node2D
 
 	/// <summary>
 	/// Whether the item is broken or not. <br/><br/>
-	/// This value cannot be set manually and returns true if <see cref="Durability"/> equal to <c>0</c>.
+	/// This value cannot be set manually and returns true if <see cref="Durability"/> is equal to <c>0</c>.
 	/// </summary>
 	public bool IsBroken => Durability == 0;
 
