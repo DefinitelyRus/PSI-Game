@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using Godot;
 namespace CommonScripts;
@@ -98,6 +99,15 @@ public partial class StandardItem : Node2D
 		Inventory,
 		Equipped
 	}
+
+	/// <summary>
+	/// A list of <see cref="StatModifier"/> objects that are applied onto the item's stats. <br/><br/>
+	/// </summary>
+	/// <remarks>
+	/// This collection is not intended to be modified via the inspector.
+	/// Only add or remove modifiers dynamically through code.
+	/// </remarks>
+	public List<StatModifier> Modifiers = [];
 
 	#region Stacking
 
