@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using Godot;
 namespace CommonScripts;
 
@@ -561,6 +563,165 @@ public partial class StandardItem : Node2D
 		}
 
 		Log.Me($"Generated ID \"{InstanceID}\"!", v, s + 1);
+	}
+
+	#endregion
+
+	#region Common Methods
+
+	/// <summary>
+	/// Applies all relevant <see cref="StatModifier"/> values to <c>baseTarget</c> and <c>target</c>, in that order. <br/><br/>
+	/// To add/remove modifiers, update the <see cref="Modifiers"/> list. <br/>
+	/// These modifiers are apply chronologically based on which ones were added first.
+	/// </summary>
+	/// <param name="baseTarget">
+	/// The name of the property acting as the base value source. <br/><br/>
+	/// e.g. <c>BaseDamage</c>, <c>BasePrice</c>, <c>BaseDurability</c>
+	/// </param>
+	/// <param name="target">
+	/// The name of the property where the value should be set to. <br/>
+	/// This value is unused if <c>setToTarget</c> is <c>false</c>. <br/><br/>
+	/// e.g. <c>Damage</c>, <c>Price</c>, <c>Durability</c>
+	/// </param>
+	/// <param name="fallback"> The value that will be returned if something goes wrong. </param>
+	/// <param name="setToTarget"> Whether the return value will automatically be set to the <c>target</c> property.</param>
+	/// <param name="v">Do verbose logging? Use <c>v</c> to follow the same verbosity as the encapsulating function, if available.</param>
+	/// <param name="s">Stack depth. Use <c>0</c> if on a root function, or <c>s + 1</c> if <c>s</c> is available in the encapsulating function.</param>
+	/// <returns>The value to apply to the <c>target</c> property.</returns>
+	/// <exception cref="Exception"/>
+	public float CalculateModifiedValue(string baseTarget, string target, float fallback = 0, bool setToTarget = true, bool v = false, int s = 0) {
+		Log.Me(() => $"Calculating damage for \"{ItemName}\" ({ItemID})...", v, s + 1);
+
+		float baseValue = 0;
+		PropertyInfo targetProperty = null;
+
+		#region Search for target & baseTarget
+
+		try {
+			if (setToTarget) {
+				//`target` null check
+				if (target == null) {
+					Log.Me(() => $"The `target` parameter cannot be null if `setToTarget` is true. Returning fallback value ({fallback}).", v, s + 1);
+					return fallback;
+				}
+
+				// Grab `target` by name
+				Log.Me(() => $"Attempting to find property \"{target}\" from class {GetType().Name}...", v, s + 1);
+				targetProperty = GetType().GetProperty(target);
+
+				// Missing/inaccessible `target` property
+				if (targetProperty == null) {
+					Log.Me(() => $"No property with name {target} found or accessible in class {GetType().Name}. Is it private/protected? Returning fallback value ({fallback}).", v, s + 1);
+					return fallback;
+				}
+
+				// `target` cannot be written onto
+				if (!targetProperty.CanWrite) {
+					Log.Me(() => $"Property \"{target}\" cannot be written onto. Returning fallback value ({fallback}).", v, s + 1);
+					return fallback;
+				}
+
+				// `target` is not a float
+				if (targetProperty.PropertyType != typeof(float)) {
+					Log.Me(() => $"Property \"{target}\" is not a float. Returning fallback value ({fallback}).", v, s + 1);
+					return fallback;
+				}
+
+				Log.Me($"Property \"{target}\" is writable and is a float type. Proceeding...", v, s + 1);
+			}
+
+			//`baseTarget` null check
+			if (baseTarget == null) {
+				Log.Me(() => $"The `baseTarget` parameter cannot be null. Returning fallback value ({fallback}).", v, s + 1);
+				return fallback;
+			}
+
+			// Grab `baseTarget` by name
+			Log.Me(() => $"Attempting to find property \"{baseTarget}\" from class {GetType().Name}...", v, s + 1);
+			PropertyInfo baseTargetProperty = GetType().GetProperty(baseTarget);
+
+			// Missing/inaccessible `baseTarget` property
+			if (baseTargetProperty == null) {
+				Log.Me(() => $"No property with name {baseTarget} found or accessible in class {GetType().Name}. Is it private/protected? Returning fallback value ({fallback}).", v, s + 1);
+				return fallback;
+			}
+
+			object baseValueObj = baseTargetProperty.GetValue(this, null);
+
+			// Value is a float.
+			if (baseValueObj is float f) {
+				baseValue = f;
+				Log.Me(() => $"Assigned value {baseValue} as baseValue.", v, s + 1);
+			}
+
+			// Value is not a float.
+			else {
+				Log.Me(() => $"Property \"{baseTarget}\" is not a float. Returning fallback value ({fallback}).", v, s + 1);
+				return fallback;
+			}
+		}
+
+		catch (Exception e) {
+			Log.Me(() => $"WARN: Returning fallback value ({fallback}). {e.GetType().Name} was thrown. {e.Message}", v, s + 1);
+			return fallback;
+		}
+
+		#endregion
+
+		float result = baseValue;
+		List<StatModifier> finalModifiers = [];
+
+		#region Apply modifiers to base value
+
+		foreach (StatModifier modifier in Modifiers) {
+
+			// Apply modifiers to baseValue
+			if (modifier.Target.Equals(baseTarget)) {
+				Log.Me(() => $"Modifier \"{modifier.ID}\" found targeting \"{modifier.Target}\". Applying modifier...", v, s + 1);
+
+				result += modifier.Type switch {
+					StatModifier.ModifierType.Add => modifier.Value,
+					StatModifier.ModifierType.Multiply => baseValue * (modifier.Value - 1),
+					_ => throw new Exception($"Invalid modifier type {modifier.Type} for {modifier.ID}.")
+				};
+
+				Log.Me(() => $"New base value: {result}", v, s + 1);
+			}
+
+			// Queue modifiers for finalValue
+			else if (modifier.Target == target) {
+				Log.Me(() => $"Modifier \"{modifier.ID}\" found targeting \"{modifier.Target}\". Queueing...", v, s + 1);
+				finalModifiers.Add(modifier);
+			}
+		}
+
+		#endregion
+
+		#region Apply modifiers to final value
+
+		// Apply queued modifiers
+		foreach (StatModifier modifier in finalModifiers) {
+			Log.Me(() => $"Applying modifier \"{modifier.ID}\" to \"{modifier.Target}\"...", v, s + 1);
+
+			result = modifier.Type switch {
+				StatModifier.ModifierType.Add => result + modifier.Value,
+				StatModifier.ModifierType.Multiply => result * modifier.Value,
+				_ => throw new Exception($"Invalid modifier type {modifier.Type} for {modifier.ID}.")
+			};
+
+			Log.Me(() => $"New value: {result}", v, s + 1);
+		}
+
+		#endregion
+
+		Log.Me(() => $"Final {target} value: {result}", v, s + 1);
+
+		if (setToTarget) {
+			Log.Me(() => $"Applying value {result} to \"{target}\"...", v, s + 1);
+			targetProperty.SetValue(this, result);
+		}
+
+		return result;
 	}
 
 	#endregion
