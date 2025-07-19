@@ -541,7 +541,7 @@ public partial class StandardItem : Node2D
 
 	#endregion
 
-	#region Item Actions
+	#region Overridable Methods
 
 	/// <summary>
 	/// Uses the item. <br/><br/>
@@ -555,13 +555,59 @@ public partial class StandardItem : Node2D
 	}
 
 	/// <summary>
+	/// Called when the item is picked up by a player or entity. <br/><br/>
+	/// This method is intended to be called when the item is picked up, such as when a player collects it from the world or from a container.
 	/// </summary>
 	/// <param name="v">Do verbose logging? Use <c>v</c> to follow the same verbosity as the encapsulating function, if available.</param>
 	/// <param name="s">Stack depth. Use <c>0</c> if on a root function, or <c>s + 1</c> if <c>s</c> is available in the encapsulating function.</param>
+	public virtual void OnPickup(bool v = false, int s = 0) {
+		Log.Me(() => $"`OnPickup` on \"{ItemName}\" (ItemID: {ItemID}) is not implemented! Override to add custom functionality.", v, s + 1);
+		return;
+	}
 
+	/// <summary>
+	/// Called when the item is equipped by a player or entity. <br/><br/>
+	/// This method is intended to be called when the item is equipped, such as when put on an equipment slot.
+	/// </summary>
+	/// <param name="v">Do verbose logging? Use <c>v</c> to follow the same verbosity as the encapsulating function, if available.</param>
+	/// <param name="s">Stack depth. Use <c>0</c> if on a root function, or <c>s + 1</c> if <c>s</c> is available in the encapsulating function.</param>
+	public virtual void OnEquip(bool v = false, int s = 0) {
+		Log.Me(() => $"`OnEquip` on \"{ItemName}\" (ItemID: {ItemID}) is not implemented! Override to add custom functionality.", v, s + 1);
+		return;
+	}
 
+	/// <summary>
+	/// Called when the item is unequipped by a player or entity. <br/><br/>
+	/// This method is intended to be called when the item is unequipped, such as when removed from an equipment slot or dropped to the game world.
+	/// </summary>
+	/// <param name="v">Do verbose logging? Use <c>v</c> to follow the same verbosity as the encapsulating function, if available.</param>
+	/// <param name="s">Stack depth. Use <c>0</c> if on a root function, or <c>s + 1</c> if <c>s</c> is available in the encapsulating function.</param>
+	public virtual void OnUnequip(bool v = false, int s = 0) {
+		Log.Me(() => $"`OnUnequip` on \"{ItemName}\" (ItemID: {ItemID}) is not implemented! Override to add custom functionality.", v, s + 1);
+		return;
+	}
 
+	/// <summary>
+	/// Called when the item is dropped by a player or entity into the game world. <br/><br/>
+	/// This method is intended to be called when the item is dropped, such as when a player drops it from their inventory or when an entity drops it in the world.
+	/// </summary>
+	/// <param name="v">Do verbose logging? Use <c>v</c> to follow the same verbosity as the encapsulating function, if available.</param>
+	/// <param name="s">Stack depth. Use <c>0</c> if on a root function, or <c>s + 1</c> if <c>s</c> is available in the encapsulating function.</param>
+	public virtual void OnDrop(bool v = false, int s = 0) {
+		Log.Me(() => $"`OnDrop` on \"{ItemName}\" (ItemID: {ItemID}) is not implemented! Override to add custom functionality.", v, s + 1);
+		return;
+	}
 
+	/// <summary>
+	/// Called when the item is broken by a player or entity. <br/><br/>
+	/// This method is intended to be called when the item is broken, such as when it reaches zero durability or is destroyed through other means.
+	/// </summary>
+	/// <param name="v">Do verbose logging? Use <c>v</c> to follow the same verbosity as the encapsulating function, if available.</param>
+	/// <param name="s">Stack depth. Use <c>0</c> if on a root function, or <c>s + 1</c> if <c>s</c> is available in the encapsulating function.</param>
+	public virtual void OnBreak(bool v = false, int s = 0) {
+		Log.Me(() => $"`OnBreak` on \"{ItemName}\" (ItemID: {ItemID}) is not implemented! Override to add custom functionality.", v, s + 1);
+		return;
+	}
 
 
 	}
