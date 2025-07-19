@@ -10,6 +10,11 @@ public partial class StandardItem : Node2D
 	[Export] public string ItemName = "Standard Item Template";
 	[Export] public string ItemID = "StandardItemTemplate";
 	[Export] public string Description = "This is a standard item template.";
+
+	/// <summary>
+	/// Various tags that can be used to categorize or filter items. <br/><br/>
+	/// This is typically used when there is no better way to categorize or describe the item.
+	/// </summary>
 	[Export] public string[] Tags = [];
 
 	/// <summary>
@@ -653,5 +658,4 @@ public partial class StandardItem : Node2D
 	}
 
 	#endregion
-
 }
