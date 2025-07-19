@@ -41,13 +41,19 @@ public partial class StandardItem : Node2D
 	/// For adding new rarities, simply add them to this array.
 	/// Ensure that the names are in PascalCase.
 	/// </summary>
-	[Export] protected string[] ItemRarities = {
+	public static readonly string[] ItemRarities = {
 		"Common",
 		"Uncommon",
 		"Rare",
 		"Epic",
 		"Legendary"
 	};
+
+	/// <summary>
+	/// The base price of the item in the game's currency. <br/><br/>
+	/// This value is intended to be added onto or multiplied when bought or sold in shops.
+	/// </summary>
+	[Export] public float BasePrice = 0f;
 
 	[ExportSubgroup("Flags")]
 	[Export] public bool CanDrop = true;
@@ -56,6 +62,9 @@ public partial class StandardItem : Node2D
 	[Export] public bool IsUsable = false;
 	[Export] public bool IsConsumable = false;
 	[Export] public bool IsStackable = false;
+	[Export] public bool IsTradable = false;
+	[Export] public bool IsSellable = false;
+	[Export] public bool IsBuyable = false;
 	[Export] public bool DeleteOnEmpty = true;
 	[Export] public bool RemoveQuantityOnBreak = true;
 
@@ -609,7 +618,26 @@ public partial class StandardItem : Node2D
 		return;
 	}
 
+	/// <summary>
+	/// Called when the item is bought by a player or entity. <br/><br/>
+	/// This method is intended to be called when the item is bought, such as when a player purchases it from a shop or vendor.
+	/// </summary>
+	/// <param name="v">Do verbose logging? Use <c>v</c> to follow the same verbosity as the encapsulating function, if available.</param>
+	/// <param name="s">Stack depth. Use <c>0</c> if on a root function, or <c>s + 1</c> if <c>s</c> is available in the encapsulating function.</param>
+	public virtual void OnBuy(bool v = false, int s = 0) {
+		Log.Me(() => $"`OnBuy` on \"{ItemName}\" (ItemID: {ItemID}) is not implemented! Override to add custom functionality.", v, s + 1);
+		return;
+	}
 
+	/// <summary>
+	/// Called when the item is sold by a player or entity. <br/><br/>
+	/// This method is intended to be called when the item is sold, such as when a player sells it to a shop or vendor.
+	/// </summary>
+	/// <param name="v">Do verbose logging? Use <c>v</c> to follow the same verbosity as the encapsulating function, if available.</param>
+	/// <param name="s">Stack depth. Use <c>0</c> if on a root function, or <c>s + 1</c> if <c>s</c> is available in the encapsulating function.</param>
+	public virtual void OnSell(bool v = false, int s = 0) {
+		Log.Me(() => $"`OnSell` on \"{ItemName}\" (ItemID: {ItemID}) is not implemented! Override to add custom functionality.", v, s + 1);
+		return;
 	}
 
 	#endregion
