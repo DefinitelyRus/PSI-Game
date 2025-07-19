@@ -274,12 +274,12 @@ public partial class StandardItem : Node2D
 
 	/// <summary>
 	/// How much durability the item currently has. <br/><br/>
-	/// This is a getter/setter for <see cref="_durability"/>.
-	/// Setting this value will clamp it between <c>0</c> and <see cref="BaseDurability"/>.
+	/// This is a getter/setter for <see cref="_durability"/>. <br/>
+	/// Setting this value will clamp it between <c>0</c> and <see cref="int.MaxValue"/>.
 	/// </summary>
 	[Export] public int Durability {
 		get => _durability;
-		set { _durability = Mathf.Clamp(value, 0, BaseDurability); }
+		set { _durability = Mathf.Clamp(value, 0, int.MaxValue); }
 	}
 
 	/// <summary>
