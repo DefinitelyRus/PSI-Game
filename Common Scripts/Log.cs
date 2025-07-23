@@ -6,6 +6,8 @@ using System.Runtime.CompilerServices;
 using Godot;
 namespace CommonScripts;
 
+#nullable enable
+
 public partial class Log : Node {
     #region Static logging
 
