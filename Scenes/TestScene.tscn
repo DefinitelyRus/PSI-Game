@@ -12,3 +12,4 @@ position_smoothing_enabled = true
 
 [node name="Standard Weapon" type="Node2D" parent="."]
 script = ExtResource("2_5lt6y")
+metadata/_edit_lock_ = true
