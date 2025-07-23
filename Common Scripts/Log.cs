@@ -32,7 +32,7 @@ public partial class Log : Node {
     /// </param>
     public static string Message(
         string message,
-        bool enabled = true,
+        bool printToConsole = true,
         int stack = 0,
         bool useFilePath = false,
         int frame = 1,
@@ -58,7 +58,7 @@ public partial class Log : Node {
         }
 
         string loggedMessage = $"{prefix} {message}";
-        if (enabled) GD.Print(loggedMessage); //TODO: Replace with a proper logging framework.
+        if (printToConsole) GD.Print(loggedMessage); //TODO: Replace with a proper logging framework.
 
         return loggedMessage;
     }
