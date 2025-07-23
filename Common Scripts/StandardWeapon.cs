@@ -239,6 +239,78 @@ public partial class StandardWeapon : StandardItem
 
 	#endregion
 
+	#region Attack Origin
+
+	/// <summary>
+	/// The <see cref="Vector2"/> position where the projectile/raycast will originate from.
+	/// </summary>
+	[ExportGroup("Attack Origin")]
+	[Export] public Vector2 AttackOrigin { get; protected set; } = Vector2.Zero;
+
+	/// <summary>
+	/// The offset from the weapon position where the attack will originate. <br/><br/>
+	/// This is used for instances where an attack always originates from a specific point that isn't the center of the weapon.
+	/// For example, in most top-down or RPG games, the camera faces the player neither from the side nor directly from the top.
+	/// The player's sprite will be offset so that (0, 0) is at the player's feet, not the center of the sprite.
+	/// Similarly, the weapon will also be raised to the player's center instead of remaining at (0, 0).
+	/// </summary>
+	[Export] public Vector2 AttackOriginPositionOffset = Vector2.Zero;
+
+	/// <summary>
+	/// Offsets the attack origin to make it longer in one axis and shorter in another. <br/><br/>
+	/// This is used for when the character sprite makes the character attack closer to its center of mass
+	/// when facing vertically, and attack further when facing horizontally, or vice versa.
+	/// </summary>
+	[Export] public Vector2 AttackOriginSizeMultiplier = Vector2.Zero;
+
+	public enum AttackOriginTypes {
+		/// <summary>
+		/// Attacks come directly from the weapon position.
+		/// </summary>
+		Centered,
+
+		/// <summary>
+		/// Attacks start a certain distance away from the weapon position.
+		/// </summary>
+		Concentric,
+
+		/// <summary>
+		/// Attacks start from a custom position defined by the user.
+		/// </summary>
+		Custom
+	}
+
+	public AttackOriginTypes AttackOriginType = AttackOriginTypes.Centered;
+
+	public float AttackOriginDistance = 12f;
+
+	public Vector2 AttackOriginAngle {
+		get => _attackOriginAngle;
+		set => _attackOriginAngle = value.Normalized();
+	}
+
+	private Vector2 _attackOriginAngle = Vector2.Zero;
+
+	public void UpdateAttackOrigin(bool v = false, int s = 0) {
+		Log.Me(() => $"Updating attack origin for \"{ItemName}\" (ItemID: {ItemID})...", v, s + 1);
+
+		switch (AttackOriginType) {
+			case AttackOriginTypes.Centered:
+				AttackOrigin = Vector2.Zero;
+				break;
+
+			case AttackOriginTypes.Concentric:
+				AttackOrigin = AttackOriginPositionOffset + (AttackOriginDistance * AttackOriginSizeMultiplier * AttackOriginAngle);
+				break;
+
+			case AttackOriginTypes.Custom: return; // Custom origin is set by the user, no need to update.
+
+			default:
+				Log.Me(() => $"WARN: `UpdateAttackOrigin` on \"{ItemName}\" (ItemID: {ItemID}) has an invalid `AttackOriginType`!", v, s + 1);
+				break;
+		}
+	}
+
 	#endregion
 
 	#region Nodes & Components
