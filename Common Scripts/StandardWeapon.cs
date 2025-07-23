@@ -441,7 +441,9 @@ public partial class StandardWeapon : StandardItem
 
 	#region Godot Callbacks
 
-
+	public override void _Ready() {
+		base._Ready();
+	}
 
 	#endregion
 }
