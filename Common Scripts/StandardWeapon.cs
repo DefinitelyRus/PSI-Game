@@ -313,9 +313,120 @@ public partial class StandardWeapon : StandardItem
 
 	#endregion
 
-	#region Nodes & Components
+	#region Aiming
 
+	/// <summary>
+	/// The direction the weapon is currently aiming at, as an angle in degrees. <br/><br/>
+	/// This is a setter/getter for <see cref="_aimDirection"/>. <br/>
+	/// Setting this value will automatically normalize it to ensure it is a unit vector. <br/><br/>
+	/// </summary>
+	[ExportGroup("Aiming")]
+	[Export] public float AimDirection {
+		get => _aimDirection;
+		set => _aimDirection = Mathf.Clamp(value, 0f, 360f);
+	}
 
+	/// <summary>
+	/// The direction the weapon is currently aiming at, as an angle in degrees. <br/><br/>
+	/// Do not set this value directly; use <see cref="AimDirection"/> instead.
+	/// </summary>
+	private float _aimDirection = 180;
+
+	/// <summary>
+	/// The direction the weapon is currently aiming at, as an angle in <see cref="Vector2"/>. <br/><br/>
+	/// To change this value, set <see cref="AimDirection"/> to a new value. <br/>
+	/// </summary>
+	public Vector2 AimDirectionVector {
+		get {
+			float result = Mathf.DegToRad(_aimDirection);
+			return new(Mathf.Cos(result), Mathf.Sin(result));
+		}
+	}
+
+	/// <summary>
+	/// The base spread of the weapon, in degrees. <br/><br/>
+	/// This is a setter/getter for <see cref="_baseSpread"/>. <br/>
+	/// Setting this value will clamp it between <c>0.0</c> and <c>360.0</c>.
+	/// </summary>
+	[Export] public float BaseSpread {
+		get => _baseSpread;
+		set => _baseSpread = Mathf.Clamp(value, 0f, 360f);
+	}
+
+	/// <summary>
+	/// The base spread of the weapon, in degrees. <br/><br/>
+	/// Do not set this value directly; use <see cref="BaseSpread"/> instead.
+	/// </summary>
+	private float _baseSpread = 0f;
+
+	/// <summary>
+	/// The spread of the weapon, in degrees. <br/><br/>
+	/// This is calculated based on <see cref="BaseSpread"/> and any modifiers targeting <c>"BaseSpread"</c> or <c>"Spread"</c>, in that order. <br/><br/>
+	/// <b>Important</b>: Setting this value ignores the value provided and instead recalculates it based on the current modifiers. <br/><br/>
+	/// Related: <seealso cref="StatModifier"/>
+	/// </summary>
+	[Export] public float Spread {
+		get => _spread;
+		set {
+			float result = CalculateModifiedValue(nameof(BaseSpread), nameof(Spread), BaseSpread, false);
+			_spread = Mathf.Clamp(result, 0f, 360f);
+		}
+	}
+
+	/// <summary>
+	/// The spread of the weapon, in degrees. <br/><br/>
+	/// Do not set this value directly; use <see cref="Spread"/> instead.
+	/// </summary>
+	private float _spread = 0f;
+
+	/// <summary>
+	/// Gets a random spread value based on <see cref="Spread"/>.
+	/// </summary>
+	/// <param name="v">Do verbose logging? Use <c>v</c> to follow the same verbosity as the encapsulating function, if available.</param>
+	/// <param name="s">Stack depth. Use <c>0</c> if on a root function, or <c>s + 1</c> if <c>s</c> is available in the encapsulating function.</param>
+	/// <returns></returns>
+	public float GetSpread(bool v = false, int s = 0) {
+		Log.Me(() => "Generating random spread value...", v, s + 1);
+
+		if (Spread <= 0f) {
+			Log.Me(() => "Spread is 0, returning 0.", v, s + 1);
+			return 0f;
+		}
+
+		float randomSpread = (float) GD.RandRange(-Spread, Spread);
+
+		Log.Me(() => $"Done! Generated aim offset: {randomSpread}°", v, s + 1);
+		return randomSpread;
+	}
+
+	/// <summary>
+	/// The spread of the weapon as a <see cref="Vector2"/>. <br/><br/>
+	/// To change this value, set <see cref="Spread"/> to a new value. <br/>
+	/// </summary>
+	public Vector2 SpreadVector {
+		get {
+			float angle = Mathf.DegToRad(Spread);
+			return new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
+		}
+	}
+
+	public Vector2 GetSpreadVector(bool v = false, int s = 0) {
+		Log.Me(() => "Passing to GetSpread...", v, s + 1);
+
+		if (Spread <= 0f) {
+			Log.Me(() => "Spread is 0, returning Vector2(0, 0).", v, s + 1);
+			return Vector2.Zero;
+		}
+
+		float randomSpread = GetSpread(v, s + 1);
+		float angle = Mathf.DegToRad(randomSpread);
+		Vector2 spreadVector = new(Mathf.Cos(angle), Mathf.Sin(angle));
+
+		Log.Me(() => $"Done! Generated aim offset vector: {spreadVector}", v, s + 1);
+		return spreadVector;
+	}
+
+	#endregion
 
 	#endregion
 
