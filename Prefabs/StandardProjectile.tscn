@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cx6l410gdgswd"]
+
+[ext_resource type="Script" uid="uid://cv66aktspb74f" path="res://Common Scripts/StandardProjectile.cs" id="1_oylb4"]
+
+[node name="StandardProjectile" type="Node2D"]
+script = ExtResource("1_oylb4")

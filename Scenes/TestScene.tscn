@@ -1,7 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://bfp0axiex7i7o"]
+[gd_scene load_steps=5 format=3 uid="uid://bfp0axiex7i7o"]
 
 [ext_resource type="PackedScene" uid="uid://daotyvqai4b36" path="res://Prefabs/StandardCharacter.tscn" id="1_b5ayd"]
-[ext_resource type="Script" uid="uid://5p3xo5vsg2u6" path="res://Common Scripts/StandardWeapon.cs" id="2_5lt6y"]
+[ext_resource type="Script" uid="uid://ca6lusp8hqlss" path="res://Common Scripts/StandardProjectileWeapon.cs" id="2_5lt6y"]
+[ext_resource type="Script" uid="uid://cv66aktspb74f" path="res://Common Scripts/StandardProjectile.cs" id="3_8k7wh"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_iufkg"]
 
 [node name="TestScene" type="Node2D"]
 
@@ -13,3 +16,9 @@ position_smoothing_enabled = true
 [node name="Standard Weapon" type="Node2D" parent="."]
 script = ExtResource("2_5lt6y")
 metadata/_edit_lock_ = true
+
+[node name="RigidBody2D" type="RigidBody2D" parent="."]
+script = ExtResource("3_8k7wh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
+shape = SubResource("CircleShape2D_iufkg")
