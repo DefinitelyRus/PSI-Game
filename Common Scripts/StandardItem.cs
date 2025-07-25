@@ -13,9 +13,9 @@ public partial class StandardItem : Node2D
 	#region Permanent Properties
 
 	[ExportGroup("Permanent Properties")]
-	[Export] public string ItemName = "Standard Item Template";
-	[Export] public string ItemID = "StandardItemTemplate";
-	[Export] public string Description = "This is a standard item template.";
+	[Export] public string ItemName = string.Empty;
+	[Export] public string ItemID { get; protected set; } = string.Empty;
+	[Export] public string Description = "";
 
 	/// <summary>
 	/// Various tags that can be used to categorize or filter items. <br/><br/>
@@ -466,19 +466,22 @@ public partial class StandardItem : Node2D
 	/// This is a setter/getter for <see cref="_instanceID"/>.
 	/// </summary>
 	[ExportSubgroup("Instance ID")]
-	[Export] public string InstanceID = string.Empty;
+	[Export] public string InstanceID {
+		get => _instanceID;
+		private set => _instanceID = value ?? throw new ArgumentNullException(nameof(value), "InstanceID cannot be null.");
+	}
 
 	/// <summary>
 	/// This is the unique identifier for the item instance. <br/><br/>
 	/// Do not use this value directly; use <see cref="InstanceID"/> instead.
 	/// </summary>
-	private string _instanceID = null!;
+	private string _instanceID = "";
 
 	/// <summary>
 	/// A custom prefix for the instance ID. <br/><br/>
 	/// If not provided, it will default to the <see cref="ItemName"/>. <br/>
 	/// </summary>
-	[Export] public string CustomPrefix = string.Empty;
+	[Export] public string CustomPrefix = "";
 
 	/// <summary>
 	/// The action taken when a space is encountered in the character ID prefix. <br/><br/>

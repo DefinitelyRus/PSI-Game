@@ -1,3 +1,4 @@
+using System;
 using Godot;
 namespace CommonScripts;
 
@@ -12,9 +13,9 @@ public partial class StandardCharacter : CharacterBody2D
     /// If such a unique identifier is needed, use <see cref="InstanceID"/> instead.<br/><br/>
     /// </summary>
     [ExportGroup("Permanent Properties")]
-    [Export] public string CharacterName = "Unnamed Character";
+    [Export] public string CharacterName = string.Empty;
 
-	[Export] public string CharacterID = string.Empty;
+	[Export] public string CharacterID { get; protected set; } = string.Empty;
 
 	/// <summary>
 	/// The maximum health of the character when unaffected by external modifiers.
@@ -289,7 +290,7 @@ public partial class StandardCharacter : CharacterBody2D
 	[ExportSubgroup("Instance ID")]
 	[Export] public string InstanceID {
 		get => _instanceID;
-		private set => _instanceID = value;
+		private set => _instanceID = value ?? throw new ArgumentNullException(nameof(value), "InstanceID cannot be null.");
 	}
 
 	/// <summary>
@@ -302,7 +303,7 @@ public partial class StandardCharacter : CharacterBody2D
 	/// A custom prefix for the character ID. <br/><br/>
 	/// If not provided, it will default to the <see cref="CharacterName"/>. <br/>
 	/// </summary>
-	[Export] public string CustomPrefix = string.Empty;
+	[Export] public string CustomPrefix = "";
 
 	/// <summary>
 	/// The action taken when a space is encountered in the character ID prefix. <br/><br/>
