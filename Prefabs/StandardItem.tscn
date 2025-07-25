@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://bh2qydw20dbkq"]
-
-[ext_resource type="Script" uid="uid://bro68gtf38wj2" path="res://Common Scripts/StandardItem.cs" id="1_u6jlc"]
-
-[node name="StandardItem" type="Node2D"]
-script = ExtResource("1_u6jlc")

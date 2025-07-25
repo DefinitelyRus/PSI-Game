@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://d0w20653lbaxb"]
-
-[ext_resource type="Script" uid="uid://5p3xo5vsg2u6" path="res://Common Scripts/StandardWeapon.cs" id="1_juvmb"]
-
-[node name="StandardWeapon" type="Node2D"]
-script = ExtResource("1_juvmb")
