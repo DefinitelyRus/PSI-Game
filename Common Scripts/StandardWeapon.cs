@@ -17,6 +17,7 @@ public partial class StandardWeapon : StandardItem
 	/// The base damage dealt by the weapon.
 	/// </summary>
 	[ExportGroup("Weapon Stats")]
+	[ExportSubgroup("Damage")]
 	[Export] public float BaseDamage = 10f;
 
 	/// <summary>
@@ -47,6 +48,7 @@ public partial class StandardWeapon : StandardItem
 	/// <summary>
 	/// The base range of the weapon, in pixels.
 	/// </summary>
+	[ExportSubgroup("Range")]
 	[Export] public float BaseRange = 640f;
 
 	/// <summary>
@@ -71,11 +73,11 @@ public partial class StandardWeapon : StandardItem
 	#endregion
 
 	#region Attack Speed
-
+	//NOTE: Code style -- BaseValue -> ModifiedValue -> _internalModifiedValue -> DerivedValue -> EnumValue -> EnumList
 	/// <summary>
 	/// Defines how long the weapon waits before a subsequent attack.
 	/// </summary>
-	[ExportGroup("Weapon Speed")]
+	[ExportSubgroup("Weapon Speed")]
 	[Export] public float BaseAttackSpeed = 1f;
 
 	/// <summary>
@@ -110,21 +112,7 @@ public partial class StandardWeapon : StandardItem
 	}
 
 	/// <summary>
-	/// Specifies the method used to calculate speed in a system. <br/><br/>
-	/// <list type="bullet">
-	/// <item>
-	/// <term>Hertz</term>
-	/// <description>Represents speed as a frequency, measured in cycles per second.</description>
-	/// </item>
-	/// <item>
-	/// <term>Interval</term>
-	/// <description>Represents speed as a time interval between events, typically in seconds.</description>
-	/// </item>
-	/// </list>
 	/// </summary>
-	public enum SpeedCalculation {
-		Hertz,
-		Interval
 	}
 
 	/// <summary>
@@ -132,6 +120,18 @@ public partial class StandardWeapon : StandardItem
 	/// </summary>
 	[Export] public SpeedCalculation SpeedType = SpeedCalculation.Hertz;
 
+	/// Specifies the method used to calculate speed in a system.
+	/// </summary>
+	public enum SpeedCalculation {
+		/// <summary>
+		/// Represents speed as a frequency, measured in cycles per second.
+		/// </summary>
+		Hertz,
+
+		/// <summary>
+		/// Represents speed as a time interval between events, typically in seconds.
+		/// </summary>
+		Interval
 	#endregion
 
 	#endregion
@@ -147,25 +147,22 @@ public partial class StandardWeapon : StandardItem
 	[Export] public CriticalActivationTypes CriticalActivationType = CriticalActivationTypes.Chance;
 
 	/// <summary>
-	/// The different types of critical activation conditions. <br/><br/>
-	/// <list type="bullet">
-	/// <item>
-	/// <term>Chance</term>
-	/// <description>Critical hits are determined by a random chance based on <see cref="CriticalChance"/>.</description>
-	/// </item>
-	/// <item>
-	/// <term>Weakpoint</term>
-	/// <description>Critical hits occur when attacking a weak point on a target character.</description>
-	/// </item>
-	/// <item>
-	/// <term>Both</term>
-	/// <description>Critical hits can occur both by chance or by hitting a weak point.</description>
-	/// </item>
-	/// </list>
+	/// The different types of critical activation conditions.
 	/// </summary>
 	public enum CriticalActivationTypes {
+		/// <summary>
+		/// Critical hits are determined by a random chance based on <see cref="CriticalChance"/>.
+		/// </summary>
 		Chance,
+
+		/// <summary>
+		/// Critical hits occur when attacking a weak point on a target character.
+		/// </summary>
 		Weakpoint,
+
+		/// <summary>
+		/// Critical hits can occur both by chance or by hitting a weak point.
+		/// </summary>
 		Both
 	}
 
