@@ -306,7 +306,7 @@ public partial class StandardWeapon : StandardItem
 			case AttackOriginTypes.Custom: return; // Custom origin is set by the user, no need to update.
 
 			default:
-				Log.Me(() => $"WARN: `UpdateAttackOrigin` on \"{ItemName}\" (ItemID: {ItemID}) has an invalid `AttackOriginType`!", v, s + 1);
+				Log.Warn(() => $"`UpdateAttackOrigin` on \"{ItemName}\" (ItemID: {ItemID}) has an invalid `AttackOriginType`!", v, s + 1);
 				break;
 		}
 	}

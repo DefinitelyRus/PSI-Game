@@ -34,7 +34,7 @@ public partial class InputManager : Node2D {
 			bool faceFollows = _facingMode == FacingModes.Follow || _facingMode == FacingModes.AlwaysFollow;
 
 			if (moveFollows && faceFollows) {
-				Log.Me(() => "WARN: Both MovementMode and FacingMode are set to `Follow` or `AlwaysFollow`. Setting to `Static` instead.");
+				Log.Warn(() => "Both MovementMode and FacingMode are set to `Follow` or `AlwaysFollow`. Setting to `Static` instead.");
 				_movementMode = MovementModes.Static;
 			}
 			else _movementMode = value;
@@ -107,7 +107,7 @@ public partial class InputManager : Node2D {
 				break;
 
             default:
-                Log.Me(() => "WARN: An invalid movement mode was used. Cannot update `Controls.MovementDirection`.", v, s + 1);
+                Log.Err(() => "An invalid movement mode was used. Cannot update `Controls.MovementDirection`.", v, s + 1);
                 return;
         }
 
@@ -137,7 +137,7 @@ public partial class InputManager : Node2D {
 			bool faceFollows = _facingMode == FacingModes.Follow || _facingMode == FacingModes.AlwaysFollow;
 
 			if (moveFollows && faceFollows) {
-				Log.Me(() => "WARN: Both MovementMode and FacingMode are set to `Follow` or `AlwaysFollow`. Setting to `Static` instead.");
+				Log.Err(() => "Both MovementMode and FacingMode are set to `Follow` or `AlwaysFollow`. Setting to `Static` instead.");
 				_facingMode = FacingModes.Static;
 			}
 			else _facingMode = value;
@@ -208,7 +208,7 @@ public partial class InputManager : Node2D {
 				break;
 
             default:
-                Log.Me(() => "WARN: An invalid facing mode was used. Cannot update `Controls.FacingDirection`.", v, s + 1);
+                Log.Err(() => "An invalid facing mode was used. Cannot update `Controls.FacingDirection`.", v, s + 1);
                 break;
 		}
 
@@ -228,13 +228,13 @@ public partial class InputManager : Node2D {
 	public override void _Ready() {
         Control = GetNode<ControlSurface>("../Control Surface");
         if (Control == null) {
-            Log.Me("WARN: InputManager must have a ControlSurface sibling. Ready failed.", LogReady);
+            Log.Err("InputManager must have a ControlSurface sibling. Ready failed.", LogReady);
             return;
         }
 
         Character = GetParentOrNull<StandardCharacter>();
         if (Character == null) {
-            Log.Me("WARN: InputManager must have a StandardCharacter parent. Ready failed.", LogReady);
+            Log.Err("InputManager must have a StandardCharacter parent. Ready failed.", LogReady);
             return;
 		}
 

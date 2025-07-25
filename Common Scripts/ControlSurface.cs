@@ -102,7 +102,7 @@ public partial class ControlSurface : Node2D
         Character = GetParentOrNull<StandardCharacter>();
 
         if (Character == null) {
-            Log.Me("WARN: ControlSurface must be a child of a StandardCharacter. Ready failed.");
+            Log.Err("ControlSurface must be a child of a StandardCharacter. Ready failed.");
             return;
         }
 

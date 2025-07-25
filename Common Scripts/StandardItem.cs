@@ -535,7 +535,7 @@ public partial class StandardItem : Node2D
 
 		// Use default name if ItemName blank.
 		if (string.IsNullOrEmpty(ItemName)) {
-			Log.Me("WARN: `ItemName` is empty. Using default: \"Unnamed Item\"", v, s + 1);
+			Log.Warn("`ItemName` is empty. Using default: \"Unnamed Item\"", v, s + 1);
 			ItemName = "Unnamed Item";
 		}
 
@@ -574,7 +574,7 @@ public partial class StandardItem : Node2D
 				break;
 
 			default:
-				Log.Me("WARN: An invalid `SpaceReplacement` value was provided. Keeping spaces instead...", v, s + 1);
+				Log.Warn("An invalid `SpaceReplacement` value was provided. Keeping spaces instead...", v, s + 1);
 				break;
 
 		}
@@ -694,7 +694,7 @@ public partial class StandardItem : Node2D
 		}
 
 		catch (Exception e) {
-			Log.Me(() => $"WARN: Returning fallback value ({fallback}). {e.GetType().Name} was thrown. {e.Message}", v, s + 1);
+			Log.Err(() => $"Returning fallback value ({fallback}). {e.GetType().Name} was thrown. {e.Message}", v, s + 1);
 			return fallback;
 		}
 

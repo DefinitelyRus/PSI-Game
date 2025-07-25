@@ -102,7 +102,7 @@ public partial class StandardCharacter : CharacterBody2D
 
 		// Checks
 		if (amount < 0) {
-			Log.Me($"WARN: Cannot give negative damage. Use Heal() instead if this is intended.", v, s + 1);
+			Log.Err($"Cannot give negative damage. Use Heal() instead if this is intended.", v, s + 1);
 			return;
 		}
 
@@ -133,7 +133,7 @@ public partial class StandardCharacter : CharacterBody2D
 
 		// Checks
 		if (amount < 0) {
-			Log.Me($"WARN: Cannot heal negative amount. Use TakeDamage() instead if this is intended.", v, s + 1);
+			Log.Err($"Cannot heal negative amount. Use TakeDamage() instead if this is intended.", v, s + 1);
 			return;
 		}
 
@@ -357,7 +357,7 @@ public partial class StandardCharacter : CharacterBody2D
 
 		// Use default name if CharacterName blank.
 		if (string.IsNullOrEmpty(CharacterName)) {
-			Log.Me("WARN: `CharacterName` is empty. Using default: \"Unnamed Character\"", v, s + 1);
+			Log.Warn("`CharacterName` is empty. Using default: \"Unnamed Character\"", v, s + 1);
 			CharacterName = "Unnamed Character";
 		}
 
@@ -396,7 +396,7 @@ public partial class StandardCharacter : CharacterBody2D
 				break;
 
 			default:
-				Log.Me("WARN: An invalid `SpaceReplacement` value was provided. Keeping spaces instead...", v, s + 1);
+				Log.Warn("An invalid `SpaceReplacement` value was provided. Keeping spaces instead...", v, s + 1);
 				break;
 
 		}
