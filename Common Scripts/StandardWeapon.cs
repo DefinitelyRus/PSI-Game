@@ -485,6 +485,9 @@ public partial class StandardWeapon : StandardItem
 
 	#endregion
 
+	#region Nodes & Components
+	[Export] public StandardCharacter WeaponOwner { get; private set; } = null!;
+
 	#endregion
 
 	#region Overridable Methods
