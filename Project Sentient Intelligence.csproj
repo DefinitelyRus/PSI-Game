@@ -5,4 +5,7 @@
     <RootNamespace>ProjectSentientIntelligence</RootNamespace>
 	<Nullable>enable</Nullable>
   </PropertyGroup>
+  <ItemGroup>
+    <None Include="common scripts\Commons Style Guide.md" />
+  </ItemGroup>
 </Project>
