@@ -238,7 +238,7 @@ public partial class InputManager : Node2D {
             return;
 		}
 
-		Log.Me($"Readying InputManager for {Character.CharacterID}...", LogReady);
+		Log.Me($"Readying InputManager for {Character.InstanceID}...", LogReady);
 
 
 
@@ -246,7 +246,7 @@ public partial class InputManager : Node2D {
     }
 
     public override void _PhysicsProcess(double delta) {
-        Log.Me(() => $"Processing ControlSurface for {Character.CharacterID}...", LogPhysics);
+        Log.Me(() => $"Processing ControlSurface for {Character.InstanceID}...", LogPhysics);
         
         ReceiveMovementInputs(LogPhysics);
         ReceiveFacingInputs(LogPhysics);

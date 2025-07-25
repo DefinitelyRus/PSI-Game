@@ -106,7 +106,7 @@ public partial class ControlSurface : Node2D
             return;
         }
 
-        Log.Me($"Readying ControlSurface for {Character.CharacterID}...", LogReady);
+        Log.Me($"Readying ControlSurface for {Character.InstanceID}...", LogReady);
 
         Log.Me("Done!", LogReady);
     }

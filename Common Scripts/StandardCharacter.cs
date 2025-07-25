@@ -9,7 +9,7 @@ public partial class StandardCharacter : CharacterBody2D
     /// The name of the character. <br/><br/>
     /// This name is used for logging and debugging purposes, and can be used to identify the character in the game.<br/>
     /// It is not unique and can be shared by multiple characters.
-    /// If such a unique identifier is needed, use <see cref="CharacterID"/> instead.<br/><br/>
+    /// If such a unique identifier is needed, use <see cref="InstanceID"/> instead.<br/><br/>
     /// </summary>
     [ExportGroup("Permanent Properties")]
     [Export] public string CharacterName = "Unnamed Character";
@@ -98,7 +98,7 @@ public partial class StandardCharacter : CharacterBody2D
 	/// <param name="v">Do verbose logging? Use <c>v</c> to follow the same verbosity as the encapsulating function, if available.</param>
 	/// <param name="s">Stack depth. Use <c>0</c> if on a root function, or <c>s + 1</c> if <c>s</c> is available in the encapsulating function.</param>
 	public void TakeDamage(float amount, bool v = false, int s = 0) {
-		Log.Me($"Giving {amount:F2} to {CharacterID}...", v, s + 1);
+		Log.Me($"Giving {amount:F2} to {InstanceID}...", v, s + 1);
 
 		// Checks
 		if (amount < 0) {
@@ -117,8 +117,8 @@ public partial class StandardCharacter : CharacterBody2D
 			Kill(v, s + 1);
         }
 
-		Log.Me($"{CharacterID} now has {Health:F2}/{MaxHealth:F2} health.", v, s + 1);
-		Log.Me($"{CharacterID} took {amount:F2} damage. (IsAlive: {IsAlive})", true, s + 1);
+		Log.Me($"{InstanceID} now has {Health:F2}/{MaxHealth:F2} health.", v, s + 1);
+		Log.Me($"{InstanceID} took {amount:F2} damage. (IsAlive: {IsAlive})", true, s + 1);
         return;
 	}
 
@@ -129,7 +129,7 @@ public partial class StandardCharacter : CharacterBody2D
     /// <param name="v">Do verbose logging? Use <c>v</c> to follow the same verbosity as the encapsulating function, if available.</param>
     /// <param name="s">Stack depth. Use <c>0</c> if on a root function, or <c>s + 1</c> if <c>s</c> is available in the encapsulating function.</param>
     public void Heal(float amount, bool v = false, int s = 0) {
-		Log.Me($"Healing {CharacterID} for {amount:F2}...", v, s + 1);
+		Log.Me($"Healing {InstanceID} for {amount:F2}...", v, s + 1);
 
 		// Checks
 		if (amount < 0) {
@@ -138,7 +138,7 @@ public partial class StandardCharacter : CharacterBody2D
 		}
 
 		if (!IsAlive) {
-			Log.Me($"{CharacterID} is dead. Cannot heal.", v, s + 1);
+			Log.Me($"{InstanceID} is dead. Cannot heal.", v, s + 1);
 			return;
 		}
 
@@ -152,8 +152,8 @@ public partial class StandardCharacter : CharacterBody2D
 			Health = CurrentMaxHealth;
 		}
 
-		Log.Me($"{CharacterID} now has {Health:F2}/{CurrentMaxHealth:F2} health.", v, s + 1);
-		Log.Me($"{CharacterID} healed for {amount:F2}.", true, s + 1);
+		Log.Me($"{InstanceID} now has {Health:F2}/{CurrentMaxHealth:F2} health.", v, s + 1);
+		Log.Me($"{InstanceID} healed for {amount:F2}.", true, s + 1);
 		return;
     }
 
@@ -164,10 +164,10 @@ public partial class StandardCharacter : CharacterBody2D
     /// <param name="v">Do verbose logging? Use <c>v</c> to follow the same verbosity as the encapsulating function, if available.</param>
     /// <param name="s">Stack depth. Use <c>0</c> if on a root function, or <c>s + 1</c> if <c>s</c> is available in the encapsulating function.</param>
     public void Kill(bool v = false, int s = 0) {
-        Log.Me($"Killing {CharacterID}...", v, s + 1);
+        Log.Me($"Killing {InstanceID}...", v, s + 1);
 
         if (!IsAlive) {
-			Log.Me($"{CharacterID} is already dead.", v, s + 1);
+			Log.Me($"{InstanceID} is already dead.", v, s + 1);
 			return;
         }
 
@@ -182,7 +182,7 @@ public partial class StandardCharacter : CharacterBody2D
         //TODO: AVFX here.
 		//
 
-        Log.Me($"Killed {CharacterID}.", true, s + 1);
+        Log.Me($"Killed {InstanceID}.", true, s + 1);
         return;
 	}
 
@@ -277,24 +277,24 @@ public partial class StandardCharacter : CharacterBody2D
 	[Export] protected bool LogProcess = false;
 	[Export] protected bool LogPhysics = false;
 
-	#region Character ID
+	#region Instance ID
 
 	/// <summary>
 	/// The character's unique identifier. <br/><br/>
 	/// This ID is generated automatically if not set manually. <br/>
-	/// This is a setter/getter for <see cref="_characterID"/>.
+	/// This is a setter/getter for <see cref="_instanceID"/>.
 	/// </summary>
-	[ExportSubgroup("Character ID")]
-	[Export] public string CharacterID {
-		get => _characterID;
-		private set => _characterID = value;
+	[ExportSubgroup("Instance ID")]
+	[Export] public string InstanceID {
+		get => _instanceID;
+		private set => _instanceID = value;
 	}
 
 	/// <summary>
 	/// The character's unique identifier. <br/><br/>
-	/// Do not use this value directly except for getters and setters; use <see cref="CharacterID"/> instead.<br/>
+	/// Do not use this value directly except for getters and setters; use <see cref="InstanceID"/> instead.<br/>
 	/// </summary>
-	private string _characterID = null!;
+	private string _instanceID = "";
 
 	/// <summary>
 	/// A custom prefix for the character ID. <br/><br/>
@@ -339,16 +339,16 @@ public partial class StandardCharacter : CharacterBody2D
 	[Export] public int SuffixLength = 5;
 
 	/// <summary>
-	/// Generates a unique `CharacterID` if one is not already assigned manually.
+	/// Generates a unique `InstanceID` if one is not already assigned manually.
 	/// </summary>
 	/// <param name="v">Do verbose logging? Use <c>v</c> to follow the same verbosity as the encapsulating function, if available.</param>
 	/// <param name="s">Stack depth. Use <c>0</c> if on a root function, or <c>s + 1</c> if <c>s</c> is available in the encapsulating function.</param>
-	private void GenerateCharacterID(bool v = false, int s = 0) {
-		Log.Me($"Generating a `CharacterID`...", v, s + 1);
+	private void GenerateInstanceID(bool v = false, int s = 0) {
+		Log.Me($"Generating a `InstanceID`...", v, s + 1);
 
 		// Cancel if already assigned.
-		if (!string.IsNullOrEmpty(CharacterID)) {
-			Log.Me($"`CharacterID` is already assigned a value (\"{CharacterID}\"). Skipping...", v, s + 1);
+		if (!string.IsNullOrEmpty(InstanceID)) {
+			Log.Me($"`InstanceID` is already assigned a value (\"{InstanceID}\"). Skipping...", v, s + 1);
 			return;
 		}
 
@@ -407,16 +407,16 @@ public partial class StandardCharacter : CharacterBody2D
 			randomID += SuffixChars[(int) (GD.Randi() % SuffixChars.Length)];
 		}
 
-		CharacterID = prefix + Separator + randomID;
+		InstanceID = prefix + Separator + randomID;
 
 		// Check if the ID is already taken
-		if (GetNodeOrNull<StandardCharacter>(CharacterID) != null) {
-			Log.Me($"Character ID \"{CharacterID}\" is already taken. Generating a new one...", v, s + 1);
+		if (GetNodeOrNull<StandardCharacter>(InstanceID) != null) {
+			Log.Me($"Character ID \"{InstanceID}\" is already taken. Generating a new one...", v, s + 1);
 			randomID = string.Empty;
 			goto GenerateCharacterID;
 		}
 
-		Log.Me($"Generated ID \"{CharacterID}\"!", v, s + 1);
+		Log.Me($"Generated ID \"{InstanceID}\"!", v, s + 1);
 	}
 
 	#endregion
@@ -443,7 +443,7 @@ public partial class StandardCharacter : CharacterBody2D
 	}
 
     public override void _PhysicsProcess(double delta) {
-        Log.Me(() => $"Processing physics for {CharacterID}...", LogPhysics);
+        Log.Me(() => $"Processing physics for {InstanceID}...", LogPhysics);
 
 		Move(delta, LogPhysics);
 
