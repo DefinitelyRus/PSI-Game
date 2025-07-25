@@ -426,19 +426,24 @@ public partial class StandardCharacter : CharacterBody2D
 	#endregion
 
 	#region Godot Callbacks
+	
+	public override void _EnterTree() {
+		Log.Me($"A StandardCharacter has entered the tree. Checking properties...");
 
-	public override void _Ready() {
-		Log.Me($"Readying \"{CharacterID}\"...");
-
-		if (Control == null) {
-			Log.Err("ControlSurface is not assigned. Ready failed.");
-			return;
+		if (string.IsNullOrEmpty(CharacterName)) {
+			Log.Warn("CharacterName should not be empty. Using default: \"Unnamed Character\"");
+			CharacterName = "Unnamed Character";
 		}
 
-		GenerateCharacterID(LogReady);
+		if (Control == null) Log.Err("ControlSurface is not assigned. This character cannot be controlled.");
+
+		if (string.IsNullOrEmpty(InstanceID)) {
+			Log.Me("InstanceID is not assigned. Generating a new one...");
+			GenerateInstanceID(LogReady);
+		}
 
 		Log.Me("Done!");
-    }
+	}
     
 	public override void _Process(double delta) {
 

@@ -852,15 +852,23 @@ public partial class StandardItem : Node2D
 
 	#region Godot Callbacks
 
-	public override void _Ready() {
-		Log.Me(() => $"Readying \"{ItemName} (ItemID: {ItemID})\"...");
+	public override void _EnterTree() {
+		Log.Me(() => "A StandardItem has entered the tree. Checking properties...", LogReady);
 
-		if (Icon == null) Log.Warn(() => "No icon set for this item. Please set an icon in the inspector.", LogReady);
-		if (Sprite == null) Log.Warn(() => "No sprite set for this item. Please set a sprite in the inspector.", LogReady);
+		if (string.IsNullOrEmpty(ItemID)) Log.Err(() => "`ItemID` must not be null or empty.", LogReady);
 
-		GenerateInstanceID(LogReady, 0);
+		if (string.IsNullOrEmpty(ItemName)) Log.Warn(() => "`ItemName` should not be null or empty.", LogReady);
 
-		Log.Me(() => $"Item \"{ItemName}\" (ItemID: {ItemID}, InstanceID: {InstanceID}) is ready.", LogReady);
+		if (Icon == null) Log.Warn(() => "`Icon` should not be null. Please set an icon in the inspector.", LogReady);
+
+		if (Sprite == null) Log.Warn(() => "`Sprite` should not be null. Please set a sprite in the inspector.", LogReady);
+
+		if (string.IsNullOrEmpty(InstanceID)) {
+			Log.Warn(() => "`InstanceID` is not set. Generating a new one...", LogReady);
+			GenerateInstanceID(LogReady, 0);
+		}
+
+		Log.Me(() => "Done!", LogReady);
 	}
 
 	#endregion

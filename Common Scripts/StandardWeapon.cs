@@ -441,8 +441,16 @@ public partial class StandardWeapon : StandardItem
 
 	#region Godot Callbacks
 
-	public override void _Ready() {
-		base._Ready();
+	public override void _EnterTree() {
+		Log.Me(() => "A StandardWeapon has entered the tree. Passing to StandardItem...", LogReady);
+
+		base._EnterTree();
+
+		Log.Me(() => "Checking properties...", LogReady);
+
+		if (WeaponOwner == null) Log.Err(() => "No weapon owner assigned. Attacks cannot be rooted back to its owner.", LogReady);
+
+		Log.Me(() => $"Done checking properties for {ItemID}.", LogReady);
 	}
 
 	#endregion
