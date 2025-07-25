@@ -536,7 +536,7 @@ public partial class StandardItem : Node2D
 		string prefix;
 		string randomID = string.Empty;
 
-		// Use default name if ItemName blank.
+		// Use default name if ItemName is blank.
 		if (string.IsNullOrEmpty(ItemName)) {
 			Log.Warn("`ItemName` is empty. Using default: \"Unnamed Item\"", v, s + 1);
 			ItemName = "Unnamed Item";
