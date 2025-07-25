@@ -199,7 +199,7 @@ public partial class Log : Node {
 	/// <param name="useFilePath">
 	/// Whether to use the file path and line number for logging instead of the class and method names.
 	/// </param>
-	public static void Error(string message, bool enabled = true, int stack = 0, bool useFilePath = false) {
+	public static void Err(string message, bool enabled = true, int stack = 0, bool useFilePath = false) {
         if (!enabled) return;
         Message(message, PrintMode.Error, stack, useFilePath, 2);
     }
@@ -221,7 +221,7 @@ public partial class Log : Node {
 	/// <param name="useFilePath">
 	/// Whether to use the file path and line number for logging instead of the class and method names.
 	/// </param>
-	public static void Error(Func<string> messageFactory, bool enabled = true, int stack = 0, bool useFilePath = false) {
+	public static void Err(Func<string> messageFactory, bool enabled = true, int stack = 0, bool useFilePath = false) {
 		if (!enabled) return;
 		Message(messageFactory(), PrintMode.Error, stack, useFilePath, 2);
 	}
