@@ -112,14 +112,26 @@ public partial class StandardWeapon : StandardItem
 	}
 
 	/// <summary>
+	/// The remaining time before the next attack can be performed, in seconds. <br/><br/>
+	/// This is a setter/getter for <see cref="_remainingAttackInterval"/>.
 	/// </summary>
+	[Export] public float RemainingAttackInterval {
+		get => _remainingAttackInterval;
+		private set => _remainingAttackInterval = Mathf.Clamp(value, 0f, float.MaxValue);
 	}
+
+	/// <summary>
+	/// The remaining time before the next attack can be performed, in seconds. <br/><br/>
+	/// Do not set this value directly; use <see cref="RemainingAttackInterval"/> instead.
+	/// </summary>
+	private float _remainingAttackInterval = 0f;
 
 	/// <summary>
 	/// The type of speed calculation used for the weapon's attack speed.
 	/// </summary>
 	[Export] public SpeedCalculation SpeedType = SpeedCalculation.Hertz;
 
+	/// <summary>
 	/// Specifies the method used to calculate speed in a system.
 	/// </summary>
 	public enum SpeedCalculation {
@@ -132,6 +144,52 @@ public partial class StandardWeapon : StandardItem
 		/// Represents speed as a time interval between events, typically in seconds.
 		/// </summary>
 		Interval
+	}
+
+	[Export] public FiringModes FiringMode = FiringModes.Single;
+
+	public enum FiringModes {
+		/// <summary>
+		/// Attacks once per input.
+		/// </summary>
+		Single,
+
+		/// <summary>
+		/// Attacks multiple times per input, with a short delay between each attack.
+		/// </summary>
+		Burst,
+
+		/// <summary>
+		/// Attacks continuously while the input is held down.
+		/// </summary>
+		Automatic
+	}
+
+	#region Burst-specific Properties
+
+	[Export(PropertyHint.Range, "0, 25, 1, or_greater")] public int BurstCount {
+		get => _burstCount;
+		set => _burstCount = Mathf.Clamp(value, 1, int.MaxValue);
+	}
+
+	private int _burstCount = 3;
+
+	[Export] public float BurstInterval {
+		get => _burstInterval;
+		set => _burstInterval = Mathf.Clamp(value, 0f, float.MaxValue);
+	}
+
+	private float _burstInterval = 0.1f;
+
+	[Export] public float RemainingBurstInterval {
+		get => _remainingBurstInterval;
+		private set => _remainingBurstInterval = Mathf.Clamp(value, 0f, float.MaxValue);
+	}
+
+	private float _remainingBurstInterval = 0f;
+
+	#endregion
+
 	#endregion
 
 	#endregion
@@ -233,6 +291,8 @@ public partial class StandardWeapon : StandardItem
 	/// Do not set this value directly; use <see cref="CriticalDamage"/> instead.
 	/// </summary>
 	private float _criticalDamage = 0f;
+
+	#endregion
 
 	#endregion
 
