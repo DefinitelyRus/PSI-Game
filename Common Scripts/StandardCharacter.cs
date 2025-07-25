@@ -14,9 +14,11 @@ public partial class StandardCharacter : CharacterBody2D
     [ExportGroup("Permanent Properties")]
     [Export] public string CharacterName = "Unnamed Character";
 
-    /// <summary>
-    /// The maximum health of the character when unaffected by external modifiers.
-    /// </summary>
+	[Export] public string CharacterID = string.Empty;
+
+	/// <summary>
+	/// The maximum health of the character when unaffected by external modifiers.
+	/// </summary>
 	[Export] public float MaxHealth = 100f;
 
     /// <summary>
