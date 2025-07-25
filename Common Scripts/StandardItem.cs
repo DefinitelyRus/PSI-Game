@@ -448,8 +448,8 @@ public partial class StandardItem : Node2D
 	#region Nodes & Components
 
 	[ExportGroup("Nodes & Components")]
-	[Export] public Texture2D Icon;
-	[Export] public Sprite2D Sprite;
+	[Export] public Texture2D? Icon = null;
+	[Export] public Sprite2D? Sprite = null;
 
 	#endregion
 
@@ -472,7 +472,7 @@ public partial class StandardItem : Node2D
 	/// This is the unique identifier for the item instance. <br/><br/>
 	/// Do not use this value directly; use <see cref="InstanceID"/> instead.
 	/// </summary>
-	private string _instanceID;
+	private string _instanceID = null!;
 
 	/// <summary>
 	/// A custom prefix for the instance ID. <br/><br/>
@@ -517,11 +517,11 @@ public partial class StandardItem : Node2D
 	[Export] public int SuffixLength = 5;
 
 	/// <summary>
-	/// Generates a unique `CharacterID` if one is not already assigned manually.
+	/// Generates a unique `InstanceID` if one is not already assigned manually.
 	/// </summary>
 	/// <param name="v">Do verbose logging? Use <c>v</c> to follow the same verbosity as the encapsulating function, if available.</param>
 	/// <param name="s">Stack depth. Use <c>0</c> if on a root function, or <c>s + 1</c> if <c>s</c> is available in the encapsulating function.</param>
-	private void GenerateItemID(bool v = false, int s = 0) {
+	private void GenerateInstanceID(bool v = false, int s = 0) {
 		Log.Me($"Generating an `InstanceID`...", v, s + 1);
 
 		// Cancel if already assigned.
@@ -625,7 +625,7 @@ public partial class StandardItem : Node2D
 		Log.Me(() => $"Calculating damage for \"{ItemName}\" ({ItemID})...", v, s + 1);
 
 		float baseValue = 0;
-		PropertyInfo targetProperty = null;
+		PropertyInfo targetProperty = null!;
 
 		#region Search for target & baseTarget
 
@@ -639,7 +639,7 @@ public partial class StandardItem : Node2D
 
 				// Grab `target` by name
 				Log.Me(() => $"Attempting to find property \"{target}\" from class {GetType().Name}...", v, s + 1);
-				targetProperty = GetType().GetProperty(target);
+				targetProperty = GetType().GetProperty(target)!;
 
 				// Missing/inaccessible `target` property
 				if (targetProperty == null) {
@@ -670,7 +670,7 @@ public partial class StandardItem : Node2D
 
 			// Grab `baseTarget` by name
 			Log.Me(() => $"Attempting to find property \"{baseTarget}\" from class {GetType().Name}...", v, s + 1);
-			PropertyInfo baseTargetProperty = GetType().GetProperty(baseTarget);
+			PropertyInfo baseTargetProperty = GetType().GetProperty(baseTarget)!;
 
 			// Missing/inaccessible `baseTarget` property
 			if (baseTargetProperty == null) {
@@ -678,7 +678,7 @@ public partial class StandardItem : Node2D
 				return fallback;
 			}
 
-			object baseValueObj = baseTargetProperty.GetValue(this, null);
+			object baseValueObj = baseTargetProperty.GetValue(this, null)!;
 
 			// Value is a float.
 			if (baseValueObj is float f) {
@@ -750,7 +750,7 @@ public partial class StandardItem : Node2D
 
 		if (setToTarget) {
 			Log.Me(() => $"Applying value {result} to \"{target}\"...", v, s + 1);
-			targetProperty.SetValue(this, result);
+			targetProperty!.SetValue(this, result);
 		}
 
 		return result;
@@ -855,7 +855,10 @@ public partial class StandardItem : Node2D
 	public override void _Ready() {
 		Log.Me(() => $"Readying \"{ItemName} (ItemID: {ItemID})\"...");
 
-		GenerateItemID(LogReady, 0);
+		if (Icon == null) Log.Warn(() => "No icon set for this item. Please set an icon in the inspector.", LogReady);
+		if (Sprite == null) Log.Warn(() => "No sprite set for this item. Please set a sprite in the inspector.", LogReady);
+
+		GenerateInstanceID(LogReady, 0);
 
 		Log.Me(() => $"Item \"{ItemName}\" (ItemID: {ItemID}, InstanceID: {InstanceID}) is ready.", LogReady);
 	}

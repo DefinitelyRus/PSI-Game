@@ -262,7 +262,7 @@ public partial class StandardCharacter : CharacterBody2D
 	#region Nodes & Components
 
 	[ExportGroup("Nodes & Components")]
-	[Export] public ControlSurface Control;
+	[Export] public ControlSurface Control = null!;
 	//[Export] public Node2D CharacterSprite;
 	//[Export] public Node2D CharacterHitbox;
 
@@ -294,7 +294,7 @@ public partial class StandardCharacter : CharacterBody2D
 	/// The character's unique identifier. <br/><br/>
 	/// Do not use this value directly except for getters and setters; use <see cref="CharacterID"/> instead.<br/>
 	/// </summary>
-	private string _characterID;
+	private string _characterID = null!;
 
 	/// <summary>
 	/// A custom prefix for the character ID. <br/><br/>
@@ -427,6 +427,11 @@ public partial class StandardCharacter : CharacterBody2D
 
 	public override void _Ready() {
 		Log.Me($"Readying \"{CharacterID}\"...");
+
+		if (Control == null) {
+			Log.Err("ControlSurface is not assigned. Ready failed.");
+			return;
+		}
 
 		GenerateCharacterID(LogReady);
 

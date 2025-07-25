@@ -3,8 +3,8 @@ namespace CommonScripts;
 
 public partial class InputManager : Node2D {
 
-    public StandardCharacter Character;
-    public ControlSurface Control;
+    public StandardCharacter Character = null!;
+    public ControlSurface Control = null!;
 
 	#region Debugging
 

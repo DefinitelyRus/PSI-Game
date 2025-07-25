@@ -82,7 +82,7 @@ public partial class ControlSurface : Node2D
 	#region Nodes & Components
 
 	[ExportGroup("Nodes & Components")]
-	[Export] private StandardCharacter Character;
+	[Export] private StandardCharacter Character = null!;
 
 	#endregion
 
