@@ -93,23 +93,18 @@ public partial class ControlSurface : Node2D
     [Export] protected bool LogProcess = false;
     [Export] protected bool LogPhysics = false;
 
-    #endregion
+	#endregion
 
-    #region Godot Callbacks
+	#region Godot Callbacks
 
-    public override void _Ready()
-    {
-        Character = GetParentOrNull<StandardCharacter>();
+	public override void _EnterTree() {
+		Log.Me(() => $"A ControlSurface has entered the tree. Checking properties...", LogReady);
 
-        if (Character == null) {
-            Log.Err("ControlSurface must be a child of a StandardCharacter. Ready failed.");
-            return;
-        }
+		Character = GetParentOrNull<StandardCharacter>();
+		if (Character == null) Log.Err("ControlSurface must be a child of a StandardCharacter. Inputs will not reach its intended target.");
 
-        Log.Me($"Readying ControlSurface for {Character.InstanceID}...", LogReady);
-
-        Log.Me("Done!", LogReady);
-    }
+		Log.Me(() => "Done checking properties.", LogReady);
+	}
 
     #endregion
 }

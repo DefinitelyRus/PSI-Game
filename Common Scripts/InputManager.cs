@@ -225,25 +225,15 @@ public partial class InputManager : Node2D {
 
 	#region Godot Callbacks
 
-	public override void _Ready() {
-        Control = GetNode<ControlSurface>("../Control Surface");
-        if (Control == null) {
-            Log.Err("InputManager must have a ControlSurface sibling. Ready failed.", LogReady);
-            return;
-        }
+	public override void _EnterTree() {
+		Log.Me(() => $"An InputManager has entered the tree. Checking properties...", LogReady);
 
-        Character = GetParentOrNull<StandardCharacter>();
-        if (Character == null) {
-            Log.Err("InputManager must have a StandardCharacter parent. Ready failed.", LogReady);
-            return;
-		}
+		Control = GetNode<ControlSurface>("../Control Surface");
+		if (Control == null) Log.Err("InputManager must have a ControlSurface sibling. Inputs will not reach its intended target.", LogReady);
 
-		Log.Me($"Readying InputManager for {Character.InstanceID}...", LogReady);
-
-
-
-		Log.Me("Done!", LogReady);
-    }
+		Character = GetNodeOrNull<StandardCharacter>("../");
+		if (Character == null) Log.Err("InputManager must be a child of a StandardCharacter. Inputs may not reach its intended target.", LogReady);
+	}
 
     public override void _PhysicsProcess(double delta) {
         Log.Me(() => $"Processing ControlSurface for {Character.InstanceID}...", LogPhysics);
