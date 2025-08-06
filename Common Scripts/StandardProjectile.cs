@@ -93,6 +93,8 @@ public partial class StandardProjectile : RigidBody2D
 	[Export] protected bool LogPhysics = false;
 	[Export] protected bool LogCollision = false;
 
+	#region Instance ID
+
 	/// <summary>
 	/// This is the unique identifier for the projectile instance. <br/><br/>
 	/// This ID is generated automatically if not set manually. <br/>
@@ -132,6 +134,7 @@ public partial class StandardProjectile : RigidBody2D
 		Hyphen
 	}
 
+	#endregion
 
 	#region Ignore Unassigned Nodes
 
@@ -321,17 +324,17 @@ public partial class StandardProjectile : RigidBody2D
 			return;
 		}
 
-		if (string.IsNullOrEmpty(ProjectileName)) Log.Warn("`ProjectileName` should not be null or empty.");
+		if (string.IsNullOrEmpty(ProjectileName) && !AllowNoProjectileName) Log.Warn("`ProjectileName` should not be null or empty.");
 
-		if (WeaponOwner == null) Log.Warn("`WeaponOwner` should not be null.");
-
-		if (Weapon == null) {
+		if (Weapon == null && !AllowNoWeapon) {
 			Log.Err(() => "`Weapon` must not be null. Ready failed.", LogReady);
 			return;
 		}
 
+		if (WeaponOwner == null && !AllowNoOwner) Log.Warn("`WeaponOwner` should not be null. Assign a `WeaponOwner` to `Weapon`.");
+
 		if (string.IsNullOrEmpty(InstanceID)) {
-			Log.Warn(() => "`InstanceID` is empty. Generating a new one...", LogReady);
+			if (!AutoAssignInstanceID) Log.Warn(() => "`InstanceID` is empty. Generating a new one...", LogReady);
 			GenerateInstanceID(LogReady);
 		}
 
