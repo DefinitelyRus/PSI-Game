@@ -79,6 +79,17 @@ public partial class ControlSurface : Node2D
 
 	#endregion
 
+	#region Combat Controls
+
+	[ExportGroup("Combat Controls")]
+	[Export] public bool EnableCombat = true;
+	
+	public bool IsAttacking = false;
+
+	public bool JustAttacked = false;
+
+	#endregion
+
 	#region Nodes & Components
 
 	[ExportGroup("Nodes & Components")]
