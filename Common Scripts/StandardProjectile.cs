@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Godot;
 namespace CommonScripts;
 
@@ -13,6 +14,14 @@ public partial class StandardProjectile : RigidBody2D
 	[Export] public StandardCharacter WeaponOwner = null!;
 	[Export] public StandardProjectileWeapon Weapon = null!;
 	[Export] public Node2D[] Targets { get; private set; } = [];
+
+	[Export] public TargetModes TargetMode { get; protected set; } = TargetModes.Whitelist;
+
+	public enum TargetModes {
+		Any,
+		Whitelist,
+		Blacklist
+	}
 
 	[Export] public float Lifespan {
 		get => _lifespan;
