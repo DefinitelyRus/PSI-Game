@@ -221,6 +221,27 @@ public partial class InputManager : Node2D {
 
 	#endregion
 
+	#region Attack Inputs
+	
+	[ExportSubgroup("Attack Inputs")]
+	[Export] public string Attack = "attack";
+
+	private void ReceiveAttackInputs(bool v = false, int s = 0) {
+		Log.Me(() => "Listening for attack inputs...", v, s + 1);
+
+		if (!Control.EnableCombat) {
+			Log.Me(() => "Combat inputs are disabled. Skipping input processing.", v, s + 1);
+			return;
+		}
+
+		Control.IsAttacking = Input.IsActionPressed(Attack);
+		Control.JustAttacked = Input.IsActionJustPressed(Attack);
+
+		Log.Me(() => "Done!", v, s + 1);
+	}
+
+	#endregion
+
 	#endregion
 
 	#region Godot Callbacks
@@ -235,14 +256,15 @@ public partial class InputManager : Node2D {
 		if (Character == null) Log.Err("InputManager must be a child of a StandardCharacter. Inputs may not reach its intended target.", LogReady);
 	}
 
-    public override void _PhysicsProcess(double delta) {
-        Log.Me(() => $"Processing ControlSurface for {Character.InstanceID}...", LogPhysics);
-        
-        ReceiveMovementInputs(LogPhysics);
-        ReceiveFacingInputs(LogPhysics);
+	public override void _Process(double delta) {
+		Log.Me(() => $"Processing ControlSurface for {Character.InstanceID}...", LogProcess);
 
-		Log.Me(() => "Done!", LogPhysics);
-    }
+		ReceiveMovementInputs(LogProcess);
+		ReceiveFacingInputs(LogProcess);
+		ReceiveAttackInputs(LogProcess);
+
+		Log.Me(() => "Done!", LogProcess);
+	}
 
     #endregion
 
