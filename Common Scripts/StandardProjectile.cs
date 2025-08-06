@@ -91,6 +91,7 @@ public partial class StandardProjectile : RigidBody2D
 	[Export] protected bool LogReady = true;
 	[Export] protected bool LogProcess = false;
 	[Export] protected bool LogPhysics = false;
+	[Export] protected bool LogCollision = false;
 
 	/// <summary>
 	/// This is the unique identifier for the projectile instance. <br/><br/>
@@ -243,6 +244,69 @@ public partial class StandardProjectile : RigidBody2D
 		}
 
 		Log.Me($"Generated ID \"{InstanceID}\"!", v, s + 1);
+	}
+
+	#endregion
+
+	#region Collision
+
+	protected void OnBodyEntered(Node2D body) {
+		Log.Me(() => $"Body entered: {body.Name}", LogCollision);
+
+		bool isTarget = Targets.Contains(body);
+
+		// Whitelist
+		if (TargetMode == TargetModes.Whitelist) {
+			if (Targets.Length == 0) {
+				Log.Warn(() => "No targets set. Ignoring body.", LogCollision);
+				return;
+			}
+
+			if (isTarget) {
+				Log.Me(() => $"{body.Name} is whitelisted. Processing hit...", LogCollision);
+				Impact(body, LogCollision);
+			}
+
+			else {
+				Log.Me(() => $"{body.Name} is not a target. Ignoring.", LogCollision);
+				return;
+			}
+		}
+
+		// Blacklist
+		else if (TargetMode == TargetModes.Blacklist) {
+			if (isTarget) {
+				Log.Me(() => $"{body.Name} is blacklisted. Ignoring.", LogCollision);
+				return;
+			}
+
+			else {
+				Log.Me(() => $"{body.Name} is not blacklisted. Processing hit...", LogCollision);
+				Impact(body, LogCollision);
+			}
+		}
+
+		// Any
+		else if (TargetMode == TargetModes.Any) {
+			Log.Me(() => $"Impacting {body.Name} as collateral...", LogCollision);
+			Impact(body, LogCollision);
+			return;
+		}
+
+		Log.Me(() => "Done!", LogCollision);
+		return;
+	}
+
+	//Usually called when the projectile impacts a target.
+	protected virtual void Impact(Node2D body, bool v = false, int s = 0) {
+		Log.Me(() => $"`Impact` on {ProjectileName} (ProjectileID: {ProjectileID}) is not implemented! Override to add custom functionality.", v, s + 1);
+		return;
+	}
+
+	//Usually called when the projectile is to be destroyed regardless of impact.
+	protected virtual void Detonate(bool v = false, int s = 0) {
+		Log.Me(() => $"`Detonate` on {ProjectileName} (ProjectileID: {ProjectileID}) is not implemented! Override to add custom functionality.", v, s + 1);
+		return;
 	}
 
 	#endregion
