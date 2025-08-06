@@ -487,7 +487,11 @@ public partial class StandardWeapon : StandardItem
 	#endregion
 
 	#region Nodes & Components
-	[Export] public StandardCharacter WeaponOwner { get; private set; } = null!;
+
+	[ExportGroup("Nodes & Components")]
+	[Export] public StandardCharacter WeaponOwner = null!;
+
+	public ControlSurface Control => WeaponOwner.Control;
 
 	#endregion
 
