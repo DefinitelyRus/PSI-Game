@@ -460,6 +460,8 @@ public partial class StandardItem : Node2D
 	[Export] protected bool LogProcess = false;
 	[Export] protected bool LogPhysics = false;
 
+	#region Instance ID
+
 	/// <summary>
 	/// This is the unique identifier for the item instance. <br/><br/>
 	/// This ID is generated automatically if not set manually. <br/>
@@ -599,6 +601,18 @@ public partial class StandardItem : Node2D
 
 		Log.Me($"Generated ID \"{InstanceID}\"!", v, s + 1);
 	}
+
+	#endregion
+
+	#region Ignore Unassigned Nodes
+
+	[ExportSubgroup("Ignore Unassigned Nodes")]
+	[Export] public bool AllowNoItemName = false;
+	[Export] public bool AllowNoIcon = false;
+	[Export] public bool AllowNoSprite = false;
+	[Export] public bool AutoAssignInstanceID = true;
+
+	#endregion
 
 	#endregion
 
@@ -860,14 +874,14 @@ public partial class StandardItem : Node2D
 
 		if (string.IsNullOrEmpty(ItemID)) Log.Err(() => "`ItemID` must not be null or empty.", LogReady);
 
-		if (string.IsNullOrEmpty(ItemName)) Log.Warn(() => "`ItemName` should not be null or empty.", LogReady);
+		if (string.IsNullOrEmpty(ItemName) && !AllowNoItemName) Log.Warn(() => "`ItemName` should not be null or empty.", LogReady);
 
-		if (Icon == null) Log.Warn(() => "`Icon` should not be null. Please set an icon in the inspector.", LogReady);
+		if (Icon == null && !AllowNoIcon) Log.Warn(() => "`Icon` should not be null. Please set an icon in the inspector.", LogReady);
 
-		if (Sprite == null) Log.Warn(() => "`Sprite` should not be null. Please set a sprite in the inspector.", LogReady);
+		if (Sprite == null && !AllowNoSprite) Log.Warn(() => "`Sprite` should not be null. Please set a sprite in the inspector.", LogReady);
 
 		if (string.IsNullOrEmpty(InstanceID)) {
-			Log.Warn(() => "`InstanceID` is not set. Generating a new one...", LogReady);
+			if (!AutoAssignInstanceID) Log.Warn(() => "`InstanceID` is not set. Generating a new one...", LogReady);
 			GenerateInstanceID(LogReady, 0);
 		}
 

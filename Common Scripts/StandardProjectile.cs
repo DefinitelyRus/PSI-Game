@@ -122,6 +122,19 @@ public partial class StandardProjectile : RigidBody2D
 		Hyphen
 	}
 
+
+	#region Ignore Unassigned Nodes
+
+	[ExportSubgroup("Ignore Unassigned Nodes")]
+	[Export] public bool AllowNoProjectileName = false;
+	[Export] public bool AllowNoWeapon = false;
+	[Export] public bool AllowNoOwner = false;
+	[Export] public bool AllowNoIcon = false;
+	[Export] public bool AllowNoSprite = false;
+	[Export] public bool AutoAssignInstanceID = true;
+
+	#endregion
+
 	/// <summary>
 	/// The action taken when a space is encountered in the character ID prefix.
 	/// </summary>
