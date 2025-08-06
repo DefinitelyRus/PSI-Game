@@ -13,6 +13,8 @@ public partial class StandardProjectileWeapon : StandardWeapon
 	#region Overrides
 
 	public override void Attack(bool v = false, int s = 0) {
+		if (!Control.JustAttacked) return;
+
 		Log.Me(() => "Spawning projectile...", v, s + 1);
 
 		if (Projectile == null) {
@@ -23,7 +25,10 @@ public partial class StandardProjectileWeapon : StandardWeapon
 		StandardProjectile projectileInstance = Projectile.Instantiate<StandardProjectile>();
 		projectileInstance.GlobalPosition = AttackOrigin;
 		projectileInstance.RotationDegrees = AimDirection;
+		projectileInstance.Weapon = this;
 		projectileInstance.WeaponOwner = WeaponOwner;
+
+		WeaponOwner.GetParent().AddChild(projectileInstance);
 	}
 
 	#endregion
@@ -40,6 +45,16 @@ public partial class StandardProjectileWeapon : StandardWeapon
 		if (Projectile == null) Log.Err(() => "No projectile assigned. Cannot attack.", LogReady);
 
 		Log.Me(() => $"Done checking properties for {ItemID}.", LogReady);
+	}
+
+	public override void _Process(double delta) {
+		Log.Me(() => $"Processing {ItemID}...", LogProcess);
+
+		if (Control.JustAttacked) {
+			Attack(true);
+		}
+
+		Log.Me(() => "Done processing!", LogProcess);
 	}
 
 	#endregion
