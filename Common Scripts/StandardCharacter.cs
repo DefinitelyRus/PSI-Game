@@ -262,6 +262,12 @@ public partial class StandardCharacter : CharacterBody2D
 
 	#endregion
 
+	#region AVFX
+
+	//Write your audio/visual effects here.
+
+	#endregion
+
 	#region Nodes & Components
 
 	[ExportGroup("Nodes & Components")]

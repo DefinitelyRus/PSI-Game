@@ -45,24 +45,36 @@ public partial class InputManager : Node2D {
 
 	/// <summary>
 	/// The different ways a character can receive movement direction inputs. <br/><br/>
-	/// <list type="bullet">
-	/// <item><c>Static</c>: Does not change direction.</item>
-	/// <item><c>Dedicated</c>: Controlled by the player through a separate input.</item>
-	/// <item><c>Follow</c>: Follows <see cref="ControlSurface.FacingDirection"/> unless overridden.</item>
-	/// <item><c>AlwaysFollow</c>: Always follows <see cref="ControlSurface.FacingDirection"/>.</item>
-	/// <item><c>Vector</c>: Moves toward a specific vector position.</item>
-	/// </list>
 	/// <b>Important</b>: If either <c>Follow</c> or <c>AlwaysFollow</c> is used,
 	/// <see cref="FacingMode"/> <b>must not</b> be set to <c>Follow</c> or <c>AlwaysFollow</c>
 	/// as they will recursively call copy other, causing an infinite loop.
 	/// </summary>
 	public enum MovementModes {
-        Static,
-        Dedicated,
-        Follow,
-        AlwaysFollow,
-        Vector
-    }
+		/// <summary>
+		/// Does not change direction.
+		/// </summary>
+		Static,
+
+		/// <summary>
+		/// Controlled by the player through a separate input.
+		/// </summary>
+		Dedicated,
+
+		/// <summary>
+		/// Follows <see cref="ControlSurface.FacingDirection"/> unless overridden.
+		/// </summary>
+		Follow,
+
+		/// <summary>
+		/// Always follows <see cref="ControlSurface.FacingDirection"/>.
+		/// </summary>
+		AlwaysFollow,
+
+		/// <summary>
+		/// Moves toward a specific vector position.
+		/// </summary>
+		Vector
+	}
 
 	// TODO: Allow gamepad inputs.
 	private void ReceiveMovementInputs(bool v = false, int s = 0) {
@@ -148,23 +160,35 @@ public partial class InputManager : Node2D {
 
 	/// <summary>
 	/// The different ways a character can receive face direction inputs. <br/><br/>
-	/// <list type="bullet">
-	/// <item><c>Static</c>: Does not change direction.</item>
-	/// <item><c>Dedicated</c>: Controlled by the player through a separate input.</item>
-	/// <item><c>Follow</c>: Follows <see cref="ControlSurface.MovementDirection"/> unless overridden.</item>
-	/// <item><c>AlwaysFollow</c>: Always follows <see cref="ControlSurface.MovementDirection"/>.</item>
-	/// <item><c>Vector</c>: Heads towards a specific vector position.</item>
-	/// </list>
 	/// <b>Important</b>: If either <c>Follow</c> or <c>AlwaysFollow</c> is used,
 	/// <see cref="MovementMode"/> <b>must not</b> be set to <c>Follow</c> or <c>AlwaysFollow</c>
 	/// as they will recursively call copy other, causing an infinite loop.
 	/// </summary>
 	public enum FacingModes {
-		Static,         // Does not change direction.
-		Dedicated,      // Controlled by the player through a separate input.
-		Follow,         // Follows the movement direction unless overridden.
-		AlwaysFollow,   // Always follows the movement direction of the character.
-		Vector          // Heads towards a specific vector position.
+		/// <summary>
+		/// Does not change direction.
+		/// </summary>
+		Static,
+
+		/// <summary>
+		/// Controlled by the player through a separate input.
+		/// </summary>
+		Dedicated,
+
+		/// <summary>
+		/// Follows the movement direction unless overridden.
+		/// </summary>
+		Follow,
+
+		/// <summary>
+		/// Always follows the movement direction of the character.
+		/// </summary>
+		AlwaysFollow,
+
+		/// <summary>
+		/// Heads towards a specific vector position.
+		/// </summary>
+		Vector
 	}
 
 	private void ReceiveFacingInputs(bool v = false, int s = 0) {
