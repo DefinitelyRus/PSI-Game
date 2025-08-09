@@ -6,9 +6,12 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_d58qr"]
 
 [node name="StandardProjectile" type="RigidBody2D"]
+gravity_scale = 0.0
 script = ExtResource("1_oylb4")
 ProjectileName = "Test Projectile"
 ProjectileID = "test_projectile"
+Lifespan = 2.0
+LogReady = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_d58qr")

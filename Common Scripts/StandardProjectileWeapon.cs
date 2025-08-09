@@ -29,6 +29,8 @@ public partial class StandardProjectileWeapon : StandardWeapon
 		projectileInstance.WeaponOwner = WeaponOwner;
 
 		WeaponOwner.GetParent().AddChild(projectileInstance);
+
+		Log.Me(() => $"Projectile spawned at {projectileInstance.GlobalPosition} with rotation {projectileInstance.RotationDegrees}°.", v, s + 1);
 	}
 
 	#endregion
@@ -48,11 +50,8 @@ public partial class StandardProjectileWeapon : StandardWeapon
 	}
 
 	public override void _Process(double delta) {
-		Log.Me(() => $"Processing {ItemID}...", LogProcess);
-
-		if (Control.JustAttacked) {
-			Attack(true);
-		}
+		Log.Me(() => $"Processing {ItemID} as StandardProjectileWeapon. Passing to StandardWeapon...", LogProcess);
+		base._Process(delta);
 
 		Log.Me(() => "Done processing!", LogProcess);
 	}

@@ -25,7 +25,7 @@ public partial class StandardProjectile : RigidBody2D
 
 	[Export] public float Lifespan {
 		get => _lifespan;
-		set => Mathf.Clamp(value, 0f, float.MaxValue);
+		set => _lifespan = Mathf.Clamp(value, 0f, float.MaxValue);
 	}
 
 	private float _lifespan = 5f;
@@ -344,6 +344,11 @@ public partial class StandardProjectile : RigidBody2D
 	public override void _Ready() {
 		Log.Me(() => $"Readying {ProjectileID}...", LogReady);
 
+		Connect("body_entered", new Callable(this, nameof(OnBodyEntered)));
+
+		Log.Me(() => $"Ignoring collisions with owner: {WeaponOwner.CharacterName}", LogReady);
+		PhysicsServer2D.BodyAddCollisionException(GetRid(), WeaponOwner.GetRid());
+
 		if (ForceType == ForceTypes.Impulse) {
 			Log.Me(() => "Applying force...");
 			ApplyImpulseForce(LogReady);
@@ -356,12 +361,16 @@ public partial class StandardProjectile : RigidBody2D
 		Log.Me(() => $"Processing {ProjectileID}...", LogProcess);
 
 		if (Lifespan <= 0f) {
-			Log.Me(() => $"Lifespan is zero or negative. Queuing for deletion...", LogProcess);
+			Log.Me(() => $"Lifespan depleted. Queuing for deletion...", LogProcess);
 			QueueFree(); //TODO: Implement a proper deletion system.
 			return;
 		}
 
 		Lifespan -= (float) delta;
+		Log.Me(() => $"Lifespan remaining: {Lifespan:F2}s", LogProcess);
+
+		Log.Me(() => "Done!", LogProcess);
+		return;
 	}
 
 	public override void _PhysicsProcess(double delta) {
