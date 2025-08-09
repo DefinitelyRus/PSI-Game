@@ -49,10 +49,6 @@ public partial class StandardProjectileWeapon : StandardWeapon
 
 	public override void _Process(double delta) {
 		Log.Me(() => $"Processing {ItemID}...", LogProcess);
-
-		if (Control.JustAttacked) {
-			Attack(true);
-		}
 		base._Process(delta);
 
 		Log.Me(() => "Done processing!", LogProcess);

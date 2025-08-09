@@ -518,5 +518,31 @@ public partial class StandardWeapon : StandardItem
 		Log.Me(() => $"Done checking properties for {ItemID}.", LogReady);
 	}
 
+	public override void _Process(double delta) {
+
+		Log.Me(() => $"Processing {ItemID} as StandardWeapon.", LogProcess);
+
+		AimDirection = Mathf.PosMod(Mathf.RadToDeg(Control.FacingDirection.Angle()) + 90f, 360f);
+		Log.Me(() => $"AimDirection set to {AimDirection:F2}°.", LogProcess);
+
+		Log.Me(() => "Checking for attack inputs...", LogProcess);
+		if (Control.JustAttacked) {
+			Attack(LogProcess);
+		}
+
+		if (RemainingAttackInterval > 0f) {
+			RemainingAttackInterval -= (float) delta;
+			if (RemainingAttackInterval < 0f) RemainingAttackInterval = 0f;
+		}
+
+		if (FiringMode == FiringModes.Burst && RemainingBurstInterval > 0f) {
+			RemainingBurstInterval -= (float) delta;
+			if (RemainingBurstInterval < 0f) RemainingBurstInterval = 0f;
+		}
+
+		Log.Me(() => "Done processing!", LogProcess);
+		return;
+	}
+
 	#endregion
 }
