@@ -56,6 +56,11 @@ public partial class InputManager : Node2D {
 		Static,
 
 		/// <summary>
+		/// Faces towards the cursor position.
+		/// </summary>
+		Mouse,
+
+		/// <summary>
 		/// Controlled by the player through a separate input.
 		/// </summary>
 		Dedicated,
@@ -92,6 +97,9 @@ public partial class InputManager : Node2D {
 
 			case MovementModes.Static: break;
 
+			case MovementModes.Mouse:
+				moveDirection = GetGlobalMousePosition() - Control.GlobalPosition;
+				break;
 
 			case MovementModes.Dedicated:
 				if (Input.IsActionPressed(MoveUp)) moveDirection += new Vector2(0, -1);
@@ -172,6 +180,11 @@ public partial class InputManager : Node2D {
 		Static,
 
 		/// <summary>
+		/// Faces towards the cursor position.
+		/// </summary>
+		Mouse,
+
+		/// <summary>
 		/// Controlled by the player through a separate input.
 		/// </summary>
 		Dedicated,
@@ -205,6 +218,10 @@ public partial class InputManager : Node2D {
 
 		switch (FacingMode) {
 			case FacingModes.Static: break;
+
+			case FacingModes.Mouse:
+				faceDirection = GetGlobalMousePosition() - Control.GlobalPosition;
+				break;
 
 			case FacingModes.Dedicated:
 				if (Input.IsActionPressed(FaceUp)) faceDirection += new Vector2(0, -1);
