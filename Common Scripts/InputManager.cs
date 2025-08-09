@@ -80,17 +80,18 @@ public partial class InputManager : Node2D {
 	private void ReceiveMovementInputs(bool v = false, int s = 0) {
 		Log.Me(() => "Listening for movement inputs...", v, s + 1);
 
-        if (!Control.EnableMovement) {
-            Log.Me(() => "Movement inputs are disabled. Skipping input processing.", v, s + 1);
-            return;
-        }
+		if (!Control.EnableMovement) {
+			Log.Me(() => "Movement inputs are disabled. Skipping input processing.", v, s + 1);
+			return;
+		}
 
-        Control.MovementMultiplier = 0f;
-        Vector2 moveDirection = new();
+		Control.MovementMultiplier = 0f;
+		Vector2 moveDirection = new();
 
-        switch (MovementMode) {
+		switch (MovementMode) {
 
-            case MovementModes.Static:  break;
+			case MovementModes.Static: break;
+
 
 			case MovementModes.Dedicated:
 				if (Input.IsActionPressed(MoveUp)) moveDirection += new Vector2(0, -1);
@@ -192,17 +193,18 @@ public partial class InputManager : Node2D {
 	}
 
 	private void ReceiveFacingInputs(bool v = false, int s = 0) {
-        Log.Me(() => "Listening for facing inputs...", v, s + 1);
 
-        if (!Control.EnableFaceDirection) {
-            Log.Me(() => "Facing inputs are disabled. Skipping input processing.", v, s + 1);
-            return;
-        }
+		Log.Me(() => "Listening for facing inputs...", v, s + 1);
 
-        Vector2 faceDirection = new();
+		if (!Control.EnableFaceDirection) {
+			Log.Me(() => "Facing inputs are disabled. Skipping input processing.", v, s + 1);
+			return;
+		}
 
-        switch (FacingMode) {
-            case FacingModes.Static: break;
+		Vector2 faceDirection = new();
+
+		switch (FacingMode) {
+			case FacingModes.Static: break;
 
 			case FacingModes.Dedicated:
 				if (Input.IsActionPressed(FaceUp)) faceDirection += new Vector2(0, -1);
