@@ -344,6 +344,11 @@ public partial class StandardProjectile : RigidBody2D
 	public override void _Ready() {
 		Log.Me(() => $"Readying {ProjectileID}...", LogReady);
 
+		Connect("body_entered", new Callable(this, nameof(OnBodyEntered)));
+
+		Log.Me(() => $"Ignoring collisions with owner: {WeaponOwner.CharacterName}", LogReady);
+		PhysicsServer2D.BodyAddCollisionException(GetRid(), WeaponOwner.GetRid());
+
 		if (ForceType == ForceTypes.Impulse) {
 			Log.Me(() => "Applying force...");
 			ApplyImpulseForce(LogReady);
