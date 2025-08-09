@@ -12,7 +12,6 @@ ProjectileName = "Test Projectile"
 ProjectileID = "test_projectile"
 Lifespan = 2.0
 LogReady = false
-LogProcess = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_d58qr")
