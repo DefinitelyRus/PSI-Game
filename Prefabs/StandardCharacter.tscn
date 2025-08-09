@@ -19,6 +19,7 @@ motion_mode = 1
 script = ExtResource("1_udvt5")
 CharacterName = "Teto"
 Control = NodePath("Control Surface")
+LogReady = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_jvbue")
@@ -32,11 +33,13 @@ region_rect = Rect2(0, 320, 48, 64)
 
 [node name="Control Surface" type="Node2D" parent="."]
 script = ExtResource("3_r87il")
-LogPhysics = true
+LogReady = false
 
 [node name="Input Manager" type="Node2D" parent="."]
 script = ExtResource("4_gn58p")
-MovementMode = 1
+LogReady = false
+MovementMode = 2
+FacingMode = 1
 
 [node name="Projectile Weapon" type="RigidBody2D" parent="." node_paths=PackedStringArray("WeaponOwner")]
 gravity_scale = 0.0
@@ -45,6 +48,7 @@ Projectile = ExtResource("6_7fba6")
 WeaponOwner = NodePath("..")
 ItemName = "Test Weapon"
 ItemID = "test_weapon"
+LogReady = false
 AllowNoItemName = true
 AllowNoIcon = true
 AllowNoSprite = true
