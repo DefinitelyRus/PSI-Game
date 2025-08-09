@@ -53,6 +53,7 @@ public partial class StandardProjectileWeapon : StandardWeapon
 		if (Control.JustAttacked) {
 			Attack(true);
 		}
+		base._Process(delta);
 
 		Log.Me(() => "Done processing!", LogProcess);
 	}
