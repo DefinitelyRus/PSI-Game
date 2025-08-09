@@ -25,7 +25,7 @@ public partial class StandardProjectile : RigidBody2D
 
 	[Export] public float Lifespan {
 		get => _lifespan;
-		set => Mathf.Clamp(value, 0f, float.MaxValue);
+		set => _lifespan = Mathf.Clamp(value, 0f, float.MaxValue);
 	}
 
 	private float _lifespan = 5f;
