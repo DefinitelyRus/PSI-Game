@@ -361,12 +361,16 @@ public partial class StandardProjectile : RigidBody2D
 		Log.Me(() => $"Processing {ProjectileID}...", LogProcess);
 
 		if (Lifespan <= 0f) {
-			Log.Me(() => $"Lifespan is zero or negative. Queuing for deletion...", LogProcess);
+			Log.Me(() => $"Lifespan depleted. Queuing for deletion...", LogProcess);
 			QueueFree(); //TODO: Implement a proper deletion system.
 			return;
 		}
 
 		Lifespan -= (float) delta;
+		Log.Me(() => $"Lifespan remaining: {Lifespan:F2}s", LogProcess);
+
+		Log.Me(() => "Done!", LogProcess);
+		return;
 	}
 
 	public override void _PhysicsProcess(double delta) {
