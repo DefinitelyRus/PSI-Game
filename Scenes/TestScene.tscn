@@ -1104,6 +1104,7 @@ graph_offset = Vector2(-391, -25)
 [node name="TestScene" type="Node2D"]
 
 [node name="Camera2D" type="Camera2D" parent="."]
+scale = Vector2(0.992841, 0.996755)
 position_smoothing_enabled = true
 
 [node name="Testo" parent="." instance=ExtResource("1_b5ayd")]
