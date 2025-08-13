@@ -11,6 +11,7 @@ public partial class StandardProjectile : RigidBody2D
 	[Export] public string ProjectileName = "Standard Projectile";
 	[Export] public string ProjectileID { get; protected set; } = string.Empty;
 	[Export] public string[] Tags = [];
+	[Export] public HitArea HitArea = null!;
 	[Export] public StandardCharacter WeaponOwner = null!;
 	[Export] public StandardProjectileWeapon Weapon = null!;
 	[Export] public Node2D[] Targets { get; private set; } = [];
@@ -140,6 +141,7 @@ public partial class StandardProjectile : RigidBody2D
 
 	[ExportSubgroup("Ignore Unassigned Nodes")]
 	[Export] public bool AllowNoProjectileName = false;
+	[Export] public bool AllowNoHitArea = false;
 	[Export] public bool AllowNoWeapon = false;
 	[Export] public bool AllowNoOwner = false;
 	[Export] public bool AllowNoIcon = false;
@@ -315,6 +317,11 @@ public partial class StandardProjectile : RigidBody2D
 		}
 
 		if (string.IsNullOrEmpty(ProjectileName) && !AllowNoProjectileName) Log.Warn("`ProjectileName` should not be null or empty.");
+		
+		if (HitArea == null && !AllowNoHitArea) {
+			Log.Err(() => "`HitArea` must not be null. Ready failed.", LogReady);
+			return;
+		}
 
 		if (Weapon == null && !AllowNoWeapon) {
 			Log.Err(() => "`Weapon` must not be null. Ready failed.", LogReady);
@@ -334,7 +341,8 @@ public partial class StandardProjectile : RigidBody2D
 	public override void _Ready() {
 		Log.Me(() => $"Readying {ProjectileID}...", LogReady);
 
-		Connect("body_entered", new Callable(this, nameof(OnBodyEntered)));
+		Log.Me(() => "Connecting HitArea.BodyEntered to OnBodyEntered...", LogReady);
+		HitArea.BodyEntered += OnBodyEntered;
 
 		Log.Me(() => $"Ignoring collisions with owner: {WeaponOwner.CharacterName}", LogReady);
 		PhysicsServer2D.BodyAddCollisionException(GetRid(), WeaponOwner.GetRid());
