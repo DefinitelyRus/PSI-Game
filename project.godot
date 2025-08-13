@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Project Sentient Intelligence"
-run/main_scene="uid://bfp0axiex7i7o"
+run/main_scene="uid://cpyjo548jierg"
 config/features=PackedStringArray("4.4", "C#", "Mobile")
 config/icon="res://icon.svg"
 
@@ -66,6 +66,19 @@ attack={
 "events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":0,"position":Vector2(0, 0),"global_position":Vector2(0, 0),"factor":1.0,"button_index":1,"canceled":false,"pressed":false,"double_click":false,"script":null)
 ]
 }
+
+[layer_names]
+
+2d_physics/layer_1="World"
+2d_physics/layer_2="World Walls"
+2d_physics/layer_3="World Obstacle Short"
+2d_physics/layer_4="World Obstacle Tall"
+2d_physics/layer_5="Characters"
+2d_physics/layer_6="Friendly Characters"
+2d_physics/layer_7="Neutral Characters"
+2d_physics/layer_8="Enemy Characters"
+2d_physics/layer_9="Projectile"
+2d_physics/layer_10="Hitscan"
 
 [rendering]
 
