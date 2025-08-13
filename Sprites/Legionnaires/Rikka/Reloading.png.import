@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b3cu24cf680n3"
-path="res://.godot/imported/Walking Aiming.png-cc89edc30315e91e795fe393a54921a4.ctex"
+uid="uid://dqjogf6obkwq4"
+path="res://.godot/imported/Reloading.png-0241bcaafc9b2efddd5be4530f842442.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/Legionnaires/Template/Walking Aiming.png"
-dest_files=["res://.godot/imported/Walking Aiming.png-cc89edc30315e91e795fe393a54921a4.ctex"]
+source_file="res://Sprites/Legionnaires/Rikka/Reloading.png"
+dest_files=["res://.godot/imported/Reloading.png-0241bcaafc9b2efddd5be4530f842442.ctex"]
 
 [params]
 

@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bib1if0wmk2vp"
-path="res://.godot/imported/Running Aiming.png-49586ba23112783c511fc567cff0aa92.ctex"
+path="res://.godot/imported/Running Aiming.png-dea40670f391543442987a9a53fe0085.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/Legionnaires/Template/Running Aiming.png"
-dest_files=["res://.godot/imported/Running Aiming.png-49586ba23112783c511fc567cff0aa92.ctex"]
+source_file="res://Sprites/Legionnaires/Rikka/Running Aiming.png"
+dest_files=["res://.godot/imported/Running Aiming.png-dea40670f391543442987a9a53fe0085.ctex"]
 
 [params]
 

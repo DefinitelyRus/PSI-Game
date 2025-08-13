@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b5jdaqoqx12t1"
-path="res://.godot/imported/Running Shooting.png-ad35b15691d205b650522125e738fd68.ctex"
+uid="uid://cnnyxe81qmtvl"
+path="res://.godot/imported/Bullet.png-7a3e883ea48d0301808d529d67899de3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/Legionnaires/Template/Running Shooting.png"
-dest_files=["res://.godot/imported/Running Shooting.png-ad35b15691d205b650522125e738fd68.ctex"]
+source_file="res://Sprites/Projectiles/Bullet.png"
+dest_files=["res://.godot/imported/Bullet.png-7a3e883ea48d0301808d529d67899de3.ctex"]
 
 [params]
 

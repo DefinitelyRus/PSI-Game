@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dsx2m05ecv2k1"
-path="res://.godot/imported/Death.png-d4675ec6fc8b7b8ef93d58fddb707f5a.ctex"
+uid="uid://tm12lbddpc2r"
+path="res://.godot/imported/Walking Reloading.png-2674c7cf6873774c3b06b3570ed0dc02.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/Legionnaires/Template/Death.png"
-dest_files=["res://.godot/imported/Death.png-d4675ec6fc8b7b8ef93d58fddb707f5a.ctex"]
+source_file="res://Sprites/Legionnaires/Rikka/Walking Reloading.png"
+dest_files=["res://.godot/imported/Walking Reloading.png-2674c7cf6873774c3b06b3570ed0dc02.ctex"]
 
 [params]
 

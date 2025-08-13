@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bjipwk6ac5bx0"
-path="res://.godot/imported/Idle.png-4eb18aa91d1d68934120d5b0ee8f78d8.ctex"
+uid="uid://b5jdaqoqx12t1"
+path="res://.godot/imported/Running Shooting.png-1606e82e97273627e77655962931b375.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/Legionnaires/Template/Idle.png"
-dest_files=["res://.godot/imported/Idle.png-4eb18aa91d1d68934120d5b0ee8f78d8.ctex"]
+source_file="res://Sprites/Legionnaires/Rikka/Running Shooting.png"
+dest_files=["res://.godot/imported/Running Shooting.png-1606e82e97273627e77655962931b375.ctex"]
 
 [params]
 
