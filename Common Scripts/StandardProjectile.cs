@@ -36,7 +36,7 @@ public partial class StandardProjectile : RigidBody2D
 
 	[Export] public float Force {
 		get => _force;
-		set => Mathf.Clamp(value, 0f, float.MaxValue);
+		set => _force = Mathf.Clamp(value, 0f, float.MaxValue);
 	}
 
 	private float _force = 500f;
