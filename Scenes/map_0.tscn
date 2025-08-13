@@ -1,0 +1,62 @@
+[gd_scene load_steps=6 format=3 uid="uid://rbirnmt14654"]
+
+[ext_resource type="Texture2D" uid="uid://kqo44exiy3bv" path="res://Sprites/UI/Modern_UI_Style_2_32x32.png" id="1_03b3j"]
+[ext_resource type="Script" uid="uid://r5ugbhejqnt7" path="res://UI Scripts/map_0.gd" id="1_roy3c"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_03b3j"]
+texture = ExtResource("1_03b3j")
+expand_margin_bottom = 7.0
+region_rect = Rect2(1346, 684, 60, 32)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_nkda2"]
+texture = ExtResource("1_03b3j")
+expand_margin_bottom = 7.0
+region_rect = Rect2(1410, 688, 60, 28)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_roy3c"]
+texture = ExtResource("1_03b3j")
+expand_margin_bottom = 7.0
+region_rect = Rect2(1282, 684, 60, 32)
+
+[node name="map_0" type="CanvasLayer"]
+script = ExtResource("1_roy3c")
+
+[node name="Container" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Container"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme_override_constants/separation = 20
+
+[node name="Play" type="Button" parent="Container/VBoxContainer"]
+custom_minimum_size = Vector2(140, 40)
+layout_mode = 2
+focus_mode = 0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_styles/hover = SubResource("StyleBoxTexture_03b3j")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_nkda2")
+theme_override_styles/normal = SubResource("StyleBoxTexture_roy3c")
+text = "Play"
+
+[node name="Exit" type="Button" parent="Container/VBoxContainer"]
+custom_minimum_size = Vector2(140, 40)
+layout_mode = 2
+focus_mode = 0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_styles/hover = SubResource("StyleBoxTexture_03b3j")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_nkda2")
+theme_override_styles/normal = SubResource("StyleBoxTexture_roy3c")
+text = "Exit"
+
+[node name="separator" type="Control" parent="Container/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[connection signal="pressed" from="Container/VBoxContainer/Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="Container/VBoxContainer/Exit" to="." method="_on_exit_pressed"]
