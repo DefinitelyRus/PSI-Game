@@ -4,7 +4,7 @@ namespace CommonScripts;
 
 public partial class StandardCharacter : CharacterBody2D
 {
-    #region Permanent Properties
+	#region Permanent Properties
 
 	/// <summary>
 	/// The name of the character. <br/><br/>
@@ -212,8 +212,8 @@ public partial class StandardCharacter : CharacterBody2D
 		set { _speed = Mathf.Clamp(value, 0, _currentMaxSpeed); }
 	}
 
-    /// <summary>
-    /// The maximum speed of the character. <br/><br/>
+	/// <summary>
+	/// The maximum speed of the character. <br/><br/>
 	/// Do not use this value directly except for getters and setters, as it is not clamped.<br/>
 	/// </summary>
 	private float _currentMaxSpeed = 64f;
