@@ -15,7 +15,7 @@ public partial class StandardProjectile : RigidBody2D
 	[Export] public StandardProjectileWeapon Weapon = null!;
 	[Export] public Node2D[] Targets { get; private set; } = [];
 
-	[Export] public TargetModes TargetMode { get; protected set; } = TargetModes.Whitelist;
+	[Export] public TargetModes TargetMode { get; protected set; } = TargetModes.Any;
 
 	public enum TargetModes {
 		Any,
