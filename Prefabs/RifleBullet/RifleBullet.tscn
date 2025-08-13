@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://bqh055cp6qmtn"]
+
+[ext_resource type="PackedScene" uid="uid://cx6l410gdgswd" path="res://Prefabs/StandardProjectile.tscn" id="1_yt444"]
+[ext_resource type="Texture2D" uid="uid://cnnyxe81qmtvl" path="res://Sprites/Projectiles/Bullet.png" id="2_anxq8"]
+[ext_resource type="Script" uid="uid://cd2ka7b308t7l" path="res://Prefabs/RifleBullet/RifleBullet.cs" id="2_kw8fn"]
+
+[node name="Rifle Bullet" instance=ExtResource("1_yt444")]
+script = ExtResource("2_kw8fn")
+ProjectileName = "Rifle Bullet"
+ProjectileID = "rifle_bullet"
+Force = 1500.0
+
+[node name="Collision Shape" parent="." index="0"]
+one_way_collision_margin = 0.0
+
+[node name="Hit Shape" parent="Hit Area" index="0"]
+one_way_collision_margin = 1.0
+
+[node name="Sprite2D" parent="." index="2"]
+rotation = -1.5708
+texture = ExtResource("2_anxq8")
+region_rect = Rect2(32, 32, 32, 32)
