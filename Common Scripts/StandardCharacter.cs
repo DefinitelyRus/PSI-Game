@@ -6,14 +6,14 @@ public partial class StandardCharacter : CharacterBody2D
 {
     #region Permanent Properties
 
-    /// <summary>
-    /// The name of the character. <br/><br/>
-    /// This name is used for logging and debugging purposes, and can be used to identify the character in the game.<br/>
-    /// It is not unique and can be shared by multiple characters.
-    /// If such a unique identifier is needed, use <see cref="InstanceID"/> instead.<br/><br/>
-    /// </summary>
-    [ExportGroup("Permanent Properties")]
-    [Export] public string CharacterName = string.Empty;
+	/// <summary>
+	/// The name of the character. <br/><br/>
+	/// This name is used for logging and debugging purposes, and can be used to identify the character in the game.<br/>
+	/// It is not unique and can be shared by multiple characters.
+	/// If such a unique identifier is needed, use <see cref="InstanceID"/> instead.<br/><br/>
+	/// </summary>
+	[ExportGroup("Permanent Properties")]
+	[Export] public string CharacterName = string.Empty;
 
 	[Export] public string CharacterID { get; protected set; } = string.Empty;
 
@@ -22,14 +22,14 @@ public partial class StandardCharacter : CharacterBody2D
 	/// </summary>
 	[Export] public float MaxHealth = 100f;
 
-    /// <summary>
-    /// The maximum speed of the character when unaffected by external modifiers.
-    /// </summary>
+	/// <summary>
+	/// The maximum speed of the character when unaffected by external modifiers.
+	/// </summary>
 	[Export] public float MaxSpeed = 64f;
 
-    /// <summary>
-    /// The time it takes for the character to accelerate to its maximum speed.
-    /// </summary>
+	/// <summary>
+	/// The time it takes for the character to accelerate to its maximum speed.
+	/// </summary>
 	[Export] public float AccelerationTime = 0.5f;
 
 	/// <summary>
@@ -42,40 +42,40 @@ public partial class StandardCharacter : CharacterBody2D
 	/// </summary>
 	[Export] public string[] Tags = [];
 
-    /// <summary>
-    /// Whether the character should be despawned (removed from the tree) when it dies.
-    /// </summary>
+	/// <summary>
+	/// Whether the character should be despawned (removed from the tree) when it dies.
+	/// </summary>
 	[Export] public bool DespawnOnDeath = false;
 
-    #endregion
+	#endregion
 
-    #region Live Properties
+	#region Live Properties
 
-    #region Health
+	#region Health
 
-    /// <summary>
-    /// The current health of the character. <br/><br/>
-    /// Do not use this value directly except for getters and setters, as it is not clamped.<br/>
-    /// </summary>
-    [ExportGroup("Live Properties")]
-    [ExportSubgroup("Health")]
+	/// <summary>
+	/// The current health of the character. <br/><br/>
+	/// Do not use this value directly except for getters and setters, as it is not clamped.<br/>
+	/// </summary>
+	[ExportGroup("Live Properties")]
+	[ExportSubgroup("Health")]
 	private float _health = 100f;
 
-    /// <summary>
-    /// The current health of the character. <br/><br/>
+	/// <summary>
+	/// The current health of the character. <br/><br/>
 	/// This is a getter/setter for <see cref="_health"/>.
 	/// Setting this value will clamp it between <c>0</c> and <see cref="CurrentMaxHealth"/>.
-    /// </summary>
-    [Export] public float Health {
+	/// </summary>
+	[Export] public float Health {
 		get => _health;
 		set { _health = Mathf.Clamp(value, 0, _currentMaxHealth); }
-    }
+	}
 
-    /// <summary>
-    /// The maximum health of the character. <br/><br/>
+	/// <summary>
+	/// The maximum health of the character. <br/><br/>
 	/// Do not use this value directly except for getters and setters, as it is not clamped.<br/>
-    /// </summary>
-    private float _currentMaxHealth = 100f;
+	/// </summary>
+	private float _currentMaxHealth = 100f;
 
 	/// <summary>
 	/// How much health the character can have at maximum. <br/><br/>
@@ -118,20 +118,20 @@ public partial class StandardCharacter : CharacterBody2D
 		if (Health == 0) {
 			Log.Me($"Reached 0 health. Killing...", v, s + 1);
 			Kill(v, s + 1);
-        }
+		}
 
 		Log.Me($"{InstanceID} now has {Health:F2}/{MaxHealth:F2} health.", v, s + 1);
 		Log.Me($"{InstanceID} took {amount:F2} damage. (IsAlive: {IsAlive})", true, s + 1);
-        return;
+		return;
 	}
 
-    /// <summary>
-    /// Heals the character by the specified amount and applying audio/visual effects if available.
-    /// </summary>
-    /// <param name="amount">How much health to increase the health by.</param>
-    /// <param name="v">Do verbose logging? Use <c>v</c> to follow the same verbosity as the encapsulating function, if available.</param>
-    /// <param name="s">Stack depth. Use <c>0</c> if on a root function, or <c>s + 1</c> if <c>s</c> is available in the encapsulating function.</param>
-    public void Heal(float amount, bool v = false, int s = 0) {
+	/// <summary>
+	/// Heals the character by the specified amount and applying audio/visual effects if available.
+	/// </summary>
+	/// <param name="amount">How much health to increase the health by.</param>
+	/// <param name="v">Do verbose logging? Use <c>v</c> to follow the same verbosity as the encapsulating function, if available.</param>
+	/// <param name="s">Stack depth. Use <c>0</c> if on a root function, or <c>s + 1</c> if <c>s</c> is available in the encapsulating function.</param>
+	public void Heal(float amount, bool v = false, int s = 0) {
 		Log.Me($"Healing {InstanceID} for {amount:F2}...", v, s + 1);
 
 		// Checks
@@ -147,32 +147,32 @@ public partial class StandardCharacter : CharacterBody2D
 
 		Health += amount;
 
-        //TODO: AVFX here.
+		//TODO: AVFX here.
 		//
 
-        // Health cap
-        if (Health > CurrentMaxHealth) {
+		// Health cap
+		if (Health > CurrentMaxHealth) {
 			Health = CurrentMaxHealth;
 		}
 
 		Log.Me($"{InstanceID} now has {Health:F2}/{CurrentMaxHealth:F2} health.", v, s + 1);
 		Log.Me($"{InstanceID} healed for {amount:F2}.", true, s + 1);
 		return;
-    }
+	}
 
-    /// <summary>
-    /// Kills the character and applies audio/visual effects if available.
+	/// <summary>
+	/// Kills the character and applies audio/visual effects if available.
 	/// It will also despawn the character if <see cref="DespawnOnDeath"/> is <c>true</c>.
-    /// </summary>
-    /// <param name="v">Do verbose logging? Use <c>v</c> to follow the same verbosity as the encapsulating function, if available.</param>
-    /// <param name="s">Stack depth. Use <c>0</c> if on a root function, or <c>s + 1</c> if <c>s</c> is available in the encapsulating function.</param>
-    public void Kill(bool v = false, int s = 0) {
-        Log.Me($"Killing {InstanceID}...", v, s + 1);
+	/// </summary>
+	/// <param name="v">Do verbose logging? Use <c>v</c> to follow the same verbosity as the encapsulating function, if available.</param>
+	/// <param name="s">Stack depth. Use <c>0</c> if on a root function, or <c>s + 1</c> if <c>s</c> is available in the encapsulating function.</param>
+	public void Kill(bool v = false, int s = 0) {
+		Log.Me($"Killing {InstanceID}...", v, s + 1);
 
-        if (!IsAlive) {
+		if (!IsAlive) {
 			Log.Me($"{InstanceID} is already dead.", v, s + 1);
 			return;
-        }
+		}
 
 		// Set health to 0
 		Health = 0; // This will also set IsAlive to false.
@@ -182,30 +182,31 @@ public partial class StandardCharacter : CharacterBody2D
 			QueueFree();
 		}
 
-        //TODO: AVFX here.
+		//TODO: AVFX here.
 		//
 
-        Log.Me($"Killed {InstanceID}.", true, s + 1);
-        return;
+		Log.Me($"Killed {InstanceID}.", true, s + 1);
+		return;
 	}
 
-    #endregion
+	#endregion
 
-    #region Speed
+	#region Speed
 
-    /// <summary>
-    /// The target speed the character will try to reach. <br/><br/>
+	/// <summary>
+	/// The target speed the character will try to reach. <br/><br/>
 	/// Do not use this value directly except for getters and setters, as it is not clamped.<br/>
-    /// </summary>
-    private float _speed = 0f;
+	/// </summary>
+	private float _speed = 0f;
 
     /// <summary>
-    /// The target speed the character will try to reach. <br/><br/>
+	/// <summary>
+	/// The target speed the character will try to reach. <br/><br/>
 	/// This is a getter/setter for <see cref="_speed"/>.<br/>
 	/// Setting this value will clamp it to the range of <c>0</c> to <see cref="CurrentMaxSpeed"/>.
-    /// </summary>
+	/// </summary>
 	/// <remarks>This value will often be equal to <see cref="CurrentMaxSpeed"/> unless using analog inputs.</remarks>
-    [ExportSubgroup("Speed")]
+	[ExportSubgroup("Speed")]
 	[Export] public float Speed {
 		get => _speed;
 		set { _speed = Mathf.Clamp(value, 0, _currentMaxSpeed); }
@@ -214,19 +215,19 @@ public partial class StandardCharacter : CharacterBody2D
     /// <summary>
     /// The maximum speed of the character. <br/><br/>
 	/// Do not use this value directly except for getters and setters, as it is not clamped.<br/>
-    /// </summary>
-    private float _currentMaxSpeed = 64f;
+	/// </summary>
+	private float _currentMaxSpeed = 64f;
 
-    /// <summary>
-    /// The maximum speed of the character. <br/><br/>
+	/// <summary>
+	/// The maximum speed of the character. <br/><br/>
 	/// This value is intended to be used to shrink or grow the character's speed temporarily.<br/><br/>
 	/// This is a getter/setter for <see cref="_currentMaxSpeed"/>.
 	/// Setting this value will clamp it to the range of <c>0</c> to <see cref="float.MaxValue"/>.<br/>
-    /// </summary>
-    [Export] public float CurrentMaxSpeed {
+	/// </summary>
+	[Export] public float CurrentMaxSpeed {
 		get => _currentMaxSpeed;
 		set { _currentMaxSpeed = Mathf.Clamp(value, 0, float.MaxValue); }
-    }
+	}
 
 	/// <summary>
 	/// Moves the character based on the current control inputs and delta time.
@@ -235,28 +236,28 @@ public partial class StandardCharacter : CharacterBody2D
 	/// <param name="v">Do verbose logging? Use <c>v</c> to follow the same verbosity as the encapsulating function, if available.</param>
 	/// <param name="s">Stack depth. Use <c>0</c> if on a root function, or <c>s + 1</c> if <c>s</c> is available in the encapsulating function.</param>
 	private void Move(double delta, bool v = false, int s = 0) {
-        Log.Me(() => $"Moving...", v, s + 1);
+		Log.Me(() => $"Moving...", v, s + 1);
 
-        // Accelerate if input is detected
-        if (Control.MovementMultiplier > 0f) {
-            Log.Me(() => $"Accelerating at {Control.MovementMultiplier:F2}x rate...", v, s + 1);
+		// Accelerate if input is detected
+		if (Control.MovementMultiplier > 0f) {
+			Log.Me(() => $"Accelerating at {Control.MovementMultiplier:F2}x rate...", v, s + 1);
 			Speed += (float) (Control.MovementMultiplier * MaxSpeed * (delta / AccelerationTime));
 			Log.Me(() => $"Speed after acceleration: {Speed:F2}", v, s + 1);
 		}
 
-        // Calculate deceleration
-        else if (Velocity != Vector2.Zero) {
-            Log.Me(() => $"Decelerating...", v, s + 1);
+		// Calculate deceleration
+		else if (Velocity != Vector2.Zero) {
+			Log.Me(() => $"Decelerating...", v, s + 1);
 			Speed -= (float) (MaxSpeed * (delta / DecelerationTime));
-            Log.Me(() => $"Speed after deceleration: {Speed:F2}", v, s + 1);
-        }
+			Log.Me(() => $"Speed after deceleration: {Speed:F2}", v, s + 1);
+		}
 
-        //Apply speed
-        Velocity = Speed * Control.MovementDirection;
-        MoveAndSlide();
+		//Apply speed
+		Velocity = Speed * Control.MovementDirection;
+		MoveAndSlide();
 
 		Log.Me(() => "Done!", v, s + 1);
-    }
+	}
 
 	#endregion
 
@@ -451,18 +452,18 @@ public partial class StandardCharacter : CharacterBody2D
 
 		Log.Me("Done!", LogReady);
 	}
-    
+	
 	public override void _Process(double delta) {
 
 	}
 
-    public override void _PhysicsProcess(double delta) {
-        Log.Me(() => $"Processing physics for {InstanceID}...", LogPhysics);
+	public override void _PhysicsProcess(double delta) {
+		Log.Me(() => $"Processing physics for {InstanceID}...", LogPhysics);
 
 		Move(delta, LogPhysics);
 
-        Log.Me(() => "Done!", LogPhysics);
+		Log.Me(() => "Done!", LogPhysics);
 	}
 
-    #endregion
+	#endregion
 }
