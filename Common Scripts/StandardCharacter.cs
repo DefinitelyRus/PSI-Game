@@ -92,7 +92,7 @@ public partial class StandardCharacter : CharacterBody2D
 	/// Whether the character is alive or dead. <br/><br/>
 	/// This value cannot be set manually and returns true if <see cref="Health"/> is greater than 0.
 	/// </summary>
-	public bool IsAlive => Health > 0;
+	public bool IsAlive = true;
 
 	/// <summary>
 	/// Make this character take damage, apply audio/visual effects, and kill if health reaches 0.
@@ -175,7 +175,8 @@ public partial class StandardCharacter : CharacterBody2D
 		}
 
 		// Set health to 0
-		Health = 0; // This will also set IsAlive to false.
+		Health = 0; //Redundancy; for when `Kill` is called without dealing any damage.
+		IsAlive = false;
 
 		if (DespawnOnDeath) {
 			Log.Me("Queueing despawn...", v, s + 1);
@@ -199,7 +200,6 @@ public partial class StandardCharacter : CharacterBody2D
 	/// </summary>
 	private float _speed = 0f;
 
-    /// <summary>
 	/// <summary>
 	/// The target speed the character will try to reach. <br/><br/>
 	/// This is a getter/setter for <see cref="_speed"/>.<br/>
