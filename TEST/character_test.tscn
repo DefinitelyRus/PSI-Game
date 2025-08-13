@@ -1,20 +1,14 @@
-[gd_scene load_steps=72 format=3 uid="uid://daotyvqai4b36"]
+[gd_scene load_steps=60 format=3 uid="uid://c7b2jawn88y8n"]
 
-[ext_resource type="Script" uid="uid://dbkinu8656olu" path="res://Common Scripts/StandardCharacter.cs" id="1_udvt5"]
-[ext_resource type="Texture2D" uid="uid://bjipwk6ac5bx0" path="res://Sprites/Legionnaires/Template/Idle.png" id="2_r87il"]
-[ext_resource type="Script" uid="uid://cavubcy1osm40" path="res://Common Scripts/ControlSurface.cs" id="3_r87il"]
-[ext_resource type="Script" uid="uid://cgxfjkqqik5s8" path="res://Common Scripts/InputManager.cs" id="4_gn58p"]
-[ext_resource type="Script" uid="uid://ca6lusp8hqlss" path="res://Common Scripts/StandardProjectileWeapon.cs" id="5_c1m0a"]
-[ext_resource type="PackedScene" uid="uid://cx6l410gdgswd" path="res://Prefabs/StandardProjectile.tscn" id="6_7fba6"]
-[ext_resource type="Texture2D" uid="uid://b3esetth4h67v" path="res://Sprites/Legionnaires/Template/Walking.png" id="7_7fba6"]
-[ext_resource type="Texture2D" uid="uid://bsjlco5cxe7v3" path="res://Sprites/Legionnaires/Template/Standing Shooting.png" id="8_g5v64"]
-[ext_resource type="Texture2D" uid="uid://dsx2m05ecv2k1" path="res://Sprites/Legionnaires/Template/Death.png" id="9_n5c1j"]
+[ext_resource type="Script" uid="uid://c8ttuxpe13843" path="res://TEST/character_test.gd" id="1_o3ci5"]
+[ext_resource type="Texture2D" uid="uid://bjipwk6ac5bx0" path="res://Sprites/Legionnaires/Template/Idle.png" id="2_a0b43"]
+[ext_resource type="Texture2D" uid="uid://dsx2m05ecv2k1" path="res://Sprites/Legionnaires/Template/Death.png" id="3_ustbt"]
+[ext_resource type="Texture2D" uid="uid://bsjlco5cxe7v3" path="res://Sprites/Legionnaires/Template/Standing Shooting.png" id="4_035lo"]
+[ext_resource type="Texture2D" uid="uid://b3esetth4h67v" path="res://Sprites/Legionnaires/Template/Walking.png" id="5_fk0ee"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jvbue"]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_dcyah"]
 radius = 6.4
 height = 23.5
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_g5v64"]
 
 [sub_resource type="Animation" id="Animation_7fba6"]
 length = 0.001
@@ -40,7 +34,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("2_r87il")]
+"values": [ExtResource("2_a0b43")]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -81,7 +75,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("9_n5c1j")]
+"values": [ExtResource("3_ustbt")]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -110,7 +104,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("9_n5c1j")]
+"values": [ExtResource("3_ustbt")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -151,7 +145,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("9_n5c1j")]
+"values": [ExtResource("3_ustbt")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -192,7 +186,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("9_n5c1j")]
+"values": [ExtResource("3_ustbt")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -233,7 +227,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("9_n5c1j")]
+"values": [ExtResource("3_ustbt")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -274,7 +268,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("9_n5c1j")]
+"values": [ExtResource("3_ustbt")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -328,7 +322,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(4.44953),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("2_r87il")]
+"values": [ExtResource("2_a0b43")]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -358,7 +352,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("8_g5v64")]
+"values": [ExtResource("4_035lo")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -400,7 +394,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("8_g5v64")]
+"values": [ExtResource("4_035lo")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -442,7 +436,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("8_g5v64")]
+"values": [ExtResource("4_035lo")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -484,7 +478,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("8_g5v64")]
+"values": [ExtResource("4_035lo")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -526,7 +520,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("8_g5v64")]
+"values": [ExtResource("4_035lo")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -568,7 +562,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("8_g5v64")]
+"values": [ExtResource("4_035lo")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -610,7 +604,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("8_g5v64")]
+"values": [ExtResource("4_035lo")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -652,7 +646,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("8_g5v64")]
+"values": [ExtResource("4_035lo")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -693,7 +687,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("7_7fba6")]
+"values": [ExtResource("5_fk0ee")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -722,7 +716,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("7_7fba6")]
+"values": [ExtResource("5_fk0ee")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -763,7 +757,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("7_7fba6")]
+"values": [ExtResource("5_fk0ee")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -804,7 +798,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("7_7fba6")]
+"values": [ExtResource("5_fk0ee")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -845,7 +839,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("7_7fba6")]
+"values": [ExtResource("5_fk0ee")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -886,7 +880,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("7_7fba6")]
+"values": [ExtResource("5_fk0ee")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -977,6 +971,9 @@ blend_point_6/node = SubResource("AnimationNodeAnimation_tjs3s")
 blend_point_6/pos = Vector2(0, 0)
 blend_mode = 1
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_7fba6"]
+animation = &"idle"
+
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_qkvds"]
 animation = &"shoot_up"
 
@@ -1058,9 +1055,6 @@ blend_point_6/node = SubResource("AnimationNodeAnimation_ccjan")
 blend_point_6/pos = Vector2(1, 0.6)
 blend_mode = 1
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_7fba6"]
-animation = &"idle"
-
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_7fba6"]
 advance_mode = 2
 
@@ -1068,91 +1062,33 @@ advance_mode = 2
 advance_mode = 2
 advance_condition = &"is_walking"
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ncp2d"]
-advance_mode = 2
-advance_condition = &"is_shooting"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_evbho"]
-advance_mode = 2
-advance_condition = &"is_shooting"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_a4c16"]
-advance_mode = 2
-advance_condition = &"is_dead"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_baotw"]
-advance_mode = 2
-advance_condition = &"is_dead"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_5xadj"]
-advance_mode = 2
-advance_condition = &"is_dead"
-
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_n5c1j"]
-advance_mode = 2
+advance_mode = 0
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_rog04"]
-advance_mode = 2
-advance_condition = &"is_walking"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_6la15"]
-switch_mode = 2
-advance_mode = 2
-
-[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_c1m0a"]
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_jqhhe"]
 states/Death/node = SubResource("AnimationNodeBlendSpace2D_y7ngh")
-states/Death/position = Vector2(435, -3)
+states/Death/position = Vector2(464, -9)
+states/Idle/node = SubResource("AnimationNodeAnimation_7fba6")
+states/Idle/position = Vector2(326, 100)
 states/Standing_shoot/node = SubResource("AnimationNodeBlendSpace2D_ytk5k")
-states/Standing_shoot/position = Vector2(435, 233)
+states/Standing_shoot/position = Vector2(464, 203)
 states/Start/position = Vector2(205, 100)
 states/Walk/node = SubResource("AnimationNodeBlendSpace2D_rog04")
 states/Walk/position = Vector2(610, 100)
-states/idle/node = SubResource("AnimationNodeAnimation_7fba6")
-states/idle/position = Vector2(326, 100)
-transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_7fba6"), "idle", "Walk", SubResource("AnimationNodeStateMachineTransition_g5v64"), "idle", "Standing_shoot", SubResource("AnimationNodeStateMachineTransition_ncp2d"), "Walk", "Standing_shoot", SubResource("AnimationNodeStateMachineTransition_evbho"), "idle", "Death", SubResource("AnimationNodeStateMachineTransition_a4c16"), "Walk", "Death", SubResource("AnimationNodeStateMachineTransition_baotw"), "Standing_shoot", "Death", SubResource("AnimationNodeStateMachineTransition_5xadj"), "Walk", "idle", SubResource("AnimationNodeStateMachineTransition_n5c1j"), "Standing_shoot", "Walk", SubResource("AnimationNodeStateMachineTransition_rog04"), "Standing_shoot", "idle", SubResource("AnimationNodeStateMachineTransition_6la15")]
-graph_offset = Vector2(36, -63.321)
+transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_7fba6"), "Idle", "Walk", SubResource("AnimationNodeStateMachineTransition_g5v64"), "Walk", "Idle", SubResource("AnimationNodeStateMachineTransition_n5c1j")]
+graph_offset = Vector2(76, -56.321)
 
-[node name="Test Character" type="CharacterBody2D" node_paths=PackedStringArray("Control")]
-physics_interpolation_mode = 1
-motion_mode = 1
-script = ExtResource("1_udvt5")
-CharacterName = "Teto"
-Control = NodePath("Control Surface")
-LogReady = false
+[node name="CharacterTest" type="CharacterBody2D"]
+script = ExtResource("1_o3ci5")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CapsuleShape2D_jvbue")
+shape = SubResource("CapsuleShape2D_dcyah")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_r87il")
+texture = ExtResource("2_a0b43")
 hframes = 8
 vframes = 8
 frame = 1
-
-[node name="Control Surface" type="Node2D" parent="."]
-script = ExtResource("3_r87il")
-LogReady = false
-
-[node name="Input Manager" type="Node2D" parent="."]
-script = ExtResource("4_gn58p")
-LogReady = false
-MovementMode = 2
-FacingMode = 1
-
-[node name="Projectile Weapon" type="RigidBody2D" parent="." node_paths=PackedStringArray("WeaponOwner")]
-gravity_scale = 0.0
-script = ExtResource("5_c1m0a")
-Projectile = ExtResource("6_7fba6")
-WeaponOwner = NodePath("..")
-ItemName = "Test Weapon"
-ItemID = "test_weapon"
-LogReady = false
-AllowNoItemName = true
-AllowNoIcon = true
-AllowNoSprite = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Projectile Weapon"]
-shape = SubResource("CircleShape2D_g5v64")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -1160,11 +1096,11 @@ libraries = {
 }
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
-tree_root = SubResource("AnimationNodeStateMachine_c1m0a")
+tree_root = SubResource("AnimationNodeStateMachine_jqhhe")
 anim_player = NodePath("../AnimationPlayer")
 parameters/conditions/is_dead = false
 parameters/conditions/is_shooting = false
 parameters/conditions/is_walking = false
 parameters/Death/blend_position = Vector2(0.561713, -0.710526)
 parameters/Standing_shoot/blend_position = Vector2(-0.68883, 0.27193)
-parameters/Walk/blend_position = Vector2(1.00765, 0.517544)
+parameters/Walk/blend_position = Vector2(-0.879452, -0.67033)
