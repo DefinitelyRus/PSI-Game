@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dqjogf6obkwq4"
-path="res://.godot/imported/Reloading.png-27a96b7113d3f028e8be1be91f0d9e4c.ctex"
+uid="uid://f8i6teg6ade7"
+path="res://.godot/imported/Parking_Props.png-2aa2744307c92500341bdb9c3cba6693.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/Legionnaires/Template/Reloading.png"
-dest_files=["res://.godot/imported/Reloading.png-27a96b7113d3f028e8be1be91f0d9e4c.ctex"]
+source_file="res://Sprites/World Sprites/Level 0 - Parking Lot/Parking_Props.png"
+dest_files=["res://.godot/imported/Parking_Props.png-2aa2744307c92500341bdb9c3cba6693.ctex"]
 
 [params]
 

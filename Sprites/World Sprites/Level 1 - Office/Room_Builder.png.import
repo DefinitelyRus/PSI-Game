@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://erc08pcavcny"
-path="res://.godot/imported/Walking Shooting.png-0e1f787f95ce766ccd691a806fac0a1d.ctex"
+uid="uid://dc6keunkgx6tt"
+path="res://.godot/imported/Room_Builder.png-a24a93a4f8c04817474c51223770f9b3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/Legionnaires/Template/Walking Shooting.png"
-dest_files=["res://.godot/imported/Walking Shooting.png-0e1f787f95ce766ccd691a806fac0a1d.ctex"]
+source_file="res://Sprites/World Sprites/Level 1 - Office/Room_Builder.png"
+dest_files=["res://.godot/imported/Room_Builder.png-a24a93a4f8c04817474c51223770f9b3.ctex"]
 
 [params]
 

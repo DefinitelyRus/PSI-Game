@@ -11,11 +11,12 @@ public partial class StandardProjectile : RigidBody2D
 	[Export] public string ProjectileName = "Standard Projectile";
 	[Export] public string ProjectileID { get; protected set; } = string.Empty;
 	[Export] public string[] Tags = [];
+	[Export] public HitArea HitArea = null!;
 	[Export] public StandardCharacter WeaponOwner = null!;
 	[Export] public StandardProjectileWeapon Weapon = null!;
 	[Export] public Node2D[] Targets { get; private set; } = [];
 
-	[Export] public TargetModes TargetMode { get; protected set; } = TargetModes.Whitelist;
+	[Export] public TargetModes TargetMode { get; protected set; } = TargetModes.Any;
 
 	public enum TargetModes {
 		Any,
@@ -36,7 +37,7 @@ public partial class StandardProjectile : RigidBody2D
 
 	[Export] public float Force {
 		get => _force;
-		set => Mathf.Clamp(value, 0f, float.MaxValue);
+		set => _force = Mathf.Clamp(value, 0f, float.MaxValue);
 	}
 
 	private float _force = 500f;
@@ -140,6 +141,7 @@ public partial class StandardProjectile : RigidBody2D
 
 	[ExportSubgroup("Ignore Unassigned Nodes")]
 	[Export] public bool AllowNoProjectileName = false;
+	[Export] public bool AllowNoHitArea = false;
 	[Export] public bool AllowNoWeapon = false;
 	[Export] public bool AllowNoOwner = false;
 	[Export] public bool AllowNoIcon = false;
@@ -260,28 +262,19 @@ public partial class StandardProjectile : RigidBody2D
 
 		// Whitelist
 		if (TargetMode == TargetModes.Whitelist) {
-			if (Targets.Length == 0) {
-				Log.Warn(() => "No targets set. Ignoring body.", LogCollision);
-				return;
-			}
+			if (Targets.Length == 0) Log.Warn(() => "No targets set. Ignoring body.", LogCollision);
 
 			if (isTarget) {
 				Log.Me(() => $"{body.Name} is whitelisted. Processing hit...", LogCollision);
 				Impact(body, LogCollision);
 			}
 
-			else {
-				Log.Me(() => $"{body.Name} is not a target. Ignoring.", LogCollision);
-				return;
-			}
+			else Log.Me(() => $"{body.Name} is not a target. Ignoring.", LogCollision);
 		}
 
 		// Blacklist
 		else if (TargetMode == TargetModes.Blacklist) {
-			if (isTarget) {
-				Log.Me(() => $"{body.Name} is blacklisted. Ignoring.", LogCollision);
-				return;
-			}
+			if (isTarget) Log.Me(() => $"{body.Name} is blacklisted. Ignoring.", LogCollision);
 
 			else {
 				Log.Me(() => $"{body.Name} is not blacklisted. Processing hit...", LogCollision);
@@ -291,9 +284,8 @@ public partial class StandardProjectile : RigidBody2D
 
 		// Any
 		else if (TargetMode == TargetModes.Any) {
-			Log.Me(() => $"Impacting {body.Name} as collateral...", LogCollision);
+			Log.Me(() => $"Impacting {body.Name}...", LogCollision);
 			Impact(body, LogCollision);
-			return;
 		}
 
 		Log.Me(() => "Done!", LogCollision);
@@ -325,6 +317,11 @@ public partial class StandardProjectile : RigidBody2D
 		}
 
 		if (string.IsNullOrEmpty(ProjectileName) && !AllowNoProjectileName) Log.Warn("`ProjectileName` should not be null or empty.");
+		
+		if (HitArea == null && !AllowNoHitArea) {
+			Log.Err(() => "`HitArea` must not be null. Ready failed.", LogReady);
+			return;
+		}
 
 		if (Weapon == null && !AllowNoWeapon) {
 			Log.Err(() => "`Weapon` must not be null. Ready failed.", LogReady);
@@ -344,7 +341,8 @@ public partial class StandardProjectile : RigidBody2D
 	public override void _Ready() {
 		Log.Me(() => $"Readying {ProjectileID}...", LogReady);
 
-		Connect("body_entered", new Callable(this, nameof(OnBodyEntered)));
+		Log.Me(() => "Connecting HitArea.BodyEntered to OnBodyEntered...", LogReady);
+		HitArea.BodyEntered += OnBodyEntered;
 
 		Log.Me(() => $"Ignoring collisions with owner: {WeaponOwner.CharacterName}", LogReady);
 		PhysicsServer2D.BodyAddCollisionException(GetRid(), WeaponOwner.GetRid());

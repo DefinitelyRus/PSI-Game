@@ -1,10 +1,10 @@
 [gd_scene load_steps=18 format=4 uid="uid://cpyjo548jierg"]
 
-[ext_resource type="Texture2D" uid="uid://dc6keunkgx6tt" path="res://Sprites/map_01/Room_Builder.png" id="1_d1yy6"]
-[ext_resource type="Texture2D" uid="uid://f8i6teg6ade7" path="res://Sprites/map_01/Parking_Props.png" id="2_1vbue"]
-[ext_resource type="Texture2D" uid="uid://dboq7ap8y2i5r" path="res://Sprites/map_01/Office_Props.png" id="3_12og3"]
-[ext_resource type="Texture2D" uid="uid://d0vd1cttixedg" path="res://Sprites/map_01/Vehicles.png" id="4_12og3"]
-[ext_resource type="PackedScene" uid="uid://c7b2jawn88y8n" path="res://TEST/character_test.tscn" id="5_lmqaa"]
+[ext_resource type="Texture2D" uid="uid://dc6keunkgx6tt" path="res://Sprites/World Sprites/Level 1 - Office/Room_Builder.png" id="1_d1yy6"]
+[ext_resource type="Texture2D" uid="uid://f8i6teg6ade7" path="res://Sprites/World Sprites/Level 0 - Parking Lot/Parking_Props.png" id="2_1vbue"]
+[ext_resource type="Texture2D" uid="uid://dboq7ap8y2i5r" path="res://Sprites/World Sprites/Level 1 - Office/Office_Props.png" id="3_12og3"]
+[ext_resource type="Texture2D" uid="uid://d0vd1cttixedg" path="res://Sprites/World Sprites/Level 0 - Parking Lot/Vehicles.png" id="4_12og3"]
+[ext_resource type="PackedScene" uid="uid://daotyvqai4b36" path="res://Prefabs/StandardCharacter.tscn" id="5_lmqaa"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1wjmq"]
 texture = ExtResource("1_d1yy6")
@@ -5508,6 +5508,6 @@ tile_map_data = PackedByteArray("AAAFAAYAAAAOABwAAAAFAAcAAAAOAB0AAAAIAAYAAAALACA
 tile_set = SubResource("TileSet_p3g52")
 
 [node name="Player" type="Node2D" parent="."]
-position = Vector2(61, 152)
 
-[node name="CharacterTest" parent="Player" instance=ExtResource("5_lmqaa")]
+[node name="Test Character" parent="Player" instance=ExtResource("5_lmqaa")]
+position = Vector2(53, 151)

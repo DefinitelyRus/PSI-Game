@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bsjlco5cxe7v3"
-path="res://.godot/imported/Standing Shooting.png-4c1c0e7a3e386e589990a7494243142d.ctex"
+uid="uid://bjipwk6ac5bx0"
+path="res://.godot/imported/Idle.png-d69ca01bfc04c87774d1d6129de306e4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/Legionnaires/Template/Standing Shooting.png"
-dest_files=["res://.godot/imported/Standing Shooting.png-4c1c0e7a3e386e589990a7494243142d.ctex"]
+source_file="res://Sprites/Legionnaires/Rikka/Idle.png"
+dest_files=["res://.godot/imported/Idle.png-d69ca01bfc04c87774d1d6129de306e4.ctex"]
 
 [params]
 

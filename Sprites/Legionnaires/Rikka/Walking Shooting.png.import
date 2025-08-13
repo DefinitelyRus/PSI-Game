@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b3esetth4h67v"
-path="res://.godot/imported/Walking.png-e6204352c7790f37f5fa5fb54d09b284.ctex"
+uid="uid://erc08pcavcny"
+path="res://.godot/imported/Walking Shooting.png-2c4ce3f4d3e5f05b58caee688a5e6ad2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/Legionnaires/Template/Walking.png"
-dest_files=["res://.godot/imported/Walking.png-e6204352c7790f37f5fa5fb54d09b284.ctex"]
+source_file="res://Sprites/Legionnaires/Rikka/Walking Shooting.png"
+dest_files=["res://.godot/imported/Walking Shooting.png-2c4ce3f4d3e5f05b58caee688a5e6ad2.ctex"]
 
 [params]
 

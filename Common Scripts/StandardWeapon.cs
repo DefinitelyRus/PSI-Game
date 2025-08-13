@@ -515,6 +515,15 @@ public partial class StandardWeapon : StandardItem
 
 		if (WeaponOwner == null) Log.Err(() => "No weapon owner assigned. Attacks cannot be rooted back to its owner.", LogReady);
 
+		Log.Me(() => "Calculating initial stats...", LogReady);
+
+		Damage = 0;
+		Range = 0;
+		AttackSpeed = 0;
+		CriticalChance = 0;
+		CriticalDamage = 0;
+		Spread = 0;
+
 		Log.Me(() => $"Done checking properties for {ItemID}.", LogReady);
 	}
 

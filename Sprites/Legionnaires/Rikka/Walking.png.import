@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dc6keunkgx6tt"
-path="res://.godot/imported/Room_Builder.png-f94e9c643a9e4a18c2732a0bff2fbbd2.ctex"
+uid="uid://b3esetth4h67v"
+path="res://.godot/imported/Walking.png-ce1812cc7cc3fb372e0ab992403045d9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/map_01/Room_Builder.png"
-dest_files=["res://.godot/imported/Room_Builder.png-f94e9c643a9e4a18c2732a0bff2fbbd2.ctex"]
+source_file="res://Sprites/Legionnaires/Rikka/Walking.png"
+dest_files=["res://.godot/imported/Walking.png-ce1812cc7cc3fb372e0ab992403045d9.ctex"]
 
 [params]
 
