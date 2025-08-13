@@ -260,28 +260,19 @@ public partial class StandardProjectile : RigidBody2D
 
 		// Whitelist
 		if (TargetMode == TargetModes.Whitelist) {
-			if (Targets.Length == 0) {
-				Log.Warn(() => "No targets set. Ignoring body.", LogCollision);
-				return;
-			}
+			if (Targets.Length == 0) Log.Warn(() => "No targets set. Ignoring body.", LogCollision);
 
 			if (isTarget) {
 				Log.Me(() => $"{body.Name} is whitelisted. Processing hit...", LogCollision);
 				Impact(body, LogCollision);
 			}
 
-			else {
-				Log.Me(() => $"{body.Name} is not a target. Ignoring.", LogCollision);
-				return;
-			}
+			else Log.Me(() => $"{body.Name} is not a target. Ignoring.", LogCollision);
 		}
 
 		// Blacklist
 		else if (TargetMode == TargetModes.Blacklist) {
-			if (isTarget) {
-				Log.Me(() => $"{body.Name} is blacklisted. Ignoring.", LogCollision);
-				return;
-			}
+			if (isTarget) Log.Me(() => $"{body.Name} is blacklisted. Ignoring.", LogCollision);
 
 			else {
 				Log.Me(() => $"{body.Name} is not blacklisted. Processing hit...", LogCollision);
@@ -291,9 +282,8 @@ public partial class StandardProjectile : RigidBody2D
 
 		// Any
 		else if (TargetMode == TargetModes.Any) {
-			Log.Me(() => $"Impacting {body.Name} as collateral...", LogCollision);
+			Log.Me(() => $"Impacting {body.Name}...", LogCollision);
 			Impact(body, LogCollision);
-			return;
 		}
 
 		Log.Me(() => "Done!", LogCollision);
