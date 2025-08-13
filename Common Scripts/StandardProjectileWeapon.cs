@@ -23,7 +23,7 @@ public partial class StandardProjectileWeapon : StandardWeapon
 		}
 
 		StandardProjectile projectileInstance = Projectile.Instantiate<StandardProjectile>();
-		projectileInstance.GlobalPosition = AttackOrigin;
+		projectileInstance.GlobalPosition = GlobalPosition + AttackOrigin;
 		projectileInstance.RotationDegrees = AimDirection;
 		projectileInstance.Weapon = this;
 		projectileInstance.WeaponOwner = WeaponOwner;
