@@ -319,7 +319,13 @@ public partial class StandardCharacter : CharacterBody2D {
 			AnimationState.Travel("Attack");
 		}
 
-		else AnimationState.Travel("Idle");
+		if (!isWalking && !isAttacking) {
+			Log.Me("Idling...", v, s + 1);
+			AnimationTree.Set("parameters/Idle/blend_position", new Vector2(Control.FacingDirection.X, -Control.FacingDirection.Y));
+			AnimationState.Travel("Idle");
+		}
+
+		Log.Me($"Facing {Control.FacingDirection.X:F2}/{Control.FacingDirection.Y:F2}. Speed: {Speed}", v, s + 1);
 
 		Log.Me(() => "Done!", v, s + 1);
 	}
