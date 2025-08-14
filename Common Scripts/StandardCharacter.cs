@@ -2,8 +2,7 @@ using System;
 using Godot;
 namespace CommonScripts;
 
-public partial class StandardCharacter : CharacterBody2D
-{
+public partial class StandardCharacter : CharacterBody2D {
 	#region Permanent Properties
 
 	/// <summary>
@@ -189,11 +188,9 @@ public partial class StandardCharacter : CharacterBody2D
 		else allowDespawn = true;
 
 		// Set animation state, call lambda function if DespawnOnDeath
-		if (AnimationState != null)
-		{
+		if (AnimationState != null) {
 			AnimationState.Travel("Death");
-			AnimationState.Changed += () =>
-			{
+			AnimationState.Changed += () => {
 				Log.Me(() => $"Finished playing death animation for {InstanceID}. Allowing despawn...", v, s + 1);
 				if (DespawnOnDeath) {
 					Log.Me("Queueing despawn...", v, s + 1);
@@ -301,8 +298,7 @@ public partial class StandardCharacter : CharacterBody2D
 	/// </summary>
 	/// <param name="v"></param>
 	/// <param name="s"></param>
-	protected void UpdateAnimations(bool v = false, int s = 0)
-	{
+	protected void UpdateAnimations(bool v = false, int s = 0) {
 		Log.Me(() => "Updating animations...", v, s + 1);
 
 		bool isWalking = Speed > 0;
