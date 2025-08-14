@@ -167,7 +167,7 @@ public partial class StandardCharacter : CharacterBody2D
 	/// <param name="v">Do verbose logging? Use <c>v</c> to follow the same verbosity as the encapsulating function, if available.</param>
 	/// <param name="s">Stack depth. Use <c>0</c> if on a root function, or <c>s + 1</c> if <c>s</c> is available in the encapsulating function.</param>
 	public void Kill(bool v = false, int s = 0) {
-		Log.Me($"Killing {InstanceID}...", v, s + 1);
+		Log.Me(() => $"Killing {InstanceID}...", v, s + 1);
 
 		if (!IsAlive) {
 			Log.Me($"{InstanceID} is already dead.", v, s + 1);
@@ -178,15 +178,40 @@ public partial class StandardCharacter : CharacterBody2D
 		Health = 0; //Redundancy; for when `Kill` is called without dealing any damage.
 		IsAlive = false;
 
-		if (DespawnOnDeath) {
+		bool allowDespawn = false;
+
+		#region AVFX
+
+		Log.Me(() => $"Playing death animation for {InstanceID}...", v, s + 1);
+
+		// Set animation direction
+		if (AnimationTree != null) AnimationTree.Set("parameters/Death/blend_position", new Vector2(Control.MovementDirection.X, -Control.MovementDirection.Y));
+		else allowDespawn = true;
+
+		// Set animation state, call lambda function if DespawnOnDeath
+		if (AnimationState != null)
+		{
+			AnimationState.Travel("Death");
+			AnimationState.Changed += () =>
+			{
+				Log.Me(() => $"Finished playing death animation for {InstanceID}. Allowing despawn...", v, s + 1);
+				if (DespawnOnDeath) {
+					Log.Me("Queueing despawn...", v, s + 1);
+					QueueFree();
+				}
+			};
+		}
+		else allowDespawn = true;
+
+		// Allow immediate despawn if an animation node is null
+		if (allowDespawn && DespawnOnDeath) {
 			Log.Me("Queueing despawn...", v, s + 1);
 			QueueFree();
 		}
 
-		//TODO: AVFX here.
-		//
+		#endregion
 
-		Log.Me($"Killed {InstanceID}.", true, s + 1);
+		Log.Me(() => $"Killed {InstanceID}.", true, s + 1);
 		return;
 	}
 
