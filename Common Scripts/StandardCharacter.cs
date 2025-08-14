@@ -304,6 +304,7 @@ public partial class StandardCharacter : CharacterBody2D {
 		bool isWalking = Speed > 0;
 		bool isAttacking = Weapon.Control.IsAttacking;
 		//^ TECHNICAL DEBT: This is inherently bugged. Animates attack even when not intended.
+		//					But so is the attack function itself.
 		//TODO: Replace with an IsAttacking property in StandardWeapon itself.
 
 		if (isWalking) {
