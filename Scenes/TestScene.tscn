@@ -13,9 +13,6 @@ position = Vector2(-83, 0)
 collision_layer = 48
 CharacterName = "Testo"
 CharacterID = "testo"
-AccelerationTime = 0.2
-DecelerationTime = 0.2
-LogProcess = true
 
 [node name="AnimationTree" parent="Testo" index="6"]
 parameters/Attack/blend_position = Vector2(0, 0)
@@ -27,14 +24,20 @@ position = Vector2(95, 0)
 collision_layer = 144
 CharacterName = "Dummiku"
 CharacterID = "dummiku"
+DespawnOnDeath = true
 
 [node name="Control Surface" parent="Dummiku" index="1"]
 EnableMovement = false
+MovementDirection = Vector2(0, 1)
 EnableFaceDirection = false
 EnableCombat = false
 
 [node name="Input Manager" parent="Dummiku" index="2"]
 visible = false
+
+[node name="AnimationTree" parent="Dummiku" index="6"]
+parameters/Death/blend_position = Vector2(-0.582166, 0.292453)
+parameters/Walk/blend_position = Vector2(0.115924, -0.367925)
 
 [editable path="Testo"]
 [editable path="Dummiku"]
