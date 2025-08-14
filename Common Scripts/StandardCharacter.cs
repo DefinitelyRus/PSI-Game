@@ -336,9 +336,9 @@ public partial class StandardCharacter : CharacterBody2D {
 
 	[ExportGroup("Nodes & Components")]
 	[Export] public ControlSurface Control = null!;
-	[Export] public StandardWeapon Weapon = null;
-	[Export] public AnimationPlayer AnimationPlayer = null;
-	[Export] public AnimationTree AnimationTree = null;
+	[Export] public StandardWeapon Weapon = null!;
+	[Export] public AnimationPlayer AnimationPlayer = null!;
+	[Export] public AnimationTree AnimationTree = null!;
 	public AnimationNodeStateMachinePlayback AnimationState => (AnimationNodeStateMachinePlayback) AnimationTree.Get("parameters/playback");
 
 	#endregion
@@ -494,22 +494,39 @@ public partial class StandardCharacter : CharacterBody2D {
 
 	#endregion
 
+	#region Ignore Unassigned Values
+
+	[ExportSubgroup("Ignore Unassigned Values")]
+	[Export] public bool SilentlyAutoAssignDefaultName = false;
+	[Export] public bool AllowNoWeapon = false;
+	[Export] public bool AllowNoAnimationPlayer = false;
+	[Export] public bool AllowNoAnimationTree = false;
+	[Export] public bool SilentlyAutoAssignInstanceID = true;
+
+	#endregion
+
 	#endregion
 
 	#region Godot Callbacks
-	
+
 	public override void _EnterTree() {
 		Log.Me($"A StandardCharacter has entered the tree. Checking properties...", LogReady);
 
 		if (string.IsNullOrEmpty(CharacterName)) {
-			Log.Warn("CharacterName should not be empty. Using default: \"Unnamed Character\"");
+			if (!SilentlyAutoAssignDefaultName) Log.Warn("CharacterName should not be empty. Using default: \"Unnamed Character\"");
 			CharacterName = "Unnamed Character";
 		}
 
 		if (Control == null) Log.Err("ControlSurface is not assigned. This character cannot be controlled.");
 
+		if (Weapon == null && !AllowNoWeapon) Log.Warn("StandardWeapon is not assigned. This character cannot attack.");
+
+		if (AnimationPlayer == null && !AllowNoAnimationPlayer) Log.Warn("AnimationPlayer is not assigned. This character will not be animated.");
+
+		if (AnimationTree == null && !AllowNoAnimationTree) Log.Warn("AnimationTree is not assigned. This character will not be animated properly.");
+
 		if (string.IsNullOrEmpty(InstanceID)) {
-			Log.Me("InstanceID is not assigned. Generating a new one...", LogReady);
+			if (!SilentlyAutoAssignInstanceID)Log.Me("InstanceID is not assigned. Generating a new one...", LogReady);
 			GenerateInstanceID(LogReady);
 		}
 
