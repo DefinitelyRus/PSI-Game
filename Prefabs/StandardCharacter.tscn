@@ -1101,7 +1101,7 @@ states/Start/position = Vector2(101, 100)
 states/Walk/node = SubResource("AnimationNodeBlendSpace2D_rog04")
 states/Walk/position = Vector2(564, 100)
 transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_7fba6"), "Idle", "Walk", SubResource("AnimationNodeStateMachineTransition_g5v64"), "Idle", "Attack", SubResource("AnimationNodeStateMachineTransition_ncp2d"), "Walk", "Attack", SubResource("AnimationNodeStateMachineTransition_evbho"), "Idle", "Death", SubResource("AnimationNodeStateMachineTransition_a4c16"), "Walk", "Death", SubResource("AnimationNodeStateMachineTransition_baotw"), "Attack", "Death", SubResource("AnimationNodeStateMachineTransition_5xadj")]
-graph_offset = Vector2(-380, 23)
+graph_offset = Vector2(83, -36)
 
 [node name="Standard Character" type="CharacterBody2D" node_paths=PackedStringArray("Control", "Weapon", "AnimationPlayer", "AnimationTree")]
 physics_interpolation_mode = 1
@@ -1114,7 +1114,6 @@ Weapon = NodePath("Projectile Weapon")
 AnimationPlayer = NodePath("AnimationPlayer")
 AnimationTree = NodePath("AnimationTree")
 LogReady = false
-LogProcess = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_jvbue")
