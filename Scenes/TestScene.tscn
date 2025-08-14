@@ -1113,6 +1113,11 @@ collision_layer = 48
 CharacterName = "Testo"
 CharacterID = "testo"
 
+[node name="AnimationTree" parent="Testo" index="6"]
+parameters/Attack/blend_position = Vector2(0, 0)
+parameters/Death/blend_position = Vector2(0, 0)
+parameters/Walk/blend_position = Vector2(0, 0)
+
 [node name="Dummiku" type="CharacterBody2D" parent="." node_paths=PackedStringArray("Control")]
 physics_interpolation_mode = 1
 position = Vector2(106, 0)
