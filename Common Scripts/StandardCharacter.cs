@@ -29,12 +29,12 @@ public partial class StandardCharacter : CharacterBody2D {
 	/// <summary>
 	/// The time it takes for the character to accelerate to its maximum speed.
 	/// </summary>
-	[Export] public float AccelerationTime = 0.5f;
+	[Export] public float AccelerationTime = 0.25f;
 
 	/// <summary>
 	/// The time it takes for the character to decelerate to a stop from its maximum speed.
 	/// </summary>
-	[Export] public float DecelerationTime = 0.5f;
+	[Export] public float DecelerationTime = 0.2f;
 
 	/// <summary>
 	/// The tags that help describe the character's role, type, or behavior in the game.
