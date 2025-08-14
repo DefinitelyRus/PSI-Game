@@ -265,7 +265,39 @@ public partial class StandardCharacter : CharacterBody2D
 
 	#region AVFX
 
-	//Write your audio/visual effects here.
+	/// <summary>
+	/// Updates the sprite animations based on the current player state. <br/><br/>
+	/// <b>Important</b>: This method is meant to be called in <see cref="_Process"/> only. <br/><br/>
+	/// <b>Warning</b>: This current implementation is <b>project-specific</b>. It only supports walking, shooting, and idle.
+	/// </summary>
+	/// <param name="v"></param>
+	/// <param name="s"></param>
+	protected void UpdateAnimations(bool v = false, int s = 0)
+	{
+		Log.Me(() => "Updating animations...", v, s + 1);
+
+		bool isWalking = Speed > 0;
+		bool isAttacking = Weapon.Control.IsAttacking;
+		//^ TECHNICAL DEBT: This is inherently bugged. Animates attack even when not intended.
+		//TODO: Replace with an IsAttacking property in StandardWeapon itself.
+
+		if (isWalking) {
+			Log.Me($"Walking at {Speed / CurrentMaxSpeed:F2}% ({Speed:F2}/{CurrentMaxSpeed:F2}) speed...", v, s + 1);
+			AnimationTree.Set("parameters/Walk/blend_position", new Vector2(Control.MovementDirection.X, -Control.MovementDirection.Y));
+			AnimationState.Travel("Walk");
+			AnimationPlayer.SpeedScale = Speed / CurrentMaxSpeed;
+		}
+
+		if (isAttacking) {
+			Log.Me("Attacking...", v, s + 1);
+			AnimationTree.Set("parameters/Attack/blend_position", new Vector2(Control.FacingDirection.X, -Control.FacingDirection.Y));
+			AnimationState.Travel("Attack");
+		}
+
+		else AnimationState.Travel("Idle");
+
+		Log.Me(() => "Done!", v, s + 1);
+	}
 
 	#endregion
 
@@ -273,10 +305,10 @@ public partial class StandardCharacter : CharacterBody2D
 
 	[ExportGroup("Nodes & Components")]
 	[Export] public ControlSurface Control = null!;
-	//[Export] public Node2D CharacterSprite;
-	//[Export] public Node2D CharacterHitbox;
-
-	// Called when the node enters the scene tree for the first time.
+	[Export] public StandardWeapon Weapon = null;
+	[Export] public AnimationPlayer AnimationPlayer = null;
+	[Export] public AnimationTree AnimationTree = null;
+	public AnimationNodeStateMachinePlayback AnimationState => (AnimationNodeStateMachinePlayback) AnimationTree.Get("parameters/playback");
 
 	#endregion
 
@@ -452,9 +484,13 @@ public partial class StandardCharacter : CharacterBody2D
 
 		Log.Me("Done!", LogReady);
 	}
-	
-	public override void _Process(double delta) {
 
+	public override void _Process(double delta) {
+		Log.Me(() => $"Processing {InstanceID}...", LogProcess);
+
+		UpdateAnimations(LogProcess);
+
+		Log.Me(() => "Done!", LogProcess);
 	}
 
 	public override void _PhysicsProcess(double delta) {

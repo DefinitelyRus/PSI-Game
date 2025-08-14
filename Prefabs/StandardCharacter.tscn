@@ -940,44 +940,6 @@ _data = {
 &"walk_up_right": SubResource("Animation_33sgy")
 }
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ytk5k"]
-animation = &"die_up"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ncp2d"]
-animation = &"die_down"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_evbho"]
-animation = &"die_up_left"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_kgnem"]
-animation = &"die_down_left"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_c61qw"]
-animation = &"die_down_right"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_jf2d2"]
-animation = &"die_up_right"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_prwn4"]
-animation = &"idle"
-
-[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_y7ngh"]
-blend_point_0/node = SubResource("AnimationNodeAnimation_ytk5k")
-blend_point_0/pos = Vector2(0, 1)
-blend_point_1/node = SubResource("AnimationNodeAnimation_ncp2d")
-blend_point_1/pos = Vector2(0, -1)
-blend_point_2/node = SubResource("AnimationNodeAnimation_evbho")
-blend_point_2/pos = Vector2(-1, 0.6)
-blend_point_3/node = SubResource("AnimationNodeAnimation_kgnem")
-blend_point_3/pos = Vector2(-1, -0.6)
-blend_point_4/node = SubResource("AnimationNodeAnimation_c61qw")
-blend_point_4/pos = Vector2(1, -0.6)
-blend_point_5/node = SubResource("AnimationNodeAnimation_jf2d2")
-blend_point_5/pos = Vector2(1, 0.6)
-blend_point_6/node = SubResource("AnimationNodeAnimation_prwn4")
-blend_point_6/pos = Vector2(0, 0)
-blend_mode = 1
-
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_g12ag"]
 animation = &"shoot_up"
 
@@ -1019,7 +981,49 @@ blend_point_6/node = SubResource("AnimationNodeAnimation_egppe")
 blend_point_6/pos = Vector2(-0.6, -0.5)
 blend_point_7/node = SubResource("AnimationNodeAnimation_tgmgc")
 blend_point_7/pos = Vector2(0.6, -0.6)
+max_space = Vector2(1, 1.29)
 blend_mode = 1
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ytk5k"]
+animation = &"die_up"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ncp2d"]
+animation = &"die_down"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_evbho"]
+animation = &"die_up_left"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_kgnem"]
+animation = &"die_down_left"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_c61qw"]
+animation = &"die_down_right"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_jf2d2"]
+animation = &"die_up_right"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_prwn4"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_y7ngh"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_ytk5k")
+blend_point_0/pos = Vector2(0, 1)
+blend_point_1/node = SubResource("AnimationNodeAnimation_ncp2d")
+blend_point_1/pos = Vector2(0, -1)
+blend_point_2/node = SubResource("AnimationNodeAnimation_evbho")
+blend_point_2/pos = Vector2(-1, 0.6)
+blend_point_3/node = SubResource("AnimationNodeAnimation_kgnem")
+blend_point_3/pos = Vector2(-1, -0.6)
+blend_point_4/node = SubResource("AnimationNodeAnimation_c61qw")
+blend_point_4/pos = Vector2(1, -0.6)
+blend_point_5/node = SubResource("AnimationNodeAnimation_jf2d2")
+blend_point_5/pos = Vector2(1, 0.6)
+blend_point_6/node = SubResource("AnimationNodeAnimation_prwn4")
+blend_point_6/pos = Vector2(0, 0)
+blend_mode = 1
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_7fba6"]
+animation = &"idle"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_g5v64"]
 animation = &"idle"
@@ -1059,9 +1063,6 @@ blend_point_6/node = SubResource("AnimationNodeAnimation_itkmi")
 blend_point_6/pos = Vector2(1, 0.6)
 blend_mode = 1
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_7fba6"]
-animation = &"idle"
-
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_7fba6"]
 advance_mode = 2
 
@@ -1090,35 +1091,33 @@ advance_mode = 2
 advance_condition = &"is_dead"
 
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_c1m0a"]
+states/Attack/node = SubResource("AnimationNodeBlendSpace2D_ytk5k")
+states/Attack/position = Vector2(435, 233)
 states/Death/node = SubResource("AnimationNodeBlendSpace2D_y7ngh")
 states/Death/position = Vector2(435, -3)
-states/Standing_shoot/node = SubResource("AnimationNodeBlendSpace2D_ytk5k")
-states/Standing_shoot/position = Vector2(435, 233)
+states/Idle/node = SubResource("AnimationNodeAnimation_7fba6")
+states/Idle/position = Vector2(326, 100)
 states/Start/position = Vector2(101, 100)
 states/Walk/node = SubResource("AnimationNodeBlendSpace2D_rog04")
 states/Walk/position = Vector2(564, 100)
-states/idle/node = SubResource("AnimationNodeAnimation_7fba6")
-states/idle/position = Vector2(326, 100)
-transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_7fba6"), "idle", "Walk", SubResource("AnimationNodeStateMachineTransition_g5v64"), "idle", "Standing_shoot", SubResource("AnimationNodeStateMachineTransition_ncp2d"), "Walk", "Standing_shoot", SubResource("AnimationNodeStateMachineTransition_evbho"), "idle", "Death", SubResource("AnimationNodeStateMachineTransition_a4c16"), "Walk", "Death", SubResource("AnimationNodeStateMachineTransition_baotw"), "Standing_shoot", "Death", SubResource("AnimationNodeStateMachineTransition_5xadj")]
-graph_offset = Vector2(-358, 34)
+transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_7fba6"), "Idle", "Walk", SubResource("AnimationNodeStateMachineTransition_g5v64"), "Idle", "Attack", SubResource("AnimationNodeStateMachineTransition_ncp2d"), "Walk", "Attack", SubResource("AnimationNodeStateMachineTransition_evbho"), "Idle", "Death", SubResource("AnimationNodeStateMachineTransition_a4c16"), "Walk", "Death", SubResource("AnimationNodeStateMachineTransition_baotw"), "Attack", "Death", SubResource("AnimationNodeStateMachineTransition_5xadj")]
+graph_offset = Vector2(-380, 23)
 
-[node name="Standard Character" type="CharacterBody2D" node_paths=PackedStringArray("Control")]
+[node name="Standard Character" type="CharacterBody2D" node_paths=PackedStringArray("Control", "Weapon", "AnimationPlayer", "AnimationTree")]
 physics_interpolation_mode = 1
 collision_layer = 16
 collision_mask = 257
 motion_mode = 1
 script = ExtResource("1_udvt5")
 Control = NodePath("Control Surface")
+Weapon = NodePath("Projectile Weapon")
+AnimationPlayer = NodePath("AnimationPlayer")
+AnimationTree = NodePath("AnimationTree")
 LogReady = false
+LogProcess = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_jvbue")
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_r87il")
-hframes = 8
-vframes = 8
-frame = 1
 
 [node name="Control Surface" type="Node2D" parent="."]
 script = ExtResource("3_r87il")
@@ -1149,17 +1148,25 @@ AllowNoSprite = true
 shape = SubResource("RectangleShape2D_n5c1j")
 disabled = true
 
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_r87il")
+hframes = 8
+vframes = 8
+frame = 1
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+deterministic = true
 libraries = {
 &"": SubResource("AnimationLibrary_g5v64")
 }
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
+deterministic = false
 tree_root = SubResource("AnimationNodeStateMachine_c1m0a")
 anim_player = NodePath("../AnimationPlayer")
 parameters/conditions/is_dead = false
 parameters/conditions/is_shooting = false
 parameters/conditions/is_walking = false
+parameters/Attack/blend_position = Vector2(0.00491405, 0.150943)
 parameters/Death/blend_position = Vector2(0.561713, -0.710526)
-parameters/Standing_shoot/blend_position = Vector2(-0.68883, 0.27193)
 parameters/Walk/blend_position = Vector2(1.00765, 0.517544)
