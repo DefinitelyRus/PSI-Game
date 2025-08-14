@@ -254,6 +254,8 @@ public partial class StandardCharacter : CharacterBody2D
 		set { _currentMaxSpeed = Mathf.Clamp(value, 0, float.MaxValue); }
 	}
 
+	protected Vector2 LastMovementDirection = Vector2.Zero;
+
 	/// <summary>
 	/// Moves the character based on the current control inputs and delta time.
 	/// </summary>
@@ -271,15 +273,17 @@ public partial class StandardCharacter : CharacterBody2D
 		}
 
 		// Calculate deceleration
-		else if (Velocity != Vector2.Zero) {
+		else if (Speed > 0f) {
 			Log.Me(() => $"Decelerating...", v, s + 1);
 			Speed -= (float) (MaxSpeed * (delta / DecelerationTime));
 			Log.Me(() => $"Speed after deceleration: {Speed:F2}", v, s + 1);
 		}
 
 		//Apply speed
-		Velocity = Speed * Control.MovementDirection;
+		Velocity = Speed * LastMovementDirection;
 		MoveAndSlide();
+
+		if (Control.MovementDirection != Vector2.Zero) LastMovementDirection = Control.MovementDirection;
 
 		Log.Me(() => "Done!", v, s + 1);
 	}
