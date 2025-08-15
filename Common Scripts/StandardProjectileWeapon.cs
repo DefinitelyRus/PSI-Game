@@ -12,9 +12,7 @@ public partial class StandardProjectileWeapon : StandardWeapon
 
 	#region Overrides
 
-	public override void Attack(bool v = false, int s = 0) {
-		if (!Control.JustAttacked) return;
-
+	protected override void Attack(bool v = false, int s = 0) {
 		Log.Me(() => "Spawning projectile...", v, s + 1);
 
 		if (Projectile == null) {
