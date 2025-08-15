@@ -40,14 +40,18 @@ animations = [{
 }]
 
 [node name="StandardProjectile" type="RigidBody2D" node_paths=PackedStringArray("HitArea")]
+process_mode = 1
+process_thread_group = 1
+process_thread_group_order = 0
+process_thread_messages = 0
+physics_interpolation_mode = 1
 y_sort_enabled = true
 disable_mode = 2
 collision_layer = 0
 collision_mask = 0
 gravity_scale = 0.0
-continuous_cd = 1
-contact_monitor = true
-max_contacts_reported = 5
+continuous_cd = 2
+max_contacts_reported = 10
 script = ExtResource("1_oylb4")
 ProjectileName = "Test Projectile"
 ProjectileID = "test_projectile"
@@ -65,6 +69,7 @@ Do not delete even if unused; this is part of the StandardProjectile package.
 
 Important: This shape should completely envelop the Hit Shape."
 shape = SubResource("CircleShape2D_d58qr")
+disabled = true
 
 [node name="Hit Area" type="Area2D" parent="."]
 collision_layer = 256
