@@ -151,12 +151,16 @@ public partial class StandardWeapon : StandardItem
 
 	public enum FiringModes {
 		/// <summary>
-		/// Attacks once per input.
+		/// Attacks once per input. <br/><br/>
+		/// <b>Warning</b>: This mode has not yet been properly implemented. <br/><br/>
+		/// TODO: Implement single firing logic.
 		/// </summary>
 		Single,
 
 		/// <summary>
-		/// Attacks multiple times per input, with a short delay between each attack.
+		/// Attacks multiple times per input, with a short delay between each attack. <br/><br/>
+		/// <b>Warning</b>: This mode has not yet been properly implemented. <br/><br/>
+		/// TODO: Implement burst firing logic.
 		/// </summary>
 		Burst,
 
