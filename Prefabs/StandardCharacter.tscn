@@ -1,21 +1,21 @@
-[gd_scene load_steps=69 format=3 uid="uid://daotyvqai4b36"]
+[gd_scene load_steps=68 format=3 uid="uid://daotyvqai4b36"]
 
 [ext_resource type="Script" uid="uid://dbkinu8656olu" path="res://Common Scripts/StandardCharacter.cs" id="1_udvt5"]
 [ext_resource type="Texture2D" uid="uid://bjipwk6ac5bx0" path="res://Sprites/Legionnaires/Rikka/Idle.png" id="2_r87il"]
 [ext_resource type="Script" uid="uid://cavubcy1osm40" path="res://Common Scripts/ControlSurface.cs" id="3_r87il"]
+[ext_resource type="PackedScene" uid="uid://dx7iwt4dptbck" path="res://Prefabs/StandardProjectileWeapon.tscn" id="4_g5v64"]
 [ext_resource type="Script" uid="uid://cgxfjkqqik5s8" path="res://Common Scripts/InputManager.cs" id="4_gn58p"]
-[ext_resource type="Script" uid="uid://ca6lusp8hqlss" path="res://Common Scripts/StandardProjectileWeapon.cs" id="5_c1m0a"]
-[ext_resource type="PackedScene" uid="uid://bqh055cp6qmtn" path="res://Prefabs/RifleBullet/RifleBullet.tscn" id="6_n5c1j"]
 [ext_resource type="Texture2D" uid="uid://b3esetth4h67v" path="res://Sprites/Legionnaires/Rikka/Walking.png" id="7_7fba6"]
 [ext_resource type="Texture2D" uid="uid://bsjlco5cxe7v3" path="res://Sprites/Legionnaires/Rikka/Standing Shooting.png" id="8_g5v64"]
 [ext_resource type="Texture2D" uid="uid://dsx2m05ecv2k1" path="res://Sprites/Legionnaires/Rikka/Death.png" id="9_n5c1j"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jvbue"]
-radius = 6.4
-height = 23.5
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g5v64"]
+radius = 3.5
+height = 9.2
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_n5c1j"]
-size = Vector2(15, 15)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_n5c1j"]
+radius = 4.6
+height = 20.9
 
 [sub_resource type="Animation" id="Animation_7fba6"]
 length = 0.001
@@ -1106,20 +1106,17 @@ graph_offset = Vector2(13, -48)
 [node name="Standard Character" type="CharacterBody2D" node_paths=PackedStringArray("Control", "Weapon", "AnimationPlayer", "AnimationTree")]
 physics_interpolation_mode = 1
 collision_layer = 16
-collision_mask = 257
+collision_mask = 273
 motion_mode = 1
 script = ExtResource("1_udvt5")
 Control = NodePath("Control Surface")
 Weapon = NodePath("Projectile Weapon")
 AnimationPlayer = NodePath("AnimationPlayer")
 AnimationTree = NodePath("AnimationTree")
-LogReady = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CapsuleShape2D_jvbue")
-
-[node name="Control Surface" type="Node2D" parent="."]
+[node name="Control Surface" type="Node2D" parent="." node_paths=PackedStringArray("Character")]
 script = ExtResource("3_r87il")
+Character = NodePath("..")
 LogReady = false
 
 [node name="Input Manager" type="Node2D" parent="."]
@@ -1128,26 +1125,24 @@ LogReady = false
 MovementMode = 2
 FacingMode = 1
 
-[node name="Projectile Weapon" type="RigidBody2D" parent="." node_paths=PackedStringArray("WeaponOwner")]
-collision_layer = 0
-collision_mask = 0
-gravity_scale = 0.0
-script = ExtResource("5_c1m0a")
-Projectile = ExtResource("6_n5c1j")
-BaseDamage = 35.0
+[node name="Projectile Weapon" parent="." node_paths=PackedStringArray("WeaponOwner") instance=ExtResource("4_g5v64")]
 WeaponOwner = NodePath("..")
-ItemName = "Test Weapon"
-ItemID = "test_weapon"
-LogReady = false
-AllowNoItemName = true
-AllowNoIcon = true
-AllowNoSprite = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Projectile Weapon"]
-shape = SubResource("RectangleShape2D_n5c1j")
-disabled = true
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 9.5)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_g5v64")
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(0, 3)
+collision_layer = 16
+collision_mask = 768
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CapsuleShape2D_n5c1j")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+y_sort_enabled = true
 texture = ExtResource("2_r87il")
 hframes = 8
 vframes = 8
@@ -1169,3 +1164,8 @@ parameters/conditions/is_walking = false
 parameters/Attack/blend_position = Vector2(0.00491405, 0.150943)
 parameters/Death/blend_position = Vector2(0.561713, -0.710526)
 parameters/Walk/blend_position = Vector2(1.00765, 0.517544)
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+avoidance_enabled = true
+avoidance_layers = 16
+avoidance_mask = 28
