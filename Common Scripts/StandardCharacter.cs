@@ -361,7 +361,7 @@ public partial class StandardCharacter : CharacterBody2D {
 	#region Debugging
 
 	[ExportGroup("Debugging")]
-	[Export] protected bool LogReady = true;
+	[Export] protected bool LogReady = false;
 	[Export] protected bool LogProcess = false;
 	[Export] protected bool LogPhysics = false;
 
@@ -528,7 +528,7 @@ public partial class StandardCharacter : CharacterBody2D {
 		Log.Me($"A StandardCharacter has entered the tree. Checking properties...", LogReady);
 
 		if (string.IsNullOrEmpty(CharacterName)) {
-			if (!SilentlyAutoAssignDefaultName) Log.Warn("CharacterName should not be empty. Using default: \"Unnamed Character\"");
+			if (!SilentlyAutoAssignDefaultName) Log.Warn("CharacterName should not be empty. Using default: \"Unnamed Character\"...");
 			CharacterName = "Unnamed Character";
 		}
 
@@ -541,7 +541,7 @@ public partial class StandardCharacter : CharacterBody2D {
 		if (AnimationTree == null && !AllowNoAnimationTree) Log.Warn("AnimationTree is not assigned. This character will not be animated properly.");
 
 		if (string.IsNullOrEmpty(InstanceID)) {
-			if (!SilentlyAutoAssignInstanceID)Log.Me("InstanceID is not assigned. Generating a new one...", LogReady);
+			if (!SilentlyAutoAssignInstanceID) Log.Me("InstanceID is not assigned. Generating a new one...", LogReady);
 			GenerateInstanceID(LogReady);
 		}
 
