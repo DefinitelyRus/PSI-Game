@@ -40,7 +40,7 @@ public partial class StandardProp : RigidBody2D {
     private float _health = 100f;
 
     #endregion
-
+    
     #region Debugging
 
     [ExportGroup("Debugging")]
