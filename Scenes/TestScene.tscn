@@ -17,6 +17,9 @@ CharacterName = "Testo"
 CharacterID = "testo"
 
 [node name="AnimationTree" parent="Testo" index="7"]
+parameters/conditions/is_attacking = false
+parameters/conditions/is_idling = false
+parameters/conditions/is_walking = false
 parameters/Attack/blend_position = Vector2(0, 0)
 parameters/Death/blend_position = Vector2(0, 0)
 parameters/Idle/blend_position = Vector2(0, 0)
@@ -39,6 +42,9 @@ EnableCombat = false
 visible = false
 
 [node name="AnimationTree" parent="Dummiku" index="7"]
+parameters/conditions/is_attacking = false
+parameters/conditions/is_idling = false
+parameters/conditions/is_walking = false
 parameters/Death/blend_position = Vector2(-0.582166, 0.292453)
 parameters/Idle/blend_position = Vector2(0, 0)
 parameters/Walk/blend_position = Vector2(0.115924, -0.367925)
