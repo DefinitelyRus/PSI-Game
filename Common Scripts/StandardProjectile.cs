@@ -255,37 +255,37 @@ public partial class StandardProjectile : RigidBody2D
 
 	#region Collision
 
-	protected void OnBodyEntered(Node2D body) {
-		Log.Me(() => $"Body entered: {body.Name}", LogCollision);
+	protected virtual void OnAreaEntered(Area2D area) {
+		Log.Me(() => $"Area entered: {area.Name}", LogCollision);
 
-		bool isTarget = Targets.Contains(body);
+		bool isTarget = Targets.Contains(area);
 
 		// Whitelist
 		if (TargetMode == TargetModes.Whitelist) {
-			if (Targets.Length == 0) Log.Warn(() => "No targets set. Ignoring body.", LogCollision);
+			if (Targets.Length == 0) Log.Warn(() => "No targets set. Ignoring area.", LogCollision);
 
 			if (isTarget) {
-				Log.Me(() => $"{body.Name} is whitelisted. Processing hit...", LogCollision);
-				Impact(body, LogCollision);
+				Log.Me(() => $"{area.Name} is whitelisted. Processing hit...", LogCollision);
+				Impact(area, LogCollision);
 			}
 
-			else Log.Me(() => $"{body.Name} is not a target. Ignoring.", LogCollision);
+			else Log.Me(() => $"{area.Name} is not a target. Ignoring.", LogCollision);
 		}
 
 		// Blacklist
 		else if (TargetMode == TargetModes.Blacklist) {
-			if (isTarget) Log.Me(() => $"{body.Name} is blacklisted. Ignoring.", LogCollision);
+			if (isTarget) Log.Me(() => $"{area.Name} is blacklisted. Ignoring.", LogCollision);
 
 			else {
-				Log.Me(() => $"{body.Name} is not blacklisted. Processing hit...", LogCollision);
-				Impact(body, LogCollision);
+				Log.Me(() => $"{area.Name} is not blacklisted. Processing hit...", LogCollision);
+				Impact(area, LogCollision);
 			}
 		}
 
 		// Any
 		else if (TargetMode == TargetModes.Any) {
-			Log.Me(() => $"Impacting {body.Name}...", LogCollision);
-			Impact(body, LogCollision);
+			Log.Me(() => $"Impacting {area.Name}...", LogCollision);
+			Impact(area, LogCollision);
 		}
 
 		Log.Me(() => "Done!", LogCollision);
@@ -293,7 +293,7 @@ public partial class StandardProjectile : RigidBody2D
 	}
 
 	//Usually called when the projectile impacts a target.
-	protected virtual void Impact(Node2D body, bool v = false, int s = 0) {
+	protected virtual void Impact(Area2D area, bool v = false, int s = 0) {
 		Log.Me(() => $"`Impact` on {ProjectileName} (ProjectileID: {ProjectileID}) is not implemented! Override to add custom functionality.", v, s + 1);
 		return;
 	}
@@ -341,8 +341,8 @@ public partial class StandardProjectile : RigidBody2D
 	public override void _Ready() {
 		Log.Me(() => $"Readying {ProjectileID}...", LogReady);
 
-		Log.Me(() => "Connecting HitArea.BodyEntered to OnBodyEntered...", LogReady);
-		HitArea.BodyEntered += OnBodyEntered;
+		Log.Me(() => "Connecting HitArea.AreaEntered to OnAreaEntered...", LogReady);
+		HitArea.AreaEntered += OnAreaEntered;
 
 		Log.Me(() => $"Ignoring collisions with owner: {WeaponOwner.CharacterName}", LogReady);
 		PhysicsServer2D.BodyAddCollisionException(GetRid(), WeaponOwner.GetRid());
