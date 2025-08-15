@@ -323,7 +323,7 @@ public partial class StandardWeapon : StandardItem
 	/// This is used for when the character sprite makes the character attack closer to its center of mass
 	/// when facing vertically, and attack further when facing horizontally, or vice versa.
 	/// </summary>
-	[Export] public Vector2 AttackOriginSizeMultiplier = Vector2.Zero;
+	[Export] public Vector2 AttackOriginSizeMultiplier = new(1f, 1f);
 
 	public enum AttackOriginTypes {
 		/// <summary>
@@ -342,16 +342,16 @@ public partial class StandardWeapon : StandardItem
 		Custom
 	}
 
-	public AttackOriginTypes AttackOriginType = AttackOriginTypes.Centered;
+	[Export] public AttackOriginTypes AttackOriginType = AttackOriginTypes.Concentric;
 
-	public float AttackOriginDistance = 12f;
+	[Export] public float AttackOriginDistance = 35f;
 
-	public Vector2 AttackOriginAngle {
-		get => _attackOriginAngle;
-		set => _attackOriginAngle = value.Normalized();
+	[Export] public Vector2 AttackOriginDirection {
+		get => _attackOriginDirection;
+		set => _attackOriginDirection = value.Normalized();
 	}
 
-	private Vector2 _attackOriginAngle = Vector2.Zero;
+	private Vector2 _attackOriginDirection = Vector2.Zero;
 
 	public void UpdateAttackOrigin(bool v = false, int s = 0) {
 		Log.Me(() => $"Updating attack origin for \"{ItemName}\" (ItemID: {ItemID})...", v, s + 1);
@@ -359,10 +359,13 @@ public partial class StandardWeapon : StandardItem
 		switch (AttackOriginType) {
 			case AttackOriginTypes.Centered:
 				AttackOrigin = Vector2.Zero;
+				Log.Me(() => "Attack origin is centered. Setting position to (0.00, 0.00)...", v, s + 1);
 				break;
 
 			case AttackOriginTypes.Concentric:
-				AttackOrigin = AttackOriginPositionOffset + (AttackOriginDistance * AttackOriginSizeMultiplier * AttackOriginAngle);
+				AttackOriginDirection = AimDirectionVector.Rotated(Mathf.DegToRad(-90));
+				AttackOrigin = AttackOriginPositionOffset + (AttackOriginDistance * AttackOriginSizeMultiplier * AttackOriginDirection);
+				Log.Me(() => $"Attack origin is concentric. Set position to ({AttackOrigin.X:F2}, {AttackOrigin.Y:F2})...", v, s + 1);
 				break;
 
 			case AttackOriginTypes.Custom: return; // Custom origin is set by the user, no need to update.
@@ -537,6 +540,10 @@ public partial class StandardWeapon : StandardItem
 
 		AimDirection = Mathf.PosMod(Mathf.RadToDeg(Control.FacingDirection.Angle()) + 90f, 360f);
 		Log.Me(() => $"AimDirection set to {AimDirection:F2}°.", LogProcess);
+
+		Log.Me(() => "Updating attack origin...", LogProcess);
+		//AttackOriginAngle = new Vector2(Mathf.Cos(Mathf.DegToRad(AimDirection)), Mathf.Sin(Mathf.DegToRad(AimDirection)));
+		UpdateAttackOrigin(LogProcess);
 
 		Log.Me(() => "Checking for attack inputs...", LogProcess);
 		if (Control.JustAttacked) {
