@@ -504,9 +504,22 @@ public partial class StandardWeapon : StandardItem
 
 	#region Overridable Methods
 
-	public virtual void Attack(bool v = false, int s = 0) {
-		Log.Me(() => $"`Attack` on \"{ItemName}\" (ItemID: {ItemID}) is not implemented! Override to add custom functionality.", v, s + 1);
+	public virtual void QueueAttack(bool v = false, int s = 0) {
+		Log.Me(() => $"Queueing attack for {InstanceID}...", v, s + 1);
+
+		//Handle weapon cooldown
+		if (RemainingAttackInterval == 0f)
+		{
+			Log.Me(() => "Executing attack...", v, s + 1);
+			Attack(v, s + 1);
+			RemainingAttackInterval = AttackInterval;
+		}
+
 		return;
+	}
+
+	protected virtual void Attack(bool v = false, int s = 0) {
+		Log.Me(() => $"`QueueAttack` on \"{ItemName}\" (ItemID: {ItemID}) is not implemented! Override to add custom functionality.", v, s + 1);
 	}
 
 	#endregion
@@ -546,8 +559,8 @@ public partial class StandardWeapon : StandardItem
 		UpdateAttackOrigin(LogProcess);
 
 		Log.Me(() => "Checking for attack inputs...", LogProcess);
-		if (Control.JustAttacked) {
-			Attack(LogProcess);
+		if (Control.IsAttacking) {
+			QueueAttack(LogProcess);
 		}
 
 		if (RemainingAttackInterval > 0f) {
