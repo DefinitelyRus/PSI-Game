@@ -70,15 +70,19 @@ attack={
 [layer_names]
 
 2d_physics/layer_1="World"
-2d_physics/layer_2="World Walls"
-2d_physics/layer_3="World Obstacle Short"
-2d_physics/layer_4="World Obstacle Tall"
+2d_physics/layer_2="Walls"
+2d_physics/layer_3="Short Prop"
+2d_physics/layer_4="Tall Prop"
 2d_physics/layer_5="Characters"
 2d_physics/layer_6="Friendly Characters"
 2d_physics/layer_7="Neutral Characters"
 2d_physics/layer_8="Enemy Characters"
 2d_physics/layer_9="Projectile"
 2d_physics/layer_10="Hitscan"
+avoidance/layer_3="Short Prop"
+avoidance/layer_4="Tall Prop"
+avoidance/layer_5="Ground Character"
+avoidance/layer_6="Flying Character"
 
 [rendering]
 
