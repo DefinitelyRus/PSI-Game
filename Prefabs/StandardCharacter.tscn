@@ -1,10 +1,11 @@
-[gd_scene load_steps=82 format=3 uid="uid://daotyvqai4b36"]
+[gd_scene load_steps=83 format=3 uid="uid://daotyvqai4b36"]
 
 [ext_resource type="Script" uid="uid://dbkinu8656olu" path="res://Common Scripts/StandardCharacter.cs" id="1_udvt5"]
 [ext_resource type="Texture2D" uid="uid://bjipwk6ac5bx0" path="res://Sprites/Legionnaires/Rikka/Idle.png" id="2_r87il"]
 [ext_resource type="Script" uid="uid://cavubcy1osm40" path="res://Common Scripts/ControlSurface.cs" id="3_r87il"]
 [ext_resource type="PackedScene" uid="uid://dx7iwt4dptbck" path="res://Prefabs/StandardProjectileWeapon.tscn" id="4_g5v64"]
 [ext_resource type="Script" uid="uid://cgxfjkqqik5s8" path="res://Common Scripts/InputManager.cs" id="4_gn58p"]
+[ext_resource type="Script" uid="uid://cxvoe8ek23mt1" path="res://Prefabs/HitArea.cs" id="5_n5c1j"]
 [ext_resource type="Texture2D" uid="uid://b3esetth4h67v" path="res://Sprites/Legionnaires/Rikka/Walking.png" id="7_7fba6"]
 [ext_resource type="Texture2D" uid="uid://bsjlco5cxe7v3" path="res://Sprites/Legionnaires/Rikka/Standing Shooting.png" id="8_g5v64"]
 [ext_resource type="Texture2D" uid="uid://dsx2m05ecv2k1" path="res://Sprites/Legionnaires/Rikka/Death.png" id="9_n5c1j"]
@@ -1353,14 +1354,19 @@ states/Walk/position = Vector2(564, 100)
 transitions = ["Walk", "Attack", SubResource("AnimationNodeStateMachineTransition_evbho"), "Walk", "Death", SubResource("AnimationNodeStateMachineTransition_baotw"), "Attack", "Death", SubResource("AnimationNodeStateMachineTransition_5xadj"), "Start", "Idle", SubResource("AnimationNodeStateMachineTransition_g12ag"), "Idle", "Death", SubResource("AnimationNodeStateMachineTransition_g5v64"), "Idle", "Attack", SubResource("AnimationNodeStateMachineTransition_n5c1j"), "Idle", "Walk", SubResource("AnimationNodeStateMachineTransition_rog04"), "Walk", "Idle", SubResource("AnimationNodeStateMachineTransition_6la15"), "Attack", "Idle", SubResource("AnimationNodeStateMachineTransition_itkmi"), "Attack", "Walk", SubResource("AnimationNodeStateMachineTransition_33sgy")]
 graph_offset = Vector2(-357, -54)
 
-[node name="Standard Character" type="CharacterBody2D" node_paths=PackedStringArray("Control", "Weapon", "AnimationPlayer", "AnimationTree")]
+[node name="Standard Character" type="CharacterBody2D" node_paths=PackedStringArray("Control", "Weapon", "HitArea", "AnimationPlayer", "AnimationTree")]
+process_mode = 1
+process_thread_group = 2
+process_thread_group_order = 0
+process_thread_messages = 0
 physics_interpolation_mode = 1
 collision_layer = 16
-collision_mask = 273
+collision_mask = 17
 motion_mode = 1
 script = ExtResource("1_udvt5")
 Control = NodePath("Control Surface")
 Weapon = NodePath("Projectile Weapon")
+HitArea = NodePath("Hit Area")
 AnimationPlayer = NodePath("AnimationPlayer")
 AnimationTree = NodePath("AnimationTree")
 
@@ -1378,17 +1384,18 @@ FacingMode = 1
 [node name="Projectile Weapon" parent="." node_paths=PackedStringArray("WeaponOwner") instance=ExtResource("4_g5v64")]
 WeaponOwner = NodePath("..")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="Body Collider" type="CollisionShape2D" parent="."]
 position = Vector2(0, 9.5)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_g5v64")
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="Hit Area" type="Area2D" parent="."]
 position = Vector2(0, 3)
 collision_layer = 16
 collision_mask = 768
+script = ExtResource("5_n5c1j")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="Hit Collider" type="CollisionShape2D" parent="Hit Area"]
 shape = SubResource("CapsuleShape2D_n5c1j")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

@@ -352,6 +352,7 @@ public partial class StandardCharacter : CharacterBody2D {
 	[ExportGroup("Nodes & Components")]
 	[Export] public ControlSurface Control = null!;
 	[Export] public StandardWeapon Weapon = null!;
+	[Export] public HitArea HitArea = null!;
 	[Export] public AnimationPlayer AnimationPlayer = null!;
 	[Export] public AnimationTree AnimationTree = null!;
 	public AnimationNodeStateMachinePlayback AnimationState => (AnimationNodeStateMachinePlayback) AnimationTree.Get("parameters/playback");
@@ -364,6 +365,7 @@ public partial class StandardCharacter : CharacterBody2D {
 	[Export] protected bool LogReady = false;
 	[Export] protected bool LogProcess = false;
 	[Export] protected bool LogPhysics = false;
+	[Export] protected bool LogCollision = false;
 
 	#region Instance ID
 
@@ -514,11 +516,31 @@ public partial class StandardCharacter : CharacterBody2D {
 	[ExportSubgroup("Ignore Unassigned Values")]
 	[Export] public bool SilentlyAutoAssignDefaultName = false;
 	[Export] public bool AllowNoWeapon = false;
+	[Export] public bool AllowNoHitArea = false;
 	[Export] public bool AllowNoAnimationPlayer = false;
 	[Export] public bool AllowNoAnimationTree = false;
 	[Export] public bool SilentlyAutoAssignInstanceID = true;
 
 	#endregion
+
+	#endregion
+
+	#region Overridable Methods
+
+	public virtual void OnAreaEntered(Area2D area)
+	{
+		if (area.GetParent() is StandardProjectile projectile) {
+			Log.Me(() => $"Ignoring area collision with {projectile.InstanceID}.", LogCollision);
+			return;
+		}
+
+		Log.Me(() => $"Area entered: {area.Name}", LogCollision);
+
+		
+
+		Log.Me(() => "Done!", LogCollision);
+		return;
+	}
 
 	#endregion
 
@@ -536,6 +558,8 @@ public partial class StandardCharacter : CharacterBody2D {
 
 		if (Weapon == null && !AllowNoWeapon) Log.Warn("StandardWeapon is not assigned. This character cannot attack.");
 
+		if (HitArea == null && !AllowNoHitArea) Log.Warn("HitArea is not assigned. This character will have buggy hit behavior.");
+
 		if (AnimationPlayer == null && !AllowNoAnimationPlayer) Log.Warn("AnimationPlayer is not assigned. This character will not be animated.");
 
 		if (AnimationTree == null && !AllowNoAnimationTree) Log.Warn("AnimationTree is not assigned. This character will not be animated properly.");
@@ -548,7 +572,19 @@ public partial class StandardCharacter : CharacterBody2D {
 		Log.Me("Done!", LogReady);
 	}
 
-	public override void _Process(double delta) {
+	public override void _Ready()
+	{
+		Log.Me(() => $"Readying {InstanceID}...", LogReady);
+
+		Log.Me(() => "Connecting HitArea.BodyEntered to OnBodyEntered...", LogReady);
+		HitArea.AreaEntered += OnAreaEntered;
+
+		Log.Me(() => "Done!", LogReady);
+		return;
+    }
+
+	public override void _Process(double delta)
+	{
 		Log.Me(() => $"Processing {InstanceID}...", LogProcess);
 
 		UpdateAnimations(LogProcess);
