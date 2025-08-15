@@ -19,6 +19,7 @@ CharacterID = "testo"
 [node name="AnimationTree" parent="Testo" index="7"]
 parameters/Attack/blend_position = Vector2(0, 0)
 parameters/Death/blend_position = Vector2(0, 0)
+parameters/Idle/blend_position = Vector2(0, 0)
 parameters/Walk/blend_position = Vector2(0, 0)
 
 [node name="Dummiku" parent="." instance=ExtResource("1_b5ayd")]
@@ -39,6 +40,7 @@ visible = false
 
 [node name="AnimationTree" parent="Dummiku" index="7"]
 parameters/Death/blend_position = Vector2(-0.582166, 0.292453)
+parameters/Idle/blend_position = Vector2(0, 0)
 parameters/Walk/blend_position = Vector2(0.115924, -0.367925)
 
 [node name="StandardProp" parent="." instance=ExtResource("2_5lt6y")]
