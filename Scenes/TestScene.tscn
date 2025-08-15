@@ -1,8 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://bfp0axiex7i7o"]
+[gd_scene load_steps=3 format=3 uid="uid://bfp0axiex7i7o"]
 
 [ext_resource type="PackedScene" uid="uid://daotyvqai4b36" path="res://Prefabs/StandardCharacter.tscn" id="1_b5ayd"]
+[ext_resource type="PackedScene" uid="uid://bnslwo4ecgkcn" path="res://Prefabs/StandardProp.tscn" id="2_5lt6y"]
 
 [node name="TestScene" type="Node2D"]
+y_sort_enabled = true
 
 [node name="Camera2D" type="Camera2D" parent="."]
 scale = Vector2(0.992841, 0.996755)
@@ -14,7 +16,7 @@ collision_layer = 48
 CharacterName = "Testo"
 CharacterID = "testo"
 
-[node name="AnimationTree" parent="Testo" index="6"]
+[node name="AnimationTree" parent="Testo" index="7"]
 parameters/Attack/blend_position = Vector2(0, 0)
 parameters/Death/blend_position = Vector2(0, 0)
 parameters/Walk/blend_position = Vector2(0, 0)
@@ -26,18 +28,22 @@ CharacterName = "Dummiku"
 CharacterID = "dummiku"
 DespawnOnDeath = true
 
-[node name="Control Surface" parent="Dummiku" index="1"]
+[node name="Control Surface" parent="Dummiku" index="0"]
 EnableMovement = false
 MovementDirection = Vector2(0, 1)
 EnableFaceDirection = false
 EnableCombat = false
 
-[node name="Input Manager" parent="Dummiku" index="2"]
+[node name="Input Manager" parent="Dummiku" index="1"]
 visible = false
 
-[node name="AnimationTree" parent="Dummiku" index="6"]
+[node name="AnimationTree" parent="Dummiku" index="7"]
 parameters/Death/blend_position = Vector2(-0.582166, 0.292453)
 parameters/Walk/blend_position = Vector2(0.115924, -0.367925)
+
+[node name="StandardProp" parent="." instance=ExtResource("2_5lt6y")]
+position = Vector2(-31, 0)
+PropName = "SecretLabs Titan EVO Gaming Chair"
 
 [editable path="Testo"]
 [editable path="Dummiku"]
