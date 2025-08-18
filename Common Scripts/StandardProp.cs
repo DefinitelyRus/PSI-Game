@@ -9,6 +9,7 @@ public partial class StandardProp : RigidBody2D {
     [ExportGroup("PROPerties")]
     [Export] public string PropName = null!;
     [Export] public string PropDescription = null!;
+    [Export] public string PropID = null;
     [Export] public string[] Tags = [];
 
     #region Flags
