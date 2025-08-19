@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://2snofq1a42wy"]
+
+[ext_resource type="PackedScene" uid="uid://bnslwo4ecgkcn" path="res://Prefabs/StandardProp.tscn" id="1_4ywfv"]
+[ext_resource type="Texture2D" uid="uid://f8i6teg6ade7" path="res://Sprites/World Sprites/Level 0 - Parking Lot/Parking_Props.png" id="2_0tmwx"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hpydn"]
+size = Vector2(28, 10.5)
+
+[node name="Trash Can" instance=ExtResource("1_4ywfv")]
+PropName = "Trash Can"
+PropDescription = "a trash can"
+PropID = "trash_can"
+
+[node name="CollisionShape2D" parent="." index="0"]
+position = Vector2(0, 8.75)
+shape = SubResource("RectangleShape2D_hpydn")
+
+[node name="Sprite2D" parent="." index="1"]
+texture = ExtResource("2_0tmwx")
+region_rect = Rect2(209, 293, 29, 26)

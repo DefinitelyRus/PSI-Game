@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://dydpm5524lkvg"]
+
+[ext_resource type="PackedScene" uid="uid://bnslwo4ecgkcn" path="res://Prefabs/StandardProp.tscn" id="1_ru3ii"]
+[ext_resource type="Texture2D" uid="uid://f8i6teg6ade7" path="res://Sprites/World Sprites/Level 0 - Parking Lot/Parking_Props.png" id="2_up4cg"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_42hyy"]
+size = Vector2(44, 9)
+
+[node name="Bench Chair" instance=ExtResource("1_ru3ii")]
+PropName = "Bench Chair"
+PropDescription = "a bench chair"
+PropID = "bench_chair"
+
+[node name="CollisionShape2D" parent="." index="0"]
+position = Vector2(0, 6.5)
+shape = SubResource("RectangleShape2D_42hyy")
+
+[node name="Sprite2D" parent="." index="1"]
+texture = ExtResource("2_up4cg")
+region_rect = Rect2(83, 217, 42, 22)

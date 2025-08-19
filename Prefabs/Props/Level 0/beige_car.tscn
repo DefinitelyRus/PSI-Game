@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://ca5w8afviyff0"]
+
+[ext_resource type="PackedScene" uid="uid://bnslwo4ecgkcn" path="res://Prefabs/StandardProp.tscn" id="1_sn6xu"]
+[ext_resource type="Texture2D" uid="uid://d0vd1cttixedg" path="res://Sprites/World Sprites/Level 0 - Parking Lot/Vehicles.png" id="2_2pgl7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_huyye"]
+size = Vector2(32, 63)
+
+[node name="Beige Car" instance=ExtResource("1_sn6xu")]
+collision_layer = 9
+PropName = "Beige Car"
+PropDescription = "a beige car"
+PropID = "beige_car"
+
+[node name="CollisionShape2D" parent="." index="0"]
+position = Vector2(0, 3.5)
+shape = SubResource("RectangleShape2D_huyye")
+
+[node name="Sprite2D" parent="." index="1"]
+texture = ExtResource("2_2pgl7")
+region_rect = Rect2(85, 22, 37, 71)
