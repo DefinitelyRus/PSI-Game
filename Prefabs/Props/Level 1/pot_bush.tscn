@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://cdqlens22s5ci"]
+
+[ext_resource type="PackedScene" uid="uid://bnslwo4ecgkcn" path="res://Prefabs/StandardProp.tscn" id="1_y2rk7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_okbbb"]
+size = Vector2(12, 7)
+
+[node name="Pot Bush" instance=ExtResource("1_y2rk7")]
+PropName = "Pot Bush"
+PropDescription = "a bush in a pot"
+PropID = "pot_bush"
+
+[node name="CollisionShape2D" parent="." index="0"]
+position = Vector2(0, 10.5)
+shape = SubResource("RectangleShape2D_okbbb")
+
+[node name="Sprite2D" parent="." index="1"]
+region_rect = Rect2(96, 122, 16, 28)

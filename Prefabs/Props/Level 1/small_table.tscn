@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://brrtr8afqiprd"]
+
+[ext_resource type="PackedScene" uid="uid://bnslwo4ecgkcn" path="res://Prefabs/StandardProp.tscn" id="1_sh5ah"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_406nw"]
+size = Vector2(24, 18)
+
+[node name="Small Table" instance=ExtResource("1_sh5ah")]
+PropName = "Small Table"
+PropDescription = "a small wooden table"
+PropID = "small_table"
+
+[node name="CollisionShape2D" parent="." index="0"]
+position = Vector2(0, 4)
+shape = SubResource("RectangleShape2D_406nw")
+
+[node name="Sprite2D" parent="." index="1"]
+region_rect = Rect2(234, 322, 22, 26)

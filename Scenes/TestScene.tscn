@@ -1,16 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://bfp0axiex7i7o"]
+[gd_scene load_steps=6 format=3 uid="uid://bfp0axiex7i7o"]
 
 [ext_resource type="PackedScene" uid="uid://daotyvqai4b36" path="res://Prefabs/StandardCharacter.tscn" id="1_b5ayd"]
-[ext_resource type="PackedScene" uid="uid://2snofq1a42wy" path="res://Prefabs/Props/Level 0/trash_can.tscn" id="2_5lt6y"]
-[ext_resource type="PackedScene" uid="uid://mkavu2fvjs7c" path="res://Prefabs/Props/Level 0/bush.tscn" id="3_8k7wh"]
-[ext_resource type="PackedScene" uid="uid://bm2fjg8kbsn5w" path="res://Prefabs/Props/Level 0/white_car.tscn" id="4_iufkg"]
-[ext_resource type="PackedScene" uid="uid://ca5w8afviyff0" path="res://Prefabs/Props/Level 0/beige_car.tscn" id="5_0f5h7"]
-[ext_resource type="PackedScene" uid="uid://jqu44lvhfek3" path="res://Prefabs/Props/Level 0/tall_tree.tscn" id="6_qsjrb"]
-[ext_resource type="PackedScene" uid="uid://cn3kulioaf5g5" path="res://Prefabs/Props/Level 0/blue_car.tscn" id="7_c264a"]
-[ext_resource type="PackedScene" uid="uid://ysv5n0r5taal" path="res://Prefabs/Props/Level 0/red_car.tscn" id="8_6xh1p"]
-[ext_resource type="PackedScene" uid="uid://cte1r72e3w0xe" path="res://Prefabs/Props/Level 0/street_light.tscn" id="9_5rbs6"]
-[ext_resource type="PackedScene" uid="uid://dydpm5524lkvg" path="res://Prefabs/Props/Level 0/bench_chair.tscn" id="10_201fe"]
-[ext_resource type="PackedScene" uid="uid://cbkgancg2g42o" path="res://Prefabs/Props/Level 0/green_car.tscn" id="11_xjl2p"]
+[ext_resource type="PackedScene" uid="uid://bpledjlueicmm" path="res://Prefabs/Props/Level 1/water_dispenser.tscn" id="3_8k7wh"]
+[ext_resource type="PackedScene" uid="uid://ul0y4uios3h8" path="res://Prefabs/Props/Level 1/bookshelf.tscn" id="4_iufkg"]
+[ext_resource type="PackedScene" uid="uid://brrtr8afqiprd" path="res://Prefabs/Props/Level 1/small_table.tscn" id="5_0f5h7"]
+[ext_resource type="PackedScene" uid="uid://cdqlens22s5ci" path="res://Prefabs/Props/Level 1/pot_bush.tscn" id="12_ytmxh"]
 
 [node name="TestScene" type="Node2D"]
 y_sort_enabled = true
@@ -53,35 +47,17 @@ parameters/Death/blend_position = Vector2(-0.582166, 0.292453)
 parameters/Idle/blend_position = Vector2(0, 0)
 parameters/Walk/blend_position = Vector2(0.115924, -0.367925)
 
-[node name="Trash Can" parent="." instance=ExtResource("2_5lt6y")]
-position = Vector2(63, -88)
+[node name="Pot Bush" parent="." instance=ExtResource("12_ytmxh")]
+position = Vector2(-44, -28)
 
-[node name="Bush" parent="." instance=ExtResource("3_8k7wh")]
-position = Vector2(163, -40)
+[node name="Water Dispenser" parent="." instance=ExtResource("3_8k7wh")]
+position = Vector2(-34, 18)
 
-[node name="White Car" parent="." instance=ExtResource("4_iufkg")]
-position = Vector2(269, 4)
+[node name="Bookshelf" parent="." instance=ExtResource("4_iufkg")]
+position = Vector2(-101, -35)
 
-[node name="Beige Car" parent="." instance=ExtResource("5_0f5h7")]
-position = Vector2(68, 83)
-
-[node name="Tall Tree" parent="." instance=ExtResource("6_qsjrb")]
-position = Vector2(141, -114)
-
-[node name="Blue Car" parent="." instance=ExtResource("7_c264a")]
-position = Vector2(183, 137)
-
-[node name="Red Car" parent="." instance=ExtResource("8_6xh1p")]
-position = Vector2(237, -132)
-
-[node name="Street Light" parent="." instance=ExtResource("9_5rbs6")]
-position = Vector2(104, -147)
-
-[node name="Bench Chair" parent="." instance=ExtResource("10_201fe")]
-position = Vector2(220, -76)
-
-[node name="Green Car" parent="." instance=ExtResource("11_xjl2p")]
-position = Vector2(189, 55)
+[node name="Small Table" parent="." instance=ExtResource("5_0f5h7")]
+position = Vector2(-123, 25)
 
 [editable path="Testo"]
 [editable path="Dummiku"]

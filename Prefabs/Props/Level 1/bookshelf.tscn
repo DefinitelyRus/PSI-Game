@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://ul0y4uios3h8"]
+
+[ext_resource type="PackedScene" uid="uid://bnslwo4ecgkcn" path="res://Prefabs/StandardProp.tscn" id="1_ijud2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xn4xr"]
+size = Vector2(32, 28)
+
+[node name="Bookshelf" instance=ExtResource("1_ijud2")]
+collision_layer = 9
+PropName = "Bookshelf"
+PropDescription = "a white bookshelfBook"
+PropID = "bookshelf"
+
+[node name="CollisionShape2D" parent="." index="0"]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_xn4xr")
+
+[node name="Sprite2D" parent="." index="1"]
+region_rect = Rect2(113, 200, 30, 30)

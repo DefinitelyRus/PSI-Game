@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://bpledjlueicmm"]
+
+[ext_resource type="PackedScene" uid="uid://bnslwo4ecgkcn" path="res://Prefabs/StandardProp.tscn" id="1_hhvgs"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2bkpv"]
+size = Vector2(14, 10)
+
+[node name="Water Dispenser" instance=ExtResource("1_hhvgs")]
+PropName = "Water Dispenser"
+PropDescription = "a water dispenser"
+PropID = "water_dispenser"
+
+[node name="CollisionShape2D" parent="." index="0"]
+position = Vector2(0, 10)
+shape = SubResource("RectangleShape2D_2bkpv")
+
+[node name="Sprite2D" parent="." index="1"]
+region_rect = Rect2(193, 248, 13, 31)
