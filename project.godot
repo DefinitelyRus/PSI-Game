@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Project Sentient Intelligence"
-run/main_scene="uid://bfp0axiex7i7o"
+run/main_scene="uid://d3cvhjbvnx1a1"
 config/features=PackedStringArray("4.4", "C#", "Mobile")
 config/icon="res://icon.svg"
 
