@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://r8h8th2wwmvh"]
+
+[ext_resource type="PackedScene" uid="uid://bnslwo4ecgkcn" path="res://Prefabs/StandardProp.tscn" id="1_qms86"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tu20h"]
+size = Vector2(26.5, 15.25)
+
+[node name="Coffee Table" instance=ExtResource("1_qms86")]
+PropName = "Coffee Table"
+PropDescription = "a wooden coffee table"
+PropID = "coffee_table"
+
+[node name="CollisionShape2D" parent="." index="0"]
+position = Vector2(-0.25, 8.625)
+shape = SubResource("RectangleShape2D_tu20h")
+
+[node name="Sprite2D" parent="." index="1"]
+region_rect = Rect2(131, 614, 27, 33)

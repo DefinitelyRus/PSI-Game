@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://djr2h8w2v4ben"]
+
+[ext_resource type="PackedScene" uid="uid://bnslwo4ecgkcn" path="res://Prefabs/StandardProp.tscn" id="1_xbesu"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_d580u"]
+size = Vector2(22, 34)
+
+[node name="Vending Machine" instance=ExtResource("1_xbesu")]
+collision_layer = 9
+PropName = "Vending Machine"
+PropDescription = "a medium sized vending machine"
+PropID = "vending_machine"
+
+[node name="CollisionShape2D" parent="." index="0"]
+position = Vector2(0, 0)
+shape = SubResource("RectangleShape2D_d580u")
+
+[node name="Sprite2D" parent="." index="1"]
+region_rect = Rect2(37, 373, 22, 34)

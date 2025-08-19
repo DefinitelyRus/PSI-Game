@@ -1,7 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://bfp0axiex7i7o"]
+[gd_scene load_steps=9 format=3 uid="uid://bfp0axiex7i7o"]
 
 [ext_resource type="PackedScene" uid="uid://daotyvqai4b36" path="res://Prefabs/StandardCharacter.tscn" id="1_b5ayd"]
 [ext_resource type="PackedScene" uid="uid://bfrjdctkygsvu" path="res://Prefabs/Props/wooden_table.tscn" id="2_5lt6y"]
+[ext_resource type="PackedScene" uid="uid://djr2h8w2v4ben" path="res://Prefabs/Props/vending_machine.tscn" id="3_8k7wh"]
+[ext_resource type="PackedScene" uid="uid://bhcsyy3di16se" path="res://Prefabs/Props/black_couch.tscn" id="4_iufkg"]
+[ext_resource type="PackedScene" uid="uid://d0a1feaf4gh3b" path="res://Prefabs/Props/cubicle_cluster.tscn" id="5_0f5h7"]
+[ext_resource type="PackedScene" uid="uid://bh4xqxtawvkwn" path="res://Prefabs/Props/black_chair.tscn" id="6_qsjrb"]
+[ext_resource type="PackedScene" uid="uid://dstcry80v1ora" path="res://Prefabs/Props/orange_chair.tscn" id="7_c264a"]
+[ext_resource type="PackedScene" uid="uid://r8h8th2wwmvh" path="res://Prefabs/Props/coffee_table.tscn" id="8_6xh1p"]
 
 [node name="TestScene" type="Node2D"]
 y_sort_enabled = true
@@ -45,6 +51,24 @@ parameters/Idle/blend_position = Vector2(0, 0)
 parameters/Walk/blend_position = Vector2(0.115924, -0.367925)
 
 [node name="Wooden Table" parent="." instance=ExtResource("2_5lt6y")]
+
+[node name="Vending Machine" parent="." instance=ExtResource("3_8k7wh")]
+position = Vector2(-62, -41)
+
+[node name="Black Couch" parent="." instance=ExtResource("4_iufkg")]
+position = Vector2(-51, 36)
+
+[node name="Cubicle Cluster" parent="." instance=ExtResource("5_0f5h7")]
+position = Vector2(25, 73)
+
+[node name="Black Chair" parent="." instance=ExtResource("6_qsjrb")]
+position = Vector2(44, 15)
+
+[node name="Orange_Chair" parent="." instance=ExtResource("7_c264a")]
+position = Vector2(13, -47)
+
+[node name="Coffee Table" parent="." instance=ExtResource("8_6xh1p")]
+position = Vector2(-26, -72)
 
 [editable path="Testo"]
 [editable path="Dummiku"]

@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://bh4xqxtawvkwn"]
+
+[ext_resource type="PackedScene" uid="uid://bnslwo4ecgkcn" path="res://Prefabs/StandardProp.tscn" id="1_prb3j"]
+
+[node name="Black Chair" instance=ExtResource("1_prb3j")]
+PropName = "Black Chair"
+PropDescription = "a black office chair"
+PropID = "black_chair"
+
+[node name="Sprite2D" parent="." index="1"]
+hframes = 6
+region_rect = Rect2(0, 131, 96, 27)
