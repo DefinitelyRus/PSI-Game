@@ -581,7 +581,7 @@ public partial class StandardCharacter : CharacterBody2D {
 
 		Log.Me(() => "Done!", LogReady);
 		return;
-    }
+	}
 
 	public override void _Process(double delta)
 	{
