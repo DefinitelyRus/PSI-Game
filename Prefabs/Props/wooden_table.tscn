@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://bfrjdctkygsvu"]
+
+[ext_resource type="PackedScene" uid="uid://bnslwo4ecgkcn" path="res://Prefabs/StandardProp.tscn" id="1_b3rek"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dxjsx"]
+size = Vector2(42, 23)
+
+[node name="Wooden Table" instance=ExtResource("1_b3rek")]
+PropName = "Wooden Table"
+PropDescription = "a wooden table"
+PropID = "wooden_table"
+
+[node name="CollisionShape2D" parent="." index="0"]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_dxjsx")
+
+[node name="Sprite2D" parent="." index="1"]
+region_rect = Rect2(114, 457, 41, 23)

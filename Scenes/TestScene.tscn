@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://bfp0axiex7i7o"]
 
 [ext_resource type="PackedScene" uid="uid://daotyvqai4b36" path="res://Prefabs/StandardCharacter.tscn" id="1_b5ayd"]
-[ext_resource type="PackedScene" uid="uid://bnslwo4ecgkcn" path="res://Prefabs/StandardProp.tscn" id="2_5lt6y"]
+[ext_resource type="PackedScene" uid="uid://bfrjdctkygsvu" path="res://Prefabs/Props/wooden_table.tscn" id="2_5lt6y"]
 
 [node name="TestScene" type="Node2D"]
 y_sort_enabled = true
@@ -44,9 +44,7 @@ parameters/Death/blend_position = Vector2(-0.582166, 0.292453)
 parameters/Idle/blend_position = Vector2(0, 0)
 parameters/Walk/blend_position = Vector2(0.115924, -0.367925)
 
-[node name="StandardProp" parent="." instance=ExtResource("2_5lt6y")]
-position = Vector2(-31, 0)
-PropName = "SecretLabs Titan EVO Gaming Chair"
+[node name="Wooden Table" parent="." instance=ExtResource("2_5lt6y")]
 
 [editable path="Testo"]
 [editable path="Dummiku"]
