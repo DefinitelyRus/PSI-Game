@@ -547,8 +547,15 @@ public partial class StandardWeapon : StandardItem
 		Log.Me(() => $"Done checking properties for {ItemID}.", LogReady);
 	}
 
-	public override void _Process(double delta) {
+	public override void _Ready()
+	{
+		Log.Me(() => $"Readying {InstanceID}. Passing to StandardItem...", LogReady);
+		base._Ready();
 
+		Log.Me(() => "Done!", LogReady);
+	}
+
+	public override void _Process(double delta) {
 		Log.Me(() => $"Processing {ItemID} as StandardWeapon.", LogProcess);
 
 		AimDirection = Mathf.PosMod(Mathf.RadToDeg(Control.FacingDirection.Angle()) + 90f, 360f);

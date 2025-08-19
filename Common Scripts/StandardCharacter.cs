@@ -576,6 +576,9 @@ public partial class StandardCharacter : CharacterBody2D {
 	{
 		Log.Me(() => $"Readying {InstanceID}...", LogReady);
 
+		Log.Me(() => $"Changing node name to \"{InstanceID}\"...", LogReady);
+		Name = InstanceID;
+
 		Log.Me(() => "Connecting HitArea.BodyEntered to OnBodyEntered...", LogReady);
 		HitArea.AreaEntered += OnAreaEntered;
 

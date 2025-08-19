@@ -47,6 +47,14 @@ public partial class StandardProjectileWeapon : StandardWeapon
 		Log.Me(() => $"Done checking properties for {ItemID}.", LogReady);
 	}
 
+	public override void _Ready()
+	{
+		Log.Me(() => $"Readying {InstanceID}. Passing to StandardWeapon...", LogReady);
+		base._Ready();
+
+		Log.Me(() => "Done!", LogReady);
+	}
+
 	public override void _Process(double delta) {
 		Log.Me(() => $"Processing {ItemID} as StandardProjectileWeapon. Passing to StandardWeapon...", LogProcess);
 		base._Process(delta);
