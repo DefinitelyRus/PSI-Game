@@ -1,8 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://bfp0axiex7i7o"]
+[gd_scene load_steps=3 format=3 uid="uid://bfp0axiex7i7o"]
 
 [ext_resource type="PackedScene" uid="uid://daotyvqai4b36" path="res://Prefabs/StandardCharacter.tscn" id="1_b5ayd"]
 [ext_resource type="PackedScene" uid="uid://bnslwo4ecgkcn" path="res://Prefabs/StandardProp.tscn" id="2_5lt6y"]
-[ext_resource type="Script" uid="uid://cxvoe8ek23mt1" path="res://Prefabs/HitArea.cs" id="2_8k7wh"]
 
 [node name="TestScene" type="Node2D"]
 y_sort_enabled = true
@@ -39,9 +38,6 @@ EnableCombat = false
 
 [node name="Input Manager" parent="Dummiku" index="1"]
 visible = false
-
-[node name="Area2D" parent="Dummiku" index="4"]
-script = ExtResource("2_8k7wh")
 
 [node name="AnimationTree" parent="Dummiku" index="7"]
 parameters/Death/blend_position = Vector2(-0.582166, 0.292453)
