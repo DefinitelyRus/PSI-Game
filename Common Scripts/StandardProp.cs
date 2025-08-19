@@ -236,6 +236,16 @@ public partial class StandardProp : RigidBody2D {
         Log.Me(() => "Done!", LogReady);
     }
 
+    public override void _Ready()
+    {
+        Log.Me(() => $"Readying {InstanceID}...", LogReady);
+
+        Log.Me(() => $"Changing node name to \"{InstanceID}\"...", LogReady);
+        Name = InstanceID;
+
+        Log.Me(() => "Done!", LogReady);
+    }
+
     #endregion
 
 }

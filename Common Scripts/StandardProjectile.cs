@@ -341,6 +341,9 @@ public partial class StandardProjectile : RigidBody2D
 	public override void _Ready() {
 		Log.Me(() => $"Readying {ProjectileID}...", LogReady);
 
+		Log.Me(() => $"Changing node name to \"{InstanceID}\"...", LogReady);
+		Name = InstanceID;
+
 		Log.Me(() => "Connecting HitArea.AreaEntered to OnAreaEntered...", LogReady);
 		HitArea.AreaEntered += OnAreaEntered;
 

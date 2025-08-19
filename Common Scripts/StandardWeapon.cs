@@ -548,6 +548,14 @@ public partial class StandardWeapon : StandardItem
 	}
 
 	public override void _Process(double delta) {
+	public override void _Ready()
+	{
+		Log.Me(() => $"Readying {InstanceID}. Passing to StandardItem...", LogReady);
+		base._Ready();
+
+		Log.Me(() => "Done!", LogReady);
+	}
+
 
 		Log.Me(() => $"Processing {ItemID} as StandardWeapon.", LogProcess);
 
