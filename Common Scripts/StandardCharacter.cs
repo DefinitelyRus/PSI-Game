@@ -322,25 +322,23 @@ public partial class StandardCharacter : CharacterBody2D {
 		//TODO: Replace with an IsAttacking property in StandardWeapon itself.
 
 		if (isWalking) {
-			Log.Me($"Walking at {Speed / CurrentMaxSpeed:F2}% ({Speed:F2}/{CurrentMaxSpeed:F2}) speed...", v, s + 1);
+			Log.Me($"Walking towards ({Control.MovementDirection.X:F2}/{Control.MovementDirection.Y:F2}) at {Speed / CurrentMaxSpeed:F2}% ({Speed:F2}/{CurrentMaxSpeed:F2}) speed...", v, s + 1);
 			AnimationTree.Set("parameters/Walk/blend_position", new Vector2(Control.MovementDirection.X, -Control.MovementDirection.Y));
 			AnimationState.Travel("Walk");
 			AnimationPlayer.SpeedScale = Speed / CurrentMaxSpeed;
 		}
 
 		if (isAttacking) {
-			Log.Me("Attacking...", v, s + 1);
+			Log.Me($"Attacking towards ({Control.FacingDirection.X:F2}/{Control.FacingDirection.Y:F2})...", v, s + 1);
 			AnimationTree.Set("parameters/Attack/blend_position", new Vector2(Control.FacingDirection.X, -Control.FacingDirection.Y));
 			AnimationState.Travel("Attack");
 		}
 
 		if (!isWalking && !isAttacking) {
-			Log.Me("Idling...", v, s + 1);
+			Log.Me($"Idling towards ({Control.FacingDirection.X:F2}/{Control.FacingDirection.Y:F2})...", v, s + 1);
 			AnimationTree.Set("parameters/Idle/blend_position", new Vector2(Control.FacingDirection.X, -Control.FacingDirection.Y));
 			AnimationState.Travel("Idle");
 		}
-
-		Log.Me($"Facing {Control.FacingDirection.X:F2}/{Control.FacingDirection.Y:F2}. Speed: {Speed}", v, s + 1);
 
 		Log.Me(() => "Done!", v, s + 1);
 	}
