@@ -16,8 +16,10 @@ func _ready() -> void:
 	return
 
 func _on_play_pressed() -> void:
-	pass 
-	#scene_loader.load_by_id(1, true)
+	if (log_interact): print("[MainMenu._on_play_pressed] Starting game...")
+
+	master.SceneLoader.LoadLevel(0, log_interact, 0)
+	return
 
 func _on_exit_pressed() -> void:
 	get_tree().quit()
