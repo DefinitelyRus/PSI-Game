@@ -133,7 +133,8 @@ public partial class SceneLoader : Node
 
         else if (MainMenu != null) {
             Log.Me(() => "Loading `MainMenu`...", LogReady);
-            Theatre.AddChild(MainMenu.Instantiate());
+            LoadedScene = MainMenu.Instantiate();
+            Theatre.AddChild(LoadedScene);
         }
 
         Log.Me(() => "Done!", LogReady);
