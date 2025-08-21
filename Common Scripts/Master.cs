@@ -1,6 +1,4 @@
 using Godot;
-using System;
-
 namespace CommonScripts;
 
 public partial class Master : Node {
