@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://bknph0ay5rnme"]
+
+[ext_resource type="PackedScene" uid="uid://bnslwo4ecgkcn" path="res://Prefabs/StandardProp.tscn" id="1_2y3rr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7rtds"]
+size = Vector2(48, 30)
+
+[node name="Big Table" instance=ExtResource("1_2y3rr")]
+PropName = "Big Table "
+PropDescription = "a big white table"
+PropID = "big_table"
+
+[node name="CollisionShape2D" parent="." index="0"]
+position = Vector2(0, 5)
+shape = SubResource("RectangleShape2D_7rtds")
+
+[node name="Sprite2D" parent="." index="1"]
+region_rect = Rect2(97, 73, 46, 39)

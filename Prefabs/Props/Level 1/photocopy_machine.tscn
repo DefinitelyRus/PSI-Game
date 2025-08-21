@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://ckrex7dx10ey8"]
+
+[ext_resource type="PackedScene" uid="uid://bnslwo4ecgkcn" path="res://Prefabs/StandardProp.tscn" id="1_0kp08"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_levpf"]
+size = Vector2(14, 13)
+
+[node name="Photocopy Machine" instance=ExtResource("1_0kp08")]
+PropName = "Photocopy Machine"
+PropDescription = "a photocopy machine"
+PropID = "photocopy_machine"
+
+[node name="CollisionShape2D" parent="." index="0"]
+position = Vector2(0, 10.5)
+shape = SubResource("RectangleShape2D_levpf")
+
+[node name="Sprite2D" parent="." index="1"]
+region_rect = Rect2(194, 208, 12, 32)

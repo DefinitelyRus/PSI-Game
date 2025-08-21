@@ -1,10 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://bfp0axiex7i7o"]
+[gd_scene load_steps=3 format=3 uid="uid://bfp0axiex7i7o"]
 
 [ext_resource type="PackedScene" uid="uid://daotyvqai4b36" path="res://Prefabs/StandardCharacter.tscn" id="1_b5ayd"]
-[ext_resource type="PackedScene" uid="uid://bpledjlueicmm" path="res://Prefabs/Props/Level 1/water_dispenser.tscn" id="3_8k7wh"]
-[ext_resource type="PackedScene" uid="uid://ul0y4uios3h8" path="res://Prefabs/Props/Level 1/bookshelf.tscn" id="4_iufkg"]
-[ext_resource type="PackedScene" uid="uid://brrtr8afqiprd" path="res://Prefabs/Props/Level 1/small_table.tscn" id="5_0f5h7"]
-[ext_resource type="PackedScene" uid="uid://cdqlens22s5ci" path="res://Prefabs/Props/Level 1/pot_bush.tscn" id="12_ytmxh"]
+[ext_resource type="PackedScene" uid="uid://ckrex7dx10ey8" path="res://Prefabs/Props/Level 1/photocopy_machine.tscn" id="2_5lt6y"]
 
 [node name="TestScene" type="Node2D"]
 y_sort_enabled = true
@@ -47,17 +44,8 @@ parameters/Death/blend_position = Vector2(-0.582166, 0.292453)
 parameters/Idle/blend_position = Vector2(0, 0)
 parameters/Walk/blend_position = Vector2(0.115924, -0.367925)
 
-[node name="Pot Bush" parent="." instance=ExtResource("12_ytmxh")]
-position = Vector2(-44, -28)
-
-[node name="Water Dispenser" parent="." instance=ExtResource("3_8k7wh")]
-position = Vector2(-34, 18)
-
-[node name="Bookshelf" parent="." instance=ExtResource("4_iufkg")]
-position = Vector2(-101, -35)
-
-[node name="Small Table" parent="." instance=ExtResource("5_0f5h7")]
-position = Vector2(-123, 25)
+[node name="Photocopy Machine" parent="." instance=ExtResource("2_5lt6y")]
+position = Vector2(-52, 2)
 
 [editable path="Testo"]
 [editable path="Dummiku"]
