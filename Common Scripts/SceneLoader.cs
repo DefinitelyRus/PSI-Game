@@ -30,13 +30,15 @@ public partial class SceneLoader : Node
 
     #region Level Management
 
-    public PackedScene GetLevel(uint levelIndex, bool v = false, int s = 0)
+    public PackedScene? GetLevel(uint levelIndex, bool v = false, int s = 0)
     {
         Log.Me(() => $"Retrieving level: {levelIndex}...", v, s + 1);
 
-        PackedScene retrievedLevel = (levelIndex < Levels.Length) ? Levels[levelIndex] : null!;
+        PackedScene? retrievedLevel = (levelIndex < Levels.Length) ? Levels[levelIndex] : null;
 
-        Log.Me(() => $"Retrieved level: {retrievedLevel.ResourceName} ({retrievedLevel.GetType().Name}).", v, s + 1);
+        if (retrievedLevel != null) Log.Me(() => $"Retrieved level: {retrievedLevel.ResourceName} ({retrievedLevel.GetType().Name}).", v, s + 1);
+        else Log.Me(() => $"Level of index {levelIndex} not found.", v, s + 1);
+
         Log.Me(() => "Done!", v, s + 1);
         return retrievedLevel;
     }
