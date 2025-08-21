@@ -46,10 +46,13 @@ public partial class SceneLoader : Node
     public void LoadLevel(uint levelIndex, bool v = false, int s = 0) {
         Log.Me(() => $"Loading level {levelIndex}...", v, s + 1);
 
-        PackedScene levelToLoad = GetLevel(levelIndex, v, s + 1);
+        Log.Me(() => $"Unloading current level...", v, s + 1);
+        UnloadLevel(false, v, s + 1);
+
+        PackedScene? levelToLoad = GetLevel(levelIndex, v, s + 1);
 
         if (levelToLoad == null) {
-            Log.Me(() => $"Level not found: {levelIndex}.", v, s + 1);
+            Log.Me(() => $"Level of index {levelIndex} not found.", v, s + 1);
             return;
         }
 
