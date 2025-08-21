@@ -1,12 +1,19 @@
 extends CanvasLayer
 
-#var master: Master
+var master: Variant
 
-#func _ready() -> void:
-	# Verify master instance
-	#if master == null:
-		#print("[WARN: Map_0._ready] Master is still null. Calling members from this object may cause issues.")
-		#return
+@export var log_ready: bool = false
+@export var log_interact: bool = false
+
+func _ready() -> void:
+	
+	#Assign and verify master instance
+	master = get_node("/root/Master")
+	var masterType: String = type_string(typeof(master))
+	if masterType != "Master":
+		if log_ready: print("[MainMenu._ready] Master node loaded in as \"%s\"." % masterType)
+		pass
+	return
 
 func _on_play_pressed() -> void:
 	pass 
