@@ -19,6 +19,11 @@ config/icon="res://icon.svg"
 
 window/size/viewport_width=640
 window/size/viewport_height=360
+window/size/resizable=false
+window/stretch/mode="viewport"
+window/stretch/aspect="keep_height"
+window/stretch/scale_mode="integer"
+window/handheld/orientation=4
 
 [dotnet]
 
@@ -83,6 +88,10 @@ avoidance/layer_3="Short Prop"
 avoidance/layer_4="Tall Prop"
 avoidance/layer_5="Ground Character"
 avoidance/layer_6="Flying Character"
+
+[physics]
+
+2d/run_on_separate_thread=true
 
 [rendering]
 
