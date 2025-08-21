@@ -22,4 +22,6 @@ func _on_play_pressed() -> void:
 	return
 
 func _on_exit_pressed() -> void:
+	if (log_interact): print("[MainMenu._on_exit_pressed] Exiting game.")
 	get_tree().quit()
+	return
