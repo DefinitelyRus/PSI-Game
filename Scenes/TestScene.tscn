@@ -1368,7 +1368,7 @@ parameters/Idle/blend_position = Vector2(0, 0)
 parameters/Walk/blend_position = Vector2(0.115924, -0.367925)
 
 [node name="Armchair" parent="." instance=ExtResource("4_c2lnq")]
-position = Vector2(23, 47)
+position = Vector2(25, 56)
 
 [node name="Big Table" parent="." instance=ExtResource("5_dwn5r")]
 position = Vector2(91, 55)
@@ -1389,7 +1389,7 @@ position = Vector2(167, 42)
 position = Vector2(233, 51)
 
 [node name="Medium Money Pile" parent="." instance=ExtResource("11_kjcbk")]
-position = Vector2(25, 67)
+position = Vector2(25, 74)
 
 [node name="Orange_Chair" parent="." instance=ExtResource("12_837su")]
 position = Vector2(25, 84)
@@ -1449,7 +1449,7 @@ position = Vector2(76, -153)
 position = Vector2(213, -42)
 
 [node name="Cubicle Cluster2" parent="." instance=ExtResource("10_l6hhx")]
-position = Vector2(133, -41)
+position = Vector2(118, -41)
 
 [node name="Medium Money Pile2" parent="." instance=ExtResource("11_kjcbk")]
 position = Vector2(278, -41)
