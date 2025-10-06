@@ -2721,7 +2721,6 @@ collision_layer = 144
 CharacterName = "Dummiku"
 CharacterID = "dummiku"
 DespawnOnDeath = true
-LogCollision = true
 
 [node name="Control Surface" parent="Dummiku" index="0"]
 EnableMovement = false
