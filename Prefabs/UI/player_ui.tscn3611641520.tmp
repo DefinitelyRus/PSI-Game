@@ -1,0 +1,126 @@
+[gd_scene load_steps=7 format=3 uid="uid://o52kke4dfdo0"]
+
+[ext_resource type="Texture2D" uid="uid://kqo44exiy3bv" path="res://Sprites/UI/Modern_UI_Style_2_32x32.png" id="1_7a7a1"]
+[ext_resource type="Script" uid="uid://bdv1hbweo6wlo" path="res://Common Scripts/player_ui.gd" id="1_av0rp"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_lsael"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lsael"]
+bg_color = Color(0.94902, 0.282353, 0.133333, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7a7a1"]
+texture = ExtResource("1_7a7a1")
+region_rect = Rect2(320, 321, 32, 32)
+modulate_color = Color(0.325441, 0.325441, 0.325441, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_av0rp"]
+texture = ExtResource("1_7a7a1")
+region_rect = Rect2(320, 321, 32, 32)
+
+[node name="Player_UI" type="CanvasLayer" node_paths=PackedStringArray("health_bar", "power", "inventory_slots", "player_ui", "player_info", "player_inventory")]
+script = ExtResource("1_av0rp")
+health_bar = NodePath("Content/Player_Info/Health/Health_bar")
+power = [NodePath("Content/Player_Info/Power/HBoxContainer/Power1"), NodePath("Content/Player_Info/Power/HBoxContainer/Power2")]
+inventory_slots = [NodePath("Content/Inventory/InvSlot1"), NodePath("Content/Inventory/InvSlot2"), NodePath("Content/Inventory/InvSlot3"), NodePath("Content/Inventory/InvSlot4"), NodePath("Content/Inventory/InvSlot5")]
+player_ui = NodePath(".")
+player_info = NodePath("Content/Player_Info")
+player_inventory = NodePath("Content/Inventory")
+
+[node name="Content" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 50
+
+[node name="Player_Info" type="VBoxContainer" parent="Content"]
+layout_mode = 2
+
+[node name="Health" type="HBoxContainer" parent="Content/Player_Info"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_constants/separation = 10
+
+[node name="HP" type="Label" parent="Content/Player_Info/Health"]
+layout_mode = 2
+text = "HP"
+
+[node name="Health_bar" type="HSlider" parent="Content/Player_Info/Health"]
+custom_minimum_size = Vector2(150, 30)
+layout_mode = 2
+theme_override_icons/grabber = SubResource("CompressedTexture2D_lsael")
+theme_override_icons/grabber_highlight = SubResource("CompressedTexture2D_lsael")
+theme_override_icons/grabber_disabled = SubResource("CompressedTexture2D_lsael")
+theme_override_styles/grabber_area = SubResource("StyleBoxFlat_lsael")
+value = 50.0
+editable = false
+scrollable = false
+
+[node name="Power" type="HBoxContainer" parent="Content/Player_Info"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_constants/separation = 10
+
+[node name="Power" type="Label" parent="Content/Player_Info/Power"]
+layout_mode = 2
+text = "Power"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Content/Player_Info/Power"]
+layout_mode = 2
+
+[node name="Power1" type="Button" parent="Content/Player_Info/Power/HBoxContainer"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/disabled = SubResource("StyleBoxTexture_7a7a1")
+theme_override_styles/normal = SubResource("StyleBoxTexture_av0rp")
+
+[node name="Power2" type="Button" parent="Content/Player_Info/Power/HBoxContainer"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/disabled = SubResource("StyleBoxTexture_7a7a1")
+theme_override_styles/normal = SubResource("StyleBoxTexture_av0rp")
+disabled = true
+
+[node name="Inventory" type="VBoxContainer" parent="Content"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+theme_override_constants/separation = 10
+
+[node name="InvSlot1" type="Button" parent="Content/Inventory"]
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 2
+focus_mode = 0
+
+[node name="InvSlot2" type="Button" parent="Content/Inventory"]
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 2
+focus_mode = 0
+
+[node name="InvSlot3" type="Button" parent="Content/Inventory"]
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 2
+focus_mode = 0
+
+[node name="InvSlot4" type="Button" parent="Content/Inventory"]
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 2
+focus_mode = 0
+
+[node name="InvSlot5" type="Button" parent="Content/Inventory"]
+custom_minimum_size = Vector2(35, 35)
+layout_mode = 2
+focus_mode = 0
