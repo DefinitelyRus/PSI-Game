@@ -26,17 +26,9 @@ region_rect = Rect2(320, 321, 32, 32)
 texture = ExtResource("3_frt37")
 region_rect = Rect2(159, 18, 23, 28)
 
-[node name="Player_UI" type="CanvasLayer" node_paths=PackedStringArray("health_bar", "power", "inventory_slots", "hud_container", "player_ui", "player_info", "player_inventory")]
-script = ExtResource("1_av0rp")
-health_bar = NodePath("HUD/Player_Info/Health/Health_bar")
-power = [NodePath("HUD/Player_Info/Power/HBoxContainer/Power1"), NodePath("HUD/Player_Info/Power/HBoxContainer/Power2")]
-inventory_slots = [NodePath("HUD/Inventory/InvSlot1"), NodePath("HUD/Inventory/InvSlot2"), NodePath("HUD/Inventory/InvSlot3"), NodePath("HUD/Inventory/InvSlot4"), NodePath("HUD/Inventory/InvSlot5")]
-hud_container = NodePath("HUD")
-player_ui = NodePath(".")
-player_info = NodePath("HUD/Player_Info")
-player_inventory = NodePath("HUD/Inventory")
+[node name="Player_UI" type="CanvasLayer"]
 
-[node name="HUD" type="MarginContainer" parent="."]
+[node name="HUD" type="MarginContainer" parent="." node_paths=PackedStringArray("health_bar", "power", "inventory_slots", "hud_container", "player_info", "player_inventory")]
 anchors_preset = 9
 anchor_bottom = 1.0
 offset_right = 192.0
@@ -44,6 +36,13 @@ grow_vertical = 2
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 50
+script = ExtResource("1_av0rp")
+health_bar = NodePath("Player_Info/Health/Health_bar")
+power = [NodePath("Player_Info/Power/HBoxContainer/Power1"), NodePath("Player_Info/Power/HBoxContainer/Power2")]
+inventory_slots = [NodePath("Inventory/InvSlot1"), NodePath("Inventory/InvSlot2"), NodePath("Inventory/InvSlot3"), NodePath("Inventory/InvSlot4"), NodePath("Inventory/InvSlot5")]
+hud_container = NodePath(".")
+player_info = NodePath("Player_Info")
+player_inventory = NodePath("Inventory")
 
 [node name="Player_Info" type="VBoxContainer" parent="HUD"]
 layout_mode = 2
@@ -149,3 +148,16 @@ focus_mode = 0
 theme_override_styles/hover = SubResource("StyleBoxTexture_64sls")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_64sls")
 theme_override_styles/normal = SubResource("StyleBoxTexture_64sls")
+
+[node name="POP-UP" type="MarginContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2

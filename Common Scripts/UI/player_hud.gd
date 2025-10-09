@@ -1,4 +1,4 @@
-extends CanvasLayer
+extends MarginContainer
 class_name PlayerUI 
 
 @export_group("Player Info")
@@ -10,7 +10,6 @@ class_name PlayerUI
 
 @export_group("Containers")
 @export var hud_container: MarginContainer
-@export var player_ui: CanvasLayer
 @export var player_info: VBoxContainer
 @export var player_inventory: VBoxContainer
 
@@ -51,7 +50,7 @@ func _ready() -> void:
 ## Will set the visibility of the HUD: 0 = whole PlayerUI, 1 = player infos, 2 = inventory
 func set_visibility(visible: bool, target: int) -> void:
 	match target:
-		0: player_ui.visible = visible
+		0: hud_container.visible = visible
 		1: player_info.visible = visible
 		2: player_inventory.visible = visible
 		_: push_warning("That doesnt exist. . .")
