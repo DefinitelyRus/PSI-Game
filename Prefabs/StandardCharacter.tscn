@@ -1,10 +1,11 @@
-[gd_scene load_steps=84 format=3 uid="uid://daotyvqai4b36"]
+[gd_scene load_steps=85 format=3 uid="uid://daotyvqai4b36"]
 
 [ext_resource type="Script" uid="uid://dbkinu8656olu" path="res://Common Scripts/StandardCharacter.cs" id="1_udvt5"]
 [ext_resource type="Texture2D" uid="uid://bjipwk6ac5bx0" path="res://Sprites/Legionnaires/Rikka/Idle.png" id="2_r87il"]
 [ext_resource type="Script" uid="uid://cavubcy1osm40" path="res://Common Scripts/ControlSurface.cs" id="3_r87il"]
 [ext_resource type="PackedScene" uid="uid://dx7iwt4dptbck" path="res://Prefabs/StandardProjectileWeapon.tscn" id="4_g5v64"]
 [ext_resource type="Script" uid="uid://cgxfjkqqik5s8" path="res://Common Scripts/InputManager.cs" id="4_gn58p"]
+[ext_resource type="Script" uid="uid://vonec1xhm4cv" path="res://Common Scripts/AIAgentManager.cs" id="4_rog04"]
 [ext_resource type="Script" uid="uid://cxvoe8ek23mt1" path="res://Prefabs/HitArea.cs" id="5_n5c1j"]
 [ext_resource type="Texture2D" uid="uid://b3esetth4h67v" path="res://Sprites/Legionnaires/Rikka/Walking.png" id="7_7fba6"]
 [ext_resource type="Texture2D" uid="uid://bsjlco5cxe7v3" path="res://Sprites/Legionnaires/Rikka/Standing Shooting.png" id="8_g5v64"]
@@ -1402,6 +1403,9 @@ script = ExtResource("4_gn58p")
 LogReady = false
 MovementMode = 2
 FacingMode = 1
+
+[node name="AI Agent Manager" type="Node2D" parent="."]
+script = ExtResource("4_rog04")
 
 [node name="Projectile Weapon" parent="." node_paths=PackedStringArray("WeaponOwner") instance=ExtResource("4_g5v64")]
 WeaponOwner = NodePath("..")
