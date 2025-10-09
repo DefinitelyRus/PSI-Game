@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://o52kke4dfdo0"]
+[gd_scene load_steps=13 format=3 uid="uid://o52kke4dfdo0"]
 
 [ext_resource type="Texture2D" uid="uid://kqo44exiy3bv" path="res://Sprites/UI/Modern_UI_Style_2_32x32.png" id="1_7a7a1"]
 [ext_resource type="Script" uid="uid://bdv1hbweo6wlo" path="res://Common Scripts/UI/player_hud.gd" id="1_av0rp"]
 [ext_resource type="Texture2D" uid="uid://bjipwk6ac5bx0" path="res://Sprites/Legionnaires/Rikka/Idle.png" id="3_frt37"]
+[ext_resource type="Script" uid="uid://0av647fe1ugh" path="res://Common Scripts/UI/pop_up.gd" id="4_64sls"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_lsael"]
 
@@ -25,6 +26,17 @@ region_rect = Rect2(320, 321, 32, 32)
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_64sls"]
 texture = ExtResource("3_frt37")
 region_rect = Rect2(159, 18, 23, 28)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_64sls"]
+bg_color = Color(0.921569, 0.894118, 0.94902, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vpfb6"]
+texture = ExtResource("1_7a7a1")
+region_rect = Rect2(800, 512, 32, 32)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_frt37"]
+texture = ExtResource("1_7a7a1")
+region_rect = Rect2(800, 64, 32, 32)
 
 [node name="Player_UI" type="CanvasLayer"]
 
@@ -149,15 +161,203 @@ theme_override_styles/hover = SubResource("StyleBoxTexture_64sls")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_64sls")
 theme_override_styles/normal = SubResource("StyleBoxTexture_64sls")
 
-[node name="POP-UP" type="MarginContainer" parent="."]
+[node name="Pop-Up" type="Control" parent="." node_paths=PackedStringArray("popUP_container", "header_text", "paragraph_text", "button_container", "button_row1", "row1_buttons", "button_row2", "row2_buttons", "button_row3", "row3_buttons")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("4_64sls")
+popUP_container = NodePath(".")
+header_text = NodePath("Content/TextsContainer/Texts/Title Bar/Header/Header")
+paragraph_text = NodePath("Content/TextsContainer/Texts/Paragraph")
+button_container = NodePath("Content/TextsContainer/Texts/ButtonContainer")
+button_row1 = NodePath("Content/TextsContainer/Texts/ButtonContainer/Rows/Row1")
+row1_buttons = [NodePath("Content/TextsContainer/Texts/ButtonContainer/Rows/Row1/R1B1"), NodePath("Content/TextsContainer/Texts/ButtonContainer/Rows/Row1/R1B2"), NodePath("Content/TextsContainer/Texts/ButtonContainer/Rows/Row1/R1B3")]
+button_row2 = NodePath("Content/TextsContainer/Texts/ButtonContainer/Rows/Row2")
+row2_buttons = [NodePath("Content/TextsContainer/Texts/ButtonContainer/Rows/Row2/R2B1"), NodePath("Content/TextsContainer/Texts/ButtonContainer/Rows/Row2/R2B2"), NodePath("Content/TextsContainer/Texts/ButtonContainer/Rows/Row2/R2B3")]
+button_row3 = NodePath("Content/TextsContainer/Texts/ButtonContainer/Rows/Row3")
+row3_buttons = [NodePath("Content/TextsContainer/Texts/ButtonContainer/Rows/Row3/R3B1"), NodePath("Content/TextsContainer/Texts/ButtonContainer/Rows/Row3/R3B2"), NodePath("Content/TextsContainer/Texts/ButtonContainer/Rows/Row3/R3B3")]
+
+[node name="Content" type="MarginContainer" parent="Pop-Up"]
+layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
+offset_left = -80.0
+offset_top = -40.0
+offset_right = 80.0
+offset_bottom = 40.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="Background Panel" type="NinePatchRect" parent="Pop-Up/Content"]
+custom_minimum_size = Vector2(230, 50)
+layout_mode = 2
+texture = ExtResource("1_7a7a1")
+region_rect = Rect2(25, 771, 124, 82)
+
+[node name="TextsContainer" type="MarginContainer" parent="Pop-Up/Content"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 15
+
+[node name="Texts" type="VBoxContainer" parent="Pop-Up/Content/TextsContainer"]
+layout_mode = 2
+
+[node name="Title Bar" type="MarginContainer" parent="Pop-Up/Content/TextsContainer/Texts"]
+layout_mode = 2
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = -1
+theme_override_constants/margin_right = 2
+
+[node name="Panel" type="Panel" parent="Pop-Up/Content/TextsContainer/Texts/Title Bar"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_64sls")
+
+[node name="Header" type="HBoxContainer" parent="Pop-Up/Content/TextsContainer/Texts/Title Bar"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Spacing" type="Control" parent="Pop-Up/Content/TextsContainer/Texts/Title Bar/Header"]
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 2
+
+[node name="Header" type="Label" parent="Pop-Up/Content/TextsContainer/Texts/Title Bar/Header"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(0.337255, 0.34902, 0.447059, 1)
+theme_override_font_sizes/font_size = 16
+text = "Explosion"
+
+[node name="Paragraph" type="Label" parent="Pop-Up/Content/TextsContainer/Texts"]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 12
+text = "Boom! Boom!"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Spacing" type="Control" parent="Pop-Up/Content/TextsContainer/Texts"]
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 2
+
+[node name="ButtonContainer" type="MarginContainer" parent="Pop-Up/Content/TextsContainer/Texts"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_right = 5
+
+[node name="Rows" type="VBoxContainer" parent="Pop-Up/Content/TextsContainer/Texts/ButtonContainer"]
+layout_mode = 2
+
+[node name="Row1" type="HBoxContainer" parent="Pop-Up/Content/TextsContainer/Texts/ButtonContainer/Rows"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="R1B1" type="Button" parent="Pop-Up/Content/TextsContainer/Texts/ButtonContainer/Rows/Row1"]
+visible = false
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 10
+text = "
+"
+
+[node name="R1B2" type="Button" parent="Pop-Up/Content/TextsContainer/Texts/ButtonContainer/Rows/Row1"]
+visible = false
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 10
+text = "
+"
+
+[node name="R1B3" type="Button" parent="Pop-Up/Content/TextsContainer/Texts/ButtonContainer/Rows/Row1"]
+visible = false
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 10
+text = "
+"
+
+[node name="Row2" type="HBoxContainer" parent="Pop-Up/Content/TextsContainer/Texts/ButtonContainer/Rows"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="R2B1" type="Button" parent="Pop-Up/Content/TextsContainer/Texts/ButtonContainer/Rows/Row2"]
+visible = false
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 10
+text = "
+"
+
+[node name="R2B2" type="Button" parent="Pop-Up/Content/TextsContainer/Texts/ButtonContainer/Rows/Row2"]
+visible = false
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 10
+text = "
+"
+
+[node name="R2B3" type="Button" parent="Pop-Up/Content/TextsContainer/Texts/ButtonContainer/Rows/Row2"]
+visible = false
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 10
+text = "
+"
+
+[node name="Row3" type="HBoxContainer" parent="Pop-Up/Content/TextsContainer/Texts/ButtonContainer/Rows"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="R3B1" type="Button" parent="Pop-Up/Content/TextsContainer/Texts/ButtonContainer/Rows/Row3"]
+visible = false
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 10
+text = "
+"
+
+[node name="R3B2" type="Button" parent="Pop-Up/Content/TextsContainer/Texts/ButtonContainer/Rows/Row3"]
+visible = false
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 10
+text = "
+"
+
+[node name="R3B3" type="Button" parent="Pop-Up/Content/TextsContainer/Texts/ButtonContainer/Rows/Row3"]
+visible = false
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 10
+text = "
+"
+
+[node name="ExitButton" type="MarginContainer" parent="Pop-Up/Content"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+theme_override_constants/margin_top = -10
+theme_override_constants/margin_right = -10
+
+[node name="Exit" type="Button" parent="Pop-Up/Content/ExitButton"]
+custom_minimum_size = Vector2(28, 28)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+focus_mode = 0
+theme_override_styles/hover = SubResource("StyleBoxTexture_vpfb6")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_frt37")
+theme_override_styles/normal = SubResource("StyleBoxTexture_frt37")
+
+[connection signal="pressed" from="Pop-Up/Content/ExitButton/Exit" to="Pop-Up" method="_on_exit_pressed"]

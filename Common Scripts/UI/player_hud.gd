@@ -112,3 +112,7 @@ func is_cursor_near_hud() -> bool:
 	var mouse_pos = get_viewport().get_mouse_position()
 	var rect = hud_container.get_global_rect()
 	return rect.has_point(mouse_pos)
+
+
+func _on_exit_pressed() -> void:
+	pass # Replace with function body.
