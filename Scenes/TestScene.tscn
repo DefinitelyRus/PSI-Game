@@ -2838,118 +2838,120 @@ parameters/Death/blend_position = Vector2(-0.582166, 0.292453)
 parameters/Idle/blend_position = Vector2(0, 0)
 parameters/Walk/blend_position = Vector2(0.115924, -0.367925)
 
-[node name="Armchair" parent="." instance=ExtResource("4_c2lnq")]
+[node name="Props" type="Node" parent="."]
+
+[node name="Armchair" parent="Props" instance=ExtResource("4_c2lnq")]
 position = Vector2(25, 56)
 
-[node name="Big Table" parent="." instance=ExtResource("5_dwn5r")]
+[node name="Big Table" parent="Props" instance=ExtResource("5_dwn5r")]
 position = Vector2(91, 55)
 
-[node name="Black Chair" parent="." instance=ExtResource("6_1vcy8")]
+[node name="Black Chair" parent="Props" instance=ExtResource("6_1vcy8")]
 position = Vector2(26, 122)
 
-[node name="Black Couch" parent="." instance=ExtResource("7_65o0v")]
+[node name="Black Couch" parent="Props" instance=ExtResource("7_65o0v")]
 position = Vector2(50, 47)
 
-[node name="Bookshelf" parent="." instance=ExtResource("8_o5yho")]
+[node name="Bookshelf" parent="Props" instance=ExtResource("8_o5yho")]
 position = Vector2(134, 40)
 
-[node name="Coffee Table" parent="." instance=ExtResource("9_w2urx")]
+[node name="Coffee Table" parent="Props" instance=ExtResource("9_w2urx")]
 position = Vector2(167, 42)
 
-[node name="Cubicle Cluster" parent="." instance=ExtResource("10_l6hhx")]
+[node name="Cubicle Cluster" parent="Props" instance=ExtResource("10_l6hhx")]
 position = Vector2(233, 51)
 
-[node name="Medium Money Pile" parent="." instance=ExtResource("11_kjcbk")]
+[node name="Medium Money Pile" parent="Props" instance=ExtResource("11_kjcbk")]
 position = Vector2(25, 74)
 
-[node name="Orange_Chair" parent="." instance=ExtResource("12_837su")]
+[node name="Orange_Chair" parent="Props" instance=ExtResource("12_837su")]
 position = Vector2(25, 84)
 
-[node name="Photocopy Machine" parent="." instance=ExtResource("13_e2ukc")]
+[node name="Photocopy Machine" parent="Props" instance=ExtResource("13_e2ukc")]
 position = Vector2(26, 97)
 
-[node name="Pot Bush" parent="." instance=ExtResource("14_pmm3y")]
+[node name="Pot Bush" parent="Props" instance=ExtResource("14_pmm3y")]
 position = Vector2(280, 71)
 
-[node name="Side Table" parent="." instance=ExtResource("15_ujmjp")]
+[node name="Side Table" parent="Props" instance=ExtResource("15_ujmjp")]
 position = Vector2(277, 101)
 
-[node name="Small Table" parent="." instance=ExtResource("16_xpbxo")]
+[node name="Small Table" parent="Props" instance=ExtResource("16_xpbxo")]
 position = Vector2(50, 123)
 
-[node name="Suitcase" parent="." instance=ExtResource("17_bps1o")]
+[node name="Suitcase" parent="Props" instance=ExtResource("17_bps1o")]
 position = Vector2(73, 125)
 
-[node name="Vending Machine" parent="." instance=ExtResource("18_4ut8m")]
+[node name="Vending Machine" parent="Props" instance=ExtResource("18_4ut8m")]
 position = Vector2(94, 119)
 
-[node name="Water Dispenser" parent="." instance=ExtResource("19_53e5m")]
+[node name="Water Dispenser" parent="Props" instance=ExtResource("19_53e5m")]
 position = Vector2(114, 122)
 
-[node name="Wooden Table" parent="." instance=ExtResource("20_0n54w")]
+[node name="Wooden Table" parent="Props" instance=ExtResource("20_0n54w")]
 position = Vector2(145, 124)
 
-[node name="Armchair2" parent="." instance=ExtResource("4_c2lnq")]
+[node name="Armchair2" parent="Props" instance=ExtResource("4_c2lnq")]
 position = Vector2(178, 126)
 
-[node name="Black Chair2" parent="." instance=ExtResource("6_1vcy8")]
+[node name="Black Chair2" parent="Props" instance=ExtResource("6_1vcy8")]
 position = Vector2(197, 123)
 
-[node name="Black Couch2" parent="." instance=ExtResource("7_65o0v")]
+[node name="Black Couch2" parent="Props" instance=ExtResource("7_65o0v")]
 position = Vector2(223, 124)
 
-[node name="Coffee Table2" parent="." instance=ExtResource("9_w2urx")]
+[node name="Coffee Table2" parent="Props" instance=ExtResource("9_w2urx")]
 position = Vector2(253, 120)
 
-[node name="Armchair3" parent="." instance=ExtResource("4_c2lnq")]
+[node name="Armchair3" parent="Props" instance=ExtResource("4_c2lnq")]
 position = Vector2(11, -134)
 
-[node name="Big Table2" parent="." instance=ExtResource("5_dwn5r")]
+[node name="Big Table2" parent="Props" instance=ExtResource("5_dwn5r")]
 position = Vector2(24, -82)
 
-[node name="Black Chair3" parent="." instance=ExtResource("6_1vcy8")]
+[node name="Black Chair3" parent="Props" instance=ExtResource("6_1vcy8")]
 position = Vector2(11, -38)
 
-[node name="Black Couch3" parent="." instance=ExtResource("7_65o0v")]
+[node name="Black Couch3" parent="Props" instance=ExtResource("7_65o0v")]
 position = Vector2(42, -142)
 
-[node name="Bookshelf2" parent="." instance=ExtResource("8_o5yho")]
+[node name="Bookshelf2" parent="Props" instance=ExtResource("8_o5yho")]
 position = Vector2(76, -153)
 
-[node name="Coffee Table3" parent="." instance=ExtResource("9_w2urx")]
+[node name="Coffee Table3" parent="Props" instance=ExtResource("9_w2urx")]
 position = Vector2(213, -42)
 
-[node name="Cubicle Cluster2" parent="." instance=ExtResource("10_l6hhx")]
+[node name="Cubicle Cluster2" parent="Props" instance=ExtResource("10_l6hhx")]
 position = Vector2(118, -41)
 
-[node name="Medium Money Pile2" parent="." instance=ExtResource("11_kjcbk")]
+[node name="Medium Money Pile2" parent="Props" instance=ExtResource("11_kjcbk")]
 position = Vector2(278, -41)
 
-[node name="Orange_Chair2" parent="." instance=ExtResource("12_837su")]
+[node name="Orange_Chair2" parent="Props" instance=ExtResource("12_837su")]
 position = Vector2(243, -38)
 
-[node name="Photocopy Machine2" parent="." instance=ExtResource("13_e2ukc")]
+[node name="Photocopy Machine2" parent="Props" instance=ExtResource("13_e2ukc")]
 position = Vector2(280, -74)
 
-[node name="Pot Bush2" parent="." instance=ExtResource("14_pmm3y")]
+[node name="Pot Bush2" parent="Props" instance=ExtResource("14_pmm3y")]
 position = Vector2(280, -111)
 
-[node name="Side Table2" parent="." instance=ExtResource("15_ujmjp")]
+[node name="Side Table2" parent="Props" instance=ExtResource("15_ujmjp")]
 position = Vector2(110, -134)
 
-[node name="Small Table2" parent="." instance=ExtResource("16_xpbxo")]
+[node name="Small Table2" parent="Props" instance=ExtResource("16_xpbxo")]
 position = Vector2(140, -142)
 
-[node name="Suitcase2" parent="." instance=ExtResource("17_bps1o")]
+[node name="Suitcase2" parent="Props" instance=ExtResource("17_bps1o")]
 position = Vector2(167, -149)
 
-[node name="Vending Machine2" parent="." instance=ExtResource("18_4ut8m")]
+[node name="Vending Machine2" parent="Props" instance=ExtResource("18_4ut8m")]
 position = Vector2(195, -153)
 
-[node name="Water Dispenser2" parent="." instance=ExtResource("19_53e5m")]
+[node name="Water Dispenser2" parent="Props" instance=ExtResource("19_53e5m")]
 position = Vector2(224, -150)
 
-[node name="Wooden Table2" parent="." instance=ExtResource("20_0n54w")]
+[node name="Wooden Table2" parent="Props" instance=ExtResource("20_0n54w")]
 position = Vector2(261, -141)
 
 [editable path="Testo"]
