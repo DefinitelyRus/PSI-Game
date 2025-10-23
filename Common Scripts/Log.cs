@@ -1,6 +1,7 @@
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using Godot;
@@ -227,6 +228,226 @@ public partial class Log : Node {
 		Message(messageFactory(), PrintMode.Error, stack, useFilePath, 2);
 	}
 
-		#endregion
+	#endregion
+
+	#region Traced Logging
+
+	/// <summary>
+	/// Logs a trace message with contextual information, including the call stack, to the Godot console.
+	/// </summary>
+	/// <remarks>
+	/// This method captures the current call stack, filters out irrelevant frames
+	/// (e.g., from system or third-party namespaces), and logs the trace information to the Godot console.
+	/// The message is logged at the deepest relevant stack frame, with intermediate frames logged as context.
+	/// </remarks>
+	/// <param name="ctx">The trace context used to validate the operation. Must be active and belong to the current thread.</param>
+	/// <param name="message">The message to log. This will be displayed at the deepest stack frame.</param>
+	/// <param name="printAs">Specifies the severity level of the message, such as normal, warning, or error.</param>
+	/// <param name="frameDepth">The number of stack frames to skip when capturing the call stack. Defaults to 1.</param>
+	/// <param name="filePath">The source file path of the caller. Automatically provided by the compiler.</param>
+	/// <param name="line">The line number in the source file of the caller. Automatically provided by the compiler.</param>
+	/// <exception cref="InvalidOperationException">
+	/// Thrown if the trace context is not active, or if it belongs to a different thread.
+	/// Thrown if no stack frames are available for trace logging.
+	/// </exception>
+	public static void Trace(Ctx ctx, string message, PrintMode printAs, int frameDepth = 1, [CallerFilePath] string filePath = "", [CallerLineNumber] int line = 0) {
+		ArgumentNullException.ThrowIfNull(ctx);
+
+		if (!ctx.Active) throw new InvalidOperationException("Trace context is not active.");
+
+		if (ctx.ThreadId != System.Environment.CurrentManagedThreadId) throw new InvalidOperationException("This trace context belongs to a different thread.");
+
+		// Capture the current stack (except this function).
+		StackTrace trace = new(frameDepth, true);
+		StackFrame[]? frames = trace.GetFrames();
+		if (frames == null || frames.Length == 0) throw new InvalidOperationException("No stack frames available for trace logging.");
+
+		// Removes frames from System, Microsoft, and Godot namespaces.
+		var relevantFrames = frames.Where(f => {
+			MethodBase? method = f.GetMethod();
+			Type? type = method?.DeclaringType;
+
+			if (type == null) return false;
+
+			string? ns = type.Namespace;
+			if (string.IsNullOrEmpty(ns)) return true;
+
+			// Exclude System, Microsoft and Godot namespaces.
+			return !ns.StartsWith("System") && !ns.StartsWith("Microsoft") && !ns.StartsWith("Godot");
+		})
+		.Reverse()
+		.ToArray();
+
+		// Determine the current depth based on relevant frames.
+		int depth = 0;
+		foreach (var frame in relevantFrames) {
+			MethodBase? method = frame.GetMethod();
+
+			string indent = new(' ', depth);
+			string prefix;
+
+			// Attempt getting the class and method name from the stack trace.
+			if (method != null) {
+				string className = method.DeclaringType?.Name ?? string.Empty;
+				string methodName = method.Name;
+				int frameLine = frame.GetFileLineNumber();
+				indent = new(' ', depth);
+				prefix = frameLine > 0
+					? $"{indent}[{className}.{methodName}:{frameLine}]"
+					: $"{indent}[{className}.{methodName}:?]";
+			}
+
+			// Use the file path and line number.
+			else {
+				string fileName = Path.GetFileName(filePath);
+				prefix = $"{indent}[{fileName} @ line {line}]";
+			}
+
+			// Print message only at the last frame.
+			if (depth == relevantFrames.Length - 1) {
+				string insert = printAs switch {
+					PrintMode.Warning => "WARN: ",
+					PrintMode.Error => "ERROR: ",
+					_ => string.Empty
+				};
+
+				string loggedMessage = $"{prefix} {insert}{message}";
+
+				GD.Print(loggedMessage);
+
+				if (printAs == PrintMode.Warning) GD.PushWarning(loggedMessage);
+				else if (printAs == PrintMode.Error) GD.PushError(loggedMessage);
+
+			}
+
+			// Print only the prefix for intermediate frames.
+			else GD.Print(prefix);
+
+			depth++;
+		}
 	}
 
+	/// <summary>
+	/// Logs a trace message with the specified context and message content.
+	/// </summary>
+	/// <param name="message">The message to log. If <see langword="null"/>, an empty string is used.</param>
+	/// <param name="ctx">
+	/// The context in which the trace message is logged.
+	/// This provides additional information about the source or scope of the trace.
+	/// </param>
+	public static void Trc(string? message, Ctx ctx) {
+		Trace(ctx, message ?? string.Empty, PrintMode.Message, 2);
+	}
+
+	/// <summary>
+	/// Logs a trace message with the specified context and message factory.
+	/// </summary>
+	/// <remarks>
+	/// This method is intended for scenarios where the trace message construction is expensive,
+	/// as the <paramref name="messageFactory"/> delegate is only evaluated if tracing is enabled.
+	/// </remarks>
+	/// <param name="messageFactory">
+	/// A delegate that generates the trace message.
+	/// The delegate is invoked only if tracing is enabled.
+	/// </param>
+	/// <param name="ctx">
+	/// The context in which the trace message is logged.
+	/// This provides additional information about the source or scope of the trace.
+	/// </param>
+	public static void Trc(Func<string> messageFactory, Ctx ctx) {
+		Trace(ctx, messageFactory(), PrintMode.Message, 2);
+	}
+
+	/// <summary>
+	/// Logs a warning message to the trace output with the specified context.
+	/// </summary>
+	/// <param name="message">
+	/// The warning message to log.
+	/// If <paramref name="message"/> is <see langword="null"/>, an empty string is logged.
+	/// </param>
+	/// <param name="ctx">
+	/// The context in which the trace message is logged.
+	/// This provides additional information about the source or scope of the trace.
+	/// </param>
+	public static void TrcWarn(string? message, Ctx ctx) {
+		Trace(ctx, message ?? string.Empty, PrintMode.Warning, 2);
+	}
+
+	/// <summary>
+	/// Logs a warning message to the trace output.
+	/// </summary>
+	/// <remarks>
+	/// This method is intended for scenarios where the trace message construction is expensive,
+	/// as the <paramref name="messageFactory"/> delegate is only evaluated if tracing is enabled.
+	/// </remarks>
+	/// <param name="messageFactory">
+	/// A delegate that generates the warning message to be logged.
+	/// The delegate is invoked only if tracing is enabled.
+	/// </param>
+	/// <param name="ctx">
+	/// The context in which the trace message is logged.
+	/// This provides additional information about the source or scope of the trace.
+	/// </param>
+	public static void TrcWarn(Func<string> messageFactory, Ctx ctx) {
+		Trace(ctx, messageFactory(), PrintMode.Warning, 2);
+	}
+
+	/// <summary>
+	/// Logs an error message with the specified context.
+	/// </summary>
+	/// <param name="message">
+	/// The error message to log.
+	/// If <see langword="null"/>, an empty string is logged.
+	/// </param>
+	/// <param name="ctx">
+	/// The context in which the trace message is logged.
+	/// This provides additional information about the source or scope of the trace.
+	/// </param>
+	public static void TrcErr(string? message, Ctx ctx) {
+		Trace(ctx, message ?? string.Empty, PrintMode.Error, 2);
+	}
+
+	/// <summary>
+	/// Logs an error message to the trace output using the specified message factory and context.
+	/// </summary>
+	/// <remarks>
+	/// This method is intended for scenarios where the trace message construction is expensive,
+	/// as the <paramref name="messageFactory"/> delegate is only evaluated if tracing is enabled.
+	/// </remarks>
+	/// <param name="ctx">
+	/// The context in which the trace message is logged.
+	/// This provides additional information about the source or scope of the trace.
+	/// </param>
+	public static void TrcErr(Func<string> messageFactory, Ctx ctx) {
+		Trace(ctx, messageFactory(), PrintMode.Error, 2);
+	}
+
+	#endregion
+}
+
+/// <summary>
+/// Represents a context associated with the current thread.
+/// </summary>
+/// <remarks>
+/// This class provides a mechanism to manage and track the state of a context tied to the thread that created it.
+/// Once the context is ended using the <see cref="End"/> method, it is considered inactive.
+/// </remarks>
+public sealed class Ctx {
+	internal readonly int ThreadId;
+	internal bool Active = true;
+
+	public Ctx() {
+		ThreadId = System.Environment.CurrentManagedThreadId;
+	}
+
+	/// <summary>
+	/// Marks the end of the current operation or process.
+	/// </summary>
+	/// <remarks>
+	/// This method sets the <see cref="Active"/> property to <see langword="false"/>,
+	/// indicating that the operation is no longer active.
+	/// </remarks>
+	public void End() {
+		Active = false;
+	}
+}
