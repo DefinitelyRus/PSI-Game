@@ -2707,9 +2707,8 @@ tile_set = SubResource("TileSet_5rbs6")
 position = Vector2(-260, 88)
 collision_layer = 48
 CharacterName = "Testo"
-CharacterID = "testo"
 
-[node name="AnimationTree" parent="Testo" index="7"]
+[node name="AnimationTree" parent="Testo" index="8"]
 parameters/Attack/blend_position = Vector2(0, 0)
 parameters/Death/blend_position = Vector2(0, 0)
 parameters/Idle/blend_position = Vector2(0, 0)
@@ -2719,7 +2718,6 @@ parameters/Walk/blend_position = Vector2(0, 0)
 position = Vector2(-93, 87)
 collision_layer = 144
 CharacterName = "Dummiku"
-CharacterID = "dummiku"
 DespawnOnDeath = true
 
 [node name="Control Surface" parent="Dummiku" index="0"]
@@ -2731,7 +2729,7 @@ EnableCombat = false
 [node name="Input Manager" parent="Dummiku" index="1"]
 visible = false
 
-[node name="AnimationTree" parent="Dummiku" index="7"]
+[node name="AnimationTree" parent="Dummiku" index="8"]
 parameters/Death/blend_position = Vector2(-0.582166, 0.292453)
 parameters/Idle/blend_position = Vector2(0, 0)
 parameters/Walk/blend_position = Vector2(0.115924, -0.367925)
@@ -2740,7 +2738,6 @@ parameters/Walk/blend_position = Vector2(0.115924, -0.367925)
 position = Vector2(-174, -53)
 collision_layer = 144
 CharacterName = "Crashito"
-CharacterID = "Crashito"
 DespawnOnDeath = true
 LogCollision = true
 
@@ -2753,18 +2750,18 @@ EnableCombat = false
 [node name="Input Manager" parent="Crashito" index="1"]
 visible = false
 
-[node name="Body Collider" parent="Crashito" index="3"]
+[node name="Body Collider" parent="Crashito" index="4"]
 shape = SubResource("CapsuleShape2D_g5v64")
 
 [node name="Hit Collider" parent="Crashito/Hit Area" index="0"]
 shape = SubResource("CapsuleShape2D_n5c1j")
 
-[node name="AnimationPlayer" parent="Crashito" index="6"]
+[node name="AnimationPlayer" parent="Crashito" index="7"]
 libraries = {
 &"": SubResource("AnimationLibrary_g5v64")
 }
 
-[node name="AnimationTree" parent="Crashito" index="7"]
+[node name="AnimationTree" parent="Crashito" index="8"]
 tree_root = SubResource("AnimationNodeStateMachine_c1m0a")
 parameters/Death/blend_position = Vector2(-0.582166, 0.292453)
 parameters/Idle/blend_position = Vector2(0, 0)
@@ -2774,7 +2771,6 @@ parameters/Walk/blend_position = Vector2(0.115924, -0.367925)
 position = Vector2(118, -81)
 collision_layer = 144
 CharacterName = "Laguko"
-CharacterID = "Laguko"
 DespawnOnDeath = true
 LogCollision = true
 
@@ -2787,18 +2783,18 @@ EnableCombat = false
 [node name="Input Manager" parent="Laguko" index="1"]
 visible = false
 
-[node name="Body Collider" parent="Laguko" index="3"]
+[node name="Body Collider" parent="Laguko" index="4"]
 shape = SubResource("CapsuleShape2D_g5v64")
 
 [node name="Hit Collider" parent="Laguko/Hit Area" index="0"]
 shape = SubResource("CapsuleShape2D_n5c1j")
 
-[node name="AnimationPlayer" parent="Laguko" index="6"]
+[node name="AnimationPlayer" parent="Laguko" index="7"]
 libraries = {
 &"": SubResource("AnimationLibrary_g5v64")
 }
 
-[node name="AnimationTree" parent="Laguko" index="7"]
+[node name="AnimationTree" parent="Laguko" index="8"]
 tree_root = SubResource("AnimationNodeStateMachine_c1m0a")
 parameters/Death/blend_position = Vector2(-0.582166, 0.292453)
 parameters/Idle/blend_position = Vector2(0, 0)
@@ -2808,7 +2804,6 @@ parameters/Walk/blend_position = Vector2(0.115924, -0.367925)
 position = Vector2(152, 84)
 collision_layer = 144
 CharacterName = "Glitchune"
-CharacterID = "Glitchune"
 DespawnOnDeath = true
 LogCollision = true
 
@@ -2821,18 +2816,18 @@ EnableCombat = false
 [node name="Input Manager" parent="Glitchune" index="1"]
 visible = false
 
-[node name="Body Collider" parent="Glitchune" index="3"]
+[node name="Body Collider" parent="Glitchune" index="4"]
 shape = SubResource("CapsuleShape2D_g5v64")
 
 [node name="Hit Collider" parent="Glitchune/Hit Area" index="0"]
 shape = SubResource("CapsuleShape2D_n5c1j")
 
-[node name="AnimationPlayer" parent="Glitchune" index="6"]
+[node name="AnimationPlayer" parent="Glitchune" index="7"]
 libraries = {
 &"": SubResource("AnimationLibrary_g5v64")
 }
 
-[node name="AnimationTree" parent="Glitchune" index="7"]
+[node name="AnimationTree" parent="Glitchune" index="8"]
 tree_root = SubResource("AnimationNodeStateMachine_c1m0a")
 parameters/Death/blend_position = Vector2(-0.582166, 0.292453)
 parameters/Idle/blend_position = Vector2(0, 0)
