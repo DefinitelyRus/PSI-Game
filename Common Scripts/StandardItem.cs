@@ -52,13 +52,13 @@ public partial class StandardItem : Node2D
 	/// For adding new rarities, simply add them to this array.
 	/// Ensure that the names are in PascalCase.
 	/// </summary>
-	public static readonly string[] ItemRarities = {
+	public static readonly string[] ItemRarities = [
 		"Common",
 		"Uncommon",
 		"Rare",
 		"Epic",
 		"Legendary"
-	};
+	];
 
 	/// <summary>
 	/// The base price of the item in the game's currency. <br/><br/>
