@@ -276,7 +276,7 @@ public partial class StandardCharacter : CharacterBody2D {
 
 		if (isWalking) {
 			AnimationState.Travel("Walk");
-			AnimationTree.Set("parameters/Walk/blend_position", new Vector2(Control.MovementDirection.X, -Control.MovementDirection.Y));
+			AnimationTree.Set("parameters/Walk/blend_position", new Vector2(LastMovementDirection.X, -LastMovementDirection.Y));
 			AnimationPlayer.SpeedScale = Speed / CurrentMaxSpeed;
 		}
 
