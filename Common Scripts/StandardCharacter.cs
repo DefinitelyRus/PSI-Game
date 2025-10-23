@@ -245,8 +245,7 @@ public partial class StandardCharacter : CharacterBody2D {
 		if (Control.MovementMultiplier > 0f) Speed += (float) (Control.MovementMultiplier * MaxSpeed * (delta / AccelerationTime));
 
 		// Calculate deceleration
-		else if (Speed > 0f) 
-			Speed -= (float) (MaxSpeed * (delta / DecelerationTime));
+		else if (Speed > 0f) Speed -= (float) (MaxSpeed * (delta / DecelerationTime));
 
 		//Apply speed
 		Velocity = Speed * LastMovementDirection;
@@ -266,8 +265,6 @@ public partial class StandardCharacter : CharacterBody2D {
 	/// <b>Important</b>: This method is meant to be called in <see cref="_Process"/> only. <br/><br/>
 	/// <b>Warning</b>: This current implementation is <b>project-specific</b>. It only supports walking, shooting, and idle.
 	/// </summary>
-	/// <param name="v"></param>
-	/// <param name="s"></param>
 	protected void UpdateAnimations(Context c = null!) {
 		if (!IsAlive) return;
 
