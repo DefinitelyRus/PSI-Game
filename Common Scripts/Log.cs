@@ -229,8 +229,8 @@ public partial class Log : Node {
 	}
 
 	#endregion
+}
 
-	#region Traced Logging
 
 	/// <summary>
 	/// Logs a trace message with contextual information, including the call stack, to the Godot console.
@@ -422,8 +422,6 @@ public partial class Log : Node {
 		Trace(ctx, messageFactory(), PrintMode.Error, 2);
 	}
 
-	#endregion
-}
 
 /// <summary>
 /// Represents a context associated with the current thread.
