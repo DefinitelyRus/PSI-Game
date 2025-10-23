@@ -2,6 +2,7 @@ using Godot;
 namespace CommonScripts;
 
 public partial class Master : Node {
+
     #region Nodes & Components
 
     [ExportGroup("Nodes & Components")]
