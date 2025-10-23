@@ -57,7 +57,7 @@ public static class Log {
         if (method != null && !useFilePath) {
             string className = method.DeclaringType?.Name ?? string.Empty;
             string methodName = method.Name;
-            prefix = $"{padding}[{className}.{methodName}]";
+            prefix = $"{padding}[{className}.{methodName}:{line}]";
         }
 
         // Use the file path, method name, and line number.
