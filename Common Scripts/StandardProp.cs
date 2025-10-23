@@ -221,6 +221,11 @@ public partial class StandardProp : RigidBody2D {
 	{
 		Log.Me(() => "A StandardProp has entered the tree. Checking properties...", LogReady);
 
+		if (string.IsNullOrEmpty(PropID)) {
+			Log.Err(() => "`PropID` must not be null or empty.", LogReady);
+			return;
+		}
+
 		if (string.IsNullOrEmpty(PropName))
 		{
 			if (!SilentlyAutoAssignDefaultName) Log.Warn(() => "PropName should not be empty. Using default \"Unnamed Prop\"...");
