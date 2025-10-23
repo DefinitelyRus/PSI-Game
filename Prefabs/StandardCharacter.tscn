@@ -1323,6 +1323,8 @@ blend_point_5/node = SubResource("AnimationNodeAnimation_pwcr2")
 blend_point_5/pos = Vector2(1, -0.5)
 blend_point_6/node = SubResource("AnimationNodeAnimation_itkmi")
 blend_point_6/pos = Vector2(1, 0.6)
+min_space = Vector2(-1.1, -1.1)
+max_space = Vector2(1.1, 1.1)
 blend_mode = 1
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_evbho"]
