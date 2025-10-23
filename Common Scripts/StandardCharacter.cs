@@ -275,8 +275,8 @@ public partial class StandardCharacter : CharacterBody2D {
 		//TODO: Replace with an IsAttacking property in StandardWeapon itself.
 
 		if (isWalking) {
-			AnimationTree.Set("parameters/Walk/blend_position", new Vector2(Control.MovementDirection.X, -Control.MovementDirection.Y));
 			AnimationState.Travel("Walk");
+			AnimationTree.Set("parameters/Walk/blend_position", new Vector2(Control.MovementDirection.X, -Control.MovementDirection.Y));
 			AnimationPlayer.SpeedScale = Speed / CurrentMaxSpeed;
 		}
 
