@@ -278,8 +278,8 @@ public sealed class Context {
 	/// Thrown if the trace context is not active, or if it belongs to a different thread.
 	/// Thrown if no stack frames are available for trace logging.
 	/// </exception>
-	public void Trace(string message, Mode printAs, int frameDepth = 1, [CallerFilePath] string filePath = "", [CallerLineNumber] int line = 0) {
-		if (!Active) throw new InvalidOperationException("Trace context is not active.");
+	public void Message(string message, Mode printAs, int frameDepth = 1, [CallerFilePath] string filePath = "", [CallerLineNumber] int line = 0) {
+		if (!Active) throw new InvalidOperationException("Message context is not active.");
 
 		if (ThreadId != System.Environment.CurrentManagedThreadId) throw new InvalidOperationException("This trace context belongs to a different thread.");
 
@@ -359,8 +359,8 @@ public sealed class Context {
 	/// Logs a trace message with the specified context and message content.
 	/// </summary>
 	/// <param name="message">The message to log. If <see langword="null"/>, an empty string is used.</param>
-	public void Trc(string? message) {
-		Trace(message ?? string.Empty, Mode.Message, 2);
+	public void Log(string? message) {
+		Message(message ?? string.Empty, Mode.Message, 2);
 	}
 
 
@@ -375,8 +375,8 @@ public sealed class Context {
 	/// A delegate that generates the trace message.
 	/// The delegate is invoked only if tracing is enabled.
 	/// </param>
-	public void Trc(Func<string> messageFactory) {
-		Trace(messageFactory(), Mode.Message, 2);
+	public void Log(Func<string> messageFactory) {
+		Message(messageFactory(), Mode.Message, 2);
 	}
 
 
@@ -391,8 +391,8 @@ public sealed class Context {
 	/// The context in which the trace message is logged.
 	/// This provides additional information about the source or scope of the trace.
 	/// </param>
-	public void TrcWarn(string? message) {
-		Trace(message ?? string.Empty, Mode.Warning, 2);
+	public void Warn(string? message) {
+		Message(message ?? string.Empty, Mode.Warning, 2);
 	}
 
 
@@ -411,8 +411,8 @@ public sealed class Context {
 	/// The context in which the trace message is logged.
 	/// This provides additional information about the source or scope of the trace.
 	/// </param>
-	public void TrcWarn(Func<string> messageFactory) {
-		Trace(messageFactory(), Mode.Warning, 2);
+	public void Warn(Func<string> messageFactory) {
+		Message(messageFactory(), Mode.Warning, 2);
 	}
 
 
@@ -427,8 +427,8 @@ public sealed class Context {
 	/// The context in which the trace message is logged.
 	/// This provides additional information about the source or scope of the trace.
 	/// </param>
-	public void TrcErr(string? message) {
-		Trace(message ?? string.Empty, Mode.Error, 2);
+	public void Error(string? message) {
+		Message(message ?? string.Empty, Mode.Error, 2);
 	}
 
 
@@ -443,8 +443,8 @@ public sealed class Context {
 	/// The context in which the trace message is logged.
 	/// This provides additional information about the source or scope of the trace.
 	/// </param>
-	public void TrcErr(Func<string> messageFactory) {
-		Trace(messageFactory(), Mode.Error, 2);
+	public void Error(Func<string> messageFactory) {
+		Message(messageFactory(), Mode.Error, 2);
 	}
 
 
