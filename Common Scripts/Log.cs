@@ -46,15 +46,15 @@ public partial class Log : Node {
 	/// </param>
 	public static string Message(string message, PrintMode printAs = PrintMode.Message, int stack = 0, bool useFilePath = false, int frame = 1, [CallerFilePath] string filePath = "", [CallerLineNumber] int line = 0
     ) {
-        string className, methodName, prefix;
+        string prefix;
         string padding = new(' ', stack);
 
         MethodBase? method = new StackTrace(frame, false).GetFrame(0)?.GetMethod();
 
         // Attempt getting the class and method name from the stack trace.
         if (method != null && !useFilePath) {
-            className = method.DeclaringType?.Name ?? string.Empty;
-            methodName = method.Name;
+            string className = method.DeclaringType?.Name ?? string.Empty;
+            string methodName = method.Name;
             prefix = $"{padding}[{className}.{methodName}]";
         }
 
@@ -90,6 +90,7 @@ public partial class Log : Node {
 
 		return loggedMessage;
 	}
+
 
 	/// <summary>
 	/// Logs a message to the console with additional context information.
