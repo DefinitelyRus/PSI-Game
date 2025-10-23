@@ -62,11 +62,23 @@ public partial class AudioManager : Node2D
 
 	#endregion
 
+	#region Debugging
+
+	[Export] public bool LogReady = true;
+
+	#endregion
+
 	#region Godot Callbacks
 
-	public override void _Ready() {
+	public override void _EnterTree() {
+		Context c = new();
+		c.Trace(() => "A ControlSurface has entered the tree. Checking properties...", LogReady);
+
 		MusicPlayer = new();
 		AddChild(MusicPlayer);
+
+		c.Trace("Done!", LogReady);
+		c.End();
 	}
 
 	#endregion
