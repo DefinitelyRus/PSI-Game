@@ -58,7 +58,6 @@ ProjectileID = "test_projectile"
 HitArea = NodePath("Hit Area")
 Lifespan = 1.0
 LogReady = false
-LogCollision = true
 
 [node name="Collision Shape" type="CollisionShape2D" parent="."]
 editor_description = "The shape used for kinematically interacting with other world objects.
