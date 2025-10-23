@@ -7,7 +7,7 @@ using System.Runtime.CompilerServices;
 using Godot;
 namespace CommonScripts;
 
-public partial class Log : Node {
+public static class Log {
 	#region Static logging
 
     public enum PrintMode {
