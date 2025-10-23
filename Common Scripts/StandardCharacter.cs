@@ -97,14 +97,11 @@ public partial class StandardCharacter : CharacterBody2D {
 	/// Make this character take damage, apply audio/visual effects, and kill if health reaches 0.
 	/// </summary>
 	/// <param name="amount">How much health to reduce the health by.</param>
-	/// <param name="v">Do verbose logging? Use <c>v</c> to follow the same verbosity as the encapsulating function, if available.</param>
-	/// <param name="s">Stack depth. Use <c>0</c> if on a root function, or <c>s + 1</c> if <c>s</c> is available in the encapsulating function.</param>
-	public void TakeDamage(float amount, bool v = false, int s = 0) {
-		Log.Me($"Giving {amount:F2} to {InstanceID}...", v, s + 1);
+	public void TakeDamage(float amount, Context c) {
 
 		// Checks
 		if (amount < 0) {
-			Log.Err($"Cannot give negative damage. Use Heal() instead if this is intended.", v, s + 1);
+			c.Err($"Cannot give negative damage. Use Heal() instead if this is intended.");
 			return;
 		}
 
@@ -114,13 +111,7 @@ public partial class StandardCharacter : CharacterBody2D {
 		//
 
 		// Kill on 0 health.
-		if (Health == 0) {
-			Log.Me($"Reached 0 health. Killing...", v, s + 1);
-			Kill(v, s + 1);
-		}
-
-		Log.Me($"{InstanceID} now has {Health:F2}/{MaxHealth:F2} health.", v, s + 1);
-		Log.Me($"{InstanceID} took {amount:F2} damage. (IsAlive: {IsAlive})", true, s + 1);
+		if (Health == 0) ; //Kill(v, s + 1);
 		return;
 	}
 
@@ -130,19 +121,14 @@ public partial class StandardCharacter : CharacterBody2D {
 	/// <param name="amount">How much health to increase the health by.</param>
 	/// <param name="v">Do verbose logging? Use <c>v</c> to follow the same verbosity as the encapsulating function, if available.</param>
 	/// <param name="s">Stack depth. Use <c>0</c> if on a root function, or <c>s + 1</c> if <c>s</c> is available in the encapsulating function.</param>
-	public void Heal(float amount, bool v = false, int s = 0) {
-		Log.Me($"Healing {InstanceID} for {amount:F2}...", v, s + 1);
-
+	public void Heal(float amount, Context c = null!) {
 		// Checks
 		if (amount < 0) {
-			Log.Err($"Cannot heal negative amount. Use TakeDamage() instead if this is intended.", v, s + 1);
+			c.Err($"Cannot heal negative amount. Use TakeDamage() instead if this is intended.");
 			return;
 		}
 
-		if (!IsAlive) {
-			Log.Me($"{InstanceID} is dead. Cannot heal.", v, s + 1);
-			return;
-		}
+		if (!IsAlive) return;
 
 		Health += amount;
 
@@ -150,12 +136,8 @@ public partial class StandardCharacter : CharacterBody2D {
 		//
 
 		// Health cap
-		if (Health > CurrentMaxHealth) {
-			Health = CurrentMaxHealth;
-		}
+		if (Health > CurrentMaxHealth) Health = CurrentMaxHealth;
 
-		Log.Me($"{InstanceID} now has {Health:F2}/{CurrentMaxHealth:F2} health.", v, s + 1);
-		Log.Me($"{InstanceID} healed for {amount:F2}.", true, s + 1);
 		return;
 	}
 
@@ -165,13 +147,9 @@ public partial class StandardCharacter : CharacterBody2D {
 	/// </summary>
 	/// <param name="v">Do verbose logging? Use <c>v</c> to follow the same verbosity as the encapsulating function, if available.</param>
 	/// <param name="s">Stack depth. Use <c>0</c> if on a root function, or <c>s + 1</c> if <c>s</c> is available in the encapsulating function.</param>
-	public void Kill(bool v = false, int s = 0) {
-		Log.Me(() => $"Killing {InstanceID}...", v, s + 1);
+	public void Kill(Context c = null!) {
 
-		if (!IsAlive) {
-			Log.Me($"{InstanceID} is already dead.", v, s + 1);
-			return;
-		}
+		if (!IsAlive) return;
 
 		// Set health to 0
 		Health = 0; //Redundancy; for when `Kill` is called without dealing any damage.
@@ -180,8 +158,6 @@ public partial class StandardCharacter : CharacterBody2D {
 		bool useAnimation = AnimationTree != null && AnimationState != null && AnimationPlayer != null;
 
 		#region AVFX
-
-		Log.Me(() => $"Playing death animation for {InstanceID}...", v, s + 1);
 
 		if (useAnimation) {
 			// Set animation direction
@@ -199,8 +175,6 @@ public partial class StandardCharacter : CharacterBody2D {
 			if (DespawnOnDeath) {
 				AnimationPlayer!.AnimationFinished += animation => {
 					if (animation != "Death") return;
-
-					Log.Me(() => $"Finished playing death animation for {InstanceID}. Queueing despawn...", v, s + 1);
 					QueueFree();
 
 					//AVFX here.
@@ -209,7 +183,6 @@ public partial class StandardCharacter : CharacterBody2D {
 		}
 
 		else if (DespawnOnDeath) {
-			Log.Me("No animation to wait for. Queueing despawn...", v, s + 1);
 			QueueFree();
 
 			//AVFX here.
@@ -217,7 +190,6 @@ public partial class StandardCharacter : CharacterBody2D {
 
 		#endregion
 
-		Log.Me(() => $"Killed {InstanceID}.", true, s + 1);
 		return;
 	}
 
@@ -268,30 +240,19 @@ public partial class StandardCharacter : CharacterBody2D {
 	/// <param name="delta">The time since the last physics frame.</param>
 	/// <param name="v">Do verbose logging? Use <c>v</c> to follow the same verbosity as the encapsulating function, if available.</param>
 	/// <param name="s">Stack depth. Use <c>0</c> if on a root function, or <c>s + 1</c> if <c>s</c> is available in the encapsulating function.</param>
-	private void Move(double delta, bool v = false, int s = 0) {
-		Log.Me(() => $"Moving...", v, s + 1);
-
+	private void Move(double delta, Context c = null!) {
 		// Accelerate if input is detected
-		if (Control.MovementMultiplier > 0f) {
-			Log.Me(() => $"Accelerating at {Control.MovementMultiplier:F2}x rate...", v, s + 1);
-			Speed += (float) (Control.MovementMultiplier * MaxSpeed * (delta / AccelerationTime));
-			Log.Me(() => $"Speed after acceleration: {Speed:F2}", v, s + 1);
-		}
+		if (Control.MovementMultiplier > 0f) Speed += (float) (Control.MovementMultiplier * MaxSpeed * (delta / AccelerationTime));
 
 		// Calculate deceleration
-		else if (Speed > 0f) {
-			Log.Me(() => $"Decelerating...", v, s + 1);
+		else if (Speed > 0f) 
 			Speed -= (float) (MaxSpeed * (delta / DecelerationTime));
-			Log.Me(() => $"Speed after deceleration: {Speed:F2}", v, s + 1);
-		}
 
 		//Apply speed
 		Velocity = Speed * LastMovementDirection;
 		MoveAndSlide();
 
 		if (Control.MovementDirection != Vector2.Zero) LastMovementDirection = Control.MovementDirection;
-
-		Log.Me(() => "Done!", v, s + 1);
 	}
 
 	#endregion
@@ -307,13 +268,8 @@ public partial class StandardCharacter : CharacterBody2D {
 	/// </summary>
 	/// <param name="v"></param>
 	/// <param name="s"></param>
-	protected void UpdateAnimations(bool v = false, int s = 0) {
-		Log.Me(() => "Updating animations...", v, s + 1);
-
-		if (!IsAlive) {
-			Log.Me(() => $"{InstanceID} is already dead; skipping animation update.", v, s + 1);
-			return;
-		}
+	protected void UpdateAnimations(Context c = null!) {
+		if (!IsAlive) return;
 
 		bool isWalking = Speed > 0;
 		bool isAttacking = Weapon.Control.IsAttacking;
@@ -322,25 +278,20 @@ public partial class StandardCharacter : CharacterBody2D {
 		//TODO: Replace with an IsAttacking property in StandardWeapon itself.
 
 		if (isWalking) {
-			Log.Me($"Walking towards ({Control.MovementDirection.X:F2}/{Control.MovementDirection.Y:F2}) at {Speed / CurrentMaxSpeed:F2}% ({Speed:F2}/{CurrentMaxSpeed:F2}) speed...", v, s + 1);
 			AnimationTree.Set("parameters/Walk/blend_position", new Vector2(Control.MovementDirection.X, -Control.MovementDirection.Y));
 			AnimationState.Travel("Walk");
 			AnimationPlayer.SpeedScale = Speed / CurrentMaxSpeed;
 		}
 
 		if (isAttacking) {
-			Log.Me($"Attacking towards ({Control.FacingDirection.X:F2}/{Control.FacingDirection.Y:F2})...", v, s + 1);
 			AnimationTree.Set("parameters/Attack/blend_position", new Vector2(Control.FacingDirection.X, -Control.FacingDirection.Y));
 			AnimationState.Travel("Attack");
 		}
 
 		if (!isWalking && !isAttacking) {
-			Log.Me($"Idling towards ({Control.FacingDirection.X:F2}/{Control.FacingDirection.Y:F2})...", v, s + 1);
 			AnimationTree.Set("parameters/Idle/blend_position", new Vector2(Control.FacingDirection.X, -Control.FacingDirection.Y));
 			AnimationState.Travel("Idle");
 		}
-
-		Log.Me(() => "Done!", v, s + 1);
 	}
 
 	#endregion
@@ -431,66 +382,49 @@ public partial class StandardCharacter : CharacterBody2D {
 	/// </summary>
 	/// <param name="v">Do verbose logging? Use <c>v</c> to follow the same verbosity as the encapsulating function, if available.</param>
 	/// <param name="s">Stack depth. Use <c>0</c> if on a root function, or <c>s + 1</c> if <c>s</c> is available in the encapsulating function.</param>
-	private void GenerateInstanceID(bool v = false, int s = 0) {
-		Log.Me($"Generating a `InstanceID`...", v, s + 1);
-
+	private void GenerateInstanceID(Context c = null!) {
 		// Cancel if already assigned.
-		if (!string.IsNullOrEmpty(InstanceID)) {
-			Log.Me($"`InstanceID` is already assigned a value (\"{InstanceID}\"). Skipping...", v, s + 1);
-			return;
-		}
+		if (!string.IsNullOrEmpty(InstanceID)) return;
 
 		string prefix;
 		string randomID = string.Empty;
 
 		// Use default name if CharacterName blank.
 		if (string.IsNullOrEmpty(CharacterName)) {
-			Log.Warn("`CharacterName` is empty. Using default: \"Unnamed Character\"", v, s + 1);
+			c.Warn("`CharacterName` is empty. Using default: \"Unnamed Character\"");
 			CharacterName = "Unnamed Character";
 		}
 
 		// Use CharacterName if CustomPrefix is blank.
-		if (string.IsNullOrEmpty(CustomPrefix)) {
-			Log.Me($"`CustomPrefix` is empty. Using `CharacterName` \"{CharacterName}\"...", v, s + 1);
-			prefix = CharacterName;
-		}
+		if (string.IsNullOrEmpty(CustomPrefix)) prefix = CharacterName;
 
 		// Use CustomerPrefix if provided.
-		else {
-			Log.Me($"Using `CustomPrefix` \"{CustomPrefix}\"...", v, s + 1);
-			prefix = CustomPrefix;
-		}
+		else prefix = CustomPrefix;
 
 		// Replace space with the specified type.
 		switch (ReplaceSpaceWith) {
 
-			case SpaceReplacement.Keep:
-				Log.Me("Keeping spaces...", v, s + 1);
-				break;
+			case SpaceReplacement.Keep: break;
 
 			case SpaceReplacement.Remove:
-				Log.Me("Removing spaces...", v, s + 1);
 				prefix = prefix.Replace(" ", "");
 				break;
 
 			case SpaceReplacement.Underscore:
-				Log.Me("Replacing spaces with underscores...", v, s + 1);
 				prefix = prefix.Replace(" ", "_");
 				break;
 
 			case SpaceReplacement.Hyphen:
-				Log.Me("Replacing spaces with hyphens...", v, s + 1);
 				prefix = prefix.Replace(" ", "-");
 				break;
 
 			default:
-				Log.Warn("An invalid `SpaceReplacement` value was provided. Keeping spaces instead...", v, s + 1);
+				c.Warn("An invalid `SpaceReplacement` value was provided. Keeping spaces instead...");
 				break;
 
 		}
 
 		GenerateCharacterID:
-		Log.Me("Generating a unique ID...", v, s + 1);
 		for (int i = 0; i < SuffixLength; i++) {
 			randomID += SuffixChars[(int) (GD.Randi() % SuffixChars.Length)];
 		}
@@ -499,12 +433,9 @@ public partial class StandardCharacter : CharacterBody2D {
 
 		// Check if the ID is already taken
 		if (GetNodeOrNull<StandardCharacter>(InstanceID) != null) {
-			Log.Me($"Character ID \"{InstanceID}\" is already taken. Generating a new one...", v, s + 1);
 			randomID = string.Empty;
 			goto GenerateCharacterID;
 		}
-
-		Log.Me($"Generated ID \"{InstanceID}\"!", v, s + 1);
 	}
 
 	#endregion
@@ -527,16 +458,9 @@ public partial class StandardCharacter : CharacterBody2D {
 
 	public virtual void OnAreaEntered(Area2D area)
 	{
-		if (area.GetParent() is StandardProjectile projectile) {
-			Log.Me(() => $"Ignoring area collision with {projectile.InstanceID}.", LogCollision);
-			return;
-		}
+		if (area.GetParent() is StandardProjectile projectile) return;
 
-		Log.Me(() => $"Area entered: {area.Name}", LogCollision);
-
-		
-
-		Log.Me(() => "Done!", LogCollision);
+		new Context().Warn(() => $"`OnAreaEntered` on {CharacterName} (CharacterID: {CharacterID}) is not implemented! Override to add custom functionality.");
 		return;
 	}
 
@@ -545,60 +469,63 @@ public partial class StandardCharacter : CharacterBody2D {
 	#region Godot Callbacks
 
 	public override void _EnterTree() {
-		Log.Me($"A StandardCharacter has entered the tree. Checking properties...", LogReady);
+		Context c = new();
+		c.Trace($"A StandardCharacter has entered the tree. Checking properties...", LogReady);
 
 		if (string.IsNullOrEmpty(CharacterName)) {
-			if (!SilentlyAutoAssignDefaultName) Log.Warn("CharacterName should not be empty. Using default: \"Unnamed Character\"...");
+			if (!SilentlyAutoAssignDefaultName) c.Warn("CharacterName should not be empty. Using default: \"Unnamed Character\"...");
 			CharacterName = "Unnamed Character";
 		}
 
-		if (Control == null) Log.Err("ControlSurface is not assigned. This character cannot be controlled.");
+		if (Control == null) c.Err("ControlSurface is not assigned. This character cannot be controlled.");
 
-		if (Weapon == null && !AllowNoWeapon) Log.Warn("StandardWeapon is not assigned. This character cannot attack.");
+		if (Weapon == null && !AllowNoWeapon) c.Warn("StandardWeapon is not assigned. This character cannot attack.");
 
-		if (HitArea == null && !AllowNoHitArea) Log.Warn("HitArea is not assigned. This character will have buggy hit behavior.");
+		if (HitArea == null && !AllowNoHitArea) c.Warn("HitArea is not assigned. This character will have buggy hit behavior.");
 
-		if (AnimationPlayer == null && !AllowNoAnimationPlayer) Log.Warn("AnimationPlayer is not assigned. This character will not be animated.");
+		if (AnimationPlayer == null && !AllowNoAnimationPlayer) c.Warn("AnimationPlayer is not assigned. This character will not be animated.");
 
-		if (AnimationTree == null && !AllowNoAnimationTree) Log.Warn("AnimationTree is not assigned. This character will not be animated properly.");
+		if (AnimationTree == null && !AllowNoAnimationTree) c.Warn("AnimationTree is not assigned. This character will not be animated properly.");
 
 		if (string.IsNullOrEmpty(InstanceID)) {
-			if (!SilentlyAutoAssignInstanceID) Log.Me("InstanceID is not assigned. Generating a new one...", LogReady);
-			GenerateInstanceID(LogReady);
+			if (!SilentlyAutoAssignInstanceID) c.Trace("InstanceID is not assigned. Generating a new one...", LogReady);
+			GenerateInstanceID(c);
 		}
 
-		Log.Me("Done!", LogReady);
+		c.Trace("Done!", LogReady);
+		c.End();
 	}
 
 	public override void _Ready()
 	{
-		Log.Me(() => $"Readying {InstanceID}...", LogReady);
+		Context c = new();
+		c.Trace(() => $"Readying {InstanceID}...", LogReady);
 
-		Log.Me(() => $"Changing node name to \"{InstanceID}\"...", LogReady);
+		c.Trace(() => $"Changing node name to \"{InstanceID}\"...", LogReady);
 		Name = InstanceID;
 
-		Log.Me(() => "Connecting HitArea.BodyEntered to OnBodyEntered...", LogReady);
+		c.Trace(() => "Connecting HitArea.BodyEntered to OnBodyEntered...", LogReady);
 		HitArea.AreaEntered += OnAreaEntered;
 
-		Log.Me(() => "Done!", LogReady);
+		c.Trace(() => "Done!", LogReady);
+		c.End();
 		return;
 	}
 
-	public override void _Process(double delta)
-	{
-		Log.Me(() => $"Processing {InstanceID}...", LogProcess);
+	public override void _Process(double delta) {
+		Context c = new();
 
-		UpdateAnimations(LogProcess);
+		UpdateAnimations(c);
 
-		Log.Me(() => "Done!", LogProcess);
+		c.End();
 	}
 
 	public override void _PhysicsProcess(double delta) {
-		Log.Me(() => $"Processing physics for {InstanceID}...", LogPhysics);
+		Context c = new();
 
-		Move(delta, LogPhysics);
+		Move(delta, c);
 
-		Log.Me(() => "Done!", LogPhysics);
+		c.End();
 	}
 
 	#endregion

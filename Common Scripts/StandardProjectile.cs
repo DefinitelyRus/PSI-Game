@@ -52,34 +52,20 @@ public partial class StandardProjectile : RigidBody2D
 
 	#region Force Application
 
-	private void ApplyImpulseForce(bool v = false, int s = 0) {
-		Log.Me(() => $"Applying {Force}uf to {InstanceID}...", v, s + 1);
-
+	private void ApplyImpulseForce(Context c = null!) {
 		Vector2 direction = Vector2.Up.Rotated(Rotation);
-
 		ApplyImpulse(Force * direction);
-
-		Log.Me(() => $"Applied {Force}uf heading {RotationDegrees}°", v, s + 1);
 	}
 
-	private void ApplyAccelerationForce(double delta, bool v = false, int s = 0) {
-		Log.Me(() => "Applying acceleration...", v, s + 1);
-
+	private void ApplyAccelerationForce(double delta, Context c = null!) {
 		float force = Force * (float) delta;
 		ApplyCentralForce(force * Vector2.Up.Rotated(Rotation)); //NOTE: Code syle -- multipliers go before the vector even if there is only one.
-
-		Log.Me(() => $"Applied {Force}uf heading {RotationDegrees}°", v, s + 1);
 	}
 
-	private void ApplyConstantForce(double delta, bool v = false, int s = 0) {
-		Log.Me(() => "Applying constant force...", v, s + 1);
-
+	private void ApplyConstantForce(double delta, Context c = null!) {
 		float speed = Force * (float) delta;
 		Vector2 direction = Vector2.Up.Rotated(Rotation);
-
 		MoveAndCollide(speed * direction); //NOTE: Code style -- multipliers go before the vector even if masked under variable names.
-
-		Log.Me(() => $"Applied {speed}uf heading {RotationDegrees}°", v, s + 1);
 	}
 
 	#endregion
@@ -173,68 +159,50 @@ public partial class StandardProjectile : RigidBody2D
 	/// <summary>
 	/// Generates a unique `InstanceID` if one is not already assigned manually.
 	/// </summary>
-	/// <param name="v">Do verbose logging? Use <c>v</c> to follow the same verbosity as the encapsulating function, if available.</param>
-	/// <param name="s">Stack depth. Use <c>0</c> if on a root function, or <c>s + 1</c> if <c>s</c> is available in the encapsulating function.</param>
-	private void GenerateInstanceID(bool v = false, int s = 0) {
-		Log.Me($"Generating an `InstanceID`...", v, s + 1);
-
+	private void GenerateInstanceID(Context c = null!) {
 		// Cancel if already assigned.
-		if (!string.IsNullOrEmpty(InstanceID)) {
-			Log.Me($"`InstanceID` is already assigned a value (\"{InstanceID}\"). Skipping...", v, s + 1);
-			return;
-		}
+		if (!string.IsNullOrEmpty(InstanceID)) return;
 
 		string prefix;
 		string randomID = string.Empty;
 
 		// Use default name if ProjectileName is blank.
 		if (string.IsNullOrEmpty(ProjectileName)) {
-			Log.Warn("`ProjectileName` is empty. Using default: \"Unnamed Projectile\"", v, s + 1);
+			c.Warn("`ProjectileName` is empty. Using default: \"Unnamed Projectile\"");
 			ProjectileName = "Unnamed Projectile";
 		}
 
 		// Use ProjectileName if CustomPrefix is blank.
 		if (string.IsNullOrEmpty(CustomPrefix)) {
-			Log.Me($"`CustomPrefix` is empty. Using `ProjectileName` \"{ProjectileName}\"...", v, s + 1);
 			prefix = ProjectileName;
 		}
 
 		// Use CustomPrefix if provided.
-		else {
-			Log.Me($"Using `CustomPrefix` \"{CustomPrefix}\"...", v, s + 1);
-			prefix = CustomPrefix;
-		}
+		else prefix = CustomPrefix;
 
 		// Replace space with the specified type.
 		switch (ReplaceSpaceWith) {
 
-			case SpaceReplacement.Keep:
-				Log.Me("Keeping spaces...", v, s + 1);
-				break;
-
 			case SpaceReplacement.Remove:
-				Log.Me("Removing spaces...", v, s + 1);
 				prefix = prefix.Replace(" ", "");
 				break;
 
 			case SpaceReplacement.Underscore:
-				Log.Me("Replacing spaces with underscores...", v, s + 1);
 				prefix = prefix.Replace(" ", "_");
 				break;
 
 			case SpaceReplacement.Hyphen:
-				Log.Me("Replacing spaces with hyphens...", v, s + 1);
 				prefix = prefix.Replace(" ", "-");
 				break;
 
 			default:
-				Log.Warn("An invalid `SpaceReplacement` value was provided. Keeping spaces instead...", v, s + 1);
+				c.Warn("An invalid `SpaceReplacement` value was provided. Keeping spaces instead...");
+				// Do nothing.
 				break;
 
 		}
 
 		GenerateInstanceID:
-		Log.Me("Generating a unique ID...", v, s + 1);
 		for (int i = 0; i < SuffixLength; i++) {
 			randomID += SuffixChars[(int) (GD.Randi() % SuffixChars.Length)];
 		}
@@ -243,12 +211,9 @@ public partial class StandardProjectile : RigidBody2D
 
 		// Check if the ID is already taken
 		if (GetNodeOrNull<StandardCharacter>(InstanceID) != null) {
-			Log.Me($"Instance ID \"{InstanceID}\" is already taken. Generating a new one...", v, s + 1);
 			randomID = string.Empty;
 			goto GenerateInstanceID;
 		}
-
-		Log.Me($"Generated ID \"{InstanceID}\"!", v, s + 1);
 	}
 
 	#endregion
@@ -256,52 +221,40 @@ public partial class StandardProjectile : RigidBody2D
 	#region Collision
 
 	protected virtual void OnAreaEntered(Area2D area) {
-		Log.Me(() => $"Area entered: {area.Name}", LogCollision);
+		Context c = new();
+		c.Trace(() => $"Area entered: {area.Name}", LogCollision);
 
 		bool isTarget = Targets.Contains(area);
 
 		// Whitelist
 		if (TargetMode == TargetModes.Whitelist) {
-			if (Targets.Length == 0) Log.Warn(() => "No targets set. Ignoring area.", LogCollision);
+			if (Targets.Length == 0) c.Warn(() => "No targets set. Ignoring area.", LogCollision);
 
-			if (isTarget) {
-				Log.Me(() => $"{area.Name} is whitelisted. Processing hit...", LogCollision);
-				Impact(area, LogCollision);
-			}
-
-			else Log.Me(() => $"{area.Name} is not a target. Ignoring.", LogCollision);
+			if (isTarget) Impact(area, c);
 		}
 
 		// Blacklist
 		else if (TargetMode == TargetModes.Blacklist) {
-			if (isTarget) Log.Me(() => $"{area.Name} is blacklisted. Ignoring.", LogCollision);
-
-			else {
-				Log.Me(() => $"{area.Name} is not blacklisted. Processing hit...", LogCollision);
-				Impact(area, LogCollision);
-			}
+			if (!isTarget) Impact(area, c);
 		}
 
 		// Any
-		else if (TargetMode == TargetModes.Any) {
-			Log.Me(() => $"Impacting {area.Name}...", LogCollision);
-			Impact(area, LogCollision);
-		}
+		else if (TargetMode == TargetModes.Any) Impact(area, c);
 
-		Log.Me(() => "Done!", LogCollision);
+		c.Trace(() => "Done!", LogCollision);
+		c.End();
 		return;
 	}
 
 	//Usually called when the projectile impacts a target.
-	protected virtual void Impact(Area2D area, bool v = false, int s = 0) {
-		Log.Me(() => $"`Impact` on {ProjectileName} (ProjectileID: {ProjectileID}) is not implemented! Override to add custom functionality.", v, s + 1);
+	protected virtual void Impact(Area2D area, Context c = null!) {
+		c.Warn(() => $"`Impact` on {ProjectileName} (ProjectileID: {ProjectileID}) is not implemented! Override to add custom functionality.");
 		return;
 	}
 
 	//Usually called when the projectile is to be destroyed regardless of impact.
-	protected virtual void Detonate(bool v = false, int s = 0) {
-		Log.Me(() => $"`Detonate` on {ProjectileName} (ProjectileID: {ProjectileID}) is not implemented! Override to add custom functionality.", v, s + 1);
-		return;
+	protected virtual void Detonate(Context c = null!) {
+		c.Warn(() => $"`Detonate` on {ProjectileName} (ProjectileID: {ProjectileID}) is not implemented! Override to add custom functionality.");
 	}
 
 	#endregion
@@ -309,89 +262,80 @@ public partial class StandardProjectile : RigidBody2D
 	#region Godot Callbacks
 
 	public override void _EnterTree() {
-		Log.Me(() => "A StandardProjectile has entered the tree. Checking properties...", LogReady);
+		Context c = new();
+		c.Trace(() => "A StandardProjectile has entered the tree. Checking properties...", LogReady);
 
 		if (string.IsNullOrEmpty(ProjectileID)) {
-			Log.Err("ProjectileID must not be null or empty. Ready failed.");
+			c.Err("ProjectileID must not be null or empty. Ready failed.");
 			return;
 		}
 
-		if (string.IsNullOrEmpty(ProjectileName) && !AllowNoProjectileName) Log.Warn("`ProjectileName` should not be null or empty.");
+		if (string.IsNullOrEmpty(ProjectileName) && !AllowNoProjectileName) c.Warn("`ProjectileName` should not be null or empty.");
 		
 		if (HitArea == null && !AllowNoHitArea) {
-			Log.Err(() => "`HitArea` must not be null. Ready failed.", LogReady);
+			c.Err(() => "`HitArea` must not be null. Ready failed.");
 			return;
 		}
 
 		if (Weapon == null && !AllowNoWeapon) {
-			Log.Err(() => "`Weapon` must not be null. Ready failed.", LogReady);
+			c.Err(() => "`Weapon` must not be null. Ready failed.");
 			return;
 		}
 
-		if (WeaponOwner == null && !AllowNoOwner) Log.Warn("`WeaponOwner` should not be null. Assign a `WeaponOwner` to `Weapon`.");
+		if (WeaponOwner == null && !AllowNoOwner) c.Warn("`WeaponOwner` should not be null. Assign a `WeaponOwner` to `Weapon`.");
 
 		if (string.IsNullOrEmpty(InstanceID)) {
-			if (!AutoAssignInstanceID) Log.Warn(() => "`InstanceID` is empty. Generating a new one...", LogReady);
-			GenerateInstanceID(LogReady);
+			if (!AutoAssignInstanceID) c.Trace(() => "`InstanceID` is empty. Generating a new one...", LogReady);
+			GenerateInstanceID(c);
 		}
 
-		Log.Me(() => "Done!", LogReady);
+		c.Trace(() => "Done!", LogReady);
+		c.End();
 	}
 
 	public override void _Ready() {
-		Log.Me(() => $"Readying {ProjectileID}...", LogReady);
+		Context c = new();
+		c.Trace(() => $"Readying {ProjectileID}...", LogReady);
 
-		Log.Me(() => $"Changing node name to \"{InstanceID}\"...", LogReady);
 		Name = InstanceID;
-
-		Log.Me(() => "Connecting HitArea.AreaEntered to OnAreaEntered...", LogReady);
 		HitArea.AreaEntered += OnAreaEntered;
-
-		Log.Me(() => $"Ignoring collisions with owner: {WeaponOwner.CharacterName}", LogReady);
 		PhysicsServer2D.BodyAddCollisionException(GetRid(), WeaponOwner.GetRid());
 
-		if (ForceType == ForceTypes.Impulse) {
-			Log.Me(() => "Applying force...");
-			ApplyImpulseForce(LogReady);
-		}
+		if (ForceType == ForceTypes.Impulse) ApplyImpulseForce(c);
 
-		Log.Me(() => "Done!", LogReady);
+		c.Trace(() => "Done!", LogReady);
+		c.End();
 	}
 
 	public override void _Process(double delta) {
-		Log.Me(() => $"Processing {ProjectileID}...", LogProcess);
-
 		if (Lifespan <= 0f) {
-			Log.Me(() => $"Lifespan depleted. Queuing for deletion...", LogProcess);
 			QueueFree(); //TODO: Implement a proper deletion system.
 			return;
 		}
 
 		Lifespan -= (float) delta;
-		Log.Me(() => $"Lifespan remaining: {Lifespan:F2}s", LogProcess);
-
-		Log.Me(() => "Done!", LogProcess);
-		return;
 	}
 
 	public override void _PhysicsProcess(double delta) {
-		Log.Me(() => $"Processing physics for {ProjectileID}...", LogPhysics);
+		Context c = new();
 
 		switch (ForceType) {
 			case ForceTypes.Impulse: break; // Impulse is applied in _Ready().
 
 			case ForceTypes.Acceleration:
-				ApplyAccelerationForce(delta, LogPhysics);
+				ApplyAccelerationForce(delta, c);
 				break;
 
 			case ForceTypes.Constant:
-				ApplyConstantForce(delta, LogPhysics);
+				ApplyConstantForce(delta, c);
 				break;
 
 			default:
-				Log.Err(() => $"Unknown force type: {ForceType}", LogPhysics);
+				c.Err(() => $"Unknown force type: {ForceType}", LogPhysics);
 				break;
 		}
+
+		c.End();
 	}
 
 	#endregion

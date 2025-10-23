@@ -34,7 +34,7 @@ public partial class InputManager : Node2D {
 			bool faceFollows = _facingMode == FacingModes.Follow || _facingMode == FacingModes.AlwaysFollow;
 
 			if (moveFollows && faceFollows) {
-				Log.Warn(() => "Both MovementMode and FacingMode are set to `Follow` or `AlwaysFollow`. Setting to `Static` instead.");
+				new Ctx().Warn(() => "Both MovementMode and FacingMode are set to `Follow` or `AlwaysFollow`. Setting to `Static` instead.");
 				_movementMode = MovementModes.Static;
 			}
 			else _movementMode = value;
@@ -82,13 +82,8 @@ public partial class InputManager : Node2D {
 	}
 
 	// TODO: Allow gamepad inputs.
-	private void ReceiveMovementInputs(bool v = false, int s = 0) {
-		Log.Me(() => "Listening for movement inputs...", v, s + 1);
-
-		if (!Control.EnableMovement) {
-			Log.Me(() => "Movement inputs are disabled. Skipping input processing.", v, s + 1);
-			return;
-		}
+	private void ReceiveMovementInputs(Context c = null!) {
+		if (!Control.EnableMovement) return;
 
 		Control.MovementMultiplier = 0f;
 		Vector2 moveDirection = new();
@@ -109,14 +104,8 @@ public partial class InputManager : Node2D {
 				break;
 
 			case MovementModes.Follow:
-				if (MoveOverride != Vector2.Zero) {
-					Log.Me(() => $"Following `MoveOverride`...", v, s + 1);
-					moveDirection = MoveOverride;
-				}
-				else {
-					Log.Me(() => $"Following `Controls.FacingDirection`...", v, s + 1);
-					moveDirection = Control.FacingDirection;
-				}
+				if (MoveOverride != Vector2.Zero) moveDirection = MoveOverride;
+				else moveDirection = Control.FacingDirection;
 				break;
 
 			case MovementModes.AlwaysFollow:
@@ -128,16 +117,12 @@ public partial class InputManager : Node2D {
 				break;
 
 			default:
-				Log.Err(() => "An invalid movement mode was used. Cannot update `Controls.MovementDirection`.", v, s + 1);
+				c.Err(() => "An invalid movement mode was used. Cannot update `Controls.MovementDirection`.");
 				return;
 		}
 
 		Control.MovementDirection = moveDirection;
 		Control.MovementMultiplier = moveDirection.Length();
-
-		Log.Me(() => $"MovementDirection ({moveDirection.X:F2}, {moveDirection.Y:F2}) -> ({Control.MovementDirection.X}, {Control.MovementDirection.Y}) at {Control.MovementMultiplier:F2}x...", v, s + 1);
-
-		Log.Me(() => "Done!", v, s + 1);
 	}
 
 	#endregion
@@ -158,7 +143,7 @@ public partial class InputManager : Node2D {
 			bool faceFollows = _facingMode == FacingModes.Follow || _facingMode == FacingModes.AlwaysFollow;
 
 			if (moveFollows && faceFollows) {
-				Log.Err(() => "Both MovementMode and FacingMode are set to `Follow` or `AlwaysFollow`. Setting to `Static` instead.");
+				new Ctx().Err(() => "Both MovementMode and FacingMode are set to `Follow` or `AlwaysFollow`. Setting to `Static` instead.");
 				_facingMode = FacingModes.Static;
 			}
 			else _facingMode = value;
@@ -205,14 +190,8 @@ public partial class InputManager : Node2D {
 		Vector
 	}
 
-	private void ReceiveFacingInputs(bool v = false, int s = 0) {
-
-		Log.Me(() => "Listening for facing inputs...", v, s + 1);
-
-		if (!Control.EnableFaceDirection) {
-			Log.Me(() => "Facing inputs are disabled. Skipping input processing.", v, s + 1);
-			return;
-		}
+	private void ReceiveFacingInputs(Context c = null!) {
+		if (!Control.EnableFaceDirection) return;
 
 		Vector2 faceDirection = new();
 
@@ -231,15 +210,8 @@ public partial class InputManager : Node2D {
 				break;
 
 			case FacingModes.Follow:
-				if (FaceOverride != Vector2.Zero) {
-					Log.Me(() => $"Following `FaceOverride`...", v, s + 1);
-					faceDirection = FaceOverride;
-				}
-
-				else {
-					Log.Me(() => $"Following `Controls.MovementDirection`...", v, s + 1);
-					faceDirection = Control.MovementDirection;
-				}
+				if (FaceOverride != Vector2.Zero) faceDirection = FaceOverride;
+				else faceDirection = Control.MovementDirection;
 				break;
 
 			case FacingModes.AlwaysFollow:
@@ -251,15 +223,11 @@ public partial class InputManager : Node2D {
 				break;
 
 			default:
-				Log.Err(() => "An invalid facing mode was used. Cannot update `Controls.FacingDirection`.", v, s + 1);
+				c.Err(() => "An invalid facing mode was used. Cannot update `Controls.FacingDirection`.");
 				break;
 		}
 
 		Control.FacingDirection = faceDirection;
-		
-		Log.Me(() => $"FacingDirection ({faceDirection.X:F2}, {faceDirection.Y:F2}) -> ({Control.FacingDirection.X}, {Control.FacingDirection.Y})...", v, s + 1);
-
-		Log.Me(() => "Done!", v, s + 1);
 	}
 
 	#endregion
@@ -269,18 +237,11 @@ public partial class InputManager : Node2D {
 	[ExportSubgroup("Attack Inputs")]
 	[Export] public string Attack = "attack";
 
-	private void ReceiveAttackInputs(bool v = false, int s = 0) {
-		Log.Me(() => "Listening for attack inputs...", v, s + 1);
-
-		if (!Control.EnableCombat) {
-			Log.Me(() => "Combat inputs are disabled. Skipping input processing.", v, s + 1);
-			return;
-		}
+	private void ReceiveAttackInputs(Context c = null!) {
+		if (!Control.EnableCombat) return;
 
 		Control.IsAttacking = Input.IsActionPressed(Attack);
 		Control.JustAttacked = Input.IsActionJustPressed(Attack);
-
-		Log.Me(() => "Done!", v, s + 1);
 	}
 
 	#endregion
@@ -290,23 +251,27 @@ public partial class InputManager : Node2D {
 	#region Godot Callbacks
 
 	public override void _EnterTree() {
-		Log.Me(() => $"An InputManager has entered the tree. Checking properties...", LogReady);
+		Context c = new();
+		c.Trace(() => $"An InputManager has entered the tree. Checking properties...", LogReady);
 
 		Control = GetNode<ControlSurface>("../Control Surface");
-		if (Control == null) Log.Err("InputManager must have a ControlSurface sibling. Inputs will not reach its intended target.", LogReady);
+		if (Control == null) c.Err("InputManager must have a ControlSurface sibling. Inputs will not reach its intended target.", LogReady);
 
 		Character = GetNodeOrNull<StandardCharacter>("../");
-		if (Character == null) Log.Err("InputManager must be a child of a StandardCharacter. Inputs may not reach its intended target.", LogReady);
+		if (Character == null) c.Err("InputManager must be a child of a StandardCharacter. Inputs may not reach its intended target.", LogReady);
+		c.End();
 	}
 
 	public override void _Process(double delta) {
-		Log.Me(() => $"Processing ControlSurface for {Character.InstanceID}...", LogProcess);
+		Context c = new();
+		c.Trace(() => $"Processing ControlSurface for {Character.InstanceID}...", LogProcess);
 
-		ReceiveMovementInputs(LogProcess);
-		ReceiveFacingInputs(LogProcess);
-		ReceiveAttackInputs(LogProcess);
+		ReceiveMovementInputs(c);
+		ReceiveFacingInputs(c);
+		ReceiveAttackInputs(c);
 
-		Log.Me(() => "Done!", LogProcess);
+		c.Trace(() => "Done!", LogProcess);
+		c.End();
 	}
 
 	#endregion

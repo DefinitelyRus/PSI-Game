@@ -41,7 +41,7 @@ public partial class StandardItem : Node2D
 			}
 			
 			else {
-				Log.Me(() => $"Invalid rarity '{value.ToPascalCase()}' for item '{ItemName}'. Using default 'Common'.", true, 1);
+				new Context().Warn(() => $"Invalid rarity '{value.ToPascalCase()}' for item '{ItemName}'. Using default 'Common'.");
 				_rarity = "Common";
 			}
 		}
@@ -160,28 +160,27 @@ public partial class StandardItem : Node2D
 	/// <param name="v">Do verbose logging? Use <c>v</c> to follow the same verbosity as the encapsulating function, if available.</param>
 	/// <param name="s">Stack depth. Use <c>0</c> if on a root function, or <c>s + 1</c> if <c>s</c> is available in the encapsulating function.</param>
 	/// <returns>The excess amount if the total exceeds <see cref="MaxQuantity"/>.</returns>
-	public int AddQuantity(int amount, bool v = false, int s = 0) {
-		Log.Me(() => $"Adding {amount}x \"{ItemName}\" to stack...", v, s + 1);
+	public int AddQuantity(int amount, Context c = null!) {
+		c.Trace(() => $"Adding {amount}x \"{ItemName}\" to stack...");
 
 		// Not stackable
 		if (!IsStackable) {
-			Log.Me(() => "Cannot add to stack: Item is not stackable.", v, s + 1);
+			c.Trace(() => "Cannot add to stack: Item is not stackable.");
 			return amount;
 		}
 
 		// Invalid amount
 		if (amount <= 0) {
-			Log.Me(() => $"Cannot add {amount} to stack: Amount must be greater than 0. Returning 0.", v, s + 1);
+			c.Trace(() => $"Cannot add {amount} to stack: Amount must be greater than 0. Returning 0.");
 			return 0;
 		}
 
 		// Excess
 		int excess = Quantity + amount - MaxQuantity;
-		if (excess > 0 && v) Log.Me(() => $"Exceeds max stack size by {excess}. Returning excess amount...", true, s + 1);
 
 		// Add to stack
 		Quantity += amount - excess;
-		Log.Me(() => $"Added {amount} to stack. ({Quantity}/{MaxQuantity})", true, s + 1);
+		c.Trace(() => $"Added {amount} to stack. ({Quantity}/{MaxQuantity})");
 		return excess;
 	}
 
@@ -193,36 +192,36 @@ public partial class StandardItem : Node2D
 	/// <param name="v">Do verbose logging? Use <c>v</c> to follow the same verbosity as the encapsulating function, if available.</param>
 	/// <param name="s">Stack depth. Use <c>0</c> if on a root function, or <c>s + 1</c> if <c>s</c> is available in the encapsulating function.</param>
 	/// <returns>The excess amount if the total exceeds <see cref="MaxQuantity"/>.</returns>
-	public int MergeQuantity(StandardItem item, bool v = false, int s = 0) {
-		Log.Me(() => "Adding to stack...", v, s + 1);
+	public int MergeQuantity(StandardItem item, Context c = null!) {
+		c.Trace(() => "Adding to stack...");
 
 		// Null check
 		if (item == null) {
-			Log.Me(() => "Cannot add null item to stack.", v, s + 1);
+			c.Trace(() => "Cannot add null item to stack.");
 			return 0;
 		}
 
 		// Invalid amount
 		if (item.Quantity <= 0) {
-			Log.Me(() => $"Cannot add item with quantity {item.Quantity} to stack: Quantity must be greater than 0. Returning 0.", v, s + 1);
+			c.Trace(() => $"Cannot add item with quantity {item.Quantity} to stack: Quantity must be greater than 0. Returning 0.");
 			return 0;
 		}
 
 		// Check if this item is stackable
 		if (!IsStackable) {
-			Log.Me(() => "Cannot add item to stack: One or both items are not stackable.", v, s + 1);
+			c.Trace(() => "Cannot add item to stack: One or both items are not stackable.");
 			return item.Quantity;
 		}
 
 		// Check if item IDs match
 		if (item.ItemID != ItemID) {
-			Log.Me(() => $"Cannot add item with ID {item.ItemID} to stack with {ItemID}: Item IDs do not match.", v, s + 1);
+			c.Trace(() => $"Cannot add item with ID {item.ItemID} to stack with {ItemID}: Item IDs do not match.");
 			return item.Quantity;
 		}
 
 		// Add to stack
-		int excess = AddQuantity(item.Quantity, v, s + 1);
-		Log.Me(() => $"Added {item.Quantity} to stack. ({Quantity}/{MaxQuantity})", v, s + 1);
+		int excess = AddQuantity(item.Quantity);
+		c.Trace(() => $"Added {item.Quantity} to stack. ({Quantity}/{MaxQuantity})");
 		return excess;
 	}
 
@@ -233,41 +232,41 @@ public partial class StandardItem : Node2D
 	/// <param name="amount">The amount of items to remove from the stack.</param>
 	/// <param name="v">Do verbose logging? Use <c>v</c> to follow the same verbosity as the encapsulating function, if available.</param>
 	/// <param name="s">Stack depth. Use <c>0</c> if on a root function, or <c>s + 1</c> if <c>s</c> is available in the encapsulating function.</param>
-	public void RemoveQuantity(int amount, bool v = false, int s = 0) {
-		Log.Me(() => "Removing from stack...", v, s + 1);
+	public void RemoveQuantity(int amount, Context c = null!) {
+		c.Trace(() => "Removing from stack...");
 
 		// Not stackable
 		if (!IsStackable) {
-			Log.Me(() => "Cannot remove from stack: Item is not stackable.", v, s + 1);
+			c.Trace(() => "Cannot remove from stack: Item is not stackable.");
 			return;
 		}
 
 		// Invalid amount
 		if (amount <= 0) {
-			Log.Me(() => $"Cannot remove {amount} from stack: Amount must be greater than zero.", v, s + 1);
+			c.Trace(() => $"Cannot remove {amount} from stack: Amount must be greater than zero.");
 			return;
 		}
 
 		// Excess
 		if (Quantity - amount < 0) {
-			Log.Me(() => $"Cannot remove {amount} from stack; removing the entire quantity instead.", v, s + 1);
+			c.Trace(() => $"Cannot remove {amount} from stack; removing the entire quantity instead.");
 			amount = Quantity;
 		}
 
 		// Remove from stack
 		Quantity -= amount;
-		Log.Me(() => $"Removed {amount} from stack. New quantity: {Quantity}/{MaxQuantity}.", v, s + 1);
+		c.Trace(() => $"Removed {amount} from stack. New quantity: {Quantity}/{MaxQuantity}.");
 
 		// Check if stack is empty
 		if (Quantity == 0 && DeleteOnEmpty) {
-			Log.Me(() => "Stack is empty. Deleting item...", v, s + 1);
+			c.Trace(() => "Stack is empty. Deleting item...");
 			QueueFree();
-			Log.Me(() => "Item deleted.", v, s + 1);
+			c.Trace(() => "Item deleted.");
 		}
 		
 		// Log remaining quantity
-		else if (Quantity == 0) Log.Me(() => "Item stack is now empty.", v, s + 1);
-		Log.Me(() => $"Done!", true, s + 1);
+		else if (Quantity == 0) c.Trace(() => "Item stack is now empty.");
+		c.Trace(() => $"Done!");
 	}
 
 	#endregion
@@ -320,40 +319,40 @@ public partial class StandardItem : Node2D
 	/// <param name="amount">The amount of durability to remove from the item.</param>
 	/// <param name="v">Do verbose logging? Use <c>v</c> to follow the same verbosity as the encapsulating function, if available.</param>
 	/// <param name="s">Stack depth. Use <c>0</c> if on a root function, or <c>s + 1</c> if <c>s</c> is available in the encapsulating function.</param>
-	public void Degrade(int amount = 1, bool v = false, int s = 0) {
+	public void Degrade(int amount = 1, Context c = null!) {
 
 		// Cannot be degraded
 		if (!CanDegrade) {
-			Log.Me(() => $"\"{ItemName}\" ({ItemID}) cannot be degraded. Returning...", v, s + 1);
+			c.Trace(() => $"\"{ItemName}\" ({ItemID}) cannot be degraded. Returning...");
 			return;
 		}
 
 		// Invalid amount
 		if (amount <= 0) {
-			Log.Me(() => $"Cannot degrade \"{ItemName}\" (ItemID: {ItemID}) by {amount}. Amount must be greater than 0.", v, s + 1);
+			c.Trace(() => $"Cannot degrade \"{ItemName}\" (ItemID: {ItemID}) by {amount}. Amount must be greater than 0.");
 			return;
 		}
 
 		// Already broken
 		if (IsBroken) {
-			Log.Me(() => $"\"{ItemName}\" (ItemID: {ItemID}) is already broken. Cannot degrade further.", v, s + 1);
+			c.Trace(() => $"\"{ItemName}\" (ItemID: {ItemID}) is already broken. Cannot degrade further.");
 			return;
 		}
 
 		// Degrade the item
-		Log.Me(() => $"Degrading \"{ItemName}\" (ItemID: {ItemID})...", v, s + 1);
+		c.Trace(() => $"Degrading \"{ItemName}\" (ItemID: {ItemID})...");
 		Durability -= amount;
 
 		// Replace if broken
 		if (RemoveQuantityOnBreak) {
 			if (IsBroken) {
-				Log.Me(() => $"\"{ItemName}\" (ItemID: {ItemID}) is broken! Removing quantity and replenishing durability...", v, s + 1);
-				RemoveQuantity(1, v, s + 1);
+				c.Trace(() => $"\"{ItemName}\" (ItemID: {ItemID}) is broken! Removing quantity and replenishing durability...");
+				RemoveQuantity(1);
 				Durability = BaseDurability;
 			}
 		}
 
-		Log.Me(() => $"Degraded \"{ItemName}\" (ItemID: {ItemID}) by {amount} ({Durability}/{BaseDurability})...", v, s + 1);
+		c.Trace(() => $"Degraded \"{ItemName}\" (ItemID: {ItemID}) by {amount} ({Durability}/{BaseDurability})...");
 	}
 
 	#endregion
@@ -432,13 +431,13 @@ public partial class StandardItem : Node2D
 	/// <param name="delta">The time between this frame and the last.</param>
 	/// <param name="v">Do verbose logging? Use <c>v</c> to follow the same verbosity as the encapsulating function, if available.</param>
 	/// <param name="s">Stack depth. Use <c>0</c> if on a root function, or <c>s + 1</c> if <c>s</c> is available in the encapsulating function.</param>
-	protected void CoolDown(float delta, bool v = false, int s = 0) {
+	protected void CoolDown(float delta, Context c = null!) {
 		if (CooldownRemaining == 0f) return;
 
 		CooldownRemaining -= delta;
 		if (CooldownRemaining < 0f) CooldownRemaining = 0f;
 
-		Log.Me(() => $"Cooldown remaining: {CooldownRemaining}/{CooldownTime} seconds.", v, s + 1);
+		c.Trace(() => $"Cooldown remaining: {CooldownRemaining}/{CooldownTime} seconds.");
 	}
 
 	#endregion
@@ -526,66 +525,50 @@ public partial class StandardItem : Node2D
 	/// </summary>
 	/// <param name="v">Do verbose logging? Use <c>v</c> to follow the same verbosity as the encapsulating function, if available.</param>
 	/// <param name="s">Stack depth. Use <c>0</c> if on a root function, or <c>s + 1</c> if <c>s</c> is available in the encapsulating function.</param>
-	private void GenerateInstanceID(bool v = false, int s = 0) {
-		Log.Me($"Generating an `InstanceID`...", v, s + 1);
+	private void GenerateInstanceID(Context c = null!) {
 
 		// Cancel if already assigned.
-		if (!string.IsNullOrEmpty(InstanceID)) {
-			Log.Me($"`InstanceID` is already assigned a value (\"{InstanceID}\"). Skipping...", v, s + 1);
-			return;
-		}
+		if (!string.IsNullOrEmpty(InstanceID)) return;
 
 		string prefix;
 		string randomID = string.Empty;
 
 		// Use default name if ItemName is blank.
 		if (string.IsNullOrEmpty(ItemName)) {
-			Log.Warn("`ItemName` is empty. Using default: \"Unnamed Item\"", v, s + 1);
+			c.Warn("`ItemName` is empty. Using default: \"Unnamed Item\"");
 			ItemName = "Unnamed Item";
 		}
 
 		// Use ItemName if CustomPrefix is blank.
-		if (string.IsNullOrEmpty(CustomPrefix)) {
-			Log.Me($"`CustomPrefix` is empty. Using `ItemName` \"{ItemName}\"...", v, s + 1);
-			prefix = ItemName;
-		}
+		if (string.IsNullOrEmpty(CustomPrefix)) prefix = ItemName;
 
 		// Use CustomPrefix if provided.
-		else {
-			Log.Me($"Using `CustomPrefix` \"{CustomPrefix}\"...", v, s + 1);
-			prefix = CustomPrefix;
-		}
+		else prefix = CustomPrefix;
 
 		// Replace space with the specified type.
 		switch (ReplaceSpaceWith) {
 
-			case SpaceReplacement.Keep:
-				Log.Me("Keeping spaces...", v, s + 1);
-				break;
+			case SpaceReplacement.Keep: break;
 
 			case SpaceReplacement.Remove:
-				Log.Me("Removing spaces...", v, s + 1);
 				prefix = prefix.Replace(" ", "");
 				break;
 
 			case SpaceReplacement.Underscore:
-				Log.Me("Replacing spaces with underscores...", v, s + 1);
 				prefix = prefix.Replace(" ", "_");
 				break;
 
 			case SpaceReplacement.Hyphen:
-				Log.Me("Replacing spaces with hyphens...", v, s + 1);
 				prefix = prefix.Replace(" ", "-");
 				break;
 
 			default:
-				Log.Warn("An invalid `SpaceReplacement` value was provided. Keeping spaces instead...", v, s + 1);
+				c.Warn("An invalid `SpaceReplacement` value was provided. Keeping spaces instead...");
 				break;
 
 		}
 
 		GenerateInstanceID:
-		Log.Me("Generating a unique ID...", v, s + 1);
 		for (int i = 0; i < SuffixLength; i++) {
 			randomID += SuffixChars[(int) (GD.Randi() % SuffixChars.Length)];
 		}
@@ -594,12 +577,9 @@ public partial class StandardItem : Node2D
 
 		// Check if the ID is already taken
 		if (GetNodeOrNull<StandardCharacter>(InstanceID) != null) {
-			Log.Me($"Instance ID \"{InstanceID}\" is already taken. Generating a new one...", v, s + 1);
 			randomID = string.Empty;
 			goto GenerateInstanceID;
 		}
-
-		Log.Me($"Generated ID \"{InstanceID}\"!", v, s + 1);
 	}
 
 	#endregion
@@ -638,9 +618,8 @@ public partial class StandardItem : Node2D
 	/// <param name="s">Stack depth. Use <c>0</c> if on a root function, or <c>s + 1</c> if <c>s</c> is available in the encapsulating function.</param>
 	/// <returns>The value to apply to the <c>target</c> property.</returns>
 	/// <exception cref="Exception"/>
-	public float CalculateModifiedValue(string baseTarget, string target, float fallback = 0, bool setToTarget = true, bool v = false, int s = 0) {
-		Log.Me(() => $"Calculating damage for \"{ItemName}\" ({ItemID})...", v, s + 1);
-
+	public float CalculateModifiedValue(string baseTarget, string target, float fallback = 0, bool setToTarget = true, Context c = null!) {
+		c ??= new();
 		float baseValue = 0;
 		PropertyInfo targetProperty = null!;
 
@@ -650,48 +629,44 @@ public partial class StandardItem : Node2D
 			if (setToTarget) {
 				//`target` null check
 				if (target == null) {
-					Log.Me(() => $"The `target` parameter cannot be null if `setToTarget` is true. Returning fallback value ({fallback}).", v, s + 1);
+					c.Warn(() => $"The `target` parameter cannot be null if `setToTarget` is true. Returning fallback value ({fallback}).");
 					return fallback;
 				}
 
 				// Grab `target` by name
-				Log.Me(() => $"Attempting to find property \"{target}\" from class {GetType().Name}...", v, s + 1);
 				targetProperty = GetType().GetProperty(target)!;
 
 				// Missing/inaccessible `target` property
 				if (targetProperty == null) {
-					Log.Me(() => $"No property with name {target} found or accessible in class {GetType().Name}. Is it private/protected? Returning fallback value ({fallback}).", v, s + 1);
+					c.Warn(() => $"No property with name {target} found or accessible in class {GetType().Name}. Is it private/protected? Returning fallback value ({fallback}).");
 					return fallback;
 				}
 
 				// `target` cannot be written onto
 				if (!targetProperty.CanWrite) {
-					Log.Me(() => $"Property \"{target}\" cannot be written onto. Returning fallback value ({fallback}).", v, s + 1);
+					c.Warn(() => $"Property \"{target}\" cannot be written onto. Returning fallback value ({fallback}).");
 					return fallback;
 				}
 
 				// `target` is not a float
 				if (targetProperty.PropertyType != typeof(float)) {
-					Log.Me(() => $"Property \"{target}\" is not a float. Returning fallback value ({fallback}).", v, s + 1);
+					c.Warn(() => $"Property \"{target}\" is not a float. Returning fallback value ({fallback}).");
 					return fallback;
 				}
-
-				Log.Me($"Property \"{target}\" is writable and is a float type. Proceeding...", v, s + 1);
 			}
 
 			//`baseTarget` null check
 			if (baseTarget == null) {
-				Log.Me(() => $"The `baseTarget` parameter cannot be null. Returning fallback value ({fallback}).", v, s + 1);
+				c.Warn(() => $"The `baseTarget` parameter cannot be null. Returning fallback value ({fallback}).");
 				return fallback;
 			}
 
 			// Grab `baseTarget` by name
-			Log.Me(() => $"Attempting to find property \"{baseTarget}\" from class {GetType().Name}...", v, s + 1);
 			PropertyInfo baseTargetProperty = GetType().GetProperty(baseTarget)!;
 
 			// Missing/inaccessible `baseTarget` property
 			if (baseTargetProperty == null) {
-				Log.Me(() => $"No property with name {baseTarget} found or accessible in class {GetType().Name}. Is it private/protected? Returning fallback value ({fallback}).", v, s + 1);
+				c.Warn(() => $"No property with name {baseTarget} found or accessible in class {GetType().Name}. Is it private/protected? Returning fallback value ({fallback}).");
 				return fallback;
 			}
 
@@ -700,18 +675,17 @@ public partial class StandardItem : Node2D
 			// Value is a float.
 			if (baseValueObj is float f) {
 				baseValue = f;
-				Log.Me(() => $"Assigned value {baseValue} as baseValue.", v, s + 1);
 			}
 
 			// Value is not a float.
 			else {
-				Log.Me(() => $"Property \"{baseTarget}\" is not a float. Returning fallback value ({fallback}).", v, s + 1);
+				c.Warn(() => $"Property \"{baseTarget}\" is not a float. Returning fallback value ({fallback}).");
 				return fallback;
 			}
 		}
 
 		catch (Exception e) {
-			Log.Err(() => $"Returning fallback value ({fallback}). {e.GetType().Name} was thrown. {e.Message}", v, s + 1);
+			c.Err(() => $"Returning fallback value ({fallback}). {e.GetType().Name} was thrown. {e.Message}");
 			return fallback;
 		}
 
@@ -726,22 +700,15 @@ public partial class StandardItem : Node2D
 
 			// Apply modifiers to baseValue
 			if (modifier.Target.Equals(baseTarget)) {
-				Log.Me(() => $"Modifier \"{modifier.ID}\" found targeting \"{modifier.Target}\". Applying modifier...", v, s + 1);
-
 				result += modifier.Type switch {
 					StatModifier.ModifierType.Add => modifier.Value,
 					StatModifier.ModifierType.Multiply => baseValue * (modifier.Value - 1),
 					_ => throw new Exception($"Invalid modifier type {modifier.Type} for {modifier.ID}.")
 				};
-
-				Log.Me(() => $"New base value: {result}", v, s + 1);
 			}
 
 			// Queue modifiers for finalValue
-			else if (modifier.Target == target) {
-				Log.Me(() => $"Modifier \"{modifier.ID}\" found targeting \"{modifier.Target}\". Queueing...", v, s + 1);
-				finalModifiers.Add(modifier);
-			}
+			else if (modifier.Target == target) finalModifiers.Add(modifier);
 		}
 
 		#endregion
@@ -750,25 +717,16 @@ public partial class StandardItem : Node2D
 
 		// Apply queued modifiers
 		foreach (StatModifier modifier in finalModifiers) {
-			Log.Me(() => $"Applying modifier \"{modifier.ID}\" to \"{modifier.Target}\"...", v, s + 1);
-
 			result = modifier.Type switch {
 				StatModifier.ModifierType.Add => result + modifier.Value,
 				StatModifier.ModifierType.Multiply => result * modifier.Value,
 				_ => throw new Exception($"Invalid modifier type {modifier.Type} for {modifier.ID}.")
 			};
-
-			Log.Me(() => $"New value: {result}", v, s + 1);
 		}
 
 		#endregion
 
-		Log.Me(() => $"Final {target} value: {result}", v, s + 1);
-
-		if (setToTarget) {
-			Log.Me(() => $"Applying value {result} to \"{target}\"...", v, s + 1);
-			targetProperty!.SetValue(this, result);
-		}
+		if (setToTarget) targetProperty!.SetValue(this, result);
 
 		return result;
 	}
@@ -783,8 +741,8 @@ public partial class StandardItem : Node2D
 	/// </summary>
 	/// <param name="v">Do verbose logging? Use <c>v</c> to follow the same verbosity as the encapsulating function, if available.</param>
 	/// <param name="s">Stack depth. Use <c>0</c> if on a root function, or <c>s + 1</c> if <c>s</c> is available in the encapsulating function.</param>
-	public virtual void Use(bool v = false, int s = 0) {
-		Log.Me(() => $"`UseItem` on \"{ItemName}\" (ItemID: {ItemID}) is not implemented! Override to add custom functionality.", v, s + 1);
+	public virtual void Use(Context c = null!) {
+		c.Warn(() => $"`UseItem` on \"{ItemName}\" (ItemID: {ItemID}) is not implemented! Override to add custom functionality.");
 		return;
 	}
 
@@ -794,8 +752,8 @@ public partial class StandardItem : Node2D
 	/// </summary>
 	/// <param name="v">Do verbose logging? Use <c>v</c> to follow the same verbosity as the encapsulating function, if available.</param>
 	/// <param name="s">Stack depth. Use <c>0</c> if on a root function, or <c>s + 1</c> if <c>s</c> is available in the encapsulating function.</param>
-	public virtual void OnPickup(bool v = false, int s = 0) {
-		Log.Me(() => $"`OnPickup` on \"{ItemName}\" (ItemID: {ItemID}) is not implemented! Override to add custom functionality.", v, s + 1);
+	public virtual void OnPickup(Context c = null!) {
+		c.Warn(() => $"`OnPickup` on \"{ItemName}\" (ItemID: {ItemID}) is not implemented! Override to add custom functionality.");
 		return;
 	}
 
@@ -805,8 +763,8 @@ public partial class StandardItem : Node2D
 	/// </summary>
 	/// <param name="v">Do verbose logging? Use <c>v</c> to follow the same verbosity as the encapsulating function, if available.</param>
 	/// <param name="s">Stack depth. Use <c>0</c> if on a root function, or <c>s + 1</c> if <c>s</c> is available in the encapsulating function.</param>
-	public virtual void OnEquip(bool v = false, int s = 0) {
-		Log.Me(() => $"`OnEquip` on \"{ItemName}\" (ItemID: {ItemID}) is not implemented! Override to add custom functionality.", v, s + 1);
+	public virtual void OnEquip(Context c = null!) {
+		c.Warn(() => $"`OnEquip` on \"{ItemName}\" (ItemID: {ItemID}) is not implemented! Override to add custom functionality.");
 		return;
 	}
 
@@ -816,8 +774,8 @@ public partial class StandardItem : Node2D
 	/// </summary>
 	/// <param name="v">Do verbose logging? Use <c>v</c> to follow the same verbosity as the encapsulating function, if available.</param>
 	/// <param name="s">Stack depth. Use <c>0</c> if on a root function, or <c>s + 1</c> if <c>s</c> is available in the encapsulating function.</param>
-	public virtual void OnUnequip(bool v = false, int s = 0) {
-		Log.Me(() => $"`OnUnequip` on \"{ItemName}\" (ItemID: {ItemID}) is not implemented! Override to add custom functionality.", v, s + 1);
+	public virtual void OnUnequip(Context c = null!) {
+		c.Warn(() => $"`OnUnequip` on \"{ItemName}\" (ItemID: {ItemID}) is not implemented! Override to add custom functionality.");
 		return;
 	}
 
@@ -827,8 +785,8 @@ public partial class StandardItem : Node2D
 	/// </summary>
 	/// <param name="v">Do verbose logging? Use <c>v</c> to follow the same verbosity as the encapsulating function, if available.</param>
 	/// <param name="s">Stack depth. Use <c>0</c> if on a root function, or <c>s + 1</c> if <c>s</c> is available in the encapsulating function.</param>
-	public virtual void OnDrop(bool v = false, int s = 0) {
-		Log.Me(() => $"`OnDrop` on \"{ItemName}\" (ItemID: {ItemID}) is not implemented! Override to add custom functionality.", v, s + 1);
+	public virtual void OnDrop(Context c = null!) {
+		c.Warn(() => $"`OnDrop` on \"{ItemName}\" (ItemID: {ItemID}) is not implemented! Override to add custom functionality.");
 		return;
 	}
 
@@ -838,8 +796,8 @@ public partial class StandardItem : Node2D
 	/// </summary>
 	/// <param name="v">Do verbose logging? Use <c>v</c> to follow the same verbosity as the encapsulating function, if available.</param>
 	/// <param name="s">Stack depth. Use <c>0</c> if on a root function, or <c>s + 1</c> if <c>s</c> is available in the encapsulating function.</param>
-	public virtual void OnBreak(bool v = false, int s = 0) {
-		Log.Me(() => $"`OnBreak` on \"{ItemName}\" (ItemID: {ItemID}) is not implemented! Override to add custom functionality.", v, s + 1);
+	public virtual void OnBreak(Context c = null!) {
+		c.Warn(() => $"`OnBreak` on \"{ItemName}\" (ItemID: {ItemID}) is not implemented! Override to add custom functionality.");
 		return;
 	}
 
@@ -849,8 +807,8 @@ public partial class StandardItem : Node2D
 	/// </summary>
 	/// <param name="v">Do verbose logging? Use <c>v</c> to follow the same verbosity as the encapsulating function, if available.</param>
 	/// <param name="s">Stack depth. Use <c>0</c> if on a root function, or <c>s + 1</c> if <c>s</c> is available in the encapsulating function.</param>
-	public virtual void OnBuy(bool v = false, int s = 0) {
-		Log.Me(() => $"`OnBuy` on \"{ItemName}\" (ItemID: {ItemID}) is not implemented! Override to add custom functionality.", v, s + 1);
+	public virtual void OnBuy(Context c = null!) {
+		c.Warn(() => $"`OnBuy` on \"{ItemName}\" (ItemID: {ItemID}) is not implemented! Override to add custom functionality.");
 		return;
 	}
 
@@ -860,8 +818,8 @@ public partial class StandardItem : Node2D
 	/// </summary>
 	/// <param name="v">Do verbose logging? Use <c>v</c> to follow the same verbosity as the encapsulating function, if available.</param>
 	/// <param name="s">Stack depth. Use <c>0</c> if on a root function, or <c>s + 1</c> if <c>s</c> is available in the encapsulating function.</param>
-	public virtual void OnSell(bool v = false, int s = 0) {
-		Log.Me(() => $"`OnSell` on \"{ItemName}\" (ItemID: {ItemID}) is not implemented! Override to add custom functionality.", v, s + 1);
+	public virtual void OnSell(Context c = null!) {
+		c.Warn(() => $"`OnSell` on \"{ItemName}\" (ItemID: {ItemID}) is not implemented! Override to add custom functionality.");
 		return;
 	}
 
@@ -870,32 +828,35 @@ public partial class StandardItem : Node2D
 	#region Godot Callbacks
 
 	public override void _EnterTree() {
-		Log.Me(() => "A StandardItem has entered the tree. Checking properties...", LogReady);
+		Context c = new();
+		c.Trace(() => "A StandardItem has entered the tree. Checking properties...", LogReady);
 
-		if (string.IsNullOrEmpty(ItemID)) Log.Err(() => "`ItemID` must not be null or empty.", LogReady);
+		if (string.IsNullOrEmpty(ItemID)) c.Err(() => "`ItemID` must not be null or empty.", LogReady);
 
-		if (string.IsNullOrEmpty(ItemName) && !AllowNoItemName) Log.Warn(() => "`ItemName` should not be null or empty.", LogReady);
+		if (string.IsNullOrEmpty(ItemName) && !AllowNoItemName) c.Warn(() => "`ItemName` should not be null or empty.", LogReady);
 
-		if (Icon == null && !AllowNoIcon) Log.Warn(() => "`Icon` should not be null. Please set an icon in the inspector.", LogReady);
+		if (Icon == null && !AllowNoIcon) c.Warn(() => "`Icon` should not be null. Please set an icon in the inspector.", LogReady);
 
-		if (Sprite == null && !AllowNoSprite) Log.Warn(() => "`Sprite` should not be null. Please set a sprite in the inspector.", LogReady);
+		if (Sprite == null && !AllowNoSprite) c.Warn(() => "`Sprite` should not be null. Please set a sprite in the inspector.", LogReady);
 
 		if (string.IsNullOrEmpty(InstanceID)) {
-			if (!AutoAssignInstanceID) Log.Warn(() => "`InstanceID` is not set. Generating a new one...", LogReady);
-			GenerateInstanceID(LogReady, 0);
+			if (!AutoAssignInstanceID) c.Warn(() => "`InstanceID` is not set. Generating a new one...", LogReady);
+			GenerateInstanceID(c);
 		}
 
-		Log.Me(() => "Done!", LogReady);
+		c.Trace(() => "Done!", LogReady);
+		c.End();
 	}
 
-	public override void _Ready()
-	{
-		Log.Me(() => $"Readying {InstanceID}...", LogReady);
+	public override void _Ready() {
+		Context c = new();
+		c.Trace(() => $"Readying {InstanceID}...", LogReady);
 
-		Log.Me(() => $"Changing node name to \"{InstanceID}\"...", LogReady);
+		c.Trace(() => $"Changing node name to \"{InstanceID}\"...", LogReady);
 		Name = InstanceID;
 
-		Log.Me(() => "Done!", LogReady);
+		c.Trace(() => "Done!", LogReady);
+		c.End();
 	}
 
 	#endregion

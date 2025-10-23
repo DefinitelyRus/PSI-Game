@@ -119,16 +119,9 @@ public partial class StandardProp : RigidBody2D {
 	/// </summary>
 	/// <param name="v">Do verbose logging? Use <c>v</c> to follow the same verbosity as the encapsulating function, if available.</param>
 	/// <param name="s">Stack depth. Use <c>0</c> if on a root function, or <c>s + 1</c> if <c>s</c> is available in the encapsulating function.</param>
-	private void GenerateInstanceID(bool v = false, int s = 0)
-	{
-		Log.Me($"Generating an `InstanceID`...", v, s + 1);
-
+	private void GenerateInstanceID(Context c = null!) {
 		// Cancel if already assigned.
-		if (!string.IsNullOrEmpty(InstanceID))
-		{
-			Log.Me($"`InstanceID` is already assigned a value (\"{InstanceID}\"). Skipping...", v, s + 1);
-			return;
-		}
+		if (!string.IsNullOrEmpty(InstanceID)) return;
 
 		string prefix;
 		string randomID = string.Empty;
@@ -136,55 +129,41 @@ public partial class StandardProp : RigidBody2D {
 		// Use default name if PropName is blank.
 		if (string.IsNullOrEmpty(PropName))
 		{
-			Log.Warn("`PropName` is empty. Using default: \"Unnamed Prop\"", v, s + 1);
+			c.Warn("`PropName` is empty. Using default: \"Unnamed Prop\"");
 			PropName = "Unnamed Prop";
 		}
 
 		// Use PropName if CustomPrefix is blank.
-		if (string.IsNullOrEmpty(CustomPrefix))
-		{
-			Log.Me($"`CustomPrefix` is empty. Using `PropName` \"{PropName}\"...", v, s + 1);
-			prefix = PropName;
-		}
+		if (string.IsNullOrEmpty(CustomPrefix)) prefix = PropName;
 
 		// Use CustomPrefix if provided.
-		else
-		{
-			Log.Me($"Using `CustomPrefix` \"{CustomPrefix}\"...", v, s + 1);
-			prefix = CustomPrefix;
-		}
+		else prefix = CustomPrefix;
 
 		// Replace space with the specified type.
 		switch (ReplaceSpaceWith)
 		{
 
-			case SpaceReplacement.Keep:
-				Log.Me("Keeping spaces...", v, s + 1);
-				break;
+			case SpaceReplacement.Keep: break;
 
 			case SpaceReplacement.Remove:
-				Log.Me("Removing spaces...", v, s + 1);
 				prefix = prefix.Replace(" ", "");
 				break;
 
 			case SpaceReplacement.Underscore:
-				Log.Me("Replacing spaces with underscores...", v, s + 1);
 				prefix = prefix.Replace(" ", "_");
 				break;
 
 			case SpaceReplacement.Hyphen:
-				Log.Me("Replacing spaces with hyphens...", v, s + 1);
 				prefix = prefix.Replace(" ", "-");
 				break;
 
 			default:
-				Log.Warn("An invalid `SpaceReplacement` value was provided. Keeping spaces instead...", v, s + 1);
+				c.Warn("An invalid `SpaceReplacement` value was provided. Keeping spaces instead...");
 				break;
 
 		}
 
 	GenerateInstanceID:
-		Log.Me("Generating a unique ID...", v, s + 1);
 		for (int i = 0; i < SuffixLength; i++)
 		{
 			randomID += SuffixChars[(int)(GD.Randi() % SuffixChars.Length)];
@@ -195,12 +174,9 @@ public partial class StandardProp : RigidBody2D {
 		// Check if the ID is already taken
 		if (GetNodeOrNull<StandardCharacter>(InstanceID) != null)
 		{
-			Log.Me($"Instance ID \"{InstanceID}\" is already taken. Generating a new one...", v, s + 1);
 			randomID = string.Empty;
 			goto GenerateInstanceID;
 		}
-
-		Log.Me($"Generated ID \"{InstanceID}\"!", v, s + 1);
 	}
 
 	#endregion
@@ -217,38 +193,38 @@ public partial class StandardProp : RigidBody2D {
 
 	#region Godot Callbacks
 
-	public override void _EnterTree()
-	{
-		Log.Me(() => "A StandardProp has entered the tree. Checking properties...", LogReady);
+	public override void _EnterTree() {
+		Context c = new();
+		c.Trace(() => "A StandardProp has entered the tree. Checking properties...", LogReady);
 
 		if (string.IsNullOrEmpty(PropID)) {
-			Log.Err(() => "`PropID` must not be null or empty.", LogReady);
+			c.Err(() => "`PropID` must not be null or empty.", LogReady);
 			return;
 		}
 
 		if (string.IsNullOrEmpty(PropName))
 		{
-			if (!SilentlyAutoAssignDefaultName) Log.Warn(() => "PropName should not be empty. Using default \"Unnamed Prop\"...");
+			if (!SilentlyAutoAssignDefaultName) c.Warn(() => "PropName should not be empty. Using default \"Unnamed Prop\"...");
 			PropName = "Unnamed Prop";
 		}
 
 		if (string.IsNullOrEmpty(InstanceID))
 		{
-			if (!SilentlyAutoAssignInstanceID) Log.Warn(() => "InstanceID is not assigned. Generating a new one...", LogReady);
-			GenerateInstanceID(LogReady);
+			if (!SilentlyAutoAssignInstanceID) c.Warn(() => "InstanceID is not assigned. Generating a new one...", LogReady);
+			GenerateInstanceID(c);
 		}
 
-		Log.Me(() => "Done!", LogReady);
+		c.Trace(() => "Done!", LogReady);
+		c.End();
 	}
 
-	public override void _Ready()
-	{
-		Log.Me(() => $"Readying {InstanceID}...", LogReady);
-
-		Log.Me(() => $"Changing node name to \"{InstanceID}\"...", LogReady);
+	public override void _Ready() {
+		Context c = new();
+		c.Trace(() => $"Readying {InstanceID}...", LogReady);
 		Name = InstanceID;
 
-		Log.Me(() => "Done!", LogReady);
+		c.Trace(() => "Done!", LogReady);
+		c.End();
 	}
 
 	#endregion

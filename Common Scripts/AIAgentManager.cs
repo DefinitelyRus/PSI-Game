@@ -14,22 +14,17 @@ public partial class AIAgentManager : Node2D {
 
 	private bool _hasTarget = false;
 
-	public void GoTo(Vector2 target, bool v = false, int s = 0) {
-		Log.Me(() => $"Setting target to ({target.X:F2}, {target.Y:F2})...", v, s + 1);
+	public void GoTo(Vector2 target, Context c = null!) {
 		NavAgent.TargetPosition = target;
 		_hasTarget = true;
-
-		Log.Me(() => "Done!", v, s + 1);
 	}
 
-	public void Stop(bool v = false, int s = 0) {
-		Log.Me(() => "Clearing target...", v, s + 1);
+	public void Stop(Context c = null!) {
 		_hasTarget = false;
 		NavAgent.TargetPosition = GlobalPosition; // Set target to current position to stop movement.
-		Log.Me(() => "Done!", v, s + 1);
 	}
 
-	private void MoveTo(bool v = false, int s = 0) {
+	private void MoveTo(Context c = null!) {
 		if (!_hasTarget || NavAgent.IsNavigationFinished()) {
 			ControlSurface.MovementDirection = Vector2.Zero;
 			ControlSurface.MovementMultiplier = 0f;
@@ -40,36 +35,41 @@ public partial class AIAgentManager : Node2D {
 		Vector2 currentPos = GlobalPosition;
 		Vector2 dir = nextPos - currentPos;
 
-		Log.Me(() => $"Heading towards ({dir.X:F2}, {dir.Y:F2})...", v, s + 1);
+		c.Trace(() => $"Heading towards ({dir.X:F2}, {dir.Y:F2})...");
 		ControlSurface.MovementDirection = dir;	// Normalized in setter.
 		ControlSurface.FacingDirection = dir;	// Normalized in setter.
 		ControlSurface.MovementMultiplier = 1f;
 		NavAgent.SetVelocity(dir * Character.Speed);
 
-		Log.Me(() => "Done!", v, s + 1);
+		c.Trace(() => "Done!");
 	}
 
 	public override void _Ready() {
+		Context c = new();
 
 		if (Character == null) {
-			Log.Err(() => "StandardCharacter is not assigned. Cannot proceed.", LogReady);
+			c.Err(() => "StandardCharacter is not assigned. Cannot proceed.", LogReady);
 			return;
 		}
 
 		if (ControlSurface == null) {
-			Log.Err(() => $"ControlSurface is not assigned for {Character.InstanceID}.", LogReady);
+			c.Err(() => $"ControlSurface is not assigned for {Character.InstanceID}.", LogReady);
 			return;
 		}
 
 		if (NavAgent == null) {
-			Log.Err(() => $"NavigationAgent2D is not assigned for {Character.InstanceID}.", LogReady);
+			c.Err(() => $"NavigationAgent2D is not assigned for {Character.InstanceID}.", LogReady);
 			return;
 		}
 
-		Log.Me(() => $"AIAgentManager is ready for {Character.InstanceID}.", LogReady);
+		c.Trace(() => $"AIAgentManager is ready for {Character.InstanceID}.", LogReady);
+		c.End();
 	}
 
 	public override void _PhysicsProcess(double delta) {
-		MoveTo(LogPhysics);
+		Context c = new();
+		MoveTo(c);
+
+		c.End();
 	}
 }
