@@ -1409,6 +1409,7 @@ script = ExtResource("4_rog04")
 Character = NodePath("..")
 ControlSurface = NodePath("../Control Surface")
 NavAgent = NodePath("../NavigationAgent2D")
+LogReady = false
 
 [node name="Projectile Weapon" parent="." node_paths=PackedStringArray("WeaponOwner") instance=ExtResource("4_g5v64")]
 WeaponOwner = NodePath("..")
