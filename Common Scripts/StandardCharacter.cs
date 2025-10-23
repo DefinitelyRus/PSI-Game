@@ -280,12 +280,12 @@ public partial class StandardCharacter : CharacterBody2D {
 			AnimationPlayer.SpeedScale = Speed / CurrentMaxSpeed;
 		}
 
-		if (isAttacking) {
+		else if (isAttacking) {
 			AnimationTree.Set("parameters/Attack/blend_position", new Vector2(Control.FacingDirection.X, -Control.FacingDirection.Y));
 			AnimationState.Travel("Attack");
 		}
 
-		if (!isWalking && !isAttacking) {
+		else if (!isWalking && !isAttacking) {
 			AnimationTree.Set("parameters/Idle/blend_position", new Vector2(Control.FacingDirection.X, -Control.FacingDirection.Y));
 			AnimationState.Travel("Idle");
 		}
