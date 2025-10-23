@@ -9,7 +9,6 @@ using Godot;
 namespace CommonScripts;
 
 public static class Log {
-	#region Static logging
 
     public enum PrintMode {
         Message,
@@ -17,6 +16,7 @@ public static class Log {
 		Error,
         FileOnly
 	}
+
 
 	/// <summary>
 	/// Logs a message to the console with additional context information.
@@ -117,6 +117,7 @@ public static class Log {
 		Message(message, PrintMode.Message, stack, useFilePath, 2);
     }
 
+
 	/// <summary>
 	/// Logs a message to the console with additional context information. <br/>
 	/// This is best used for logging messages that don't always need to be logged,
@@ -141,6 +142,7 @@ public static class Log {
         Message(messageFactory(), PrintMode.Message, stack, useFilePath, 2);
     }
 
+
 	/// <summary>
 	/// Logs a warning message to the console with additional context information.
 	/// </summary>
@@ -162,6 +164,7 @@ public static class Log {
         if (!enabled) return;
         Message(message, PrintMode.Warning, stack, useFilePath, 2);
 	}
+
 
 	/// <summary>
 	/// Logs a warning message to the console with additional context information.
@@ -185,6 +188,7 @@ public static class Log {
 		Message(messageFactory(), PrintMode.Warning, stack, useFilePath, 2);
 	}
 
+
 	/// <summary>
 	/// Logs an error message to the console with additional context information.
 	/// </summary>
@@ -207,6 +211,7 @@ public static class Log {
         Message(message, PrintMode.Error, stack, useFilePath, 2);
     }
 
+
 	/// <summary>
 	/// Logs an error message to the console with additional context information.
 	/// </summary>
@@ -228,9 +233,10 @@ public static class Log {
 		if (!enabled) return;
 		Message(messageFactory(), PrintMode.Error, stack, useFilePath, 2);
 	}
-
-	#endregion
+	
 }
+
+
 
 /// <summary>
 /// Represents a context associated with the current thread.
@@ -452,4 +458,5 @@ public sealed class Context {
 	public void End() {
 		Active = false;
 	}
+
 }
