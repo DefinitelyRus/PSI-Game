@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using Godot;
 namespace CommonScripts;
 
@@ -106,12 +107,17 @@ public partial class StandardCharacter : CharacterBody2D {
 		}
 
 		Health -= amount;
+		GD.Print($"Ur gon die soon... {Health}");
 
 		//TODO: AVFX here.
 		//
 
 		// Kill on 0 health.
-		if (Health == 0) ; //Kill(v, s + 1);
+		if (Health <= 0)
+		{
+			Kill(c);
+		}  
+			
 		return;
 	}
 
@@ -147,7 +153,8 @@ public partial class StandardCharacter : CharacterBody2D {
 	/// </summary>
 	/// <param name="v">Do verbose logging? Use <c>v</c> to follow the same verbosity as the encapsulating function, if available.</param>
 	/// <param name="s">Stack depth. Use <c>0</c> if on a root function, or <c>s + 1</c> if <c>s</c> is available in the encapsulating function.</param>
-	public void Kill(Context c = null!) {
+	public void Kill(Context c = null!)
+	{
 
 		if (!IsAlive) return;
 
@@ -159,30 +166,19 @@ public partial class StandardCharacter : CharacterBody2D {
 
 		#region AVFX
 
-		if (useAnimation) {
+		if (useAnimation)
+		{
 			// Set animation direction
-			AnimationTree!.Set("parameters/Death/blend_position", new Vector2(Control.MovementDirection.X, -Control.MovementDirection.Y));
+			AnimationTree.Set("parameters/Death/blend_position", new Vector2(LastMovementDirection.X, -LastMovementDirection.Y));
 
 			// Set animation state, call lambda function if DespawnOnDeath
 			AnimationState!.Travel("Death");
 
-
 			var playback = (AnimationNodeStateMachinePlayback)AnimationTree.Get("parameters/playback");
-
-			//TODO: Fix!
-			// Since AnimationPlayer does not control the animation and AnimationTree does not emit the AnimationFinished signal,
-			// the only ways to detect the end of the animation are to either poll the animation state or use a call_method animation track.
-			if (DespawnOnDeath) {
-				AnimationPlayer!.AnimationFinished += animation => {
-					if (animation != "Death") return;
-					QueueFree();
-
-					//AVFX here.
-				};
-			}
 		}
 
-		else if (DespawnOnDeath) {
+		else if (DespawnOnDeath)
+		{
 			QueueFree();
 
 			//AVFX here.
@@ -191,6 +187,15 @@ public partial class StandardCharacter : CharacterBody2D {
 		#endregion
 
 		return;
+	}
+	
+	// Gets called in the last frame of the death animations!
+	public void OnDeathAnimationFinished()
+	{
+		if (DespawnOnDeath)
+		{
+			QueueFree();
+		}
 	}
 
 	#endregion
@@ -273,6 +278,7 @@ public partial class StandardCharacter : CharacterBody2D {
 		//^ TECHNICAL DEBT: This is inherently bugged. Animates attack even when not intended.
 		//					But so is the attack function itself.
 		//TODO: Replace with an IsAttacking property in StandardWeapon itself.
+		//TODO: Trace where control direction is being modified from.
 
 		if (isWalking) {
 			AnimationState.Travel("Walk");

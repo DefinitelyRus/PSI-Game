@@ -21,6 +21,8 @@ Theatre = NodePath("../Theatre")
 MainMenu = ExtResource("3_1t0lv")
 Levels = [ExtResource("4_qemos")]
 
+[node name="Audio Manager" type="Node" parent="."]
+
 [node name="Theatre" type="Node" parent="."]
 process_mode = 1
 process_thread_group = 1
