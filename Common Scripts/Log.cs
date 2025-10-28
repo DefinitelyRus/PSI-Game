@@ -126,7 +126,7 @@ public partial class Log : GodotObject {
 	/// A value indicating whether the message should be logged.
 	/// The default value is <see langword="true"/>.
 	/// </param>
-	public static void Me(string? message, bool printTrace = false, bool enabled = true) {
+	public static void Me(string? message, bool enabled = true, bool printTrace = false) {
 		if (!enabled) return;
 		Message(message ?? string.Empty, Mode.Message, 2, printTrace);
 	}
