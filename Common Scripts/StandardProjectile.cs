@@ -230,16 +230,16 @@ public partial class StandardProjectile : RigidBody2D
 		if (TargetMode == TargetModes.Whitelist) {
 			if (Targets.Length == 0) c.Warn(() => "No targets set. Ignoring area.", LogCollision);
 
-			if (isTarget) Impact(area, c);
+			if (isTarget) Impact(area);
 		}
 
 		// Blacklist
 		else if (TargetMode == TargetModes.Blacklist) {
-			if (!isTarget) Impact(area, c);
+			if (!isTarget) Impact(area);
 		}
 
 		// Any
-		else if (TargetMode == TargetModes.Any) Impact(area, c);
+		else if (TargetMode == TargetModes.Any) Impact(area);
 
 		c.Trace(() => "Done!", LogCollision);
 		c.End();
@@ -247,8 +247,8 @@ public partial class StandardProjectile : RigidBody2D
 	}
 
 	//Usually called when the projectile impacts a target.
-	protected virtual void Impact(Area2D area, Context c = null!) {
-		c.Warn(() => $"`Impact` on {ProjectileName} (ProjectileID: {ProjectileID}) is not implemented! Override to add custom functionality.");
+	protected virtual void Impact(Area2D area) {
+		Log.Warn(() => $"`Impact` on {ProjectileName} (ProjectileID: {ProjectileID}) is not implemented! Override to add custom functionality.");
 		return;
 	}
 

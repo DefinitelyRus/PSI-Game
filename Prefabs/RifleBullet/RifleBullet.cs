@@ -4,11 +4,11 @@ namespace Game;
 
 public partial class RifleBullet : StandardProjectile
 {
-	protected override void Impact(Area2D area, Context c = null!)
+	protected override void Impact(Area2D area)
 	{
 		if (area.GetParent() is StandardCharacter character)
 		{
-			character.TakeDamage(Weapon.Damage, c);
+			character.TakeDamage(Weapon.Damage);
 			QueueFree();
 
 			return;
