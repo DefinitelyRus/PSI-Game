@@ -107,7 +107,6 @@ public partial class StandardCharacter : CharacterBody2D {
 		}
 
 		Health -= amount;
-		GD.Print($"Ur gon die soon... {Health}");
 
 		//TODO: AVFX here.
 		//
@@ -166,15 +165,17 @@ public partial class StandardCharacter : CharacterBody2D {
 
 		#region AVFX
 
-		if (useAnimation)
-		{
+		if (useAnimation) {
 			// Set animation direction
-			AnimationTree.Set("parameters/Death/blend_position", new Vector2(LastMovementDirection.X, -LastMovementDirection.Y));
+			AnimationTree!.Set("parameters/Death/blend_position", new Vector2(LastMovementDirection.X, -LastMovementDirection.Y));
 
 			// Set animation state, call lambda function if DespawnOnDeath
 			AnimationState!.Travel("Death");
 
-			var playback = (AnimationNodeStateMachinePlayback)AnimationTree.Get("parameters/playback");
+
+			//FIXME: "animation_finished" signal does not exist.
+			//var playback = (AnimationNodeStateMachinePlayback) AnimationTree.Get("parameters/playback");
+			//playback.Connect("animation_finished", Callable.From(OnDeathAnimationFinished)); 
 		}
 
 		else if (DespawnOnDeath)
@@ -304,7 +305,7 @@ public partial class StandardCharacter : CharacterBody2D {
 	[ExportGroup("Nodes & Components")]
 	[Export] public ControlSurface Control = null!;
 	[Export] public StandardWeapon Weapon = null!;
-	[Export] public HitArea HitArea = null!;
+	[Export] public Area2D HitArea = null!;
 	[Export] public AnimationPlayer AnimationPlayer = null!;
 	[Export] public AnimationTree AnimationTree = null!;
 	public AnimationNodeStateMachinePlayback AnimationState => (AnimationNodeStateMachinePlayback) AnimationTree.Get("parameters/playback");

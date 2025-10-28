@@ -15,6 +15,7 @@ namespace CommonScripts;
 /// This class provides a mechanism to manage and track the state of a context tied to the thread that created it.
 /// Once the context is ended using the <see cref="End"/> method, it is considered inactive.
 /// </remarks>
+[Obsolete("Use Log instead.")]
 [GlobalClass]
 public partial class Context : GodotObject {
 	internal readonly int ThreadId;

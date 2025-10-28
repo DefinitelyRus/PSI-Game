@@ -1,7 +1,7 @@
 [gd_scene load_steps=104 format=4 uid="uid://bfp0axiex7i7o"]
 
 [ext_resource type="Texture2D" uid="uid://dc6keunkgx6tt" path="res://Sprites/World Sprites/Level 1 - Office/Room_Builder.png" id="1_8k7wh"]
-[ext_resource type="PackedScene" uid="uid://daotyvqai4b36" path="res://Prefabs/StandardCharacter.tscn" id="1_b5ayd"]
+[ext_resource type="PackedScene" uid="uid://daotyvqai4b36" path="res://Prefabs/StandardCharacter/StandardCharacter.tscn" id="1_b5ayd"]
 [ext_resource type="Texture2D" uid="uid://f8i6teg6ade7" path="res://Sprites/World Sprites/Level 0 - Parking Lot/Parking_Props.png" id="2_iufkg"]
 [ext_resource type="PackedScene" uid="uid://cplcmhj4beq2b" path="res://Prefabs/Props/Level 1/armchair.tscn" id="4_c2lnq"]
 [ext_resource type="PackedScene" uid="uid://bknph0ay5rnme" path="res://Prefabs/Props/Level 1/big_table.tscn" id="5_dwn5r"]
@@ -2708,6 +2708,9 @@ position = Vector2(-260, 88)
 collision_layer = 48
 CharacterName = "Testo"
 
+[node name="Hit Area" parent="Testo" index="5"]
+script = null
+
 [node name="AnimationTree" parent="Testo" index="8"]
 parameters/Attack/blend_position = Vector2(0, 0)
 parameters/Death/blend_position = Vector2(0, 0)
@@ -2739,7 +2742,6 @@ position = Vector2(-174, -53)
 collision_layer = 144
 CharacterName = "Crashito"
 DespawnOnDeath = true
-LogCollision = true
 
 [node name="Control Surface" parent="Crashito" index="0"]
 EnableMovement = false

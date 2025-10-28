@@ -11,7 +11,7 @@ public partial class StandardProjectile : RigidBody2D
 	[Export] public string ProjectileName = "Standard Projectile";
 	[Export] public string ProjectileID { get; protected set; } = string.Empty;
 	[Export] public string[] Tags = [];
-	[Export] public HitArea HitArea = null!;
+	[Export] public Area2D HitArea = null!;
 	[Export] public StandardCharacter WeaponOwner = null!;
 	[Export] public StandardProjectileWeapon Weapon = null!;
 	[Export] public Node2D[] Targets { get; private set; } = [];
