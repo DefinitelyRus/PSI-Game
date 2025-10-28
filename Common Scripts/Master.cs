@@ -8,11 +8,11 @@ public partial class Master : Node {
     [ExportGroup("Nodes & Components")]
     [Export] public SceneLoader SceneLoader { get; private set; } = null!;
 
-    #endregion
+	#endregion
 
-    #region Debugging
+	#region Debugging
 
-    [ExportGroup("Debugging")]
+	[ExportGroup("Debugging")]
     [Export] public bool LogReady = false;
 
     #endregion
