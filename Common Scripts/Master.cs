@@ -31,15 +31,15 @@ public partial class Master : Node {
     #endregion
 
     public override void _Ready() {
-        OldLog.Me(() => $"Readying Master. Passing to StandardItem...", LogReady);
+        Log.Me(() => $"Readying Master. Passing to StandardItem...", enabled: LogReady);
 
         if (SceneLoader == null) {
-            OldLog.Err(() => "SceneLoader is not assigned. Cannot proceed.", LogReady);
+            Log.Err(() => "SceneLoader is not assigned. Cannot proceed.", enabled: LogReady);
             DebugPause(LogReady);
             return;
-        }
+		}
 
-        OldLog.Me(() => "Done!", LogReady);
+		Log.Me(() => "Done!", enabled: LogReady);
         return;
     }
 }
