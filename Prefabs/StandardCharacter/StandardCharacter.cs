@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using Godot;
 namespace CommonScripts;
 
@@ -258,6 +259,21 @@ public partial class StandardCharacter : CharacterBody2D {
 		MoveAndSlide();
 
 		if (Control.MovementDirection != Vector2.Zero) LastMovementDirection = Control.MovementDirection;
+	}
+
+	#endregion
+
+	#region Inventory
+
+	public List<StandardItem> Inventory { get; private set; } = [];
+
+	public void AddItemToInventory(StandardItem item) {
+		if (item == null) {
+			Log.Err("Cannot add null item to inventory.");
+			return;
+		}
+
+		Inventory.Add(item);
 	}
 
 	#endregion
