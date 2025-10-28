@@ -1,4 +1,4 @@
-[gd_scene load_steps=83 format=3 uid="uid://daotyvqai4b36"]
+[gd_scene load_steps=84 format=3 uid="uid://daotyvqai4b36"]
 
 [ext_resource type="Script" uid="uid://dbkinu8656olu" path="res://Prefabs/StandardCharacter/StandardCharacter.cs" id="1_udvt5"]
 [ext_resource type="Texture2D" uid="uid://bjipwk6ac5bx0" path="res://Sprites/Legionnaires/Rikka/Idle.png" id="2_r87il"]
@@ -16,6 +16,9 @@ height = 9.2
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_n5c1j"]
 radius = 4.6
 height = 20.9
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6shlc"]
+size = Vector2(22, 27)
 
 [sub_resource type="Animation" id="Animation_7fba6"]
 length = 0.001
@@ -1463,7 +1466,7 @@ states/Walk/position = Vector2(564, 100)
 transitions = ["Walk", "Attack", SubResource("AnimationNodeStateMachineTransition_evbho"), "Walk", "Death", SubResource("AnimationNodeStateMachineTransition_baotw"), "Attack", "Death", SubResource("AnimationNodeStateMachineTransition_5xadj"), "Start", "Idle", SubResource("AnimationNodeStateMachineTransition_g12ag"), "Idle", "Death", SubResource("AnimationNodeStateMachineTransition_g5v64"), "Idle", "Attack", SubResource("AnimationNodeStateMachineTransition_n5c1j"), "Idle", "Walk", SubResource("AnimationNodeStateMachineTransition_rog04"), "Walk", "Idle", SubResource("AnimationNodeStateMachineTransition_6la15"), "Attack", "Idle", SubResource("AnimationNodeStateMachineTransition_itkmi"), "Attack", "Walk", SubResource("AnimationNodeStateMachineTransition_33sgy")]
 graph_offset = Vector2(-83, -26)
 
-[node name="Standard Character" type="CharacterBody2D" node_paths=PackedStringArray("Control", "Weapon", "HitArea", "AnimationPlayer", "AnimationTree")]
+[node name="Standard Character" type="CharacterBody2D" node_paths=PackedStringArray("Control", "Weapon", "HitArea", "ClickArea", "AnimationPlayer", "AnimationTree")]
 process_mode = 1
 process_thread_group = 1
 process_thread_group_order = 0
@@ -1476,6 +1479,7 @@ script = ExtResource("1_udvt5")
 Control = NodePath("Control Surface")
 Weapon = NodePath("Projectile Weapon")
 HitArea = NodePath("Hit Area")
+ClickArea = NodePath("Click Area")
 AnimationPlayer = NodePath("AnimationPlayer")
 AnimationTree = NodePath("AnimationTree")
 
@@ -1505,6 +1509,12 @@ collision_mask = 768
 
 [node name="Hit Collider" type="CollisionShape2D" parent="Hit Area"]
 shape = SubResource("CapsuleShape2D_n5c1j")
+
+[node name="Click Area" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Click Area"]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_6shlc")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 y_sort_enabled = true
