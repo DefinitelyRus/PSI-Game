@@ -508,15 +508,15 @@ public partial class StandardCharacter : CharacterBody2D {
 
 	public override void _Ready()
 	{
-		Log.Me(() => $"Readying {InstanceID}...", LogReady);
+		Log.Me(() => $"Readying {InstanceID}...", enabled: LogReady);
 
-		Log.Me(() => $"Changing node name to \"{InstanceID}\"...", LogReady);
+		Log.Me(() => $"Changing node name to \"{InstanceID}\"...", enabled: LogReady);
 		Name = InstanceID;
 
-		Log.Me(() => "Connecting HitArea.BodyEntered to OnBodyEntered...", LogReady);
+		Log.Me(() => "Connecting HitArea.BodyEntered to OnBodyEntered...", enabled: LogReady);
 		HitArea.AreaEntered += OnAreaEntered;
 
-		Log.Me(() => "Done!", LogReady);
+		Log.Me(() => "Done!", enabled: LogReady);
 		return;
 	}
 
