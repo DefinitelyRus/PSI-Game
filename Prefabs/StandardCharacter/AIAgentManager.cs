@@ -26,22 +26,23 @@ public partial class AIAgentManager : Node2D {
 		Vector2 mousePos = (Vector2) args;
 
 		switch (actionName) {
-			case "select":
+			case IM.LeftClick:
 				Select(mousePos);
 				break;
 
-			case "cancel":
+			case IM.RightClick:
 				Deselect(mousePos);
 				break;
 		}
 	}
 
-	public bool CheckIfClickedOn(Vector2 target) {
-		var clickArea = Character.ClickArea;
-		var shapeNode = clickArea.GetNode<CollisionShape2D>("CollisionShape2D"); // Apparently null?
-		var shape = shapeNode.Shape;
 
-		Vector2 localPoint = clickArea.ToLocal(target);
+	private bool CheckIfClickedOn(Vector2 mousePos) {
+		Area2D clickArea = Character.ClickArea;
+		CollisionShape2D shapeNode = clickArea.GetNode<CollisionShape2D>("CollisionShape2D");
+		Shape2D shape = shapeNode.Shape;
+
+		Vector2 localPoint = clickArea.ToLocal(mousePos);
 		bool isInside = false;
 
 		switch (shape) {
@@ -57,6 +58,7 @@ public partial class AIAgentManager : Node2D {
 		return isInside;
 	}
 
+
 	public void Select(Vector2 mousePos) {
 		bool clickedOn = CheckIfClickedOn(mousePos);
 		Log.Me(() => $"{Character.InstanceID} -> clickedOn: {clickedOn}, IsSelected: {IsSelected}.", true);
@@ -67,6 +69,7 @@ public partial class AIAgentManager : Node2D {
 		// Start moving if clicked elsewhere.
 		else if (IsSelected && !clickedOn) GoTo(mousePos);
 	}
+
 
 	public void Deselect(Vector2 mousePos) {
 		if (IsSelected) {
@@ -81,16 +84,19 @@ public partial class AIAgentManager : Node2D {
 		}
 	}
 
+
 	public void GoTo(Vector2 target) {
 		Log.Me(() => $"{Character.InstanceID} received move command to ({target.X:F2}, {target.Y:F2}).", true);
 		NavAgent.TargetPosition = target;
 		_hasTarget = true;
 	}
 
+
 	public void Stop() {
 		_hasTarget = false;
 		NavAgent.TargetPosition = GlobalPosition; // Set target to current position to stop movement.
 	}
+
 
 	private void MoveTo() {
 		if (!_hasTarget || NavAgent.IsNavigationFinished()) {
@@ -99,11 +105,24 @@ public partial class AIAgentManager : Node2D {
 			return;
 		}
 
+		if (!NavAgent.IsTargetReachable()) {
+			Log.Me(() => $"{Character.InstanceID} cannot reach target at ({NavAgent.TargetPosition.X:F2}, {NavAgent.TargetPosition.Y:F2}). Stopping movement.", true);
+			Stop();
+			return;
+		}
+
 		Vector2 nextPos = NavAgent.GetNextPathPosition();
 		Vector2 currentPos = GlobalPosition;
 		Vector2 dir = nextPos - currentPos;
 
-		Log.Me(() => $"Heading towards ({dir.X:F2}, {dir.Y:F2})...");
+		if (dir == Vector2.Zero) {
+			ControlSurface.MovementDirection = Vector2.Zero;
+			ControlSurface.MovementMultiplier = 0f;
+			return;
+		}
+
+		Log.Me(() => $"current: ({GlobalPosition.X:F0}, {GlobalPosition.Y:F0}), target: {NavAgent.TargetPosition.X:F0}, {NavAgent.TargetPosition.Y:F0}), dir: {dir.X:F2}, {dir.Y:F2}");
+		Log.Me(() => $"Heading towards ({dir.X:F2}, {dir.Y:F2})...", false, false);
 		ControlSurface.MovementDirection = dir;	// Normalized in setter.
 		ControlSurface.FacingDirection = dir;	// Normalized in setter.
 		ControlSurface.MovementMultiplier = 1f;
