@@ -266,7 +266,8 @@ public partial class Log : GodotObject {
 			bool isMicrosoft = @namespace.StartsWith("Microsoft");
 			bool isGodot = @namespace.StartsWith("Godot");
 			bool isInvoked = method!.Name == "InvokeGodotClassMethod";
-			return !isSystem && !isMicrosoft && !isGodot && !isInvoked;
+			bool isLogger = type.Name == "Log";
+			return !isSystem && !isMicrosoft && !isGodot && !isInvoked && !isLogger;
 		})
 		.Reverse()];
 
