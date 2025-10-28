@@ -306,6 +306,7 @@ public partial class StandardCharacter : CharacterBody2D {
 	[Export] public ControlSurface Control = null!;
 	[Export] public StandardWeapon Weapon = null!;
 	[Export] public Area2D HitArea = null!;
+	[Export] public Area2D ClickArea = null!;
 	[Export] public AnimationPlayer AnimationPlayer = null!;
 	[Export] public AnimationTree AnimationTree = null!;
 	public AnimationNodeStateMachinePlayback AnimationState => (AnimationNodeStateMachinePlayback) AnimationTree.Get("parameters/playback");
@@ -450,6 +451,7 @@ public partial class StandardCharacter : CharacterBody2D {
 	[Export] public bool SilentlyAutoAssignDefaultName = false;
 	[Export] public bool AllowNoWeapon = false;
 	[Export] public bool AllowNoHitArea = false;
+	[Export] public bool AllowNoClickArea = false;
 	[Export] public bool AllowNoAnimationPlayer = false;
 	[Export] public bool AllowNoAnimationTree = false;
 	[Export] public bool SilentlyAutoAssignInstanceID = true;
@@ -487,6 +489,7 @@ public partial class StandardCharacter : CharacterBody2D {
 
 		if (HitArea == null && !AllowNoHitArea) Log.Warn("HitArea is not assigned. This character will have buggy hit behavior.");
 
+		if (ClickArea == null && !AllowNoClickArea) Log.Warn("ClickArea is not assigned. This character will not receive on-click inputs.");
 
 		if (AnimationPlayer == null && !AllowNoAnimationPlayer) Log.Warn("AnimationPlayer is not assigned. This character will not be animated.");
 
