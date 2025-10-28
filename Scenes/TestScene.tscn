@@ -1,4 +1,4 @@
-[gd_scene load_steps=104 format=4 uid="uid://bfp0axiex7i7o"]
+[gd_scene load_steps=105 format=4 uid="uid://bfp0axiex7i7o"]
 
 [ext_resource type="Texture2D" uid="uid://dc6keunkgx6tt" path="res://Sprites/World Sprites/Level 1 - Office/Room_Builder.png" id="1_8k7wh"]
 [ext_resource type="PackedScene" uid="uid://daotyvqai4b36" path="res://Prefabs/StandardCharacter/StandardCharacter.tscn" id="1_b5ayd"]
@@ -2685,6 +2685,11 @@ states/Walk/position = Vector2(564, 100)
 transitions = ["Walk", "Attack", SubResource("AnimationNodeStateMachineTransition_evbho"), "Walk", "Death", SubResource("AnimationNodeStateMachineTransition_baotw"), "Attack", "Death", SubResource("AnimationNodeStateMachineTransition_5xadj"), "Start", "Idle", SubResource("AnimationNodeStateMachineTransition_g12ag"), "Idle", "Death", SubResource("AnimationNodeStateMachineTransition_g5v64"), "Idle", "Attack", SubResource("AnimationNodeStateMachineTransition_n5c1j"), "Idle", "Walk", SubResource("AnimationNodeStateMachineTransition_rog04"), "Walk", "Idle", SubResource("AnimationNodeStateMachineTransition_6la15"), "Attack", "Idle", SubResource("AnimationNodeStateMachineTransition_itkmi"), "Attack", "Walk", SubResource("AnimationNodeStateMachineTransition_33sgy")]
 graph_offset = Vector2(-528, -49)
 
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_o5yho"]
+vertices = PackedVector2Array(-81, 27, -289, 27, -289, -134, -81, -134)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-299, 37, -299, -144, -71, -144, -71, 37)])
+
 [node name="TestScene" type="Node2D"]
 y_sort_enabled = true
 
@@ -2708,9 +2713,6 @@ position = Vector2(-260, 88)
 collision_layer = 48
 CharacterName = "Testo"
 
-[node name="Hit Area" parent="Testo" index="5"]
-script = null
-
 [node name="AnimationTree" parent="Testo" index="8"]
 parameters/Attack/blend_position = Vector2(0, 0)
 parameters/Death/blend_position = Vector2(0, 0)
@@ -2729,9 +2731,6 @@ MovementDirection = Vector2(0, 1)
 EnableFaceDirection = false
 EnableCombat = false
 
-[node name="Input Manager" parent="Dummiku" index="1"]
-visible = false
-
 [node name="AnimationTree" parent="Dummiku" index="8"]
 parameters/Death/blend_position = Vector2(-0.582166, 0.292453)
 parameters/Idle/blend_position = Vector2(0, 0)
@@ -2749,10 +2748,7 @@ MovementDirection = Vector2(0, 1)
 EnableFaceDirection = false
 EnableCombat = false
 
-[node name="Input Manager" parent="Crashito" index="1"]
-visible = false
-
-[node name="Body Collider" parent="Crashito" index="4"]
+[node name="Body Collider" parent="Crashito" index="3"]
 shape = SubResource("CapsuleShape2D_g5v64")
 
 [node name="Hit Collider" parent="Crashito/Hit Area" index="0"]
@@ -2782,10 +2778,7 @@ MovementDirection = Vector2(0, 1)
 EnableFaceDirection = false
 EnableCombat = false
 
-[node name="Input Manager" parent="Laguko" index="1"]
-visible = false
-
-[node name="Body Collider" parent="Laguko" index="4"]
+[node name="Body Collider" parent="Laguko" index="3"]
 shape = SubResource("CapsuleShape2D_g5v64")
 
 [node name="Hit Collider" parent="Laguko/Hit Area" index="0"]
@@ -2815,10 +2808,7 @@ MovementDirection = Vector2(0, 1)
 EnableFaceDirection = false
 EnableCombat = false
 
-[node name="Input Manager" parent="Glitchune" index="1"]
-visible = false
-
-[node name="Body Collider" parent="Glitchune" index="4"]
+[node name="Body Collider" parent="Glitchune" index="3"]
 shape = SubResource("CapsuleShape2D_g5v64")
 
 [node name="Hit Collider" parent="Glitchune/Hit Area" index="0"]
@@ -2950,6 +2940,9 @@ position = Vector2(224, -150)
 
 [node name="Wooden Table2" parent="Props" instance=ExtResource("20_0n54w")]
 position = Vector2(261, -141)
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+navigation_polygon = SubResource("NavigationPolygon_o5yho")
 
 [editable path="Testo"]
 [editable path="Dummiku"]
