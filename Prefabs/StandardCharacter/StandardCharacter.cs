@@ -98,11 +98,11 @@ public partial class StandardCharacter : CharacterBody2D {
 	/// Make this character take damage, apply audio/visual effects, and kill if health reaches 0.
 	/// </summary>
 	/// <param name="amount">How much health to reduce the health by.</param>
-	public void TakeDamage(float amount, Context c) {
+	public void TakeDamage(float amount) {
 
 		// Checks
 		if (amount < 0) {
-			c.Err($"Cannot give negative damage. Use Heal() instead if this is intended.");
+			Log.Err($"Cannot give negative damage. Use Heal() instead if this is intended.");
 			return;
 		}
 
@@ -114,7 +114,7 @@ public partial class StandardCharacter : CharacterBody2D {
 		// Kill on 0 health.
 		if (Health <= 0)
 		{
-			Kill(c);
+			Kill();
 		}  
 			
 		return;
@@ -126,10 +126,10 @@ public partial class StandardCharacter : CharacterBody2D {
 	/// <param name="amount">How much health to increase the health by.</param>
 	/// <param name="v">Do verbose logging? Use <c>v</c> to follow the same verbosity as the encapsulating function, if available.</param>
 	/// <param name="s">Stack depth. Use <c>0</c> if on a root function, or <c>s + 1</c> if <c>s</c> is available in the encapsulating function.</param>
-	public void Heal(float amount, Context c = null!) {
+	public void Heal(float amount) {
 		// Checks
 		if (amount < 0) {
-			c.Err($"Cannot heal negative amount. Use TakeDamage() instead if this is intended.");
+			Log.Err($"Cannot heal negative amount. Use TakeDamage() instead if this is intended.");
 			return;
 		}
 
@@ -152,7 +152,7 @@ public partial class StandardCharacter : CharacterBody2D {
 	/// </summary>
 	/// <param name="v">Do verbose logging? Use <c>v</c> to follow the same verbosity as the encapsulating function, if available.</param>
 	/// <param name="s">Stack depth. Use <c>0</c> if on a root function, or <c>s + 1</c> if <c>s</c> is available in the encapsulating function.</param>
-	public void Kill(Context c = null!)
+	public void Kill()
 	{
 
 		if (!IsAlive) return;
@@ -246,7 +246,7 @@ public partial class StandardCharacter : CharacterBody2D {
 	/// <param name="delta">The time since the last physics frame.</param>
 	/// <param name="v">Do verbose logging? Use <c>v</c> to follow the same verbosity as the encapsulating function, if available.</param>
 	/// <param name="s">Stack depth. Use <c>0</c> if on a root function, or <c>s + 1</c> if <c>s</c> is available in the encapsulating function.</param>
-	private void Move(double delta, Context c = null!) {
+	private void Move(double delta) {
 		// Accelerate if input is detected
 		if (Control.MovementMultiplier > 0f) Speed += (float) (Control.MovementMultiplier * MaxSpeed * (delta / AccelerationTime));
 
@@ -271,7 +271,7 @@ public partial class StandardCharacter : CharacterBody2D {
 	/// <b>Important</b>: This method is meant to be called in <see cref="_Process"/> only. <br/><br/>
 	/// <b>Warning</b>: This current implementation is <b>project-specific</b>. It only supports walking, shooting, and idle.
 	/// </summary>
-	protected void UpdateAnimations(Context c = null!) {
+	protected void UpdateAnimations() {
 		if (!IsAlive) return;
 
 		bool isWalking = Speed > 0;
@@ -386,7 +386,7 @@ public partial class StandardCharacter : CharacterBody2D {
 	/// </summary>
 	/// <param name="v">Do verbose logging? Use <c>v</c> to follow the same verbosity as the encapsulating function, if available.</param>
 	/// <param name="s">Stack depth. Use <c>0</c> if on a root function, or <c>s + 1</c> if <c>s</c> is available in the encapsulating function.</param>
-	private void GenerateInstanceID(Context c = null!) {
+	private void GenerateInstanceID() {
 		// Cancel if already assigned.
 		if (!string.IsNullOrEmpty(InstanceID)) return;
 
@@ -395,7 +395,7 @@ public partial class StandardCharacter : CharacterBody2D {
 
 		// Use default name if CharacterName blank.
 		if (string.IsNullOrEmpty(CharacterName)) {
-			c.Warn("`CharacterName` is empty. Using default: \"Unnamed Character\"");
+			Log.Warn("`CharacterName` is empty. Using default: \"Unnamed Character\"");
 			CharacterName = "Unnamed Character";
 		}
 
@@ -423,7 +423,7 @@ public partial class StandardCharacter : CharacterBody2D {
 				break;
 
 			default:
-				c.Warn("An invalid `SpaceReplacement` value was provided. Keeping spaces instead...");
+				Log.Warn("An invalid `SpaceReplacement` value was provided. Keeping spaces instead...");
 				break;
 
 		}
@@ -474,62 +474,53 @@ public partial class StandardCharacter : CharacterBody2D {
 
 	public override void _EnterTree() {
 		Context c = new();
-		c.Trace($"A StandardCharacter has entered the tree. Checking properties...", LogReady);
+		Log.Me($"A StandardCharacter has entered the tree. Checking properties...", LogReady);
 
 		if (string.IsNullOrEmpty(CharacterName)) {
-			if (!SilentlyAutoAssignDefaultName) c.Warn("CharacterName should not be empty. Using default: \"Unnamed Character\"...");
+			if (!SilentlyAutoAssignDefaultName) Log.Warn("CharacterName should not be empty. Using default: \"Unnamed Character\"...");
 			CharacterName = "Unnamed Character";
 		}
 
-		if (Control == null) c.Err("ControlSurface is not assigned. This character cannot be controlled.");
+		if (Control == null) Log.Err("ControlSurface is not assigned. This character cannot be controlled.");
 
-		if (Weapon == null && !AllowNoWeapon) c.Warn("StandardWeapon is not assigned. This character cannot attack.");
+		if (Weapon == null && !AllowNoWeapon) Log.Warn("StandardWeapon is not assigned. This character cannot attack.");
 
-		if (HitArea == null && !AllowNoHitArea) c.Warn("HitArea is not assigned. This character will have buggy hit behavior.");
+		if (HitArea == null && !AllowNoHitArea) Log.Warn("HitArea is not assigned. This character will have buggy hit behavior.");
 
-		if (AnimationPlayer == null && !AllowNoAnimationPlayer) c.Warn("AnimationPlayer is not assigned. This character will not be animated.");
 
-		if (AnimationTree == null && !AllowNoAnimationTree) c.Warn("AnimationTree is not assigned. This character will not be animated properly.");
+		if (AnimationPlayer == null && !AllowNoAnimationPlayer) Log.Warn("AnimationPlayer is not assigned. This character will not be animated.");
+
+		if (AnimationTree == null && !AllowNoAnimationTree) Log.Warn("AnimationTree is not assigned. This character will not be animated properly.");
 
 		if (string.IsNullOrEmpty(InstanceID)) {
-			if (!SilentlyAutoAssignInstanceID) c.Trace("InstanceID is not assigned. Generating a new one...", LogReady);
-			GenerateInstanceID(c);
+			if (!SilentlyAutoAssignInstanceID) Log.Me("InstanceID is not assigned. Generating a new one...", LogReady);
+			GenerateInstanceID();
 		}
 
-		c.Trace("Done!", LogReady);
-		c.End();
+		Log.Me("Done!", LogReady);
+		
 	}
 
 	public override void _Ready()
 	{
-		Context c = new();
-		c.Trace(() => $"Readying {InstanceID}...", LogReady);
+		Log.Me(() => $"Readying {InstanceID}...", LogReady);
 
-		c.Trace(() => $"Changing node name to \"{InstanceID}\"...", LogReady);
+		Log.Me(() => $"Changing node name to \"{InstanceID}\"...", LogReady);
 		Name = InstanceID;
 
-		c.Trace(() => "Connecting HitArea.BodyEntered to OnBodyEntered...", LogReady);
+		Log.Me(() => "Connecting HitArea.BodyEntered to OnBodyEntered...", LogReady);
 		HitArea.AreaEntered += OnAreaEntered;
 
-		c.Trace(() => "Done!", LogReady);
-		c.End();
+		Log.Me(() => "Done!", LogReady);
 		return;
 	}
 
 	public override void _Process(double delta) {
-		Context c = new();
-
-		UpdateAnimations(c);
-
-		c.End();
+		UpdateAnimations();
 	}
 
 	public override void _PhysicsProcess(double delta) {
-		Context c = new();
-
-		Move(delta, c);
-
-		c.End();
+		Move(delta);
 	}
 
 	#endregion

@@ -19,12 +19,12 @@ public partial class AIAgentManager : Node2D {
 		_hasTarget = true;
 	}
 
-	public void Stop(Context c = null!) {
+	public void Stop() {
 		_hasTarget = false;
 		NavAgent.TargetPosition = GlobalPosition; // Set target to current position to stop movement.
 	}
 
-	private void MoveTo(Context c = null!) {
+	private void MoveTo() {
 		if (!_hasTarget || NavAgent.IsNavigationFinished()) {
 			ControlSurface.MovementDirection = Vector2.Zero;
 			ControlSurface.MovementMultiplier = 0f;
@@ -35,41 +35,36 @@ public partial class AIAgentManager : Node2D {
 		Vector2 currentPos = GlobalPosition;
 		Vector2 dir = nextPos - currentPos;
 
-		c.Trace(() => $"Heading towards ({dir.X:F2}, {dir.Y:F2})...");
+		Log.Me(() => $"Heading towards ({dir.X:F2}, {dir.Y:F2})...");
 		ControlSurface.MovementDirection = dir;	// Normalized in setter.
 		ControlSurface.FacingDirection = dir;	// Normalized in setter.
 		ControlSurface.MovementMultiplier = 1f;
 		NavAgent.SetVelocity(dir * Character.Speed);
 
-		c.Trace(() => "Done!");
+		Log.Me(() => "Done!");
 	}
 
 	public override void _Ready() {
-		Context c = new();
 
 		if (Character == null) {
-			c.Err(() => "StandardCharacter is not assigned. Cannot proceed.", LogReady);
+			Log.Err(() => "StandardCharacter is not assigned. Cannot proceed.");
 			return;
 		}
 
 		if (ControlSurface == null) {
-			c.Err(() => $"ControlSurface is not assigned for {Character.InstanceID}.", LogReady);
+			Log.Err(() => $"ControlSurface is not assigned for {Character.InstanceID}.");
 			return;
 		}
 
 		if (NavAgent == null) {
-			c.Err(() => $"NavigationAgent2D is not assigned for {Character.InstanceID}.", LogReady);
+			Log.Err(() => $"NavigationAgent2D is not assigned for {Character.InstanceID}.");
 			return;
 		}
 
-		c.Trace(() => $"AIAgentManager is ready for {Character.InstanceID}.", LogReady);
-		c.End();
+		Log.Me(() => $"AIAgentManager is ready for {Character.InstanceID}.", true, enabled: LogReady);
 	}
 
 	public override void _PhysicsProcess(double delta) {
-		Context c = new();
-		MoveTo(c);
-
-		c.End();
+		MoveTo();
 	}
 }
