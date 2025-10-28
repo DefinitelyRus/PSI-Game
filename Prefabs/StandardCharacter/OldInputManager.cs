@@ -1,7 +1,9 @@
+using System;
 using Godot;
 namespace CommonScripts;
 
-public partial class InputManager : Node2D {
+[Obsolete("Please use the new InputManager system instead.")]
+public partial class OldInputManager : Node2D {
 
 	public StandardCharacter Character = null!;
 	public ControlSurface Control = null!;
@@ -82,7 +84,7 @@ public partial class InputManager : Node2D {
 	}
 
 	// TODO: Allow gamepad inputs.
-	private void ReceiveMovementInputs(Context c = null!) {
+	private void ReceiveMovementInputs() {
 		if (!Control.EnableMovement) return;
 
 		Control.MovementMultiplier = 0f;
@@ -117,7 +119,7 @@ public partial class InputManager : Node2D {
 				break;
 
 			default:
-				c.Err(() => "An invalid movement mode was used. Cannot update `Controls.MovementDirection`.");
+				Log.Err(() => "An invalid movement mode was used. Cannot update `Controls.MovementDirection`.");
 				return;
 		}
 
@@ -143,7 +145,7 @@ public partial class InputManager : Node2D {
 			bool faceFollows = _facingMode == FacingModes.Follow || _facingMode == FacingModes.AlwaysFollow;
 
 			if (moveFollows && faceFollows) {
-				new Ctx().Err(() => "Both MovementMode and FacingMode are set to `Follow` or `AlwaysFollow`. Setting to `Static` instead.");
+				Log.Err(() => "Both MovementMode and FacingMode are set to `Follow` or `AlwaysFollow`. Setting to `Static` instead.");
 				_facingMode = FacingModes.Static;
 			}
 			else _facingMode = value;
@@ -266,7 +268,7 @@ public partial class InputManager : Node2D {
 		Context c = new();
 		c.Trace(() => $"Processing ControlSurface for {Character.InstanceID}...", LogProcess);
 
-		ReceiveMovementInputs(c);
+		ReceiveMovementInputs();
 		ReceiveFacingInputs(c);
 		ReceiveAttackInputs(c);
 
