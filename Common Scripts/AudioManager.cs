@@ -16,14 +16,14 @@ public partial class AudioManager : Node2D
 	[Export] public float MusicVolume = 1.0f;
 
 
-	public void PlayMusic(AudioStream stream, float volume = 0f, Context c = null!) {
+	public void PlayMusic(AudioStream stream, float volume = 0f) {
 		MusicPlayer.Stream = stream;
 		MusicPlayer.VolumeLinear = volume * MusicVolume;
 		MusicPlayer.Play();
 	}
 
 
-	public void StopMusic(Context c = null!) {
+	public void StopMusic() {
 		MusicPlayer.Stop();
 	}
 
@@ -33,7 +33,7 @@ public partial class AudioManager : Node2D
 
 	[Export] public float SFXVolume = 1.0f;
 
-	public AudioStreamPlayer PlaySFX(AudioStream stream, float volume = 0f, Context c = null!) {
+	public AudioStreamPlayer PlaySFX(AudioStream stream, float volume = 0f) {
 		AudioStreamPlayer sfxPlayer = new();
 		AddChild(sfxPlayer);
 
@@ -46,7 +46,7 @@ public partial class AudioManager : Node2D
 		return sfxPlayer;
 	}
 
-	public AudioStreamPlayer2D PlaySFX2D(AudioStream stream, Vector2 position, float volume = 0f, Context c = null!) {
+	public AudioStreamPlayer2D PlaySFX2D(AudioStream stream, Vector2 position, float volume = 0f) {
 		AudioStreamPlayer2D sfxPlayer = new();
 		AddChild(sfxPlayer);
 
@@ -71,14 +71,12 @@ public partial class AudioManager : Node2D
 	#region Godot Callbacks
 
 	public override void _EnterTree() {
-		Context c = new();
-		c.Trace(() => "A ControlSurface has entered the tree. Checking properties...", LogReady);
+		Log.Me(() => "A ControlSurface has entered the tree. Checking properties...", LogReady, true);
 
 		MusicPlayer = new();
 		AddChild(MusicPlayer);
 
-		c.Trace("Done!", LogReady);
-		c.End();
+		Log.Me("Done!", true);
 	}
 
 	#endregion

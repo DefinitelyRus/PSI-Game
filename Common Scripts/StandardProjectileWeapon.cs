@@ -12,9 +12,9 @@ public partial class StandardProjectileWeapon : StandardWeapon
 
 	#region Overrides
 
-	protected override void Attack(Context c = null!) {
+	protected override void Attack() {
 		if (Projectile == null) {
-			c.Warn(() => "No projectile assigned. Cannot attack.");
+			Log.Warn(() => "No projectile assigned. Cannot attack.");
 			return;
 		}
 
@@ -32,32 +32,32 @@ public partial class StandardProjectileWeapon : StandardWeapon
 	#region Godot Callbacks
 
 	public override void _EnterTree() {
-		Context c = new();
-		c.Trace(() => $"A StandardProjectileWeapon has entered the tree. Passing to StandardWeapon...", LogReady);
+		
+		Log.Me(() => $"A StandardProjectileWeapon has entered the tree. Passing to StandardWeapon...", LogReady);
 		base._EnterTree();
 
-		if (Projectile == null) c.Err(() => "No projectile assigned. Cannot attack.", LogReady);
+		if (Projectile == null) Log.Err(() => "No projectile assigned. Cannot attack.", LogReady);
 
-		c.Log(() => $"Done checking properties for {ItemID}.", LogReady);
-		c.End();
+		Log.Me(() => $"Done checking properties for {ItemID}.", LogReady);
+		
 	}
 
 	public override void _Ready() {
-		Context c = new();
-		c.Trace(() => $"Readying {InstanceID}. Passing to StandardWeapon...", LogReady);
+		
+		Log.Me(() => $"Readying {InstanceID}. Passing to StandardWeapon...", LogReady);
 		base._Ready();
 
-		c.Log(() => "Done!", LogReady);
-		c.End();
+		Log.Me(() => "Done!", LogReady);
+		
 	}
 
 	public override void _Process(double delta) {
-		Context c = new();
-		c.Trace(() => $"Processing {ItemID} as StandardProjectileWeapon. Passing to StandardWeapon...", LogProcess);
+		
+		Log.Me(() => $"Processing {ItemID} as StandardProjectileWeapon. Passing to StandardWeapon...", LogProcess);
 		base._Process(delta);
 
-		c.Log(() => "Done processing!", LogProcess);
-		c.End();
+		Log.Me(() => "Done processing!", LogProcess);
+		
 	}
 
 	#endregion

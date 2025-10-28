@@ -109,14 +109,14 @@ public partial class ControlSurface : Node2D
 	#region Godot Callbacks
 
 	public override void _EnterTree() {
-		Context c = new();
-		c.Trace(() => $"A ControlSurface has entered the tree. Checking properties...", LogReady);
+		
+		Log.Me(() => $"A ControlSurface has entered the tree. Checking properties...", LogReady);
 
 		Character = GetParentOrNull<StandardCharacter>();
-		if (Character == null) c.Err("ControlSurface must be a child of a StandardCharacter. Inputs will not reach its intended target.");
+		if (Character == null) Log.Err("ControlSurface must be a child of a StandardCharacter. Inputs will not reach its intended target.");
 
-		c.Trace(() => "Done checking properties.", LogReady);
-		c.End();
+		Log.Me(() => "Done checking properties.", LogReady);
+		
 	}
 
     #endregion

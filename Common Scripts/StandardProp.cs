@@ -119,7 +119,7 @@ public partial class StandardProp : RigidBody2D {
 	/// </summary>
 	/// <param name="v">Do verbose logging? Use <c>v</c> to follow the same verbosity as the encapsulating function, if available.</param>
 	/// <param name="s">Stack depth. Use <c>0</c> if on a root function, or <c>s + 1</c> if <c>s</c> is available in the encapsulating function.</param>
-	private void GenerateInstanceID(Context c = null!) {
+	private void GenerateInstanceID() {
 		// Cancel if already assigned.
 		if (!string.IsNullOrEmpty(InstanceID)) return;
 
@@ -129,7 +129,7 @@ public partial class StandardProp : RigidBody2D {
 		// Use default name if PropName is blank.
 		if (string.IsNullOrEmpty(PropName))
 		{
-			c.Warn("`PropName` is empty. Using default: \"Unnamed Prop\"");
+			Log.Warn("`PropName` is empty. Using default: \"Unnamed Prop\"");
 			PropName = "Unnamed Prop";
 		}
 
@@ -158,7 +158,7 @@ public partial class StandardProp : RigidBody2D {
 				break;
 
 			default:
-				c.Warn("An invalid `SpaceReplacement` value was provided. Keeping spaces instead...");
+				Log.Warn("An invalid `SpaceReplacement` value was provided. Keeping spaces instead...");
 				break;
 
 		}
@@ -194,37 +194,33 @@ public partial class StandardProp : RigidBody2D {
 	#region Godot Callbacks
 
 	public override void _EnterTree() {
-		Context c = new();
-		c.Trace(() => "A StandardProp has entered the tree. Checking properties...", LogReady);
+		Log.Me(() => "A StandardProp has entered the tree. Checking properties...", LogReady);
 
 		if (string.IsNullOrEmpty(PropID)) {
-			c.Err(() => "`PropID` must not be null or empty.", LogReady);
+			Log.Err(() => "`PropID` must not be null or empty.", LogReady);
 			return;
 		}
 
 		if (string.IsNullOrEmpty(PropName))
 		{
-			if (!SilentlyAutoAssignDefaultName) c.Warn(() => "PropName should not be empty. Using default \"Unnamed Prop\"...");
+			if (!SilentlyAutoAssignDefaultName) Log.Warn(() => "PropName should not be empty. Using default \"Unnamed Prop\"...");
 			PropName = "Unnamed Prop";
 		}
 
 		if (string.IsNullOrEmpty(InstanceID))
 		{
-			if (!SilentlyAutoAssignInstanceID) c.Warn(() => "InstanceID is not assigned. Generating a new one...", LogReady);
-			GenerateInstanceID(c);
+			if (!SilentlyAutoAssignInstanceID) Log.Warn(() => "InstanceID is not assigned. Generating a new one...", LogReady);
+			GenerateInstanceID();
 		}
 
-		c.Trace(() => "Done!", LogReady);
-		c.End();
+		Log.Me(() => "Done!", LogReady);
 	}
 
 	public override void _Ready() {
-		Context c = new();
-		c.Trace(() => $"Readying {InstanceID}...", LogReady);
+		Log.Me(() => $"Readying {InstanceID}...", LogReady);
 		Name = InstanceID;
 
-		c.Trace(() => "Done!", LogReady);
-		c.End();
+		Log.Me(() => "Done!", LogReady);
 	}
 
 	#endregion

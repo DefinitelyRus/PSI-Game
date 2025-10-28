@@ -52,17 +52,17 @@ public partial class StandardProjectile : RigidBody2D
 
 	#region Force Application
 
-	private void ApplyImpulseForce(Context c = null!) {
+	private void ApplyImpulseForce() {
 		Vector2 direction = Vector2.Up.Rotated(Rotation);
 		ApplyImpulse(Force * direction);
 	}
 
-	private void ApplyAccelerationForce(double delta, Context c = null!) {
+	private void ApplyAccelerationForce(double delta) {
 		float force = Force * (float) delta;
 		ApplyCentralForce(force * Vector2.Up.Rotated(Rotation)); //NOTE: Code syle -- multipliers go before the vector even if there is only one.
 	}
 
-	private void ApplyConstantForce(double delta, Context c = null!) {
+	private void ApplyConstantForce(double delta) {
 		float speed = Force * (float) delta;
 		Vector2 direction = Vector2.Up.Rotated(Rotation);
 		MoveAndCollide(speed * direction); //NOTE: Code style -- multipliers go before the vector even if masked under variable names.
@@ -159,7 +159,7 @@ public partial class StandardProjectile : RigidBody2D
 	/// <summary>
 	/// Generates a unique `InstanceID` if one is not already assigned manually.
 	/// </summary>
-	private void GenerateInstanceID(Context c = null!) {
+	private void GenerateInstanceID() {
 		// Cancel if already assigned.
 		if (!string.IsNullOrEmpty(InstanceID)) return;
 
@@ -168,7 +168,7 @@ public partial class StandardProjectile : RigidBody2D
 
 		// Use default name if ProjectileName is blank.
 		if (string.IsNullOrEmpty(ProjectileName)) {
-			c.Warn("`ProjectileName` is empty. Using default: \"Unnamed Projectile\"");
+			Log.Warn("`ProjectileName` is empty. Using default: \"Unnamed Projectile\"");
 			ProjectileName = "Unnamed Projectile";
 		}
 
@@ -196,7 +196,7 @@ public partial class StandardProjectile : RigidBody2D
 				break;
 
 			default:
-				c.Warn("An invalid `SpaceReplacement` value was provided. Keeping spaces instead...");
+				Log.Warn("An invalid `SpaceReplacement` value was provided. Keeping spaces instead...");
 				// Do nothing.
 				break;
 
@@ -221,14 +221,14 @@ public partial class StandardProjectile : RigidBody2D
 	#region Collision
 
 	protected virtual void OnAreaEntered(Area2D area) {
-		Context c = new();
-		c.Trace(() => $"Area entered: {area.Name}", LogCollision);
+		
+		Log.Me(() => $"Area entered: {area.Name}", LogCollision);
 
 		bool isTarget = Targets.Contains(area);
 
 		// Whitelist
 		if (TargetMode == TargetModes.Whitelist) {
-			if (Targets.Length == 0) c.Warn(() => "No targets set. Ignoring area.", LogCollision);
+			if (Targets.Length == 0) Log.Warn(() => "No targets set. Ignoring area.", LogCollision);
 
 			if (isTarget) Impact(area);
 		}
@@ -241,8 +241,8 @@ public partial class StandardProjectile : RigidBody2D
 		// Any
 		else if (TargetMode == TargetModes.Any) Impact(area);
 
-		c.Trace(() => "Done!", LogCollision);
-		c.End();
+		Log.Me(() => "Done!", LogCollision);
+		
 		return;
 	}
 
@@ -253,8 +253,8 @@ public partial class StandardProjectile : RigidBody2D
 	}
 
 	//Usually called when the projectile is to be destroyed regardless of impact.
-	protected virtual void Detonate(Context c = null!) {
-		c.Warn(() => $"`Detonate` on {ProjectileName} (ProjectileID: {ProjectileID}) is not implemented! Override to add custom functionality.");
+	protected virtual void Detonate() {
+		Log.Warn(() => $"`Detonate` on {ProjectileName} (ProjectileID: {ProjectileID}) is not implemented! Override to add custom functionality.");
 	}
 
 	#endregion
@@ -262,49 +262,46 @@ public partial class StandardProjectile : RigidBody2D
 	#region Godot Callbacks
 
 	public override void _EnterTree() {
-		Context c = new();
-		c.Trace(() => "A StandardProjectile has entered the tree. Checking properties...", LogReady);
+		Log.Me(() => "A StandardProjectile has entered the tree. Checking properties...", LogReady);
 
 		if (string.IsNullOrEmpty(ProjectileID)) {
-			c.Err("ProjectileID must not be null or empty. Ready failed.");
+			Log.Err("ProjectileID must not be null or empty. Ready failed.");
 			return;
 		}
 
-		if (string.IsNullOrEmpty(ProjectileName) && !AllowNoProjectileName) c.Warn("`ProjectileName` should not be null or empty.");
+		if (string.IsNullOrEmpty(ProjectileName) && !AllowNoProjectileName) Log.Warn("`ProjectileName` should not be null or empty.");
 		
 		if (HitArea == null && !AllowNoHitArea) {
-			c.Err(() => "`HitArea` must not be null. Ready failed.");
+			Log.Err(() => "`HitArea` must not be null. Ready failed.");
 			return;
 		}
 
 		if (Weapon == null && !AllowNoWeapon) {
-			c.Err(() => "`Weapon` must not be null. Ready failed.");
+			Log.Err(() => "`Weapon` must not be null. Ready failed.");
 			return;
 		}
 
-		if (WeaponOwner == null && !AllowNoOwner) c.Warn("`WeaponOwner` should not be null. Assign a `WeaponOwner` to `Weapon`.");
+		if (WeaponOwner == null && !AllowNoOwner) Log.Warn("`WeaponOwner` should not be null. Assign a `WeaponOwner` to `Weapon`.");
 
 		if (string.IsNullOrEmpty(InstanceID)) {
-			if (!AutoAssignInstanceID) c.Trace(() => "`InstanceID` is empty. Generating a new one...", LogReady);
-			GenerateInstanceID(c);
+			if (!AutoAssignInstanceID) Log.Me(() => "`InstanceID` is empty. Generating a new one...", LogReady);
+			GenerateInstanceID();
 		}
 
-		c.Trace(() => "Done!", LogReady);
-		c.End();
+		Log.Me(() => "Done!", LogReady);
 	}
 
 	public override void _Ready() {
-		Context c = new();
-		c.Trace(() => $"Readying {ProjectileID}...", LogReady);
+		Log.Me(() => $"Readying {ProjectileID}...", LogReady);
 
 		Name = InstanceID;
 		HitArea.AreaEntered += OnAreaEntered;
 		PhysicsServer2D.BodyAddCollisionException(GetRid(), WeaponOwner.GetRid());
 
-		if (ForceType == ForceTypes.Impulse) ApplyImpulseForce(c);
+		if (ForceType == ForceTypes.Impulse) ApplyImpulseForce();
 
-		c.Trace(() => "Done!", LogReady);
-		c.End();
+		Log.Me(() => "Done!", LogReady);
+		
 	}
 
 	public override void _Process(double delta) {
@@ -317,25 +314,21 @@ public partial class StandardProjectile : RigidBody2D
 	}
 
 	public override void _PhysicsProcess(double delta) {
-		Context c = new();
-
 		switch (ForceType) {
 			case ForceTypes.Impulse: break; // Impulse is applied in _Ready().
 
 			case ForceTypes.Acceleration:
-				ApplyAccelerationForce(delta, c);
+				ApplyAccelerationForce(delta);
 				break;
 
 			case ForceTypes.Constant:
-				ApplyConstantForce(delta, c);
+				ApplyConstantForce(delta);
 				break;
 
 			default:
-				c.Err(() => $"Unknown force type: {ForceType}", LogPhysics);
+				Log.Err(() => $"Unknown force type: {ForceType}");
 				break;
 		}
-
-		c.End();
 	}
 
 	#endregion

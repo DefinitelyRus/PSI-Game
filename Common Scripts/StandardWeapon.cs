@@ -353,7 +353,7 @@ public partial class StandardWeapon : StandardItem
 
 	private Vector2 _attackOriginDirection = Vector2.Zero;
 
-	public void UpdateAttackOrigin(Context c = null!) {
+	public void UpdateAttackOrigin() {
 		switch (AttackOriginType) {
 			case AttackOriginTypes.Centered:
 				AttackOrigin = Vector2.Zero;
@@ -367,7 +367,7 @@ public partial class StandardWeapon : StandardItem
 			case AttackOriginTypes.Custom: return; // Custom origin is set by the user, no need to update.
 
 			default:
-				c.Warn(() => $"`UpdateAttackOrigin` on \"{ItemName}\" (ItemID: {ItemID}) has an invalid `AttackOriginType`!");
+				Log.Warn(() => $"`UpdateAttackOrigin` on \"{ItemName}\" (ItemID: {ItemID}) has an invalid `AttackOriginType`!");
 				break;
 		}
 	}
@@ -446,7 +446,7 @@ public partial class StandardWeapon : StandardItem
 	/// <param name="v">Do verbose logging? Use <c>v</c> to follow the same verbosity as the encapsulating function, if available.</param>
 	/// <param name="s">Stack depth. Use <c>0</c> if on a root function, or <c>s + 1</c> if <c>s</c> is available in the encapsulating function.</param>
 	/// <returns></returns>
-	public float GetSpread(Context c = null!) {
+	public float GetSpread() {
 		if (Spread <= 0f) return 0f;
 
 		float randomSpread = (float) GD.RandRange(-Spread, Spread);
@@ -465,10 +465,10 @@ public partial class StandardWeapon : StandardItem
 		}
 	}
 
-	public Vector2 GetSpreadVector(Context c = null!) {
+	public Vector2 GetSpreadVector() {
 		if (Spread <= 0f) return Vector2.Zero;
 
-		float randomSpread = GetSpread(c);
+		float randomSpread = GetSpread();
 		float angle = Mathf.DegToRad(randomSpread);
 		Vector2 spreadVector = new(Mathf.Cos(angle), Mathf.Sin(angle));
 
@@ -488,19 +488,19 @@ public partial class StandardWeapon : StandardItem
 
 	#region Overridable Methods
 
-	public virtual void QueueAttack(Context c = null!) {
+	public virtual void QueueAttack() {
 		//Handle weapon cooldown
 		if (RemainingAttackInterval == 0f)
 		{
-			Attack(c);
+			Attack();
 			RemainingAttackInterval = AttackInterval;
 		}
 
 		return;
 	}
 
-	protected virtual void Attack(Context c = null!) {
-		c.Warn(() => $"`QueueAttack` on \"{ItemName}\" (ItemID: {ItemID}) is not implemented! Override to add custom functionality.");
+	protected virtual void Attack() {
+		Log.Warn(() => $"`QueueAttack` on \"{ItemName}\" (ItemID: {ItemID}) is not implemented! Override to add custom functionality.");
 	}
 
 	#endregion
@@ -508,11 +508,10 @@ public partial class StandardWeapon : StandardItem
 	#region Godot Callbacks
 
 	public override void _EnterTree() {
-		Context c = new();
-		c.Trace(() => "A StandardWeapon has entered the tree. Passing to StandardItem...", LogReady);
+		Log.Me(() => "A StandardWeapon has entered the tree. Passing to StandardItem...", LogReady);
 		base._EnterTree();
 
-		if (WeaponOwner == null) c.Err(() => "No weapon owner assigned. Attacks cannot be rooted back to its owner.", LogReady);
+		if (WeaponOwner == null) Log.Err(() => "No weapon owner assigned. Attacks cannot be rooted back to its owner.", LogReady);
 
 		Damage = 0;
 		Range = 0;
@@ -521,27 +520,23 @@ public partial class StandardWeapon : StandardItem
 		CriticalDamage = 0;
 		Spread = 0;
 
-		c.Trace(() => $"Done checking properties for {ItemID}.", LogReady);
-		c.End();
+		Log.Me(() => $"Done checking properties for {ItemID}.", LogReady);
 	}
 
 	public override void _Ready() {
-		Context c = new();
-		c.Trace(() => $"Readying {InstanceID}. Passing to StandardItem...", LogReady);
+		Log.Me(() => $"Readying {InstanceID}. Passing to StandardItem...", LogReady);
 		base._Ready();
 
-		c.Trace(() => "Done!", LogReady);
-		c.End();
+		Log.Me(() => "Done!", LogReady);
 	}
 
 	public override void _Process(double delta) {
-		Context c = new();
-		c.Trace(() => $"Processing {ItemID} as StandardWeapon.", LogProcess);
+		Log.Me(() => $"Processing {ItemID} as StandardWeapon.", LogProcess);
 
 		AimDirection = Mathf.PosMod(Mathf.RadToDeg(Control.FacingDirection.Angle()) + 90f, 360f);
-		UpdateAttackOrigin(c);
+		UpdateAttackOrigin();
 
-		if (Control.IsAttacking) QueueAttack(c);
+		if (Control.IsAttacking) QueueAttack();
 
 		if (RemainingAttackInterval > 0f) {
 			RemainingAttackInterval -= (float) delta;
@@ -553,8 +548,7 @@ public partial class StandardWeapon : StandardItem
 			if (RemainingBurstInterval < 0f) RemainingBurstInterval = 0f;
 		}
 
-		c.Trace(() => "Done!", LogProcess);
-		c.End();
+		Log.Me(() => "Done!", LogProcess);
 		return;
 	}
 

@@ -30,21 +30,21 @@ public partial class SceneLoader : Node
 
     #region Level Management
 
-    public PackedScene? GetLevel(uint levelIndex, Context c = null!) {
+    public PackedScene? GetLevel(uint levelIndex) {
         PackedScene? retrievedLevel = (levelIndex < Levels.Length) ? Levels[levelIndex] : null;
 
-        if (retrievedLevel == null) c.Err(() => $"Level of index {levelIndex} not found.");
+        if (retrievedLevel == null) Log.Err(() => $"Level of index {levelIndex} not found.");
 
         return retrievedLevel;
     }
 
-    public void LoadLevel(uint levelIndex, Context c = null!) {
+    public void LoadLevel(uint levelIndex) {
         UnloadLevel(false);
 
         PackedScene? levelToLoad = GetLevel(levelIndex);
 
         if (levelToLoad == null) {
-            c.Err(() => $"Level of index {levelIndex} not found.");
+            Log.Err(() => $"Level of index {levelIndex} not found.");
             return;
         }
 
@@ -52,7 +52,7 @@ public partial class SceneLoader : Node
         return;
     }
 
-    public void UnloadLevel(bool returnToMainMenu = true, Context c = null!) {
+    public void UnloadLevel(bool returnToMainMenu = true) {
         if (LoadedScene == null || Theatre.GetChildCount() == 0) return;
 
         Theatre.RemoveChild(LoadedScene);
@@ -65,23 +65,22 @@ public partial class SceneLoader : Node
     #region Godot Callbacks
 
     public override void _EnterTree() {
-		Context c = new();
-		c.Trace(() => "A SceneLoader has entered the tree. Checking properties...", LogReady);
+		Log.Me(() => "A SceneLoader has entered the tree. Checking properties...", LogReady);
 
         #region Node Checks
 
         if (Master == null) {
-            c.Err(() => "Master is not assigned. Cannot proceed.", LogReady);
+            Log.Err(() => "Master is not assigned. Cannot proceed.");
             return;
         }
 
         if (Theatre == null) {
-            c.Err(() => "Theatre is not assigned. Nowhere to put loaded scenes into.", LogReady);
+            Log.Err(() => "Theatre is not assigned. Nowhere to put loaded scenes into.");
             return;
         }
 
         if (MainMenu == null) {
-            c.Err(() => "MainMenu is not assigned. Cannot proceed.", LogReady);
+            Log.Err(() => "MainMenu is not assigned. Cannot proceed.");
             return;
         }
 
@@ -89,25 +88,23 @@ public partial class SceneLoader : Node
 
         #region Level Checks
         
-        if (Levels.Length == 0 && !SuppressWarnings) c.Warn(() => "No levels assigned.", LogReady);
+        if (Levels.Length == 0 && !SuppressWarnings) Log.Warn(() => "No levels assigned.");
 
         for (int i = 0; i < Levels.Length; i++) {
-            if (Levels[i] == null) c.Warn(() => $"Level of index {i} is not assigned.", LogReady);
+            if (Levels[i] == null) Log.Warn(() => $"Level of index {i} is not assigned.");
         }
 
         #endregion
 
-        c.Trace(() => "Done!", LogReady);
-		c.End();
+        Log.Me(() => "Done!", LogReady);
 		return;
     }
 
     public override void _Ready() {
-		Context c = new();
-		c.Trace(() => "Readying SceneLoader...", LogReady);
+		Log.Me(() => "Readying SceneLoader...", LogReady, true);
 
         if (DevScene != null) {
-            if (!SuppressWarnings) c.Warn(() => "Currently using `DevScene`. `MainMenu` will not be loaded.", LogReady);
+            if (!SuppressWarnings) Log.Warn(() => "Currently using `DevScene`. `MainMenu` will not be loaded.", LogReady);
             Theatre.AddChild(DevScene.Instantiate());
         }
 
@@ -116,8 +113,7 @@ public partial class SceneLoader : Node
             Theatre.AddChild(LoadedScene);
         }
 
-        c.Trace(() => "Done!", LogReady);
-		c.End();
+        Log.Me(() => "Done!", LogReady);
 		return;
     }
 

@@ -466,7 +466,7 @@ public partial class StandardCharacter : CharacterBody2D {
 	{
 		if (area.GetParent() is StandardProjectile projectile) return;
 
-		new Context().Warn(() => $"`OnAreaEntered` on {CharacterName} (CharacterID: {CharacterID}) is not implemented! Override to add custom functionality.");
+		Log.Warn(() => $"`OnAreaEntered` on {CharacterName} (CharacterID: {CharacterID}) is not implemented! Override to add custom functionality.");
 		return;
 	}
 
@@ -475,8 +475,7 @@ public partial class StandardCharacter : CharacterBody2D {
 	#region Godot Callbacks
 
 	public override void _EnterTree() {
-		Context c = new();
-		Log.Me($"A StandardCharacter has entered the tree. Checking properties...", LogReady);
+		Log.Me($"A StandardCharacter has entered the tree. Checking properties...", enabled: LogReady);
 
 		if (string.IsNullOrEmpty(CharacterName)) {
 			if (!SilentlyAutoAssignDefaultName) Log.Warn("CharacterName should not be empty. Using default: \"Unnamed Character\"...");
@@ -496,11 +495,11 @@ public partial class StandardCharacter : CharacterBody2D {
 		if (AnimationTree == null && !AllowNoAnimationTree) Log.Warn("AnimationTree is not assigned. This character will not be animated properly.");
 
 		if (string.IsNullOrEmpty(InstanceID)) {
-			if (!SilentlyAutoAssignInstanceID) Log.Me("InstanceID is not assigned. Generating a new one...", LogReady);
+			if (!SilentlyAutoAssignInstanceID) Log.Me("InstanceID is not assigned. Generating a new one...", enabled: LogReady);
 			GenerateInstanceID();
 		}
 
-		Log.Me("Done!", LogReady);
+		Log.Me("Done!", enabled: LogReady);
 		
 	}
 
