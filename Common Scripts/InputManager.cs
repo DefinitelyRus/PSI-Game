@@ -77,7 +77,7 @@ public partial class InputManager : Node2D {
 
 	public override void _Process(double delta) {
 		if (Mode == InputModes.RTS) {
-			ReceiveRTSInputs();
+			CallDeferred(nameof(ReceiveRTSInputs));
 		}
 	}
 
