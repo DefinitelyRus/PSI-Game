@@ -304,6 +304,7 @@ public partial class StandardCharacter : CharacterBody2D {
 
 	[ExportGroup("Nodes & Components")]
 	[Export] public ControlSurface Control = null!;
+	[Export] public AIAgentManager AIManager = null!;
 	[Export] public StandardWeapon Weapon = null!;
 	[Export] public Area2D HitArea = null!;
 	[Export] public Area2D ClickArea = null!;
@@ -483,6 +484,8 @@ public partial class StandardCharacter : CharacterBody2D {
 		}
 
 		if (Control == null) Log.Err("ControlSurface is not assigned. This character cannot be controlled.");
+
+		if (AIManager == null) Log.Err("AIAgentManager is not assigned. This character cannot be AI-controlled.");
 
 		if (Weapon == null && !AllowNoWeapon) Log.Warn("StandardWeapon is not assigned. This character cannot attack.");
 
