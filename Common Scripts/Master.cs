@@ -7,6 +7,7 @@ public partial class Master : Node {
 
     [ExportGroup("Nodes & Components")]
     [Export] public SceneLoader SceneLoader { get; private set; } = null!;
+    [Export] public InputManager InputManager { get; private set; } = null!;
 
 	#endregion
 
@@ -37,6 +38,12 @@ public partial class Master : Node {
             Log.Err(() => "SceneLoader is not assigned. Cannot proceed.", enabled: LogReady);
             DebugPause(LogReady);
             return;
+		}
+
+		if (InputManager == null) {
+			Log.Err(() => "InputManager is not assigned. Cannot proceed.", enabled: LogReady);
+			DebugPause(LogReady);
+			return;
 		}
 
 		Log.Me(() => "Done!", enabled: LogReady);

@@ -1,11 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://d3cvhjbvnx1a1"]
+[gd_scene load_steps=6 format=3 uid="uid://d3cvhjbvnx1a1"]
 
 [ext_resource type="Script" uid="uid://cdfonun0qopbr" path="res://Common Scripts/Master.cs" id="1_o4rt4"]
 [ext_resource type="Script" uid="uid://bskjggdrqe3xx" path="res://Common Scripts/SceneLoader.cs" id="2_7tgqy"]
 [ext_resource type="PackedScene" uid="uid://rbirnmt14654" path="res://Scenes/Main Menu/MainMenu.tscn" id="3_1t0lv"]
 [ext_resource type="PackedScene" uid="uid://bfp0axiex7i7o" path="res://Scenes/TestScene.tscn" id="4_qemos"]
+[ext_resource type="Script" uid="uid://b3xb0rhvopx03" path="res://Common Scripts/InputManager.cs" id="5_qemos"]
 
-[node name="Master" type="Node" node_paths=PackedStringArray("SceneLoader")]
+[node name="Master" type="Node" node_paths=PackedStringArray("SceneLoader", "InputManager")]
 process_mode = 3
 process_thread_group = 2
 process_thread_group_order = 0
@@ -13,6 +14,7 @@ process_thread_messages = 0
 physics_interpolation_mode = 2
 script = ExtResource("1_o4rt4")
 SceneLoader = NodePath("Scene Loader")
+InputManager = NodePath("Input Manager")
 
 [node name="Scene Loader" type="Node" parent="." node_paths=PackedStringArray("Master", "Theatre")]
 script = ExtResource("2_7tgqy")
@@ -29,3 +31,7 @@ process_thread_group = 1
 process_thread_group_order = 0
 process_thread_messages = 0
 physics_interpolation_mode = 1
+
+[node name="Input Manager" type="Node2D" parent="."]
+script = ExtResource("5_qemos")
+LogInput = true
