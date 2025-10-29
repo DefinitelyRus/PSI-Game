@@ -18,10 +18,10 @@ InputManager = NodePath("Input Manager")
 
 [node name="Scene Loader" type="Node" parent="." node_paths=PackedStringArray("Master", "Theatre")]
 script = ExtResource("2_7tgqy")
-Master = NodePath("..")
-Theatre = NodePath("../Theatre")
 MainMenu = ExtResource("3_1t0lv")
 Levels = [ExtResource("4_qemos")]
+Master = NodePath("..")
+Theatre = NodePath("../Theatre")
 
 [node name="Audio Manager" type="Node" parent="."]
 
