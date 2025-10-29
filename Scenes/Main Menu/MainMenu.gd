@@ -18,7 +18,7 @@ func _ready() -> void:
 func _on_play_pressed() -> void:
 	if (log_interact): print("[MainMenu._on_play_pressed] Starting game...")
 
-	master.SceneLoader.LoadLevel(0, Context.new())
+	master.SceneLoader.LoadLevel(0)
 	return
 
 func _on_exit_pressed() -> void:
