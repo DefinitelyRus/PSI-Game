@@ -161,6 +161,8 @@ public partial class Commander : Node
 	public static StandardCharacter FocusedUnit { get; private set; } = null!;
 	//public static List<StandardItem> UnitInventory => FocusedUnit.Inventory;
 
+	public static bool PrimeDrop { get; set; } = false;
+
 	public static void SetFocusedUnit(int index)
 	{
 		if (index < 0 || index > Units.Count) {
