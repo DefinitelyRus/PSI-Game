@@ -41,7 +41,7 @@ public partial class StandardItem : RigidBody2D
 			}
 			
 			else {
-				new Context().Warn(() => $"Invalid rarity '{value.ToPascalCase()}' for item '{ItemName}'. Using default 'Common'.");
+				Log.Warn(() => $"Invalid rarity '{value.ToPascalCase()}' for item '{ItemName}'. Using default 'Common'.");
 				_rarity = "Common";
 			}
 		}
