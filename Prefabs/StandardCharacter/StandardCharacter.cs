@@ -294,6 +294,7 @@ public partial class StandardCharacter : CharacterBody2D {
 		}
 
 		removedItem = Inventory[index];
+		if (spawnInWorld) removedItem.SpawnInWorld();
 		Inventory.RemoveAt(index);
 
 		return true;
