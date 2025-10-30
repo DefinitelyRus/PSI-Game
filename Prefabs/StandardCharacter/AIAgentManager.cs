@@ -11,6 +11,7 @@ public partial class AIAgentManager : Node2D {
 	[Export] public bool LogReady = true;
 	[Export] public bool LogProcess = false;
 	[Export] public bool LogPhysics = false;
+	[Export] public bool LogInput = false;
 
 	public Vector2 TargetPosition => NavAgent.TargetPosition;
 
@@ -27,11 +28,11 @@ public partial class AIAgentManager : Node2D {
 
 		switch (actionName) {
 			case IM.LeftClick:
-				Select(mousePos);
+				Action1(mousePos);
 				break;
 
 			case IM.RightClick:
-				Deselect(mousePos);
+				Action2(mousePos); //TODO: Change behavior to only move to position.
 				break;
 		}
 	}
@@ -58,35 +59,66 @@ public partial class AIAgentManager : Node2D {
 		return isInside;
 	}
 
+	#region Actions
 
-	public void Select(Vector2 mousePos) {
+	public bool Searching = false;
+	public bool Targeting = false;
+	public PhysicsBody2D? CurrentTarget = null;
+
+	public void Action1(Vector2 mousePos) {
+		/*
+		 * Left click should:
+		 * - Select the character if clicked on it.
+		 * - Move to the position if clicked elsewhere while selected.
+		 *   - Pause and attack if an enemy is within range (Not implemented yet).
+		 *   - Pause and interact if an interactable object is within range (Not implemented yet).
+		 */
+
 		bool clickedOn = CheckIfClickedOn(mousePos);
-		Log.Me(() => $"{Character.InstanceID} -> clickedOn: {clickedOn}, IsSelected: {IsSelected}.", true);
 
 		// Select if clicked on.
-		if (!IsSelected && clickedOn) IsSelected = true;
+		if (clickedOn) {
+			IsSelected = true;
+		}
 
-		// Start moving if clicked elsewhere.
-		else if (IsSelected && !clickedOn) GoTo(mousePos);
+		// Move to position if clicked elsewhere while already selected.
+		else if (IsSelected) {
+			GoTo(mousePos);
+			Searching = true;
+		}
 	}
 
+	public void Action2(Vector2 mousePos) {
+		/*
+		* Right click should:
+		* - Deselect the character if clicked on it.
+		* - Move to the position if clicked elsewhere while selected.
+		*   - Does not pause to attack or interact.
+		* - Approach and attack if an enemy is clicked on while selected (Not implemented yet).
+		* - Approach and interact if an interactable object is clicked on while selected (Not implemented yet).
+		*/
 
-	public void Deselect(Vector2 mousePos) {
 		if (IsSelected) {
 			bool clickedOn = CheckIfClickedOn(mousePos);
-			Log.Me(() => $"{Character.InstanceID} -> clickedOn: {clickedOn}.", true);
 
 			// Deselect if clicked on.
 			if (clickedOn) IsSelected = false;
 
-			// Stop if clicked elsewhere.
-			else Stop();
+			// Move to position if clicked elsewhere while selected.
+			else {
+				GoTo(mousePos);
+			}
+
+			// If an enemy or interactable object is clicked on, assign it as the current target.
+			EntityManager.HasEntityAtPosition(mousePos, out CurrentTarget);
 		}
 	}
 
+	#endregion
+
 
 	public void GoTo(Vector2 target) {
-		Log.Me(() => $"{Character.InstanceID} received move command to ({target.X:F2}, {target.Y:F2}).", true);
+		Log.Me(() => $"{Character.InstanceID} received move command to ({target.X:F2}, {target.Y:F2}).", LogInput);
 		NavAgent.TargetPosition = target;
 		_hasTarget = true;
 	}
@@ -106,7 +138,7 @@ public partial class AIAgentManager : Node2D {
 		}
 
 		if (!NavAgent.IsTargetReachable()) {
-			Log.Me(() => $"{Character.InstanceID} cannot reach target at ({NavAgent.TargetPosition.X:F2}, {NavAgent.TargetPosition.Y:F2}). Stopping movement.", true);
+			Log.Me(() => $"{Character.InstanceID} cannot reach target at ({NavAgent.TargetPosition.X:F2}, {NavAgent.TargetPosition.Y:F2}). Stopping movement.", LogInput);
 			Stop();
 			return;
 		}
@@ -121,14 +153,10 @@ public partial class AIAgentManager : Node2D {
 			return;
 		}
 
-		Log.Me(() => $"current: ({GlobalPosition.X:F0}, {GlobalPosition.Y:F0}), target: {NavAgent.TargetPosition.X:F0}, {NavAgent.TargetPosition.Y:F0}), dir: {dir.X:F2}, {dir.Y:F2}");
-		Log.Me(() => $"Heading towards ({dir.X:F2}, {dir.Y:F2})...", false, false);
 		ControlSurface.MovementDirection = dir;	// Normalized in setter.
 		ControlSurface.FacingDirection = dir;	// Normalized in setter.
 		ControlSurface.MovementMultiplier = 1f;
 		NavAgent.SetVelocity(dir * Character.Speed);
-
-		Log.Me(() => "Done!");
 	}
 
 	#region Godot Callbacks
@@ -161,7 +189,7 @@ public partial class AIAgentManager : Node2D {
 		Callable callable = new(this, nameof(InputListener));
 		Master.InputManager.Connect(signal, callable);
 
-		Log.Me(() => $"AIAgentManager is ready for {Character.InstanceID}.", LogReady, true);
+		Log.Me(() => $"AIAgentManager is ready for {Character.InstanceID}.", LogReady);
 	}
 
 	public override void _PhysicsProcess(double delta) {
