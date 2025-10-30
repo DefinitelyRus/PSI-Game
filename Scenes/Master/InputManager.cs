@@ -4,6 +4,13 @@ namespace CommonScripts;
 
 public partial class InputManager : Node2D {
 
+	#region Instance Members
+
+	public static InputModes Mode { get; set; } = InputModes.RTS;
+
+
+	[Signal] public delegate void ActionCommandEventHandler(string actionName, Variant args);
+
 	#region Debugging
 
 	[ExportGroup("Debugging")]
@@ -14,42 +21,40 @@ public partial class InputManager : Node2D {
 
 	#endregion
 
-	#region Enums
+	#region Godot Callbacks
+
+	public override void _EnterTree() {
+		if (Instance != null) {
+			Log.Err("Multiple instances of InputManager detected. There should only be one InputManager in the scene.");
+			QueueFree();
+			return;
+		}
+
+		Instance = this;
+	}
+
+	public override void _Process(double delta) {
+		if (Mode == InputModes.RTS) {
+			CallDeferred(nameof(ReceiveRTSInputs));
+		}
+	}
+
+	#endregion
+
+	#endregion
+
+	#region Static Members
+
+	public static InputManager Instance { get; private set; } = null!;
 
 	public enum InputModes {
 		TopDown,
 		RTS
 	}
 
-	public InputModes Mode { get; set; } = InputModes.RTS;
-
-	#endregion
-
-	#region Constants
-
-	public const string CameraUp = "move_camera_up";
-	public const string CameraDown = "move_camera_down";
-	public const string CameraLeft = "move_camera_left";
-	public const string CameraRight = "move_camera_right";
-
 	public const string LeftClick = "mouse_action_1";
 	public const string RightClick = "mouse_action_2";
-	public const string MiddleClick = "mouse_action_3";
-
 	public const string StopAction = "stop_action";
-
-	public const string SelectItem = "select_item";
-	public const string DropItem = "queue_drop_item";
-
-	#endregion
-
-	#region Signals
-
-	[Signal] public delegate void ActionCommandEventHandler(string actionName, Variant args);
-
-	#endregion
-
-	#region Input Listeners
 
 	private void ReceiveRTSInputs() {
 		Vector2 mousePos = GetGlobalMousePosition();
@@ -63,8 +68,8 @@ public partial class InputManager : Node2D {
 		if (Input.IsActionPressed("select_3")) ; //Camera.Pan(mousePos); // Pan camera to mouse position
 
 		// Unit interactions
-		if (Input.IsActionJustPressed("select_1")) EmitSignal(action, LeftClick, mousePos);		// Select + Move & Attack
-		if (Input.IsActionJustPressed("select_2")) EmitSignal(action, RightClick, mousePos);	// Move
+		if (Input.IsActionJustPressed("select_1")) EmitSignal(action, LeftClick, mousePos);		// Select, Move + Attack / Interact (in range)
+		if (Input.IsActionJustPressed("select_2")) EmitSignal(action, RightClick, mousePos);	// Deselect, Move, Move + Attack / Interact (targeted)
 		if (Input.IsActionJustPressed("stop_action")) EmitSignal(action, StopAction, new());    // Stop
 		if (Input.IsActionJustPressed("select_unit_1")) Commander.SelectUnit(0);
 		if (Input.IsActionJustPressed("select_unit_2")) Commander.SelectUnit(1);
@@ -80,16 +85,6 @@ public partial class InputManager : Node2D {
 
 		// Prime to drop item with CTRL
 		Commander.PrimeDrop = Input.IsActionPressed("prime_drop_item");
-	}
-
-	#endregion
-
-	#region Godot Callbacks
-
-	public override void _Process(double delta) {
-		if (Mode == InputModes.RTS) {
-			CallDeferred(nameof(ReceiveRTSInputs));
-		}
 	}
 
 	#endregion
