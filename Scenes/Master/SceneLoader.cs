@@ -48,8 +48,15 @@ public partial class SceneLoader : Node
             return;
         }
 
-        Theatre.AddChild(levelToLoad.Instantiate());
-        return;
+        Level level = levelToLoad.Instantiate<Level>();
+
+        foreach (StandardCharacter unit in Commander.GetAllUnits()) {
+            level.SpawnUnit(unit);
+        }
+
+		Theatre.AddChild(level);
+
+		return;
     }
 
     public void UnloadLevel(bool returnToMainMenu = true) {
@@ -105,8 +112,8 @@ public partial class SceneLoader : Node
 
         if (DevScene != null) {
             if (!SuppressWarnings) Log.Warn(() => "Currently using `DevScene`. `MainMenu` will not be loaded.", LogReady);
-            Theatre.AddChild(DevScene.Instantiate());
-        }
+            LoadLevel(DevScene);
+		}
 
         else if (MainMenu != null) {
             LoadedScene = MainMenu.Instantiate();
