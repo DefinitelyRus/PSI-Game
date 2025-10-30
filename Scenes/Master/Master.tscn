@@ -5,9 +5,9 @@
 [ext_resource type="Script" uid="uid://voqaa4hgrhdv" path="res://Scenes/Master/AudioManager.cs" id="2_m6dx2"]
 [ext_resource type="PackedScene" uid="uid://rbirnmt14654" path="res://Scenes/Main Menu/MainMenu.tscn" id="3_1t0lv"]
 [ext_resource type="Script" uid="uid://coj1ftn5dishm" path="res://Scenes/Master/Commander.cs" id="3_8ixx1"]
-[ext_resource type="PackedScene" uid="uid://d0ghglnyf6efy" path="res://Prefabs/Playable Units/Testo/Testo.tscn" id="4_m6dx2"]
-[ext_resource type="PackedScene" uid="uid://bfp0axiex7i7o" path="res://Scenes/TestScene.tscn" id="4_qemos"]
-[ext_resource type="PackedScene" uid="uid://cpyjo548jierg" path="res://Scenes/map_test.tscn" id="4_tcv0n"]
+[ext_resource type="PackedScene" uid="uid://d0ghglnyf6efy" path="res://Prefabs/StandardCharacter/Units/Testo.tscn" id="4_m6dx2"]
+[ext_resource type="PackedScene" uid="uid://bfp0axiex7i7o" path="res://Scenes/Levels/TestScene.tscn" id="4_qemos"]
+[ext_resource type="PackedScene" uid="uid://cpyjo548jierg" path="res://Scenes/Levels/map_test.tscn" id="4_tcv0n"]
 [ext_resource type="Script" uid="uid://ccfcn78cg1s2f" path="res://Scenes/Master/EntityManager.cs" id="5_0hine"]
 [ext_resource type="Script" uid="uid://b3xb0rhvopx03" path="res://Scenes/Master/InputManager.cs" id="5_qemos"]
 

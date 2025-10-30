@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://dbkinu8656olu" path="res://Prefabs/StandardCharacter/StandardCharacter.cs" id="1_udvt5"]
 [ext_resource type="Texture2D" uid="uid://bjipwk6ac5bx0" path="res://Sprites/Units/Mira Kale/Idle.png" id="2_r87il"]
 [ext_resource type="Script" uid="uid://cavubcy1osm40" path="res://Prefabs/StandardCharacter/ControlSurface.cs" id="3_r87il"]
-[ext_resource type="PackedScene" uid="uid://dx7iwt4dptbck" path="res://Prefabs/StandardProjectileWeapon.tscn" id="4_g5v64"]
+[ext_resource type="PackedScene" uid="uid://dx7iwt4dptbck" path="res://Prefabs/StandardWeapon/Projectile/StandardProjectileWeapon.tscn" id="4_g5v64"]
 [ext_resource type="Script" uid="uid://vonec1xhm4cv" path="res://Prefabs/StandardCharacter/AIAgentManager.cs" id="4_rog04"]
 [ext_resource type="Texture2D" uid="uid://b3esetth4h67v" path="res://Sprites/Units/Mira Kale/Walking.png" id="7_7fba6"]
 [ext_resource type="Texture2D" uid="uid://bsjlco5cxe7v3" path="res://Sprites/Units/Mira Kale/Standing Shooting.png" id="8_g5v64"]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bqh055cp6qmtn"]
 
-[ext_resource type="PackedScene" uid="uid://cx6l410gdgswd" path="res://Prefabs/StandardProjectile.tscn" id="1_yt444"]
+[ext_resource type="PackedScene" uid="uid://cx6l410gdgswd" path="res://Prefabs/StandardProjectile/StandardProjectile.tscn" id="1_yt444"]
 [ext_resource type="Script" uid="uid://cd2ka7b308t7l" path="res://Prefabs/RifleBullet/RifleBullet.cs" id="2_kw8fn"]
 
 [node name="Rifle Bullet" instance=ExtResource("1_yt444")]
