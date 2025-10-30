@@ -449,6 +449,8 @@ public partial class StandardItem : RigidBody2D
 	[ExportGroup("Nodes & Components")]
 	[Export] public Texture2D? Icon = null;
 	[Export] public Sprite2D? Sprite = null;
+	[Export] public CollisionShape2D Collider = null!;
+	[Export] public Area2D ClickArea = null!;
 
 	#endregion
 
@@ -597,6 +599,15 @@ public partial class StandardItem : RigidBody2D
 	#endregion
 
 	#region Common Methods
+
+	public void SpawnInWorld() {
+		// Gives the item an in-world representation. (not just a conceptual inventory item)
+
+		if (Sprite != null) Sprite.Visible = true;
+
+		Collider.Disabled = false;
+		ClickArea.Visible = true;
+	}
 
 	/// <summary>
 	/// Applies all relevant <see cref="StatModifier"/> values to <c>baseTarget</c> and <c>target</c>, in that order. <br/><br/>
@@ -858,4 +869,5 @@ public partial class StandardItem : RigidBody2D
 	}
 
 	#endregion
+
 }
