@@ -751,8 +751,8 @@ public partial class StandardItem : RigidBody2D
 	/// </summary>
 	/// <param name="v">Do verbose logging? Use <c>v</c> to follow the same verbosity as the encapsulating function, if available.</param>
 	/// <param name="s">Stack depth. Use <c>0</c> if on a root function, or <c>s + 1</c> if <c>s</c> is available in the encapsulating function.</param>
-	public virtual void OnPickup() {
-		Log.Warn(() => $"`OnPickup` on \"{ItemName}\" (ItemID: {ItemID}) is not implemented! Override to add custom functionality.");
+	public virtual void PickUp() {
+		Log.Warn(() => $"`PickUp` on \"{ItemName}\" (ItemID: {ItemID}) is not implemented! Override to add custom functionality.");
 		return;
 	}
 
@@ -762,8 +762,8 @@ public partial class StandardItem : RigidBody2D
 	/// </summary>
 	/// <param name="v">Do verbose logging? Use <c>v</c> to follow the same verbosity as the encapsulating function, if available.</param>
 	/// <param name="s">Stack depth. Use <c>0</c> if on a root function, or <c>s + 1</c> if <c>s</c> is available in the encapsulating function.</param>
-	public virtual void OnEquip() {
-		Log.Warn(() => $"`OnEquip` on \"{ItemName}\" (ItemID: {ItemID}) is not implemented! Override to add custom functionality.");
+	public virtual void Equip() {
+		Log.Warn(() => $"`Equip` on \"{ItemName}\" (ItemID: {ItemID}) is not implemented! Override to add custom functionality.");
 		return;
 	}
 
@@ -773,8 +773,8 @@ public partial class StandardItem : RigidBody2D
 	/// </summary>
 	/// <param name="v">Do verbose logging? Use <c>v</c> to follow the same verbosity as the encapsulating function, if available.</param>
 	/// <param name="s">Stack depth. Use <c>0</c> if on a root function, or <c>s + 1</c> if <c>s</c> is available in the encapsulating function.</param>
-	public virtual void OnUnequip() {
-		Log.Warn(() => $"`OnUnequip` on \"{ItemName}\" (ItemID: {ItemID}) is not implemented! Override to add custom functionality.");
+	public virtual void Unequip() {
+		Log.Warn(() => $"`Unequip` on \"{ItemName}\" (ItemID: {ItemID}) is not implemented! Override to add custom functionality.");
 		return;
 	}
 
@@ -784,8 +784,8 @@ public partial class StandardItem : RigidBody2D
 	/// </summary>
 	/// <param name="v">Do verbose logging? Use <c>v</c> to follow the same verbosity as the encapsulating function, if available.</param>
 	/// <param name="s">Stack depth. Use <c>0</c> if on a root function, or <c>s + 1</c> if <c>s</c> is available in the encapsulating function.</param>
-	public virtual void OnDrop() {
-		Log.Warn(() => $"`OnDrop` on \"{ItemName}\" (ItemID: {ItemID}) is not implemented! Override to add custom functionality.");
+	public virtual void Drop() {
+		Log.Warn(() => $"`Drop` on \"{ItemName}\" (ItemID: {ItemID}) is not implemented! Override to add custom functionality.");
 		return;
 	}
 
@@ -795,8 +795,8 @@ public partial class StandardItem : RigidBody2D
 	/// </summary>
 	/// <param name="v">Do verbose logging? Use <c>v</c> to follow the same verbosity as the encapsulating function, if available.</param>
 	/// <param name="s">Stack depth. Use <c>0</c> if on a root function, or <c>s + 1</c> if <c>s</c> is available in the encapsulating function.</param>
-	public virtual void OnBreak() {
-		Log.Warn(() => $"`OnBreak` on \"{ItemName}\" (ItemID: {ItemID}) is not implemented! Override to add custom functionality.");
+	public virtual void Break() {
+		Log.Warn(() => $"`Break` on \"{ItemName}\" (ItemID: {ItemID}) is not implemented! Override to add custom functionality.");
 		return;
 	}
 
@@ -806,8 +806,8 @@ public partial class StandardItem : RigidBody2D
 	/// </summary>
 	/// <param name="v">Do verbose logging? Use <c>v</c> to follow the same verbosity as the encapsulating function, if available.</param>
 	/// <param name="s">Stack depth. Use <c>0</c> if on a root function, or <c>s + 1</c> if <c>s</c> is available in the encapsulating function.</param>
-	public virtual void OnBuy() {
-		Log.Warn(() => $"`OnBuy` on \"{ItemName}\" (ItemID: {ItemID}) is not implemented! Override to add custom functionality.");
+	public virtual void Buy() {
+		Log.Warn(() => $"`Buy` on \"{ItemName}\" (ItemID: {ItemID}) is not implemented! Override to add custom functionality.");
 		return;
 	}
 
@@ -817,8 +817,8 @@ public partial class StandardItem : RigidBody2D
 	/// </summary>
 	/// <param name="v">Do verbose logging? Use <c>v</c> to follow the same verbosity as the encapsulating function, if available.</param>
 	/// <param name="s">Stack depth. Use <c>0</c> if on a root function, or <c>s + 1</c> if <c>s</c> is available in the encapsulating function.</param>
-	public virtual void OnSell() {
-		Log.Warn(() => $"`OnSell` on \"{ItemName}\" (ItemID: {ItemID}) is not implemented! Override to add custom functionality.");
+	public virtual void Sell() {
+		Log.Warn(() => $"`Sell` on \"{ItemName}\" (ItemID: {ItemID}) is not implemented! Override to add custom functionality.");
 		return;
 	}
 
