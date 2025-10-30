@@ -161,7 +161,7 @@ public partial class AIAgentManager : Node2D {
 		Callable callable = new(this, nameof(InputListener));
 		Master.InputManager.Connect(signal, callable);
 
-		Log.Me(() => $"AIAgentManager is ready for {Character.InstanceID}.", true, enabled: LogReady);
+		Log.Me(() => $"AIAgentManager is ready for {Character.InstanceID}.", LogReady, true);
 	}
 
 	public override void _PhysicsProcess(double delta) {

@@ -150,7 +150,7 @@ public partial class Log : GodotObject {
 	/// A value indicating whether the message should be logged.
 	/// The default value is <see langword="true"/>.
 	/// </param>
-	public static void Me(Func<string> messageFactory, bool printTrace = false, bool enabled = true) {
+	public static void Me(Func<string> messageFactory, bool enabled = true, bool printTrace = false) {
 		if (!enabled) return;
 		Message(messageFactory(), Mode.Message, 2, printTrace);
 	}
@@ -170,7 +170,7 @@ public partial class Log : GodotObject {
 	/// A value indicating whether the message should be logged.
 	/// The default value is <see langword="true"/>.
 	/// </param>
-	public static void Warn(string? message, bool printTrace = false, bool enabled = true) {
+	public static void Warn(string? message, bool enabled = true, bool printTrace = false) {
 		if (!enabled) return;
 		Message(message ?? string.Empty, Mode.Warning, 2, printTrace);
 	}
@@ -194,7 +194,7 @@ public partial class Log : GodotObject {
 	/// A value indicating whether the message should be logged.
 	/// The default value is <see langword="true"/>.
 	/// </param>
-	public static void Warn(Func<string> messageFactory, bool printTrace = false, bool enabled = true) {
+	public static void Warn(Func<string> messageFactory, bool enabled = true, bool printTrace = false) {
 		if (!enabled) return;
 		Message(messageFactory(), Mode.Warning, 2, printTrace);
 	}
@@ -214,7 +214,7 @@ public partial class Log : GodotObject {
 	/// A value indicating whether the message should be logged.
 	/// The default value is <see langword="true"/>.
 	/// </param>
-	public static void Err(string? message, bool printTrace = false, bool enabled = true) {
+	public static void Err(string? message, bool enabled = true, bool printTrace = false) {
 		if (!enabled) return;
 		Message(message ?? string.Empty, Mode.Error, 2, printTrace);
 	}
@@ -234,7 +234,7 @@ public partial class Log : GodotObject {
 	/// A value indicating whether the message should be logged.
 	/// The default value is <see langword="true"/>.
 	/// </param>
-	public static void Err(Func<string> messageFactory, bool printTrace = false, bool enabled = true) {
+	public static void Err(Func<string> messageFactory, bool enabled = true, bool printTrace = false) {
 		if (!enabled) return;
 		Message(messageFactory(), Mode.Error, 2, printTrace);
 	}
