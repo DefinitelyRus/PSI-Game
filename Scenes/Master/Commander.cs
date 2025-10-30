@@ -158,9 +158,10 @@ public partial class Commander : Node
 	#region Micro Unit Control
 
 	public static StandardCharacter FocusedUnit { get; private set; } = null!;
-	//public static List<StandardItem> UnitInventory => FocusedUnit.Inventory;
+	public static List<StandardItem> UnitInventory => FocusedUnit.Inventory;
 
 	public static bool PrimeDrop { get; set; } = false;
+
 
 	public static void SetFocusedUnit(int index)
 	{
@@ -172,10 +173,12 @@ public partial class Commander : Node
 		FocusedUnit = Units[index];
 	}
 
+
 	public static void ClearFocusedUnit()
 	{
 		FocusedUnit = null!;
 	}
+
 
 	public static void SelectItem(int itemIndex) {
 		if (FocusedUnit == null) {
