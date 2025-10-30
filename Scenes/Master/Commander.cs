@@ -34,6 +34,24 @@ public partial class Commander : Node
 	#endregion
 
 	#endregion
+
+	#region Static Members
+
+	#region Initialization
+
+	public static Commander Instance { get; private set; } = null!;
+
+	public static void Initialize()
+	{
+		foreach (PackedScene unitScene in Instance.InitialUnits)
+		{
+			StandardCharacter unit = unitScene.Instantiate<StandardCharacter>();
+			RegisterUnit(unit);
+		}
+	}
+
+	#endregion
+
 	#region Macro Unit Control
 
 	private static List<StandardCharacter> Units { get; set; } = [];
