@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Godot;
 namespace CommonScripts;
 
-public partial class EntityManager : Node
+public partial class EntityManager : Node2D
 {
     /// <summary>
     /// Characters that have been spawned in on the game world.
