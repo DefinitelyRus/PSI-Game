@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://c5pxgte6pab6b"]
+
+[ext_resource type="PackedScene" uid="uid://daotyvqai4b36" path="res://Prefabs/StandardCharacter/StandardCharacter.tscn" id="1_jdgtp"]
+
+[node name="Mira Kale" instance=ExtResource("1_jdgtp")]
+CharacterName = "Mira Kale"
+CharacterID = "mira_kale"
