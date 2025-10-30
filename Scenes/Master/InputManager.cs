@@ -56,11 +56,11 @@ public partial class InputManager : Node2D {
 		var action = SignalName.ActionCommand;
 
 		// Move camera with WASD
-		if (Input.IsActionPressed("move_up")) EmitSignal(action, CameraUp, new());
-		if (Input.IsActionPressed("move_down")) EmitSignal(action, CameraDown, new());
-		if (Input.IsActionPressed("move_left")) EmitSignal(action, CameraLeft, new());
-		if (Input.IsActionPressed("move_right")) EmitSignal(action, CameraRight, new());
-		if (Input.IsActionPressed("select_3")) EmitSignal(action, MiddleClick, mousePos);   // Pan camera
+		if (Input.IsActionPressed("move_up")) ; //Camera.Move(Vector2.Up);
+		if (Input.IsActionPressed("move_down")) ; //Camera.Move(Vector2.Down);
+		if (Input.IsActionPressed("move_left")) ; //Camera.Move(Vector2.Left);
+		if (Input.IsActionPressed("move_right")) ; // Camera.Move(Vector2.Right);
+		if (Input.IsActionPressed("select_3")) ; //Camera.Pan(mousePos); // Pan camera to mouse position
 
 		// Unit interactions
 		if (Input.IsActionJustPressed("select_1")) EmitSignal(action, LeftClick, mousePos);		// Select + Move & Attack
