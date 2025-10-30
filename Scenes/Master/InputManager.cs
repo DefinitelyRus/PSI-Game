@@ -72,14 +72,14 @@ public partial class InputManager : Node2D {
 		if (Input.IsActionJustPressed("deselect_all_units")) Commander.DeselectAllUnits();
 
 		// Toggle item use with 1-5
-		//if (Input.IsActionJustPressed("item_1")) Commander.FocusedUnit.UseItem(0);
-		//if (Input.IsActionJustPressed("item_2")) Commander.FocusedUnit.UseItem(1);
-		//if (Input.IsActionJustPressed("item_3")) Commander.FocusedUnit.UseItem(2);
-		//if (Input.IsActionJustPressed("item_4")) Commander.FocusedUnit.UseItem(3);
-		//if (Input.IsActionJustPressed("item_5")) Commander.FocusedUnit.UseItem(4);
+		if (Input.IsActionJustPressed("item_1")) Commander.SelectItem(0);
+		if (Input.IsActionJustPressed("item_2")) Commander.SelectItem(1);
+		if (Input.IsActionJustPressed("item_3")) Commander.SelectItem(2);
+		if (Input.IsActionJustPressed("item_4")) Commander.SelectItem(3);
+		if (Input.IsActionJustPressed("item_5")) Commander.SelectItem(4);
 
-		// Drop item with Q
-		if (Input.IsActionPressed("queue_drop_item")) EmitSignal(action, DropItem); // Drops the currently selected item.
+		// Prime to drop item with CTRL
+		Commander.PrimeDrop = Input.IsActionPressed("prime_drop_item");
 	}
 
 	#endregion
