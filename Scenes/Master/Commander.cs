@@ -115,7 +115,7 @@ public partial class Commander : Node
 
 	public static void SelectUnit(int index)
 	{
-		if (index < 0 || index > Units.Count) {
+		if (index < 0 || index >= Units.Count) {
 			Log.Me(() => $"Cannot select unit at index {index} in an array of {Units.Count} units.");
 			return;
 		}
