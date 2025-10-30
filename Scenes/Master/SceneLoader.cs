@@ -3,6 +3,7 @@ namespace CommonScripts;
 
 public partial class SceneLoader : Node
 {   
+
     #region Nodes & Components
 
     [ExportGroup("Nodes & Components")]
@@ -59,7 +60,20 @@ public partial class SceneLoader : Node
 		return;
     }
 
-    public void UnloadLevel(bool returnToMainMenu = true) {
+    public void LoadLevel(PackedScene levelScene) {
+        UnloadLevel(false);
+
+		Level level = levelScene.Instantiate<Level>();
+
+		foreach (StandardCharacter unit in Commander.GetAllUnits()) {
+			level.SpawnUnit(unit);
+		}
+
+		Theatre.AddChild(level);
+	}
+
+
+	public void UnloadLevel(bool returnToMainMenu = true) {
         if (LoadedScene == null || Theatre.GetChildCount() == 0) return;
 
         Theatre.RemoveChild(LoadedScene);
