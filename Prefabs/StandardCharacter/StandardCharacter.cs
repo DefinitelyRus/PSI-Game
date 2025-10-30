@@ -276,11 +276,16 @@ public partial class StandardCharacter : CharacterBody2D {
 		Inventory.Add(item);
 	}
 
-	public bool RemoveItemFromInventory(StandardItem item) {
+	public bool RemoveItemFromInventory(StandardItem item, bool spawnInWorld) {
+		if (spawnInWorld) {
+			item.Position = GlobalPosition;
+			EntityManager.AddCharacter(item);
+		}
+
 		return Inventory.Remove(item);
 	}
 
-	public bool RemoveItemFromInventory(int index, out StandardItem? removedItem) {
+	public bool RemoveItemFromInventory(int index, bool spawnInWorld, out StandardItem? removedItem) {
 		removedItem = null;
 
 		if (index < 0 || index >= Inventory.Count) {
