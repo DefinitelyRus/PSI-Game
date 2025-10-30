@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://kqo44exiy3bv" path="res://Sprites/UI/Modern_UI_Style_2_32x32.png" id="1_7a7a1"]
 [ext_resource type="Script" uid="uid://bdv1hbweo6wlo" path="res://Common Scripts/UI/player_hud.gd" id="1_av0rp"]
-[ext_resource type="Texture2D" uid="uid://bjipwk6ac5bx0" path="res://Sprites/Legionnaires/Rikka/Idle.png" id="3_frt37"]
+[ext_resource type="Texture2D" uid="uid://bjipwk6ac5bx0" path="res://Sprites/Units/Mira Kale/Idle.png" id="3_frt37"]
 [ext_resource type="Script" uid="uid://0av647fe1ugh" path="res://Common Scripts/UI/pop_up.gd" id="4_64sls"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_lsael"]

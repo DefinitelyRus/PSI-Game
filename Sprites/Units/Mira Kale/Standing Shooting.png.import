@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dsx2m05ecv2k1"
-path="res://.godot/imported/Death.png-72f99cfb9cdd78fa9bf29e06294b4d25.ctex"
+uid="uid://bsjlco5cxe7v3"
+path="res://.godot/imported/Standing Shooting.png-2c7767a7b427ff55b16362e313cf7ef6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/Legionnaires/Rikka/Death.png"
-dest_files=["res://.godot/imported/Death.png-72f99cfb9cdd78fa9bf29e06294b4d25.ctex"]
+source_file="res://Sprites/Units/Mira Kale/Standing Shooting.png"
+dest_files=["res://.godot/imported/Standing Shooting.png-2c7767a7b427ff55b16362e313cf7ef6.ctex"]
 
 [params]
 
