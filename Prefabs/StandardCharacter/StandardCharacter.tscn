@@ -1466,7 +1466,7 @@ states/Walk/position = Vector2(564, 100)
 transitions = ["Walk", "Attack", SubResource("AnimationNodeStateMachineTransition_evbho"), "Walk", "Death", SubResource("AnimationNodeStateMachineTransition_baotw"), "Attack", "Death", SubResource("AnimationNodeStateMachineTransition_5xadj"), "Start", "Idle", SubResource("AnimationNodeStateMachineTransition_g12ag"), "Idle", "Death", SubResource("AnimationNodeStateMachineTransition_g5v64"), "Idle", "Attack", SubResource("AnimationNodeStateMachineTransition_n5c1j"), "Idle", "Walk", SubResource("AnimationNodeStateMachineTransition_rog04"), "Walk", "Idle", SubResource("AnimationNodeStateMachineTransition_6la15"), "Attack", "Idle", SubResource("AnimationNodeStateMachineTransition_itkmi"), "Attack", "Walk", SubResource("AnimationNodeStateMachineTransition_33sgy")]
 graph_offset = Vector2(-83, -26)
 
-[node name="Standard Character" type="CharacterBody2D" node_paths=PackedStringArray("Control", "Weapon", "HitArea", "ClickArea", "AnimationPlayer", "AnimationTree")]
+[node name="Standard Character" type="CharacterBody2D" node_paths=PackedStringArray("Control", "AIManager", "Weapon", "HitArea", "ClickArea", "AnimationPlayer", "AnimationTree")]
 process_mode = 1
 process_thread_group = 1
 process_thread_group_order = 0
@@ -1477,6 +1477,7 @@ collision_mask = 17
 motion_mode = 1
 script = ExtResource("1_udvt5")
 Control = NodePath("Control Surface")
+AIManager = NodePath("AI Agent Manager")
 Weapon = NodePath("Projectile Weapon")
 HitArea = NodePath("Hit Area")
 ClickArea = NodePath("Click Area")
@@ -1543,6 +1544,7 @@ parameters/Idle/blend_position = Vector2(0.327273, -0.5925)
 parameters/Walk/blend_position = Vector2(0.0045833588, 0.044394612)
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+path_desired_distance = 5.0
 avoidance_enabled = true
 avoidance_layers = 16
 avoidance_mask = 28

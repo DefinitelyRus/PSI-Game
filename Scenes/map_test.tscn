@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=4 uid="uid://cpyjo548jierg"]
+[gd_scene load_steps=20 format=4 uid="uid://cpyjo548jierg"]
 
 [ext_resource type="Texture2D" uid="uid://dc6keunkgx6tt" path="res://Sprites/World Sprites/Level 1 - Office/Room_Builder.png" id="1_d1yy6"]
 [ext_resource type="Texture2D" uid="uid://f8i6teg6ade7" path="res://Sprites/World Sprites/Level 0 - Parking Lot/Parking_Props.png" id="2_1vbue"]
@@ -5479,6 +5479,16 @@ texture = ExtResource("3_12og3")
 [sub_resource type="TileSet" id="TileSet_p3g52"]
 sources/0 = SubResource("TileSetAtlasSource_2b8qb")
 
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_lmqaa"]
+vertices = PackedVector2Array(247, 263, 41, 263, 41, 57, 247, 57)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(31, 47, 257, 47, 257, 273, 31, 273)])
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_5t83f"]
+vertices = PackedVector2Array(455, 167, 313, 167, 313, 105, 455, 105)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(303, 95, 465, 95, 465, 177, 303, 177)])
+
 [node name="map_test" type="Node2D"]
 
 [node name="Tilemap" type="Node2D" parent="."]
@@ -5507,7 +5517,22 @@ tile_set = SubResource("TileSet_lmqaa")
 tile_map_data = PackedByteArray("AAAFAAYAAAAOABwAAAAFAAcAAAAOAB0AAAAIAAYAAAALACAAAAAIAAcAAAALACEAAAAKAAYAAAANABoAAAAKAAcAAAANABsAAAALAAYAAAAOABoAAAALAAcAAAAOABsAAAAMAAYAAAAPABoAAAAMAAcAAAAPABsAAAAHAAwAAAANABoAAAAHAA0AAAANABsAAAAIAAwAAAAOABoAAAAIAA0AAAAOABsAAAAJAAwAAAAPABoAAAAJAA0AAAAPABsAAAAEAAwAAAANABwAAAAEAA0AAAANAB0AAAAFAAwAAAAOABwAAAAFAA0AAAAOAB0AAAAGAAwAAAAPABwAAAAGAA0AAAAPAB0AAAAEAAYAAAANABwAAAAEAAcAAAANAB0AAAAGAAYAAAAPABwAAAAGAAcAAAAPAB0AAAAKAAUAAAANACAAAAALAAUAAAAOACAAAAAMAAUAAAAPACAAAAAEAAsAAAANACAAAAAFAAsAAAAOACAAAAAGAAsAAAAPACAAAAAKAAsAAAANAB8AAAALAAsAAAAOAB8AAAAMAAsAAAAPAB8AAAAHAAUAAAANAB8AAAAIAAUAAAAOAB8AAAAJAAUAAAAPAB8AAAAEAAUAAAANAB4AAAAFAAUAAAAOAB4AAAAGAAUAAAAPAB4AAAAHAAsAAAANAB4AAAAIAAsAAAAOAB4AAAAJAAsAAAAPAB4AAAAKAAwAAAAKACAAAAAKAA0AAAAKACEAAAALAAwAAAALACAAAAALAA0AAAALACEAAAAMAAwAAAAMACAAAAAMAA0AAAAMACEAAAAHAAYAAAAKACAAAAAHAAcAAAAKACEAAAAJAAYAAAAMACAAAAAJAAcAAAAMACEAAAAFAAEAAAAJAAoAAAAFAAIAAAAJAAsAAAAGAAEAAAAKAAoAAAAGAAIAAAAKAAsAAAANAAEAAAALAAsAAAAOAAEAAAAMAAsAAAAJAAEAAAAJAA4AAAAJAAIAAAAJAA8AAAAKAAEAAAAKAA4AAAAKAAIAAAAKAA8AAAAMAAEAAAAPAAAAAAAMAAIAAAAPAAEAAAAHAAEAAAAGAAcAAAAHAAIAAAAGAAgAAAAHAAMAAAAGAAkAAAAPAAEAAAAGAAcAAAAPAAIAAAAGAAgAAAAPAAMAAAAGAAkAAAA=")
 tile_set = SubResource("TileSet_p3g52")
 
-[node name="Player" type="Node2D" parent="."]
+[node name="Nav Regions" type="Node2D" parent="."]
 
-[node name="Test Character" parent="Player" instance=ExtResource("5_lmqaa")]
+[node name="12 Chairs" type="NavigationRegion2D" parent="Nav Regions"]
+navigation_polygon = SubResource("NavigationPolygon_lmqaa")
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="Nav Regions"]
+navigation_polygon = SubResource("NavigationPolygon_5t83f")
+
+[node name="NavigationLink2D" type="NavigationLink2D" parent="Nav Regions"]
+position = Vector2(2.81, 0)
+start_position = Vector2(229.19, 160)
+end_position = Vector2(325.19, 160)
+
+[node name="Player Units" type="Node2D" parent="."]
+
+[node name="Testo" parent="Player Units" instance=ExtResource("5_lmqaa")]
 position = Vector2(53, 151)
+CharacterName = "Testo"
+CharacterID = "testo"
