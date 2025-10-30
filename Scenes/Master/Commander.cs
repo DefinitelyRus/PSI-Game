@@ -6,6 +6,34 @@ namespace CommonScripts;
 
 public partial class Commander : Node
 {
+
+	#region Instance Members
+
+	[Export] public PackedScene[] InitialUnits = [];
+
+	#region Debugging
+
+	[Export] public bool LogReady = true;
+	[Export] public bool LogInput = false;
+
+	#endregion
+
+	#region Godot Callbacks
+
+	public override void _Ready() {
+		if (Instance != null) {
+			Log.Err("Multiple instances of Commander detected. There should only be one Commander in the scene.");
+			QueueFree();
+			return;
+		}
+
+		Instance = this;
+		Initialize();
+	}
+
+	#endregion
+
+	#endregion
 	#region Macro Unit Control
 
 	private static List<StandardCharacter> Units { get; set; } = [];
