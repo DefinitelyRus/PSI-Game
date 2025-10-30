@@ -1,6 +1,5 @@
 using Godot;
 using System.Collections.Generic;
-using System.Linq.Expressions;
 
 namespace CommonScripts;
 
@@ -178,20 +177,23 @@ public partial class Commander : Node
 		FocusedUnit = null!;
 	}
 
-	public static void SelectItem(int itemIndex)
-	{
+	public static void SelectItem(int itemIndex) {
 		if (FocusedUnit == null) {
 			Log.Me(() => "SelectItem: No focused unit set.", Instance.LogInput);
 			return;
 		}
 
 		if (itemIndex < 0 || itemIndex >= FocusedUnit.Inventory.Count) {
-			Log.Err(() => $"SelectItem: Item index {itemIndex} is out of range (0 to {FocusedUnit.Inventory.Count - 1}).");
+			Log.Me(() => $"SelectItem: Item index {itemIndex} is out of range (0 to {FocusedUnit.Inventory.Count - 1}).", Instance.LogInput);
 			return;
 		}
 
-		//FocusedUnit.SelectItem(itemIndex);
+		if (PrimeDrop) FocusedUnit.RemoveItemFromInventory(itemIndex, true, out var _);
+		else FocusedUnit.ToggleEquipItem(itemIndex);
 	}
 
 	#endregion
+
+	#endregion
+
 }
