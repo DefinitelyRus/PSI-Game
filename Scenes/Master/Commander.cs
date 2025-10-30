@@ -71,7 +71,7 @@ public partial class Commander : Node
 	public static void SelectUnit(int index)
 	{
 		if (index < 0 || index > Units.Count) {
-			Log.Err(() => $"SelectUnit: Index {index} is out of range (0 to {Units.Count - 1}).");
+			Log.Me(() => $"Cannot select unit at index {index} in an array of {Units.Count} units.");
 			return;
 		}
 
@@ -133,7 +133,7 @@ public partial class Commander : Node
 	public static void SelectItem(int itemIndex)
 	{
 		if (FocusedUnit == null) {
-			Log.Err(() => "SelectItem: No focused unit set.");
+			Log.Me(() => "SelectItem: No focused unit set.", Instance.LogInput);
 			return;
 		}
 
