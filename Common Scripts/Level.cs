@@ -23,13 +23,13 @@ public partial class Level : Node
 			CurrentSpawnIndex = (CurrentSpawnIndex + 1) % SpawnPoints.Length;
 		}
 
-		catch (IndexOutOfRangeException e) {
+		catch (IndexOutOfRangeException) {
 			Log.Warn(() => $"There are not enough spawn points ({SpawnPoints.Length}) to spawn unit at index {CurrentSpawnIndex}. Resetting spawn index to 0 and retrying.", true, true);
 			CurrentSpawnIndex = 0;
 			goto AttemptSpawn;
 		}
 
-		catch (NullReferenceException e) {
+		catch (NullReferenceException) {
 			Log.Err(() => $"Spawn point at index {CurrentSpawnIndex} is null. Canceling.", true, true);
 			return;
 		}
