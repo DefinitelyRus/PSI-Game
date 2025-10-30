@@ -734,6 +734,9 @@ public partial class StandardItem : RigidBody2D
 
 	#region Overridable Methods
 
+	public int UseCount { get; protected set; } = 0;
+	public bool IsEquipped { get; protected set; } = false;
+
 	/// <summary>
 	/// Uses the item. <br/><br/>
 	/// This method is intended to be called when the item is used, such as when a player consumes it or interacts with it.
