@@ -8,7 +8,7 @@ namespace CommonScripts;
 /// <summary>
 /// A standard item class that can be derived from to create various types of items in the game. <br/><br/>
 /// </summary>
-public partial class StandardItem : Node2D
+public partial class StandardItem : RigidBody2D
 {
 	#region Permanent Properties
 
