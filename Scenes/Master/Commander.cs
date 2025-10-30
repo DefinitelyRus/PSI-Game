@@ -1,6 +1,6 @@
-using CommonScripts;
 using Godot;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 
 namespace CommonScripts;
 
@@ -13,20 +13,21 @@ public partial class Commander : Node
 
 	public static void RegisterUnit(StandardCharacter unit)
 	{
-		if (!Units.Contains(unit))
+		if (Units.Contains(unit))
 		{
-			Units.Add(unit);
+			Log.Warn("This unit has already been added to the list. Cannot add.", true, true);
+			return;
 		}
+		
+		Units.Add(unit);
 	}
 
 
 	public static void UnregisterUnit(StandardCharacter unit)
 	{
-		if (Units.Contains(unit))
-		{
-			Units.Remove(unit);
-		}
-	}
+		bool wasRemoved = Units.Remove(unit);
+		if (!wasRemoved) Log.Warn(() => $"Unit {unit.InstanceID} does not exist in the unit list. Cannot remove.", true, true);
+    }
 
 
 	public static void ClearUnits()
@@ -80,6 +81,12 @@ public partial class Commander : Node
 
 	public static void SelectAllUnits()
 	{
+		if (Units.Count == 0)
+		{
+			Log.Warn("No units are registered. Cannot select.", true, true);
+			return;
+		}
+
 		foreach (StandardCharacter unit in Units)
 		{
 			unit.AIManager.IsSelected = true;
@@ -89,6 +96,12 @@ public partial class Commander : Node
 
 	public static void DeselectAllUnits()
 	{
+		if (Units.Count == 0)
+		{
+			Log.Warn("No units are registered. Cannot deselect.", true, true);
+			return;
+		}
+		
 		foreach (StandardCharacter unit in Units)
 		{
 			unit.AIManager.IsSelected = false;
