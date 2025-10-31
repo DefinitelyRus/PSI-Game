@@ -20,33 +20,33 @@ public partial class Master : Node {
 
     #region Methods
 
-    public void DebugPause(bool v = false, int s = 0) {
-        OldLog.Me(() => "Freezing game", v, s + 1);
+    public void DebugPause() {
+        Log.Me(() => "Freezing game...");
 
         GetTree().Paused = true;
 
-        OldLog.Me(() => "Done!", v, s + 1);
+        Log.Me(() => "Done!");
         return;
     }
 
     #endregion
 
     public override void _Ready() {
-        Log.Me(() => $"Readying Master. Passing to StandardItem...", enabled: LogReady);
+        Log.Me(() => $"Readying Master. Passing to StandardItem...", LogReady);
 
         if (SceneLoader == null) {
-            Log.Err(() => "SceneLoader is not assigned. Cannot proceed.", enabled: LogReady);
-            DebugPause(LogReady);
+            Log.Err(() => "SceneLoader is not assigned. Cannot proceed.", LogReady);
+            DebugPause();
             return;
 		}
 
 		if (InputManager == null) {
-			Log.Err(() => "InputManager is not assigned. Cannot proceed.", enabled: LogReady);
-			DebugPause(LogReady);
+			Log.Err(() => "InputManager is not assigned. Cannot proceed.", LogReady);
+			DebugPause();
 			return;
 		}
 
-		Log.Me(() => "Done!", enabled: LogReady);
+		Log.Me(() => "Done!", LogReady);
         return;
     }
 }

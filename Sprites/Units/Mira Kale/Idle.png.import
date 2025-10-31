@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bsjlco5cxe7v3"
-path="res://.godot/imported/Standing Shooting.png-75f4b51fa91ba7fb2f7a8fc9c174535a.ctex"
+uid="uid://bjipwk6ac5bx0"
+path="res://.godot/imported/Idle.png-a1b9bafb91862ab5861a041a03ecb6be.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/Legionnaires/Rikka/Standing Shooting.png"
-dest_files=["res://.godot/imported/Standing Shooting.png-75f4b51fa91ba7fb2f7a8fc9c174535a.ctex"]
+source_file="res://Sprites/Units/Mira Kale/Idle.png"
+dest_files=["res://.godot/imported/Idle.png-a1b9bafb91862ab5861a041a03ecb6be.ctex"]
 
 [params]
 

@@ -8,7 +8,7 @@ namespace CommonScripts;
 /// <summary>
 /// A standard item class that can be derived from to create various types of items in the game. <br/><br/>
 /// </summary>
-public partial class StandardItem : Node2D
+public partial class StandardItem : RigidBody2D
 {
 	#region Permanent Properties
 
@@ -41,7 +41,7 @@ public partial class StandardItem : Node2D
 			}
 			
 			else {
-				new Context().Warn(() => $"Invalid rarity '{value.ToPascalCase()}' for item '{ItemName}'. Using default 'Common'.");
+				Log.Warn(() => $"Invalid rarity '{value.ToPascalCase()}' for item '{ItemName}'. Using default 'Common'.");
 				_rarity = "Common";
 			}
 		}
@@ -449,6 +449,8 @@ public partial class StandardItem : Node2D
 	[ExportGroup("Nodes & Components")]
 	[Export] public Texture2D? Icon = null;
 	[Export] public Sprite2D? Sprite = null;
+	[Export] public CollisionShape2D Collider = null!;
+	[Export] public Area2D ClickArea = null!;
 
 	#endregion
 
@@ -598,6 +600,15 @@ public partial class StandardItem : Node2D
 
 	#region Common Methods
 
+	public void SpawnInWorld() {
+		// Gives the item an in-world representation. (not just a conceptual inventory item)
+
+		if (Sprite != null) Sprite.Visible = true;
+
+		Collider.Disabled = false;
+		ClickArea.Visible = true;
+	}
+
 	/// <summary>
 	/// Applies all relevant <see cref="StatModifier"/> values to <c>baseTarget</c> and <c>target</c>, in that order. <br/><br/>
 	/// To add/remove modifiers, update the <see cref="Modifiers"/> list. <br/>
@@ -734,6 +745,9 @@ public partial class StandardItem : Node2D
 
 	#region Overridable Methods
 
+	public int UseCount { get; protected set; } = 0;
+	public bool IsEquipped { get; protected set; } = false;
+
 	/// <summary>
 	/// Uses the item. <br/><br/>
 	/// This method is intended to be called when the item is used, such as when a player consumes it or interacts with it.
@@ -751,8 +765,8 @@ public partial class StandardItem : Node2D
 	/// </summary>
 	/// <param name="v">Do verbose logging? Use <c>v</c> to follow the same verbosity as the encapsulating function, if available.</param>
 	/// <param name="s">Stack depth. Use <c>0</c> if on a root function, or <c>s + 1</c> if <c>s</c> is available in the encapsulating function.</param>
-	public virtual void OnPickup() {
-		Log.Warn(() => $"`OnPickup` on \"{ItemName}\" (ItemID: {ItemID}) is not implemented! Override to add custom functionality.");
+	public virtual void PickUp() {
+		Log.Warn(() => $"`PickUp` on \"{ItemName}\" (ItemID: {ItemID}) is not implemented! Override to add custom functionality.");
 		return;
 	}
 
@@ -762,8 +776,8 @@ public partial class StandardItem : Node2D
 	/// </summary>
 	/// <param name="v">Do verbose logging? Use <c>v</c> to follow the same verbosity as the encapsulating function, if available.</param>
 	/// <param name="s">Stack depth. Use <c>0</c> if on a root function, or <c>s + 1</c> if <c>s</c> is available in the encapsulating function.</param>
-	public virtual void OnEquip() {
-		Log.Warn(() => $"`OnEquip` on \"{ItemName}\" (ItemID: {ItemID}) is not implemented! Override to add custom functionality.");
+	public virtual void Equip() {
+		Log.Warn(() => $"`Equip` on \"{ItemName}\" (ItemID: {ItemID}) is not implemented! Override to add custom functionality.");
 		return;
 	}
 
@@ -773,8 +787,8 @@ public partial class StandardItem : Node2D
 	/// </summary>
 	/// <param name="v">Do verbose logging? Use <c>v</c> to follow the same verbosity as the encapsulating function, if available.</param>
 	/// <param name="s">Stack depth. Use <c>0</c> if on a root function, or <c>s + 1</c> if <c>s</c> is available in the encapsulating function.</param>
-	public virtual void OnUnequip() {
-		Log.Warn(() => $"`OnUnequip` on \"{ItemName}\" (ItemID: {ItemID}) is not implemented! Override to add custom functionality.");
+	public virtual void Unequip() {
+		Log.Warn(() => $"`Unequip` on \"{ItemName}\" (ItemID: {ItemID}) is not implemented! Override to add custom functionality.");
 		return;
 	}
 
@@ -784,8 +798,8 @@ public partial class StandardItem : Node2D
 	/// </summary>
 	/// <param name="v">Do verbose logging? Use <c>v</c> to follow the same verbosity as the encapsulating function, if available.</param>
 	/// <param name="s">Stack depth. Use <c>0</c> if on a root function, or <c>s + 1</c> if <c>s</c> is available in the encapsulating function.</param>
-	public virtual void OnDrop() {
-		Log.Warn(() => $"`OnDrop` on \"{ItemName}\" (ItemID: {ItemID}) is not implemented! Override to add custom functionality.");
+	public virtual void Drop() {
+		Log.Warn(() => $"`Drop` on \"{ItemName}\" (ItemID: {ItemID}) is not implemented! Override to add custom functionality.");
 		return;
 	}
 
@@ -795,8 +809,8 @@ public partial class StandardItem : Node2D
 	/// </summary>
 	/// <param name="v">Do verbose logging? Use <c>v</c> to follow the same verbosity as the encapsulating function, if available.</param>
 	/// <param name="s">Stack depth. Use <c>0</c> if on a root function, or <c>s + 1</c> if <c>s</c> is available in the encapsulating function.</param>
-	public virtual void OnBreak() {
-		Log.Warn(() => $"`OnBreak` on \"{ItemName}\" (ItemID: {ItemID}) is not implemented! Override to add custom functionality.");
+	public virtual void Break() {
+		Log.Warn(() => $"`Break` on \"{ItemName}\" (ItemID: {ItemID}) is not implemented! Override to add custom functionality.");
 		return;
 	}
 
@@ -806,8 +820,8 @@ public partial class StandardItem : Node2D
 	/// </summary>
 	/// <param name="v">Do verbose logging? Use <c>v</c> to follow the same verbosity as the encapsulating function, if available.</param>
 	/// <param name="s">Stack depth. Use <c>0</c> if on a root function, or <c>s + 1</c> if <c>s</c> is available in the encapsulating function.</param>
-	public virtual void OnBuy() {
-		Log.Warn(() => $"`OnBuy` on \"{ItemName}\" (ItemID: {ItemID}) is not implemented! Override to add custom functionality.");
+	public virtual void Buy() {
+		Log.Warn(() => $"`Buy` on \"{ItemName}\" (ItemID: {ItemID}) is not implemented! Override to add custom functionality.");
 		return;
 	}
 
@@ -817,8 +831,8 @@ public partial class StandardItem : Node2D
 	/// </summary>
 	/// <param name="v">Do verbose logging? Use <c>v</c> to follow the same verbosity as the encapsulating function, if available.</param>
 	/// <param name="s">Stack depth. Use <c>0</c> if on a root function, or <c>s + 1</c> if <c>s</c> is available in the encapsulating function.</param>
-	public virtual void OnSell() {
-		Log.Warn(() => $"`OnSell` on \"{ItemName}\" (ItemID: {ItemID}) is not implemented! Override to add custom functionality.");
+	public virtual void Sell() {
+		Log.Warn(() => $"`Sell` on \"{ItemName}\" (ItemID: {ItemID}) is not implemented! Override to add custom functionality.");
 		return;
 	}
 
@@ -855,4 +869,5 @@ public partial class StandardItem : Node2D
 	}
 
 	#endregion
+
 }

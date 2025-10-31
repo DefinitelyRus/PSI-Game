@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://cx6l410gdgswd"]
 
-[ext_resource type="Script" uid="uid://cv66aktspb74f" path="res://Common Scripts/StandardProjectile.cs" id="1_oylb4"]
+[ext_resource type="Script" uid="uid://cv66aktspb74f" path="res://Prefabs/StandardProjectile/StandardProjectile.cs" id="1_oylb4"]
 [ext_resource type="Texture2D" uid="uid://cnnyxe81qmtvl" path="res://Sprites/Projectiles/Bullet.png" id="3_d58qr"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_d58qr"]

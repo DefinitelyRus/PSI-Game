@@ -276,6 +276,41 @@ public partial class StandardCharacter : CharacterBody2D {
 		Inventory.Add(item);
 	}
 
+	public bool RemoveItemFromInventory(StandardItem item, bool spawnInWorld) {
+		if (spawnInWorld) {
+			item.Position = GlobalPosition;
+			EntityManager.AddCharacter(item);
+		}
+
+		return Inventory.Remove(item);
+	}
+
+	public bool RemoveItemFromInventory(int index, bool spawnInWorld, out StandardItem? removedItem) {
+		removedItem = null;
+
+		if (index < 0 || index >= Inventory.Count) {
+			Log.Err($"Index {index} is out of bounds for inventory of size {Inventory.Count}.");
+			return false;
+		}
+
+		removedItem = Inventory[index];
+		if (spawnInWorld) removedItem.SpawnInWorld();
+		Inventory.RemoveAt(index);
+
+		return true;
+	}
+
+	public void ToggleEquipItem(int index) {
+		if (index < 0 || index >= Inventory.Count) {
+			Log.Err($"Index {index} is out of bounds for inventory of size {Inventory.Count}.");
+			return;
+		}
+
+		StandardItem item = Inventory[index];
+		if (item.IsEquipped) item.Unequip();
+		else item.Equip();
+	}
+
 	#endregion
 
 	#endregion
