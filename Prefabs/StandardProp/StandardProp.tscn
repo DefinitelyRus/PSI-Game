@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://bnslwo4ecgkcn"]
 
-[ext_resource type="Script" uid="uid://cw8no8c8uw51j" path="res://Common Scripts/StandardProp.cs" id="1_kkaet"]
+[ext_resource type="Script" uid="uid://cw8no8c8uw51j" path="res://Prefabs/StandardProp/StandardProp.cs" id="1_kkaet"]
 [ext_resource type="Texture2D" uid="uid://dboq7ap8y2i5r" path="res://Sprites/World Sprites/Level 1 - Office/Office_Props.png" id="2_0olq7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bldob"]

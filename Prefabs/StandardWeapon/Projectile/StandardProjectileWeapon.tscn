@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://dx7iwt4dptbck"]
 
-[ext_resource type="Script" uid="uid://ca6lusp8hqlss" path="res://Common Scripts/StandardItem/StandardProjectileWeapon.cs" id="1_byvfx"]
+[ext_resource type="Script" uid="uid://ca6lusp8hqlss" path="res://Prefabs/StandardWeapon/Projectile/StandardProjectileWeapon.cs" id="1_byvfx"]
 [ext_resource type="PackedScene" uid="uid://bqh055cp6qmtn" path="res://Prefabs/RifleBullet/RifleBullet.tscn" id="2_cdfy1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n5c1j"]

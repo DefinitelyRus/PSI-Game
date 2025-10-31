@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://bm2fjg8kbsn5w"]
 
-[ext_resource type="PackedScene" uid="uid://bnslwo4ecgkcn" path="res://Prefabs/StandardProp.tscn" id="1_pavtq"]
+[ext_resource type="PackedScene" uid="uid://bnslwo4ecgkcn" path="res://Prefabs/StandardProp/StandardProp.tscn" id="1_pavtq"]
 [ext_resource type="Texture2D" uid="uid://d0vd1cttixedg" path="res://Sprites/World Sprites/Level 0 - Parking Lot/Vehicles.png" id="2_1c53l"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6eyoy"]

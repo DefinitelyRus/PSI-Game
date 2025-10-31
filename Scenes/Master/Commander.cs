@@ -1,11 +1,56 @@
 using Godot;
 using System.Collections.Generic;
-using System.Linq.Expressions;
 
 namespace CommonScripts;
 
 public partial class Commander : Node
 {
+
+	#region Instance Members
+
+	[Export] public PackedScene[] InitialUnits = [];
+
+	#region Debugging
+
+	[Export] public bool LogReady = true;
+	[Export] public bool LogInput = false;
+
+	#endregion
+
+	#region Godot Callbacks
+
+	public override void _Ready() {
+		if (Instance != null) {
+			Log.Err("Multiple instances of Commander detected. There should only be one Commander in the scene.");
+			QueueFree();
+			return;
+		}
+
+		Instance = this;
+		Initialize();
+	}
+
+	#endregion
+
+	#endregion
+
+	#region Static Members
+
+	#region Initialization
+
+	public static Commander Instance { get; private set; } = null!;
+
+	public static void Initialize()
+	{
+		foreach (PackedScene unitScene in Instance.InitialUnits)
+		{
+			StandardCharacter unit = unitScene.Instantiate<StandardCharacter>();
+			RegisterUnit(unit);
+		}
+	}
+
+	#endregion
+
 	#region Macro Unit Control
 
 	private static List<StandardCharacter> Units { get; set; } = [];
@@ -70,8 +115,8 @@ public partial class Commander : Node
 
 	public static void SelectUnit(int index)
 	{
-		if (index < 0 || index > Units.Count) {
-			Log.Err(() => $"SelectUnit: Index {index} is out of range (0 to {Units.Count - 1}).");
+		if (index < 0 || index >= Units.Count) {
+			Log.Me(() => $"Cannot select unit at index {index} in an array of {Units.Count} units.");
 			return;
 		}
 
@@ -113,7 +158,10 @@ public partial class Commander : Node
 	#region Micro Unit Control
 
 	public static StandardCharacter FocusedUnit { get; private set; } = null!;
-	//public static List<StandardItem> UnitInventory => FocusedUnit.Inventory;
+	public static List<StandardItem> UnitInventory => FocusedUnit.Inventory;
+
+	public static bool PrimeDrop { get; set; } = false;
+
 
 	public static void SetFocusedUnit(int index)
 	{
@@ -125,25 +173,30 @@ public partial class Commander : Node
 		FocusedUnit = Units[index];
 	}
 
+
 	public static void ClearFocusedUnit()
 	{
 		FocusedUnit = null!;
 	}
 
-	public static void SelectItem(int itemIndex)
-	{
+
+	public static void SelectItem(int itemIndex) {
 		if (FocusedUnit == null) {
-			Log.Err(() => "SelectItem: No focused unit set.");
+			Log.Me(() => "SelectItem: No focused unit set.", Instance.LogInput);
 			return;
 		}
 
 		if (itemIndex < 0 || itemIndex >= FocusedUnit.Inventory.Count) {
-			Log.Err(() => $"SelectItem: Item index {itemIndex} is out of range (0 to {FocusedUnit.Inventory.Count - 1}).");
+			Log.Me(() => $"SelectItem: Item index {itemIndex} is out of range (0 to {FocusedUnit.Inventory.Count - 1}).", Instance.LogInput);
 			return;
 		}
 
-		//FocusedUnit.SelectItem(itemIndex);
+		if (PrimeDrop) FocusedUnit.RemoveItemFromInventory(itemIndex, true, out var _);
+		else FocusedUnit.ToggleEquipItem(itemIndex);
 	}
 
 	#endregion
+
+	#endregion
+
 }

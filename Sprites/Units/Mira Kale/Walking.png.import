@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bjipwk6ac5bx0"
-path="res://.godot/imported/Idle.png-d69ca01bfc04c87774d1d6129de306e4.ctex"
+uid="uid://b3esetth4h67v"
+path="res://.godot/imported/Walking.png-008e41162bd35a3386f4c026a7f48c13.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/Legionnaires/Rikka/Idle.png"
-dest_files=["res://.godot/imported/Idle.png-d69ca01bfc04c87774d1d6129de306e4.ctex"]
+source_file="res://Sprites/Units/Mira Kale/Walking.png"
+dest_files=["res://.godot/imported/Walking.png-008e41162bd35a3386f4c026a7f48c13.ctex"]
 
 [params]
 

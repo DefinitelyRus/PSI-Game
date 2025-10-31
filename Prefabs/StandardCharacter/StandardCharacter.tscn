@@ -1,13 +1,13 @@
 [gd_scene load_steps=84 format=3 uid="uid://daotyvqai4b36"]
 
 [ext_resource type="Script" uid="uid://dbkinu8656olu" path="res://Prefabs/StandardCharacter/StandardCharacter.cs" id="1_udvt5"]
-[ext_resource type="Texture2D" uid="uid://bjipwk6ac5bx0" path="res://Sprites/Legionnaires/Rikka/Idle.png" id="2_r87il"]
+[ext_resource type="Texture2D" uid="uid://bjipwk6ac5bx0" path="res://Sprites/Units/Mira Kale/Idle.png" id="2_r87il"]
 [ext_resource type="Script" uid="uid://cavubcy1osm40" path="res://Prefabs/StandardCharacter/ControlSurface.cs" id="3_r87il"]
-[ext_resource type="PackedScene" uid="uid://dx7iwt4dptbck" path="res://Prefabs/StandardProjectileWeapon.tscn" id="4_g5v64"]
+[ext_resource type="PackedScene" uid="uid://dx7iwt4dptbck" path="res://Prefabs/StandardWeapon/Projectile/StandardProjectileWeapon.tscn" id="4_g5v64"]
 [ext_resource type="Script" uid="uid://vonec1xhm4cv" path="res://Prefabs/StandardCharacter/AIAgentManager.cs" id="4_rog04"]
-[ext_resource type="Texture2D" uid="uid://b3esetth4h67v" path="res://Sprites/Legionnaires/Rikka/Walking.png" id="7_7fba6"]
-[ext_resource type="Texture2D" uid="uid://bsjlco5cxe7v3" path="res://Sprites/Legionnaires/Rikka/Standing Shooting.png" id="8_g5v64"]
-[ext_resource type="Texture2D" uid="uid://dsx2m05ecv2k1" path="res://Sprites/Legionnaires/Rikka/Death.png" id="9_n5c1j"]
+[ext_resource type="Texture2D" uid="uid://b3esetth4h67v" path="res://Sprites/Units/Mira Kale/Walking.png" id="7_7fba6"]
+[ext_resource type="Texture2D" uid="uid://bsjlco5cxe7v3" path="res://Sprites/Units/Mira Kale/Standing Shooting.png" id="8_g5v64"]
+[ext_resource type="Texture2D" uid="uid://dsx2m05ecv2k1" path="res://Sprites/Units/Mira Kale/Death.png" id="9_n5c1j"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g5v64"]
 radius = 3.5
@@ -1319,13 +1319,13 @@ blend_point_0/pos = Vector2(0, 1)
 blend_point_1/node = SubResource("AnimationNodeAnimation_ncp2d")
 blend_point_1/pos = Vector2(0, -1)
 blend_point_2/node = SubResource("AnimationNodeAnimation_evbho")
-blend_point_2/pos = Vector2(-1, 0.6)
+blend_point_2/pos = Vector2(-1, 0.90000004)
 blend_point_3/node = SubResource("AnimationNodeAnimation_kgnem")
 blend_point_3/pos = Vector2(-1, -0.6)
 blend_point_4/node = SubResource("AnimationNodeAnimation_c61qw")
 blend_point_4/pos = Vector2(1, -0.6)
 blend_point_5/node = SubResource("AnimationNodeAnimation_jf2d2")
-blend_point_5/pos = Vector2(1, 0.6)
+blend_point_5/pos = Vector2(1, 0.90000004)
 blend_point_6/node = SubResource("AnimationNodeAnimation_prwn4")
 blend_point_6/pos = Vector2(0, 0)
 min_space = Vector2(-1.2, -1.2)
@@ -1358,9 +1358,9 @@ auto_triangles = false
 blend_point_0/node = SubResource("AnimationNodeAnimation_3q7h1")
 blend_point_0/pos = Vector2(0, -1)
 blend_point_1/node = SubResource("AnimationNodeAnimation_a8s83")
-blend_point_1/pos = Vector2(1, 0.6)
+blend_point_1/pos = Vector2(1, 0.90000004)
 blend_point_2/node = SubResource("AnimationNodeAnimation_6u60n")
-blend_point_2/pos = Vector2(-1, 0.6)
+blend_point_2/pos = Vector2(-1, 0.90000004)
 blend_point_3/node = SubResource("AnimationNodeAnimation_afiwb")
 blend_point_3/pos = Vector2(-1, -0.4)
 blend_point_4/node = SubResource("AnimationNodeAnimation_frn2o")
@@ -1403,13 +1403,13 @@ blend_point_1/pos = Vector2(0, 1)
 blend_point_2/node = SubResource("AnimationNodeAnimation_rog04")
 blend_point_2/pos = Vector2(0, -0.9)
 blend_point_3/node = SubResource("AnimationNodeAnimation_6la15")
-blend_point_3/pos = Vector2(-1, 0.6)
+blend_point_3/pos = Vector2(-1, 0.90000004)
 blend_point_4/node = SubResource("AnimationNodeAnimation_33sgy")
 blend_point_4/pos = Vector2(-1, -0.5)
 blend_point_5/node = SubResource("AnimationNodeAnimation_pwcr2")
 blend_point_5/pos = Vector2(1, -0.5)
 blend_point_6/node = SubResource("AnimationNodeAnimation_itkmi")
-blend_point_6/pos = Vector2(1, 0.6)
+blend_point_6/pos = Vector2(1, 0.90000004)
 min_space = Vector2(-1.1, -1.1)
 max_space = Vector2(1.1, 1.1)
 blend_mode = 1
@@ -1464,7 +1464,7 @@ states/Start/position = Vector2(101, 100)
 states/Walk/node = SubResource("AnimationNodeBlendSpace2D_rog04")
 states/Walk/position = Vector2(564, 100)
 transitions = ["Walk", "Attack", SubResource("AnimationNodeStateMachineTransition_evbho"), "Walk", "Death", SubResource("AnimationNodeStateMachineTransition_baotw"), "Attack", "Death", SubResource("AnimationNodeStateMachineTransition_5xadj"), "Start", "Idle", SubResource("AnimationNodeStateMachineTransition_g12ag"), "Idle", "Death", SubResource("AnimationNodeStateMachineTransition_g5v64"), "Idle", "Attack", SubResource("AnimationNodeStateMachineTransition_n5c1j"), "Idle", "Walk", SubResource("AnimationNodeStateMachineTransition_rog04"), "Walk", "Idle", SubResource("AnimationNodeStateMachineTransition_6la15"), "Attack", "Idle", SubResource("AnimationNodeStateMachineTransition_itkmi"), "Attack", "Walk", SubResource("AnimationNodeStateMachineTransition_33sgy")]
-graph_offset = Vector2(-83, -26)
+graph_offset = Vector2(-76, -12)
 
 [node name="Standard Character" type="CharacterBody2D" node_paths=PackedStringArray("Control", "AIManager", "Weapon", "HitArea", "ClickArea", "AnimationPlayer", "AnimationTree")]
 process_mode = 1
@@ -1494,6 +1494,7 @@ script = ExtResource("4_rog04")
 Character = NodePath("..")
 ControlSurface = NodePath("../Control Surface")
 NavAgent = NodePath("../NavigationAgent2D")
+LogReady = false
 
 [node name="Projectile Weapon" parent="." node_paths=PackedStringArray("WeaponOwner") instance=ExtResource("4_g5v64")]
 WeaponOwner = NodePath("..")
@@ -1539,9 +1540,9 @@ parameters/conditions/is_dead = false
 parameters/conditions/is_idling = false
 parameters/conditions/is_walking = false
 parameters/Attack/blend_position = Vector2(-0.813268, 0.575914)
-parameters/Death/blend_position = Vector2(-0.20413435, 0.76)
-parameters/Idle/blend_position = Vector2(0.327273, -0.5925)
-parameters/Walk/blend_position = Vector2(0.0045833588, 0.044394612)
+parameters/Death/blend_position = Vector2(-0.09000003, 0.7695068)
+parameters/Idle/blend_position = Vector2(-0.51000005, -0.50044847)
+parameters/Walk/blend_position = Vector2(-0.28645837, 0.19237673)
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 path_desired_distance = 5.0

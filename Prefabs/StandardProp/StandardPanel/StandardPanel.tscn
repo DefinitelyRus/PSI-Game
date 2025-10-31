@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3 uid="uid://bkdjnih8fvbyx"]
+
+[ext_resource type="PackedScene" uid="uid://bnslwo4ecgkcn" path="res://Prefabs/StandardProp/StandardProp.tscn" id="1_v7ru1"]
+[ext_resource type="Script" uid="uid://bd1karcvhggrl" path="res://Prefabs/StandardProp/StandardPanel/StandardPanel.cs" id="2_yjmuf"]
+
+[node name="StandardProp" instance=ExtResource("1_v7ru1")]
+script = ExtResource("2_yjmuf")

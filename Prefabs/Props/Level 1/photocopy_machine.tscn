@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://ckrex7dx10ey8"]
 
-[ext_resource type="PackedScene" uid="uid://bnslwo4ecgkcn" path="res://Prefabs/StandardProp.tscn" id="1_0kp08"]
+[ext_resource type="PackedScene" uid="uid://bnslwo4ecgkcn" path="res://Prefabs/StandardProp/StandardProp.tscn" id="1_0kp08"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_levpf"]
 size = Vector2(14, 13)
