@@ -41,11 +41,25 @@ public partial class AIAgentManager : Node2D {
 
 		switch (actionName) {
 			case IM.LeftClick:
+				if (args.VariantType != Variant.Type.Vector2) {
+					Log.Err(() => $"{Character.InstanceID} received Variant of type {args.VariantType} on a {Variant.Type.Vector2} parameter.");
+					break;
+				}
+
 				Action1(mousePos);
 				break;
 
 			case IM.RightClick:
-				Action2(mousePos); //TODO: Change behavior to only move to position.
+				if (args.VariantType != Variant.Type.Vector2)  {
+					Log.Err(() => $"{Character.InstanceID} received Variant of type {args.VariantType} on a {Variant.Type.Vector2} parameter.");
+					break;
+				}
+
+				Action2(mousePos);
+				break;
+
+			case "stop_action":
+				Stop();
 				break;
 		}
 	}
@@ -127,14 +141,17 @@ public partial class AIAgentManager : Node2D {
 
 	public void GoTo(Vector2 target) {
 		Log.Me(() => $"{Character.InstanceID} received move command to ({target.X:F2}, {target.Y:F2}).", LogInput);
+		_hasDestination = true;
 		NavAgent.TargetPosition = target;
-		_hasTarget = true;
 	}
 
 
 	public void Stop() {
-		_hasTarget = false;
-		NavAgent.TargetPosition = GlobalPosition; // Set target to current position to stop movement.
+		if (!IsSelected) return;
+		
+		_hasDestination = false;
+		NavAgent.TargetPosition = GlobalPosition;
+		NavAgent.Velocity = Vector2.Zero;
 	}
 
 
@@ -142,6 +159,7 @@ public partial class AIAgentManager : Node2D {
 		if (!_hasDestination || NavAgent.IsNavigationFinished()) {
 			ControlSurface.MovementDirection = Vector2.Zero;
 			ControlSurface.MovementMultiplier = 0f;
+			NavAgent.Velocity = Vector2.Zero;
 			return;
 		}
 
