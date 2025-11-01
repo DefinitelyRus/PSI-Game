@@ -9,9 +9,8 @@
 [ext_resource type="Texture2D" uid="uid://bsjlco5cxe7v3" path="res://Sprites/Units/Mira Kale/Standing Shooting.png" id="8_g5v64"]
 [ext_resource type="Texture2D" uid="uid://dsx2m05ecv2k1" path="res://Sprites/Units/Mira Kale/Death.png" id="9_n5c1j"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g5v64"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_6shlc"]
 radius = 3.5
-height = 9.2
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_n5c1j"]
 radius = 4.6
@@ -1502,7 +1501,7 @@ WeaponOwner = NodePath("..")
 [node name="Body Collider" type="CollisionShape2D" parent="."]
 position = Vector2(0, 9.5)
 rotation = 1.5708
-shape = SubResource("CapsuleShape2D_g5v64")
+shape = SubResource("CircleShape2D_6shlc")
 
 [node name="Hit Area" type="Area2D" parent="."]
 position = Vector2(0, 3)
@@ -1545,7 +1544,8 @@ parameters/Idle/blend_position = Vector2(-0.51000005, -0.50044847)
 parameters/Walk/blend_position = Vector2(-0.28645837, 0.19237673)
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
-path_desired_distance = 5.0
+path_desired_distance = 8.0
+path_max_distance = 150.0
 avoidance_enabled = true
 avoidance_layers = 16
 avoidance_mask = 28
