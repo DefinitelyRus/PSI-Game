@@ -2,8 +2,8 @@ using System.Collections.Generic;
 using Godot;
 namespace CommonScripts;
 
-public partial class EntityManager : Node2D
-{
+public partial class EntityManager : Node2D {
+    
     #region Instance Members
 
     #region Godot Callbacks

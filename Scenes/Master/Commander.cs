@@ -3,8 +3,7 @@ using System.Collections.Generic;
 
 namespace CommonScripts;
 
-public partial class Commander : Node
-{
+public partial class Commander : Node {
 
 	#region Instance Members
 

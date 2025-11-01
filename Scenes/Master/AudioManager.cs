@@ -1,8 +1,8 @@
 using Godot;
 namespace CommonScripts;
 
-public partial class AudioManager : Node2D
-{
+public partial class AudioManager : Node2D {
+	
 	#region Instance Members
 
 	#region Volumes
@@ -94,4 +94,5 @@ public partial class AudioManager : Node2D
 	#endregion
 
 	#endregion
+
 }

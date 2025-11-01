@@ -49,10 +49,6 @@ public partial class Master : Node {
 
     public static Master Instance { get; private set; } = null!;
 
-    #endregion
-
-    #region Methods
-
     public static void DebugPause() {
         Log.Me(() => "Freezing game...");
 
