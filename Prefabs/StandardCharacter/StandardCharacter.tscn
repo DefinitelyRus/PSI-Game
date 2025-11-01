@@ -1544,7 +1544,7 @@ parameters/Idle/blend_position = Vector2(-0.51000005, -0.50044847)
 parameters/Walk/blend_position = Vector2(-0.28645837, 0.19237673)
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
-path_desired_distance = 8.0
+path_desired_distance = 10.0
 path_max_distance = 150.0
 avoidance_enabled = true
 avoidance_layers = 16
