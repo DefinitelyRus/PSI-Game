@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using Godot;
 namespace CommonScripts;
 
@@ -34,7 +36,7 @@ public partial class SceneLoader : Node
     #region Godot Callbacks
 
     public override void _EnterTree() {
-		Log.Me(() => "A SceneLoader has entered the tree. Checking properties...", LogReady);
+        Log.Me(() => "A SceneLoader has entered the tree. Checking properties...", LogReady);
 
         #region Node Checks
 
@@ -56,7 +58,7 @@ public partial class SceneLoader : Node
         #endregion
 
         #region Level Checks
-        
+
         if (Levels.Length == 0 && !SuppressWarnings) Log.Warn(() => "No levels assigned.");
 
         for (int i = 0; i < Levels.Length; i++) {
@@ -65,8 +67,20 @@ public partial class SceneLoader : Node
 
         #endregion
 
+        #region Instance Check
+
+        if (Instance != null) {
+            Log.Err("Multiple instances of SceneLoader detected. There should only be one SceneLoader in the scene.");
+            QueueFree();
+            return;
+        }
+
+        Instance = this;
+
+        #endregion
+
         Log.Me(() => "Done!", LogReady);
-		return;
+        return;
     }
 
     public override void _Ready() {
@@ -128,13 +142,19 @@ public partial class SceneLoader : Node
     public static void LoadLevel(PackedScene levelScene) {
         UnloadLevel(false);
 
-		Level level = levelScene.Instantiate<Level>();
+        Level level = levelScene.Instantiate<Level>();
 
-		foreach (StandardCharacter unit in Commander.GetAllUnits()) {
-			level.SpawnUnit(unit);
-		}
+        StandardCharacter[] units = [.. Commander.GetAllUnits()];
 
-		Instance.Theatre.AddChild(level);
+        if (units.Length > 0) {
+            foreach (StandardCharacter unit in units) {
+                level.SpawnUnit(unit);
+            }
+        }
+
+        else Log.Err(() => "No units registered with Commander to spawn in the level.");
+        
+        Instance.Theatre.AddChild(level);
 	}
 
 
