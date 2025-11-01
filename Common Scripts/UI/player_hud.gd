@@ -31,7 +31,7 @@ var item_icons := {
 }
 
 var char_icon := {
-	"char1": "res://Sprites/Legionnaires/Rikka/Idle.png",
+	"char1": "res://Sprites/Units/Mira Kale//Idle.png",
 }
 
 # ---------- UI MANAGER ----------

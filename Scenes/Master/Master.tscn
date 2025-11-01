@@ -1,15 +1,14 @@
-[gd_scene load_steps=11 format=3 uid="uid://d3cvhjbvnx1a1"]
+[gd_scene load_steps=10 format=3 uid="uid://d3cvhjbvnx1a1"]
 
 [ext_resource type="Script" uid="uid://cdfonun0qopbr" path="res://Scenes/Master/Master.cs" id="1_o4rt4"]
 [ext_resource type="Script" uid="uid://bskjggdrqe3xx" path="res://Scenes/Master/SceneLoader.cs" id="2_7tgqy"]
 [ext_resource type="Script" uid="uid://voqaa4hgrhdv" path="res://Scenes/Master/AudioManager.cs" id="2_m6dx2"]
 [ext_resource type="PackedScene" uid="uid://rbirnmt14654" path="res://Scenes/Main Menu/MainMenu.tscn" id="3_1t0lv"]
 [ext_resource type="Script" uid="uid://coj1ftn5dishm" path="res://Scenes/Master/Commander.cs" id="3_8ixx1"]
-[ext_resource type="PackedScene" uid="uid://d0ghglnyf6efy" path="res://Prefabs/StandardCharacter/Units/Testo.tscn" id="4_m6dx2"]
 [ext_resource type="PackedScene" uid="uid://bfp0axiex7i7o" path="res://Scenes/Levels/TestScene.tscn" id="4_qemos"]
-[ext_resource type="PackedScene" uid="uid://cpyjo548jierg" path="res://Scenes/Levels/map_test.tscn" id="4_tcv0n"]
 [ext_resource type="Script" uid="uid://ccfcn78cg1s2f" path="res://Scenes/Master/EntityManager.cs" id="5_0hine"]
 [ext_resource type="Script" uid="uid://b3xb0rhvopx03" path="res://Scenes/Master/InputManager.cs" id="5_qemos"]
+[ext_resource type="PackedScene" uid="uid://b035mnohjc3ck" path="res://Scenes/Levels/map_1.tscn" id="8_sxu81"]
 
 [node name="Master" type="Node" node_paths=PackedStringArray("SceneLoader", "InputManager")]
 process_mode = 3
@@ -26,7 +25,6 @@ script = ExtResource("2_m6dx2")
 
 [node name="Commander" type="Node" parent="."]
 script = ExtResource("3_8ixx1")
-InitialUnits = [ExtResource("4_m6dx2")]
 
 [node name="Entity Manager" type="Node2D" parent="."]
 script = ExtResource("5_0hine")
@@ -40,7 +38,7 @@ script = ExtResource("2_7tgqy")
 Master = NodePath("..")
 Theatre = NodePath("../Theatre")
 MainMenu = ExtResource("3_1t0lv")
-DevScene = ExtResource("4_tcv0n")
+DevScene = ExtResource("8_sxu81")
 Levels = [ExtResource("4_qemos")]
 
 [node name="Theatre" type="Node" parent="."]
