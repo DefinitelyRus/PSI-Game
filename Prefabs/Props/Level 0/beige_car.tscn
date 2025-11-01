@@ -9,8 +9,8 @@ size = Vector2(32, 63)
 [node name="Beige Car" instance=ExtResource("1_sn6xu")]
 collision_layer = 9
 PropName = "Beige Car"
-PropDescription = "a beige car"
 PropID = "beige_car"
+PropDescription = "a beige car"
 
 [node name="CollisionShape2D" parent="." index="0"]
 position = Vector2(0, 3.5)

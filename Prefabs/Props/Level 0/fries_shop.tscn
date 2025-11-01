@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://cbjdtjd1210m"]
+
+[ext_resource type="PackedScene" uid="uid://bnslwo4ecgkcn" path="res://Prefabs/StandardProp/StandardProp.tscn" id="1_gpgl8"]
+[ext_resource type="Texture2D" uid="uid://f8i6teg6ade7" path="res://Sprites/World Sprites/Level 0 - Parking Lot/Parking_Props.png" id="2_h2x3y"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_huyye"]
+size = Vector2(60, 16)
+
+[node name="fries_shop" instance=ExtResource("1_gpgl8")]
+collision_layer = 9
+PropName = "Fries shop"
+PropID = "fries_shop"
+PropDescription = "a fries shop"
+
+[node name="CollisionShape2D" parent="." index="0"]
+position = Vector2(-1, 12)
+shape = SubResource("RectangleShape2D_huyye")
+
+[node name="Sprite2D" parent="." index="1"]
+texture = ExtResource("2_h2x3y")
+region_rect = Rect2(640, 80, 65, 51)

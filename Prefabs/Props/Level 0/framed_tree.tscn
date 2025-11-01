@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://be002jhft8mkb"]
+
+[ext_resource type="PackedScene" uid="uid://bnslwo4ecgkcn" path="res://Prefabs/StandardProp/StandardProp.tscn" id="1_2ujbh"]
+[ext_resource type="Texture2D" uid="uid://f8i6teg6ade7" path="res://Sprites/World Sprites/Level 0 - Parking Lot/Parking_Props.png" id="2_1yfyi"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_huyye"]
+size = Vector2(32, 23)
+
+[node name="framed_tree" instance=ExtResource("1_2ujbh")]
+collision_layer = 9
+PropName = "Framed Tree"
+PropID = "framed_tree"
+PropDescription = "a tree with frame"
+
+[node name="CollisionShape2D" parent="." index="0"]
+position = Vector2(0, 20.5)
+shape = SubResource("RectangleShape2D_huyye")
+
+[node name="Sprite2D" parent="." index="1"]
+texture = ExtResource("2_1yfyi")
+region_rect = Rect2(403, 120, 42, 64)

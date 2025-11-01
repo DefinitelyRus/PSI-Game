@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://5ujhk8un325f"]
+
+[ext_resource type="PackedScene" uid="uid://bnslwo4ecgkcn" path="res://Prefabs/StandardProp/StandardProp.tscn" id="1_2enan"]
+[ext_resource type="Texture2D" uid="uid://d0vd1cttixedg" path="res://Sprites/World Sprites/Level 0 - Parking Lot/Vehicles.png" id="2_viedb"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_huyye"]
+size = Vector2(110, 35)
+
+[node name="Bus" instance=ExtResource("1_2enan")]
+collision_layer = 9
+PropName = "Bus"
+PropID = "bus"
+PropDescription = "a big yellow bus"
+
+[node name="CollisionShape2D" parent="." index="0"]
+position = Vector2(0, 9.5)
+shape = SubResource("RectangleShape2D_huyye")
+
+[node name="Sprite2D" parent="." index="1"]
+texture = ExtResource("2_viedb")
+region_rect = Rect2(721, 402, 111, 62)

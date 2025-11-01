@@ -8,8 +8,8 @@ size = Vector2(12, 10)
 
 [node name="Street Light" instance=ExtResource("1_oete5")]
 PropName = "Street Light"
-PropDescription = "a street light"
 PropID = "street_light"
+PropDescription = "a street light"
 
 [node name="CollisionShape2D" parent="." index="0"]
 position = Vector2(0, 26)

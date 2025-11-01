@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://ba8eb7jpn51gl"]
+
+[ext_resource type="PackedScene" uid="uid://bnslwo4ecgkcn" path="res://Prefabs/StandardProp/StandardProp.tscn" id="1_l5oi5"]
+[ext_resource type="Texture2D" uid="uid://f8i6teg6ade7" path="res://Sprites/World Sprites/Level 0 - Parking Lot/Parking_Props.png" id="2_dc38p"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_huyye"]
+size = Vector2(61, 9)
+
+[node name="food_benches" instance=ExtResource("1_l5oi5")]
+collision_layer = 9
+PropName = "Food Bench"
+PropID = "food_benches"
+PropDescription = "chairs near the food stalls"
+
+[node name="CollisionShape2D" parent="." index="0"]
+position = Vector2(-0.5, 3.5)
+shape = SubResource("RectangleShape2D_huyye")
+
+[node name="Sprite2D" parent="." index="1"]
+texture = ExtResource("2_dc38p")
+region_rect = Rect2(705, 0, 63, 16)

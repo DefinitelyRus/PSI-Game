@@ -4,17 +4,17 @@
 [ext_resource type="Texture2D" uid="uid://d0vd1cttixedg" path="res://Sprites/World Sprites/Level 0 - Parking Lot/Vehicles.png" id="2_c2klp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0rw65"]
-size = Vector2(32, 66)
+size = Vector2(78, 28)
 
 [node name="Green Car" instance=ExtResource("1_o2meh")]
 PropName = "Green Car"
-PropDescription = "a green car"
 PropID = "green_car"
+PropDescription = "a green car"
 
 [node name="CollisionShape2D" parent="." index="0"]
-position = Vector2(0, 4)
+position = Vector2(0, -2)
 shape = SubResource("RectangleShape2D_0rw65")
 
 [node name="Sprite2D" parent="." index="1"]
 texture = ExtResource("2_c2klp")
-region_rect = Rect2(437, 308, 37, 73)
+region_rect = Rect2(354, 296, 77, 40)

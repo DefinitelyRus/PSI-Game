@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://qnhxxp5tb5qv"]
+
+[ext_resource type="PackedScene" uid="uid://bnslwo4ecgkcn" path="res://Prefabs/StandardProp/StandardProp.tscn" id="1_v5f6k"]
+[ext_resource type="Texture2D" uid="uid://f8i6teg6ade7" path="res://Sprites/World Sprites/Level 0 - Parking Lot/Parking_Props.png" id="2_petl6"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_huyye"]
+size = Vector2(107, 34)
+
+[node name="taco_shop" instance=ExtResource("1_v5f6k")]
+collision_layer = 9
+PropName = "Taco Shop"
+PropID = "taco_shop"
+PropDescription = "a taco shop food truck"
+
+[node name="CollisionShape2D" parent="." index="0"]
+position = Vector2(0.5, 15)
+shape = SubResource("RectangleShape2D_huyye")
+
+[node name="Sprite2D" parent="." index="1"]
+texture = ExtResource("2_petl6")
+region_rect = Rect2(646, 138, 106, 71)

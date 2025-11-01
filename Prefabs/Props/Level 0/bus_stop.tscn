@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://d3akb157jpvls"]
+
+[ext_resource type="PackedScene" uid="uid://bnslwo4ecgkcn" path="res://Prefabs/StandardProp/StandardProp.tscn" id="1_kn61k"]
+[ext_resource type="Texture2D" uid="uid://f8i6teg6ade7" path="res://Sprites/World Sprites/Level 0 - Parking Lot/Parking_Props.png" id="2_gmicu"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_huyye"]
+size = Vector2(58, 18)
+
+[node name="bus_stop" instance=ExtResource("1_kn61k")]
+collision_layer = 9
+PropName = "Bus Stop"
+PropID = "bus_stop"
+PropDescription = "a bus stop"
+
+[node name="CollisionShape2D" parent="." index="0"]
+position = Vector2(2, 15)
+shape = SubResource("RectangleShape2D_huyye")
+
+[node name="Sprite2D" parent="." index="1"]
+texture = ExtResource("2_gmicu")
+region_rect = Rect2(705, 16, 63, 48)

@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://jdudiieer740"]
+
+[ext_resource type="PackedScene" uid="uid://bnslwo4ecgkcn" path="res://Prefabs/StandardProp/StandardProp.tscn" id="1_qiuik"]
+[ext_resource type="Texture2D" uid="uid://f8i6teg6ade7" path="res://Sprites/World Sprites/Level 0 - Parking Lot/Parking_Props.png" id="2_g06v6"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_huyye"]
+size = Vector2(26, 8.5)
+
+[node name="charger" instance=ExtResource("1_qiuik")]
+collision_layer = 9
+PropName = "charger"
+PropID = "charger"
+PropDescription = "a charger for e-car"
+
+[node name="CollisionShape2D" parent="." index="0"]
+position = Vector2(0, 9.75)
+shape = SubResource("RectangleShape2D_huyye")
+
+[node name="Sprite2D" parent="." index="1"]
+texture = ExtResource("2_g06v6")
+region_rect = Rect2(531, 305, 26, 31)
