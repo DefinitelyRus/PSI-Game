@@ -182,8 +182,9 @@ public partial class AIAgentManager : Node2D {
 			return;
 		}
 	}
-	public override void _Ready() {
 
+	
+	public override void _Ready() {
 		// Connect InputListener to the ActionCommand signal.
 		StringName signal = nameof(InputManager.ActionCommand);
 		Callable callable = new(this, nameof(InputListener));
