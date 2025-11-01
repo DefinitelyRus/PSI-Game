@@ -1,8 +1,8 @@
-[gd_scene load_steps=7 format=4 uid="uid://b035mnohjc3ck"]
+[gd_scene load_steps=8 format=4 uid="uid://b035mnohjc3ck"]
 
 [ext_resource type="Texture2D" uid="uid://f8i6teg6ade7" path="res://Sprites/World Sprites/Level 0 - Parking Lot/Parking_Props.png" id="1_duh8g"]
 [ext_resource type="Script" uid="uid://c66xjhe5i04ty" path="res://Scenes/Levels/Level.cs" id="1_som2o"]
-[ext_resource type="PackedScene" uid="uid://daotyvqai4b36" path="res://Prefabs/StandardCharacter/StandardCharacter.tscn" id="2_6m8qg"]
+[ext_resource type="Script" uid="uid://bw8770jogthra" path="res://Scenes/Master/CameraMan.cs" id="2_som2o"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6m8qg"]
 texture = ExtResource("1_duh8g")
@@ -1006,12 +1006,31 @@ physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_6m8qg")
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_6m8qg"]
-vertices = PackedVector2Array(1644, 468.97656, -288.97656, 467.0078, -288.0078, -170.0625, 1644, -182.92969)
+vertices = PackedVector2Array(780, 133, -285, 133, -285, -151, 780, -151)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(-299, 477, -298, -180, 1654, -193, 1654, 479)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-295, -161, -295, 143, 790, 143, 790, -161)])
 
-[node name="map_1" type="Node2D"]
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_som2o"]
+vertices = PackedVector2Array(1542, 713, 122.03125, 713, 122.96875, 409, 1286, 570, 1542, 570, 1286, 409)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(3, 4, 0), PackedInt32Array(5, 3, 2)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(113, 399, 112, 723, 1552, 723, 1552, 560, 1296, 560, 1296, 399)])
+
+[node name="map_1" type="Node2D" node_paths=PackedStringArray("SpawnPoints")]
 script = ExtResource("1_som2o")
+SpawnPoints = [NodePath("Spawnpoints/C1"), NodePath("Spawnpoints/C2")]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(195, 379)
+position_smoothing_enabled = true
+script = ExtResource("2_som2o")
+
+[node name="Spawnpoints" type="Node2D" parent="."]
+
+[node name="C1" type="Node2D" parent="Spawnpoints"]
+position = Vector2(39, 351)
+
+[node name="C2" type="Node2D" parent="Spawnpoints"]
+position = Vector2(14, 384)
 
 [node name="TileMap" type="Node2D" parent="."]
 position = Vector2(0, 2)
@@ -1046,23 +1065,10 @@ tile_set = SubResource("TileSet_som2o")
 [node name="Colliding" type="Node2D" parent="Props"]
 visible = false
 
-[node name="Testo" parent="." instance=ExtResource("2_6m8qg")]
-position = Vector2(29, 362)
-collision_layer = 48
-CharacterName = "Testo"
-
-[node name="AnimationTree" parent="Testo" index="8"]
-parameters/Attack/blend_position = Vector2(0, 0)
-parameters/Death/blend_position = Vector2(0, 0)
-parameters/Idle/blend_position = Vector2(0, 0)
-parameters/Walk/blend_position = Vector2(0, 0)
-
-[node name="Camera2D" type="Camera2D" parent="Testo"]
-position = Vector2(0, -1)
-
-[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
-visible = false
+[node name="Sector 1" type="NavigationRegion2D" parent="."]
 position = Vector2(298, 257)
 navigation_polygon = SubResource("NavigationPolygon_6m8qg")
 
-[editable path="Testo"]
+[node name="Sector 2" type="NavigationRegion2D" parent="."]
+position = Vector2(0, 1)
+navigation_polygon = SubResource("NavigationPolygon_som2o")
