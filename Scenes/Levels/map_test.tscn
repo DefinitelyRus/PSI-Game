@@ -5506,7 +5506,7 @@ SpawnPoints = [NodePath("Spawnpoints/C1")]
 [node name="Spawnpoints" type="Node2D" parent="."]
 
 [node name="C1" type="Node2D" parent="Spawnpoints"]
-position = Vector2(53, 155)
+position = Vector2(225, 155)
 
 [node name="Tilemap" type="Node2D" parent="."]
 
