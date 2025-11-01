@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=4 uid="uid://cpyjo548jierg"]
+[gd_scene load_steps=22 format=4 uid="uid://cpyjo548jierg"]
 
 [ext_resource type="Texture2D" uid="uid://dc6keunkgx6tt" path="res://Sprites/World Sprites/Level 1 - Office/Room_Builder.png" id="1_d1yy6"]
 [ext_resource type="Script" uid="uid://c66xjhe5i04ty" path="res://Scenes/Levels/Level.cs" id="1_lmqaa"]
@@ -5485,9 +5485,19 @@ polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(31, 47, 257, 47, 257, 273, 31, 273)])
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_5t83f"]
-vertices = PackedVector2Array(455, 167, 313, 167, 313, 105, 455, 105)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(303, 95, 465, 95, 465, 177, 303, 177)])
+vertices = PackedVector2Array(267, 166.03906, 267, 154.04688, 313, 154.29688, 455, 166.95313, 455, 105, 313, 105)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 3, 2, 5)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(303, 95, 465, 95, 465, 177, 257, 176, 257, 144, 302.99997, 144.25108)])
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_7opuo"]
+vertices = PackedVector2Array(486, 10, 486, 54, 454, 54, 410, 10, 454, 85, 442, 85, 442, 54, 410, 54)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(2, 4, 5, 6), PackedInt32Array(3, 2, 6), PackedInt32Array(3, 6, 7)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(400, 0, 496, 0, 496, 64, 464, 64, 464, 95, 432, 95, 432, 64, 400, 64)])
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_lhl8a"]
+vertices = PackedVector2Array(454, 218, 534, 218, 534, 294, 346, 294, 346, 218, 442, 218, 454, 186, 442, 186)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(3, 4, 5), PackedInt32Array(0, 3, 5), PackedInt32Array(6, 0, 5, 7)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(336, 208, 336, 304, 544, 304, 544, 208, 464, 208, 464, 176, 432, 176, 432, 208)])
 
 [node name="map_test" type="Node2D" node_paths=PackedStringArray("SpawnPoints")]
 script = ExtResource("1_lmqaa")
@@ -5526,13 +5536,27 @@ tile_set = SubResource("TileSet_p3g52")
 
 [node name="Nav Regions" type="Node2D" parent="."]
 
-[node name="12 Chairs" type="NavigationRegion2D" parent="Nav Regions"]
+[node name="Room 1" type="NavigationRegion2D" parent="Nav Regions"]
 navigation_polygon = SubResource("NavigationPolygon_lmqaa")
 
-[node name="NavigationRegion2D" type="NavigationRegion2D" parent="Nav Regions"]
+[node name="Hallway 1" type="NavigationRegion2D" parent="Nav Regions"]
 navigation_polygon = SubResource("NavigationPolygon_5t83f")
 
-[node name="NavigationLink2D" type="NavigationLink2D" parent="Nav Regions"]
+[node name="Room 2" type="NavigationRegion2D" parent="Nav Regions"]
+navigation_polygon = SubResource("NavigationPolygon_7opuo")
+
+[node name="Room 3" type="NavigationRegion2D" parent="Nav Regions"]
+navigation_polygon = SubResource("NavigationPolygon_lhl8a")
+
+[node name="Room 1 - Hallway 1" type="NavigationLink2D" parent="Nav Regions"]
 position = Vector2(2.81, 0)
-start_position = Vector2(229.19, 160)
-end_position = Vector2(325.19, 160)
+start_position = Vector2(241.19, 160)
+end_position = Vector2(265.19, 160)
+
+[node name="Hallway 1 - Room 2" type="NavigationLink2D" parent="Nav Regions"]
+start_position = Vector2(447, 84)
+end_position = Vector2(447, 106)
+
+[node name="Hallway 1 - Room 3" type="NavigationLink2D" parent="Nav Regions"]
+start_position = Vector2(448, 160)
+end_position = Vector2(448, 187)
