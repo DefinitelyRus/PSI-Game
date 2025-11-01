@@ -2,27 +2,40 @@ using Godot;
 namespace CommonScripts;
 
 public partial class AIAgentManager : Node2D {
+
+	#region Nodes & Components
+	
+	[ExportGroup("Nodes & Components")]
 	[Export] public StandardCharacter Character = null!;
 	[Export] public ControlSurface ControlSurface = null!;
 	[Export] public NavigationAgent2D NavAgent = null!;
 
 	private Master Master => GetTree().Root.GetNode<Master>("Master");
 
+	#endregion
+
+	#region Debugging
+
 	[Export] public bool LogReady = true;
 	[Export] public bool LogProcess = false;
 	[Export] public bool LogPhysics = false;
 	[Export] public bool LogInput = false;
 
+	#endregion
+
+	#region Inputs
+
 	public Vector2 TargetPosition => NavAgent.TargetPosition;
-
-	private bool _hasTarget = false;
-
+	private bool _hasDestination = false;
 	public bool IsSelected { get; set; } = false;
 
-	private void InputListener(string actionName, Variant args = new()) {
-		Log.Me(() => $"{Character.InstanceID} received action command: {actionName}.", true);
+	public bool Searching = false;
+	public bool Targeting = false;
+	public PhysicsBody2D? CurrentTarget = null;
 
-		if (args.VariantType != Variant.Type.Vector2) return;
+
+	private void InputListener(string actionName, Variant args = new()) {
+		Log.Me(() => $"{Character.InstanceID} received action command: {actionName}.", LogInput);
 
 		Vector2 mousePos = (Vector2) args;
 
@@ -58,12 +71,6 @@ public partial class AIAgentManager : Node2D {
 
 		return isInside;
 	}
-
-	#region Actions
-
-	public bool Searching = false;
-	public bool Targeting = false;
-	public PhysicsBody2D? CurrentTarget = null;
 
 	public void Action1(Vector2 mousePos) {
 		/*
@@ -116,6 +123,7 @@ public partial class AIAgentManager : Node2D {
 
 	#endregion
 
+	#region Navigation
 
 	public void GoTo(Vector2 target) {
 		Log.Me(() => $"{Character.InstanceID} received move command to ({target.X:F2}, {target.Y:F2}).", LogInput);
@@ -131,7 +139,7 @@ public partial class AIAgentManager : Node2D {
 
 
 	private void MoveTo() {
-		if (!_hasTarget || NavAgent.IsNavigationFinished()) {
+		if (!_hasDestination || NavAgent.IsNavigationFinished()) {
 			ControlSurface.MovementDirection = Vector2.Zero;
 			ControlSurface.MovementMultiplier = 0f;
 			return;
@@ -153,12 +161,14 @@ public partial class AIAgentManager : Node2D {
 			return;
 		}
 
-		ControlSurface.MovementDirection = dir;	// Normalized in setter.
-		ControlSurface.FacingDirection = dir;	// Normalized in setter.
+		ControlSurface.MovementDirection = dir; // Normalized in setter.
+		ControlSurface.FacingDirection = dir;   // Normalized in setter.
 		ControlSurface.MovementMultiplier = 1f;
 		NavAgent.SetVelocity(dir * Character.Speed);
 	}
 
+	#endregion
+	
 	#region Godot Callbacks
 
 	public override void _EnterTree() {
@@ -183,7 +193,7 @@ public partial class AIAgentManager : Node2D {
 		}
 	}
 
-	
+
 	public override void _Ready() {
 		// Connect InputListener to the ActionCommand signal.
 		StringName signal = nameof(InputManager.ActionCommand);
