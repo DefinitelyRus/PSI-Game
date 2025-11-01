@@ -2,22 +2,20 @@ using System;
 using Godot;
 namespace CommonScripts;
 
-public partial class Level : Node
+public partial class Level : Node2D
 {
 	[Export] public Node2D[] SpawnPoints = [];
 	private int CurrentSpawnIndex = 0;
 
-	public void SpawnUnit(StandardCharacter unit)
-	{
+	public void SpawnUnit(StandardCharacter unit) {
 		AddChild(unit);
-		
-		if (SpawnPoints.Length == 0)
-		{
+
+		if (SpawnPoints.Length == 0) {
 			Log.Err("No spawn points defined for this level. Canceling.");
 			return;
 		}
 
-		AttemptSpawn:
+	AttemptSpawn:
 		try {
 			unit.GlobalPosition = SpawnPoints[CurrentSpawnIndex].GlobalPosition;
 			CurrentSpawnIndex = (CurrentSpawnIndex + 1) % SpawnPoints.Length;
