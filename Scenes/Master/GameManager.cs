@@ -3,11 +3,33 @@ using Godot;
 namespace CommonScripts;
 
 public partial class GameManager : Node2D {
+
+    #region Instance Members
+
+    #region Godot Callbacks
+
+    public override void _EnterTree() {
+        if (Instance != null) {
+            Log.Err("Multiple instances of GameManager detected! There should only be one instance in the scene tree.");
+            QueueFree();
+            return;
+        }
+
+        Instance = this;
+    }
+
+    #endregion
+
+    #endregion
+
+    #region Static Members
+
     public static GameManager Instance { get; private set; } = null!;
 
     #region Game Data Management
 
     public static Dictionary<string, Data> GameData { get; private set; } = [];
+
 
     public static Variant? GetGameData(string key, string? ownerID) {
         bool hasData = GameData.TryGetValue(key, out Data? data);
@@ -22,6 +44,7 @@ public partial class GameManager : Node2D {
 
         return null;
     }
+
 
     public static void SetGameData(string key, string? ownerID, Variant value) {
         // Try to find existing data
@@ -44,6 +67,7 @@ public partial class GameManager : Node2D {
         GameData.Add(key, newData);
     }
 
+
     public static void RemoveGameData(string key, string? ownerID) {
         bool hasData = GameData.TryGetValue(key, out Data? data);
         if (hasData) {
@@ -59,10 +83,12 @@ public partial class GameManager : Node2D {
         }
     }
 
+
     public static void RemoveAllWithKey(string key) {
         bool hasData = GameData.TryGetValue(key, out Data? data);
         if (hasData) GameData.Remove(key);
     }
+
 
     public static void RemoveAllFromOwner(string? ownerID) {
         foreach (Data data in GameData.Values) {
@@ -72,9 +98,11 @@ public partial class GameManager : Node2D {
         }
     }
 
+
     public static void ClearAllData() {
         GameData.Clear();
     }
+
 
     public static void PrintAllData() {
         foreach (Data data in GameData.Values) {
@@ -83,18 +111,6 @@ public partial class GameManager : Node2D {
     }
 
     #endregion
-
-    #region Godot Callbacks
-
-    public override void _EnterTree() {
-        if (Instance != null) {
-            Log.Err("Multiple instances of GameManager detected! There should only be one instance in the scene tree.");
-            QueueFree();
-            return;
-        }
-
-        Instance = this;
-    }
 
     #endregion
 

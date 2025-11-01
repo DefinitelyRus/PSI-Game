@@ -4,10 +4,11 @@ namespace CommonScripts;
 
 public partial class EntityManager : Node2D
 {
-    public static EntityManager Instance { get; private set; } = null!;
+    #region Instance Members
 
-    public override void _Ready()
-    {
+    #region Godot Callbacks
+
+    public override void _Ready() {
         if (Instance != null)
         {
             Log.Err("Multiple instances of EntityManager detected. There should only be one EntityManager in the scene.");
@@ -18,23 +19,32 @@ public partial class EntityManager : Node2D
         Instance = this;
 	}
 
-	/// <summary>
-	/// Characters that have been spawned in on the game world.
-	/// </summary>
-	public static List<PhysicsBody2D> Entities { get; private set; } = [];
+    #endregion
 
+    #endregion
+
+    #region Static Members
+    
+    public static EntityManager Instance { get; private set; } = null!;
+
+    /// <summary>
+    /// Characters that have been spawned in on the game world.
+    /// </summary>
+    public static List<PhysicsBody2D> Entities { get; private set; } = [];
+
+    #region Character Management
 
     public static void AddCharacter(PhysicsBody2D entity)
     {
         Entities.Add(entity);
     }
 
-    public static void AddCharacter(PhysicsBody2D entity, Vector2 position)
-    {
+
+    public static void AddCharacter(PhysicsBody2D entity, Vector2 position) {
         entity.Position = position;
         Instance.AddChild(entity);
-		Entities.Add(entity);
-	}
+        Entities.Add(entity);
+    }
 
 
 	public static void RemoveCharacter(PhysicsBody2D entity)
@@ -43,11 +53,12 @@ public partial class EntityManager : Node2D
 		if (!wasRemoved) Log.Warn($"Character {entity.Name} not found in `Entities`. Cannot remove.");
     }
 
+
     public static bool HasEntityAtPosition(Vector2 position, out PhysicsBody2D? pointedEntity) {
         foreach (PhysicsBody2D entity in Entities) {
 
             bool isCharacter = entity is StandardCharacter;
-			bool isProp = entity is StandardPanel;
+            bool isProp = entity is StandardPanel;
             Area2D clickArea;
 
             if (isCharacter) {
@@ -77,12 +88,16 @@ public partial class EntityManager : Node2D
             }
 
             if (pointingAtEntity) {
-				pointedEntity = entity;
-				return true;
-			}
-		}
+                pointedEntity = entity;
+                return true;
+            }
+        }
 
         pointedEntity = null;
-		return false;
-	}
+        return false;
+    }
+
+    #endregion
+
+    #endregion
 }

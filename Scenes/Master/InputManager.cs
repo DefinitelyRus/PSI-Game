@@ -6,9 +6,6 @@ public partial class InputManager : Node2D {
 
 	#region Instance Members
 
-	public static InputModes Mode { get; set; } = InputModes.RTS;
-
-
 	[Signal] public delegate void ActionCommandEventHandler(string actionName, Variant args);
 
 	#region Debugging
@@ -47,6 +44,10 @@ public partial class InputManager : Node2D {
 
 	public static InputManager Instance { get; private set; } = null!;
 
+	#region Input Handling
+
+	public static InputModes Mode { get; set; } = InputModes.RTS;
+
 	public enum InputModes {
 		TopDown,
 		RTS
@@ -55,6 +56,7 @@ public partial class InputManager : Node2D {
 	public const string LeftClick = "mouse_action_1";
 	public const string RightClick = "mouse_action_2";
 	public const string StopAction = "stop_action";
+
 
 	private void ReceiveRTSInputs() {
 		Vector2 mousePos = GetGlobalMousePosition();
@@ -68,8 +70,8 @@ public partial class InputManager : Node2D {
 		if (Input.IsActionPressed("select_3")) ; //Camera.Pan(mousePos); // Pan camera to mouse position
 
 		// Unit interactions
-		if (Input.IsActionJustPressed("select_1")) EmitSignal(action, LeftClick, mousePos);		// Select, Move + Attack / Interact (in range)
-		if (Input.IsActionJustPressed("select_2")) EmitSignal(action, RightClick, mousePos);	// Deselect, Move, Move + Attack / Interact (targeted)
+		if (Input.IsActionJustPressed("select_1")) EmitSignal(action, LeftClick, mousePos);     // Select, Move + Attack / Interact (in range)
+		if (Input.IsActionJustPressed("select_2")) EmitSignal(action, RightClick, mousePos);    // Deselect, Move, Move + Attack / Interact (targeted)
 		if (Input.IsActionJustPressed("stop_action")) EmitSignal(action, StopAction, new());    // Stop
 		if (Input.IsActionJustPressed("select_unit_1")) Commander.SelectUnit(0);
 		if (Input.IsActionJustPressed("select_unit_2")) Commander.SelectUnit(1);
@@ -86,6 +88,8 @@ public partial class InputManager : Node2D {
 		// Prime to drop item with CTRL
 		Commander.PrimeDrop = Input.IsActionPressed("prime_drop_item");
 	}
+	
+	#endregion
 
 	#endregion
 

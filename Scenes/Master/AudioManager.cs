@@ -3,68 +3,28 @@ namespace CommonScripts;
 
 public partial class AudioManager : Node2D
 {
-	#region Universal
+	#region Instance Members
+
+	#region Volumes
 
 	[Export] public float UniversalVolume = 1.0f;
 
-	#endregion
-
-	#region Music
-
-	public AudioStreamPlayer MusicPlayer { get; private set; } = null!;
+	[Export] public float SFXVolume = 1.0f;
 
 	[Export] public float MusicVolume = 1.0f;
 
-
-	public void PlayMusic(AudioStream stream, float volume = 0f) {
-		MusicPlayer.Stream = stream;
-		MusicPlayer.VolumeLinear = volume * MusicVolume;
-		MusicPlayer.Play();
-	}
-
-
-	public void StopMusic() {
-		MusicPlayer.Stop();
-	}
-
 	#endregion
 
-	#region SFX
+	#region Nodes & Components
 
-	[Export] public float SFXVolume = 1.0f;
-
-	public AudioStreamPlayer PlaySFX(AudioStream stream, float volume = 0f) {
-		AudioStreamPlayer sfxPlayer = new();
-		AddChild(sfxPlayer);
-
-		sfxPlayer.Stream = stream;
-		sfxPlayer.VolumeLinear = volume * SFXVolume;
-		sfxPlayer.Autoplay = false;
-		sfxPlayer.Finished += () => sfxPlayer.QueueFree();
-
-		sfxPlayer.Play();
-		return sfxPlayer;
-	}
-
-	public AudioStreamPlayer2D PlaySFX2D(AudioStream stream, Vector2 position, float volume = 0f) {
-		AudioStreamPlayer2D sfxPlayer = new();
-		AddChild(sfxPlayer);
-
-		sfxPlayer.Stream = stream;
-		sfxPlayer.VolumeLinear = volume * SFXVolume;
-		sfxPlayer.Position = position;
-		sfxPlayer.Autoplay = false;
-		sfxPlayer.Finished += () => sfxPlayer.QueueFree();
-
-		sfxPlayer.Play();
-		return sfxPlayer;
-	}
+	public AudioStreamPlayer MusicPlayer { get; private set; } = null!;
 
 	#endregion
 
 	#region Debugging
 
 	[Export] public bool LogReady = true;
+	[Export] public bool LogPlayback = false;
 
 	#endregion
 
@@ -76,8 +36,62 @@ public partial class AudioManager : Node2D
 		MusicPlayer = new();
 		AddChild(MusicPlayer);
 
+		Instance = this;
+
 		Log.Me("Done!", true);
 	}
+
+	#endregion
+
+	#endregion
+
+	#region Static Members
+
+	public static AudioManager Instance { get; private set; } = null!;
+
+	#region Media Control
+
+	public static AudioStreamPlayer PlaySFX(AudioStream stream, float volume = 0f) {
+		AudioStreamPlayer sfxPlayer = new();
+		Instance.AddChild(sfxPlayer);
+
+		sfxPlayer.Stream = stream;
+		sfxPlayer.VolumeLinear = volume * Instance.SFXVolume;
+		sfxPlayer.Autoplay = false;
+		sfxPlayer.Finished += () => sfxPlayer.QueueFree();
+
+		sfxPlayer.Play();
+		return sfxPlayer;
+	}
+
+
+	public static AudioStreamPlayer2D PlaySFX2D(AudioStream stream, Vector2 position, float volume = 0f) {
+		AudioStreamPlayer2D sfxPlayer = new();
+		Instance.AddChild(sfxPlayer);
+
+		sfxPlayer.Stream = stream;
+		sfxPlayer.VolumeLinear = volume * Instance.SFXVolume;
+		sfxPlayer.Position = position;
+		sfxPlayer.Autoplay = false;
+		sfxPlayer.Finished += () => sfxPlayer.QueueFree();
+
+		sfxPlayer.Play();
+		return sfxPlayer;
+	}
+
+
+	public static void PlayMusic(AudioStream stream, float volume = 0f) {
+		Instance.MusicPlayer.Stream = stream;
+		Instance.MusicPlayer.VolumeLinear = volume * Instance.MusicVolume;
+		Instance.MusicPlayer.Play();
+	}
+
+
+	public static void StopMusic() {
+		Instance.MusicPlayer.Stop();
+	}
+
+	#endregion
 
 	#endregion
 }

@@ -3,6 +3,8 @@ namespace CommonScripts;
 
 public partial class SceneLoader : Node
 {   
+    
+    #region Instance Members
 
     #region Nodes & Components
 
@@ -26,60 +28,6 @@ public partial class SceneLoader : Node
     [ExportGroup("Debugging")]
     [Export] public bool LogReady = false;
     [Export] public bool SuppressWarnings = false;
-
-    #endregion
-
-    #region Level Management
-
-    public PackedScene? GetLevel(uint levelIndex) {
-        PackedScene? retrievedLevel = (levelIndex < Levels.Length) ? Levels[levelIndex] : null;
-
-        if (retrievedLevel == null) Log.Err(() => $"Level of index {levelIndex} not found.");
-
-        return retrievedLevel;
-    }
-
-    public void LoadLevel(uint levelIndex) {
-        UnloadLevel(false);
-
-        PackedScene? levelToLoad = GetLevel(levelIndex);
-
-        if (levelToLoad == null) {
-            Log.Err(() => $"Level of index {levelIndex} not found.");
-            return;
-        }
-
-        Level level = levelToLoad.Instantiate<Level>();
-
-        foreach (StandardCharacter unit in Commander.GetAllUnits()) {
-            level.SpawnUnit(unit);
-        }
-
-		Theatre.AddChild(level);
-
-		return;
-    }
-
-    public void LoadLevel(PackedScene levelScene) {
-        UnloadLevel(false);
-
-		Level level = levelScene.Instantiate<Level>();
-
-		foreach (StandardCharacter unit in Commander.GetAllUnits()) {
-			level.SpawnUnit(unit);
-		}
-
-		Theatre.AddChild(level);
-	}
-
-
-	public void UnloadLevel(bool returnToMainMenu = true) {
-        if (LoadedScene == null || Theatre.GetChildCount() == 0) return;
-
-        Theatre.RemoveChild(LoadedScene);
-
-        if (returnToMainMenu) Theatre.AddChild(MainMenu.Instantiate());
-    }
 
     #endregion
 
@@ -137,6 +85,68 @@ public partial class SceneLoader : Node
         Log.Me(() => "Done!", LogReady);
 		return;
     }
+
+    #endregion
+
+    #endregion
+
+    #region Static Members
+
+    public static SceneLoader Instance { get; private set; } = null!;
+
+    #region Level Management
+
+    public static PackedScene? GetLevel(uint levelIndex) {
+        PackedScene? retrievedLevel = (levelIndex < Instance.Levels.Length) ? Instance.Levels[levelIndex] : null;
+
+        if (retrievedLevel == null) Log.Err(() => $"Level of index {levelIndex} not found.");
+
+        return retrievedLevel;
+    }
+
+    public static void LoadLevel(uint levelIndex) {
+        UnloadLevel(false);
+
+        PackedScene? levelToLoad = GetLevel(levelIndex);
+
+        if (levelToLoad == null) {
+            Log.Err(() => $"Level of index {levelIndex} not found.");
+            return;
+        }
+
+        Level level = levelToLoad.Instantiate<Level>();
+
+        foreach (StandardCharacter unit in Commander.GetAllUnits()) {
+            level.SpawnUnit(unit);
+        }
+
+		Instance.Theatre.AddChild(level);
+
+		return;
+    }
+
+    public static void LoadLevel(PackedScene levelScene) {
+        UnloadLevel(false);
+
+		Level level = levelScene.Instantiate<Level>();
+
+		foreach (StandardCharacter unit in Commander.GetAllUnits()) {
+			level.SpawnUnit(unit);
+		}
+
+		Instance.Theatre.AddChild(level);
+	}
+
+
+	public static void UnloadLevel(bool returnToMainMenu = true) {
+        if (Instance.LoadedScene == null || Instance.Theatre.GetChildCount() == 0) return;
+
+        Instance.Theatre.RemoveChild(Instance.LoadedScene);
+
+        if (returnToMainMenu) Instance.Theatre.AddChild(Instance.MainMenu.Instantiate());
+    }
+
+    #endregion
 
     #endregion
 
