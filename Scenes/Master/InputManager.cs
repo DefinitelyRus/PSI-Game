@@ -1,4 +1,5 @@
 global using IM = CommonScripts.InputManager;
+using System.Reflection.Metadata;
 using Godot;
 namespace CommonScripts;
 
@@ -36,6 +37,12 @@ public partial class InputManager : Node2D {
 		}
 	}
 
+	public override void _Input(InputEvent @event) {
+		if (Mode == InputModes.RTS) {
+			ReceiveCameraInputs(@event);
+		}
+	}
+	
 	#endregion
 
 	#endregion
@@ -58,16 +65,27 @@ public partial class InputManager : Node2D {
 	public const string StopAction = "stop_action";
 
 
+	private void ReceiveCameraInputs(InputEvent input) {
+        if (input is not InputEventMouseMotion) return;
+		if (Input.IsActionPressed("select_3")) CameraMan.Drag(input);
+    }
+
+
+	private void ReceiveCameraInputs() {
+		if (Input.IsActionPressed("move_up")) CameraMan.Move(Vector2.Up);
+		if (Input.IsActionPressed("move_down")) CameraMan.Move(Vector2.Down);
+		if (Input.IsActionPressed("move_left")) CameraMan.Move(Vector2.Left);
+		if (Input.IsActionPressed("move_right")) CameraMan.Move(Vector2.Right);
+		if (Input.IsActionJustReleased("select_3")) CameraMan.StopDragging();
+	}
+	
+
 	private void ReceiveRTSInputs() {
 		Vector2 mousePos = GetGlobalMousePosition();
 		var action = SignalName.ActionCommand;
 
-		// Move camera with WASD
-		if (Input.IsActionPressed("move_up")) ; //Camera.Move(Vector2.Up);
-		if (Input.IsActionPressed("move_down")) ; //Camera.Move(Vector2.Down);
-		if (Input.IsActionPressed("move_left")) ; //Camera.Move(Vector2.Left);
-		if (Input.IsActionPressed("move_right")) ; // Camera.Move(Vector2.Right);
-		if (Input.IsActionPressed("select_3")) ; //Camera.Pan(mousePos); // Pan camera to mouse position
+		// Camera controls
+		ReceiveCameraInputs();
 
 		// Unit interactions
 		if (Input.IsActionJustPressed("select_1")) EmitSignal(action, LeftClick, mousePos);     // Select, Move + Attack / Interact (in range)
