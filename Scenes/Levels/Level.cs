@@ -7,6 +7,7 @@ public partial class Level : Node2D
 	[Export] public Node2D[] SpawnPoints = [];
 	private int CurrentSpawnIndex = 0;
 
+
 	public void SpawnUnit(StandardCharacter unit) {
 		AddChild(unit);
 
