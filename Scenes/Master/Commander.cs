@@ -131,17 +131,17 @@ public partial class Commander : Node {
 			return;
 		}
 
-		foreach (StandardCharacter unit in Units)
-		{
+		foreach (StandardCharacter unit in Units) {
 			unit.AIManager.IsSelected = true;
 		}
+
+		ClearFocusedUnit();
 	}
 
 
 	public static void DeselectAllUnits()
 	{
-		if (Units.Count == 0)
-		{
+		if (Units.Count == 0) {
 			Log.Warn("No units are registered. Cannot deselect.", true, true);
 			return;
 		}
@@ -150,6 +150,8 @@ public partial class Commander : Node {
 		{
 			unit.AIManager.IsSelected = false;
 		}
+		
+		ClearFocusedUnit();
 	}
 
 	#endregion
@@ -170,12 +172,17 @@ public partial class Commander : Node {
 		}
 
 		FocusedUnit = Units[index];
+		SelectUnit(index);
+
+		CameraMan.SetTarget(FocusedUnit);
 	}
 
 
 	public static void ClearFocusedUnit()
 	{
 		FocusedUnit = null!;
+
+		CameraMan.ClearTarget();
 	}
 
 
