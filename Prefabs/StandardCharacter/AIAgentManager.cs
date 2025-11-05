@@ -86,6 +86,7 @@ public partial class AIAgentManager : Node2D {
 		return isInside;
 	}
 
+
 	public void Action1(Vector2 mousePos) {
 		/*
 		 * Left click should:
@@ -108,6 +109,7 @@ public partial class AIAgentManager : Node2D {
 			Searching = true;
 		}
 	}
+
 
 	public void Action2(Vector2 mousePos) {
 		/*
