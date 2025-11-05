@@ -1027,19 +1027,32 @@ vertices = PackedVector2Array(1644, -133.00781, 1644, 519, -287.9922, 519, -287.
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(-298, 529, -297, -146, 1654, -143, 1654, 529)])
 
-[node name="map_1" type="Node2D" node_paths=PackedStringArray("SpawnPoints")]
+[node name="map_1" type="Node2D" node_paths=PackedStringArray("SpawnParent", "CameraNodePaths")]
 script = ExtResource("1_som2o")
-SpawnPoints = [NodePath("Spawnpoints/C1"), NodePath("Spawnpoints/C2")]
+SpawnParent = NodePath("Spawnpoints")
+CameraNodePaths = [NodePath("Camera Node Paths/Node Path 1"), NodePath("Camera Node Paths/Node Path 2"), NodePath("Camera Node Paths/Node Path 3")]
 
 [node name="Spawnpoints" type="Node2D" parent="."]
 z_index = 1
+position = Vector2(37, 366)
 
 [node name="C1" type="Node2D" parent="Spawnpoints"]
 z_index = 1
-position = Vector2(55, 350)
+position = Vector2(20, -12)
 
 [node name="C2" type="Node2D" parent="Spawnpoints"]
-position = Vector2(14, 384)
+position = Vector2(-8, 10)
+
+[node name="Camera Node Paths" type="Node2D" parent="."]
+
+[node name="Node Path 1" type="Node2D" parent="Camera Node Paths"]
+position = Vector2(1774, 539)
+
+[node name="Node Path 2" type="Node2D" parent="Camera Node Paths"]
+position = Vector2(1339, 188)
+
+[node name="Node Path 3" type="Node2D" parent="Camera Node Paths"]
+position = Vector2(154, 372)
 
 [node name="TileMap" type="Node2D" parent="."]
 position = Vector2(0, 2)
