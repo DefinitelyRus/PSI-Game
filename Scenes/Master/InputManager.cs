@@ -81,7 +81,7 @@ public partial class InputManager : Node2D {
 	
 
 	private void ReceiveRTSInputs() {
-		Vector2 mousePos = GetGlobalMousePosition();
+		Vector2 mousePos = CameraMan.GetCleanMousePosition();
 		var action = SignalName.ActionCommand;
 
 		// Camera controls
