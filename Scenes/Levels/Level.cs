@@ -41,4 +41,15 @@ public partial class Level : Node2D {
 			return;
 		}
 	}
+
+
+	public override void _Ready() {
+		// Set node paths for CameraMan
+		CameraMan.SetCameraPath(CameraNodePaths);
+
+		// If no node paths set, use spawn point.
+		if (CameraNodePaths.Length == 0) {
+			CameraMan.SetTarget(SpawnParent, true);
+		}
+	}
 }
