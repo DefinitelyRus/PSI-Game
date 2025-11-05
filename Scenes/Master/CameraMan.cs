@@ -8,12 +8,12 @@ public partial class CameraMan : Node2D {
     #region Target Locking
 
     [ExportGroup("Target Locking")]
-    [Export] public float TargetFollowSpeed = 200.0f;
+    [Export] public float TargetFollowSpeed = 500.0f;
 
     /// <summary>
     /// The minimum distance before the camera starts following the target.
     /// </summary>
-    [Export] public float TrackingMinDistance = 20f;
+    [Export] public float TrackingMinDistance = 15f;
 
     /// <summary>
     /// The distance threshold to consider a node path reached. <br/><br/>
@@ -27,21 +27,20 @@ public partial class CameraMan : Node2D {
     /// This distance is used to either snap the camera to the target,
     /// or to scale the speed of following the target.
     /// </summary>
-    [Export] public float TrackingMaxDistance = 500.0f;
-    [Export] public float NodePathStayTime = 0.0f;
+    [Export] public float TrackingMaxDistance = 300.0f;
+
+    [Export] public float NodePathStayTime = 1.0f;
 
     [Export] public bool SmoothFollow = true;
 
     [Signal] public delegate void TargetReachedEventHandler();
-
-    //[Signal] public delegate void NodePathReachedEventHandler();
 
     #endregion
 
     #region Directional Movement
 
     [ExportGroup("Directional Movement")]
-    [Export] public float Speed = 500.0f;
+    [Export] public float Speed = 3.0f;
 
     #endregion
 
@@ -55,7 +54,7 @@ public partial class CameraMan : Node2D {
     #region Screen Shake
 
     [ExportGroup("Screen Shake")]
-    [Export] public float BaseShakeIntensity = 10.0f;
+    [Export] public float BaseShakeIntensity = 5.0f;
     [Export] public float ShakeDecayRate = 5.0f;
     [Export] public float MinShakeIntensity = 0.1f;
 
