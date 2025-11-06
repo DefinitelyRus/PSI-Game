@@ -30,8 +30,6 @@ process_thread_group = 1
 process_thread_group_order = 0
 process_thread_messages = 0
 script = ExtResource("3_iwwxa")
-Speed = 3.0
-BaseShakeIntensity = 5.0
 
 [node name="Commander" type="Node" parent="."]
 script = ExtResource("3_8ixx1")

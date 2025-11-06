@@ -149,6 +149,12 @@ public partial class CameraMan : Node2D {
     }
 
 
+    public static void ClearCameraPath() {
+        NodePaths = [];
+        CurrentPathIndex = 0;
+        WaitTimer = 0f;
+    }
+
     #endregion
 
     #region Target Locking
@@ -267,6 +273,7 @@ public partial class CameraMan : Node2D {
         OriginalPosition = Instance.GlobalPosition;
         Instance.GlobalPosition += ShakeOffset;
     }
+
 
     private static void ShakeDecay(double delta) {
         if (CurrentShakeIntensity <= 0f) return;
