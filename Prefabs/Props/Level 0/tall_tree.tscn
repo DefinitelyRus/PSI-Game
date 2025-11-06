@@ -8,13 +8,17 @@ size = Vector2(18, 14)
 
 [node name="Tall Tree" instance=ExtResource("1_iho04")]
 PropName = "Tall Tree"
-PropDescription = "a tall tree"
 PropID = "tall_tree"
+PropDescription = "a tall tree"
 
 [node name="CollisionShape2D" parent="." index="0"]
-position = Vector2(0, 20)
+position = Vector2(0, 7.5)
 shape = SubResource("RectangleShape2D_3fm4s")
 
 [node name="Sprite2D" parent="." index="1"]
+position = Vector2(0, -12.5)
 texture = ExtResource("2_6vlcx")
 region_rect = Rect2(146, 155, 28, 53)
+
+[node name="NavigationObstacle2D" parent="." index="2"]
+position = Vector2(0, -12.5)
