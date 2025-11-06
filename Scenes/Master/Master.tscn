@@ -10,7 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://bfp0axiex7i7o" path="res://Scenes/Levels/TestScene.tscn" id="4_qemos"]
 [ext_resource type="Script" uid="uid://ccfcn78cg1s2f" path="res://Scenes/Master/EntityManager.cs" id="5_0hine"]
 [ext_resource type="Script" uid="uid://b3xb0rhvopx03" path="res://Scenes/Master/InputManager.cs" id="5_qemos"]
-[ext_resource type="PackedScene" uid="uid://b035mnohjc3ck" path="res://Scenes/Levels/map_1.tscn" id="8_sxu81"]
+[ext_resource type="PackedScene" uid="uid://drho55fepd4p7" path="res://Scenes/Levels/StandardLevel.tscn" id="10_8ixx1"]
 
 [node name="Master" type="Node" node_paths=PackedStringArray("SceneLoader", "InputManager")]
 process_mode = 3
@@ -47,7 +47,7 @@ script = ExtResource("2_7tgqy")
 Master = NodePath("..")
 Theatre = NodePath("../Theatre")
 MainMenu = ExtResource("3_1t0lv")
-DevScene = ExtResource("8_sxu81")
+DevScene = ExtResource("10_8ixx1")
 Levels = [ExtResource("4_qemos")]
 LogReady = true
 
