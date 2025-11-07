@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://dk3xusqfhntyl"
+path="res://.godot/imported/BT1 - 22LR Single WAV.wav-113b1cd778e156f8c76ae883a60b8a53.sample"
+
+[deps]
+
+source_file="res://Prefabs/StandardCharacter/Units/Orra Kale/BT1 - 22LR Single WAV.wav"
+dest_files=["res://.godot/imported/BT1 - 22LR Single WAV.wav-113b1cd778e156f8c76ae883a60b8a53.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

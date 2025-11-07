@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://c08v1wkv8vsva"
+path="res://.godot/imported/BT2 - 20 Gauge Single.wav-f76f77f37475664473281c5a3321b56d.sample"
+
+[deps]
+
+source_file="res://Prefabs/StandardCharacter/Units/Orra Kale/BT2 - 20 Gauge Single.wav"
+dest_files=["res://.godot/imported/BT2 - 20 Gauge Single.wav-f76f77f37475664473281c5a3321b56d.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

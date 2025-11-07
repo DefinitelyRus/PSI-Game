@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://dg4bcavj3btub"
+path="res://.godot/imported/AT2R - Lever Cycle WAV.wav-a313fa2cbe465160a89f9a7b4d348df9.sample"
+
+[deps]
+
+source_file="res://Prefabs/StandardCharacter/Units/Mira Kale/AT2R - Lever Cycle WAV.wav"
+dest_files=["res://.godot/imported/AT2R - Lever Cycle WAV.wav-a313fa2cbe465160a89f9a7b4d348df9.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

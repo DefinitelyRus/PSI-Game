@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bcthktn603kuy"
+path="res://.godot/imported/AT1R - Semi 22LR Rack WAV.wav-acfa21dbed63d60864db56bdf36f8ab7.sample"
+
+[deps]
+
+source_file="res://Prefabs/StandardCharacter/Units/Mira Kale/AT1R - Semi 22LR Rack WAV.wav"
+dest_files=["res://.godot/imported/AT1R - Semi 22LR Rack WAV.wav-acfa21dbed63d60864db56bdf36f8ab7.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

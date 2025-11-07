@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://c3eaja0q8nmyu"
+path="res://.godot/imported/BT1R - 22LR Bolt Cycle WAV.wav-40c8968963c0699f1c2f815525a46375.sample"
+
+[deps]
+
+source_file="res://Prefabs/StandardCharacter/Units/Orra Kale/BT1R - 22LR Bolt Cycle WAV.wav"
+dest_files=["res://.godot/imported/BT1R - 22LR Bolt Cycle WAV.wav-40c8968963c0699f1c2f815525a46375.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

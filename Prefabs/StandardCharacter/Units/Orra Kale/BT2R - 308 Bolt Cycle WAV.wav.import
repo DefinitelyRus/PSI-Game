@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://dej6x45cpcxs3"
+path="res://.godot/imported/BT2R - 308 Bolt Cycle WAV.wav-60662e6ec5b2f142a2776cafc6707d24.sample"
+
+[deps]
+
+source_file="res://Prefabs/StandardCharacter/Units/Orra Kale/BT2R - 308 Bolt Cycle WAV.wav"
+dest_files=["res://.godot/imported/BT2R - 308 Bolt Cycle WAV.wav-60662e6ec5b2f142a2776cafc6707d24.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2
