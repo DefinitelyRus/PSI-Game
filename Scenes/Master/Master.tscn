@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://d3cvhjbvnx1a1"]
+[gd_scene load_steps=11 format=3 uid="uid://d3cvhjbvnx1a1"]
 
 [ext_resource type="Script" uid="uid://cdfonun0qopbr" path="res://Scenes/Master/Master.cs" id="1_o4rt4"]
 [ext_resource type="Script" uid="uid://bskjggdrqe3xx" path="res://Scenes/Master/SceneLoader.cs" id="2_7tgqy"]
@@ -6,11 +6,10 @@
 [ext_resource type="PackedScene" uid="uid://rbirnmt14654" path="res://Scenes/Main Menu/MainMenu.tscn" id="3_1t0lv"]
 [ext_resource type="Script" uid="uid://coj1ftn5dishm" path="res://Scenes/Master/Commander.cs" id="3_8ixx1"]
 [ext_resource type="Script" uid="uid://bw8770jogthra" path="res://Scenes/Master/CameraMan.cs" id="3_iwwxa"]
-[ext_resource type="PackedScene" uid="uid://d0ghglnyf6efy" path="res://Prefabs/StandardCharacter/Units/Testo.tscn" id="4_m6dx2"]
-[ext_resource type="PackedScene" uid="uid://bfp0axiex7i7o" path="res://Scenes/Levels/TestScene.tscn" id="4_qemos"]
 [ext_resource type="Script" uid="uid://ccfcn78cg1s2f" path="res://Scenes/Master/EntityManager.cs" id="5_0hine"]
+[ext_resource type="PackedScene" uid="uid://c5pxgte6pab6b" path="res://Prefabs/StandardCharacter/Units/Orra Kale.tscn" id="5_m6dx2"]
 [ext_resource type="Script" uid="uid://b3xb0rhvopx03" path="res://Scenes/Master/InputManager.cs" id="5_qemos"]
-[ext_resource type="PackedScene" uid="uid://drho55fepd4p7" path="res://Scenes/Levels/StandardLevel.tscn" id="10_8ixx1"]
+[ext_resource type="PackedScene" uid="uid://b035mnohjc3ck" path="res://Scenes/Levels/ParkingLot.tscn" id="10_m6dx2"]
 
 [node name="Master" type="Node" node_paths=PackedStringArray("SceneLoader", "InputManager")]
 process_mode = 3
@@ -33,7 +32,7 @@ script = ExtResource("3_iwwxa")
 
 [node name="Commander" type="Node" parent="."]
 script = ExtResource("3_8ixx1")
-InitialUnits = [ExtResource("4_m6dx2")]
+InitialUnits = [ExtResource("5_m6dx2")]
 
 [node name="Entity Manager" type="Node2D" parent="."]
 script = ExtResource("5_0hine")
@@ -47,8 +46,8 @@ script = ExtResource("2_7tgqy")
 Master = NodePath("..")
 Theatre = NodePath("../Theatre")
 MainMenu = ExtResource("3_1t0lv")
-DevScene = ExtResource("10_8ixx1")
-Levels = [ExtResource("4_qemos")]
+DevScene = ExtResource("10_m6dx2")
+Levels = [ExtResource("10_m6dx2")]
 LogReady = true
 
 [node name="Theatre" type="Node" parent="."]
