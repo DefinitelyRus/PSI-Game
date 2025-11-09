@@ -3,8 +3,9 @@
 [ext_resource type="PackedScene" uid="uid://bnslwo4ecgkcn" path="res://Prefabs/StandardProp/StandardProp.tscn" id="1_iho04"]
 [ext_resource type="Texture2D" uid="uid://f8i6teg6ade7" path="res://Sprites/World Sprites/Level 0 - Parking Lot/Parking_Props.png" id="2_6vlcx"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_3fm4s"]
-size = Vector2(18, 14)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_iho04"]
+radius = 5.0
+height = 16.0
 
 [node name="Tall Tree" instance=ExtResource("1_iho04")]
 PropName = "Tall Tree"
@@ -12,8 +13,9 @@ PropID = "tall_tree"
 PropDescription = "a tall tree"
 
 [node name="CollisionShape2D" parent="." index="0"]
-position = Vector2(0, 7.5)
-shape = SubResource("RectangleShape2D_3fm4s")
+position = Vector2(0, 9)
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_iho04")
 
 [node name="Sprite2D" parent="." index="1"]
 position = Vector2(0, -12.5)
@@ -21,4 +23,7 @@ texture = ExtResource("2_6vlcx")
 region_rect = Rect2(146, 155, 28, 53)
 
 [node name="NavigationObstacle2D" parent="." index="2"]
-position = Vector2(0, -12.5)
+position = Vector2(0, 9)
+radius = 16.0
+vertices = PackedVector2Array(-9, -4, 0, -7, 9, -4, 9, 4, 0, 7, -9, 4)
+avoidance_layers = 8
