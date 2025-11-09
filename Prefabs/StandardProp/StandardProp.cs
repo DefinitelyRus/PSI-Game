@@ -41,7 +41,14 @@ public partial class StandardProp : RigidBody2D {
 	private float _health = 100f;
 
 	#endregion
-	
+
+	#region Nodes & Components
+
+	[ExportGroup("Nodes & Components")]
+	[Export] public NavigationObstacle2D NavObstacle = null!;
+
+	#endregion
+
 	#region Debugging
 
 	[ExportGroup("Debugging")]
@@ -207,8 +214,7 @@ public partial class StandardProp : RigidBody2D {
 			PropName = "Unnamed Prop";
 		}
 
-		if (string.IsNullOrEmpty(InstanceID))
-		{
+		if (string.IsNullOrEmpty(InstanceID)) {
 			if (!SilentlyAutoAssignInstanceID) Log.Warn(() => "InstanceID is not assigned. Generating a new one...", LogReady);
 			GenerateInstanceID();
 		}
