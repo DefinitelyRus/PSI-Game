@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://crgmwjswujr2l"
-path="res://.godot/imported/Drone.png-4326df0c47dba64db02e0091ee3cc84b.ctex"
+uid="uid://dpq8ap7lm8ark"
+path="res://.godot/imported/Dispenser.png-32cb89c07d4a0afd2ceb01dbeddbef73.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/Enemies/Drone.png"
-dest_files=["res://.godot/imported/Drone.png-4326df0c47dba64db02e0091ee3cc84b.ctex"]
+source_file="res://Sprites/Enemies/Dispenser.png"
+dest_files=["res://.godot/imported/Dispenser.png-32cb89c07d4a0afd2ceb01dbeddbef73.ctex"]
 
 [params]
 
