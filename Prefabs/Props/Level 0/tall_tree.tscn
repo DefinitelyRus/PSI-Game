@@ -13,17 +13,18 @@ PropID = "tall_tree"
 PropDescription = "a tall tree"
 
 [node name="CollisionShape2D" parent="." index="0"]
-position = Vector2(0, 9)
+position = Vector2(0, 20)
 rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_iho04")
 
 [node name="Sprite2D" parent="." index="1"]
-position = Vector2(0, -12.5)
+position = Vector2(0, 20)
 texture = ExtResource("2_6vlcx")
+offset = Vector2(0, -22)
 region_rect = Rect2(146, 155, 28, 53)
 
 [node name="NavigationObstacle2D" parent="." index="2"]
-position = Vector2(0, 9)
+position = Vector2(0, 20)
 radius = 16.0
 vertices = PackedVector2Array(-9, -4, 0, -7, 9, -4, 9, 4, 0, 7, -9, 4)
 avoidance_layers = 8
