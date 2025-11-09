@@ -1139,15 +1139,16 @@ position = Vector2(0, 2)
 position = Vector2(0, -2)
 tile_set = SubResource("TileSet_som2o")
 
-[node name="UpperWall" type="TileMapLayer" parent="TileMap"]
+[node name="Walls" type="TileMapLayer" parent="TileMap"]
 y_sort_enabled = true
 position = Vector2(0, -2)
 tile_set = SubResource("TileSet_som2o")
 
-[node name="LowerWall" type="TileMapLayer" parent="TileMap"]
+[node name="Raised Decorations" type="TileMapLayer" parent="TileMap"]
 y_sort_enabled = true
 position = Vector2(0, -2)
 tile_set = SubResource("TileSet_som2o")
+y_sort_origin = 16
 
 [node name="Floor Decorations" type="TileMapLayer" parent="TileMap"]
 y_sort_enabled = true
@@ -1155,12 +1156,11 @@ position = Vector2(0, -4)
 tile_set = SubResource("TileSet_som2o")
 y_sort_origin = -16
 
+[node name="Props" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="Colliding" type="Node2D" parent="Props"]
+y_sort_enabled = true
+
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
 position = Vector2(298, 207)
-
-[node name="Props" type="Node2D" parent="NavigationRegion2D"]
-y_sort_enabled = true
-position = Vector2(-298, -207)
-
-[node name="Colliding" type="Node2D" parent="NavigationRegion2D/Props"]
-y_sort_enabled = true
