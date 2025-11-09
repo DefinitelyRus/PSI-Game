@@ -8,6 +8,8 @@ public partial class Level : Node2D {
 	[Export] public Node2D SpawnParent = null!;
 	[Export] public Node2D[] CameraNodePaths = [];
 	private int CurrentSpawnIndex = 0;
+	[Export] public NavigationRegion2D NavRegion = null!;
+	[Export] public Node2D PropsParent = null!;
 
 
 	public void SpawnUnit(StandardCharacter unit) {
@@ -24,8 +26,10 @@ public partial class Level : Node2D {
 			}
 		}
 
-		AttemptSpawn:
+	AttemptSpawn:
 		try {
+			// Rid mapRid = NavRegion.GetNavigationMap();
+			// unit.AIManager.NavAgent.SetNavigationMap(mapRid);
 			AddChild(unit);
 			unit.GlobalPosition = SpawnPoints[CurrentSpawnIndex].GlobalPosition;
 			CurrentSpawnIndex = (CurrentSpawnIndex + 1) % SpawnPoints.Length;
@@ -44,6 +48,19 @@ public partial class Level : Node2D {
 	}
 
 
+	public override void _EnterTree() {
+		if (NavRegion == null) {
+			Log.Err(() => "NavRegion is not assigned. Please assign a NavigationRegion2D to the level.");
+			return;
+		}
+
+		if (PropsParent == null) {
+			Log.Err(() => "PropsParent is not assigned. Please assign a Node2D to hold props in the level.");
+			return;
+		}
+	}
+
+
 	public override void _Ready() {
 		// Set node paths for CameraMan
 		CameraMan.SetCameraPath(CameraNodePaths);
@@ -51,6 +68,24 @@ public partial class Level : Node2D {
 		// If no node paths set, use spawn point.
 		if (CameraNodePaths.Length == 0) {
 			CameraMan.SetTarget(SpawnParent, true);
+		}
+		
+		foreach (Node2D child in PropsParent.GetChildren().OfType<Node2D>()) {
+			foreach (Node2D grandChild in child.GetChildren().Cast<Node2D>()) {
+				foreach (Node2D greatGrandChild in grandChild.GetChildren().Cast<Node2D>()) {
+					if (greatGrandChild is StandardProp prop) {
+						Rid mapRid = NavRegion.GetNavigationMap();
+						Log.Me(() => $"Setting nav map for prop {prop.InstanceID} to {mapRid}...");
+						prop.NavObstacle.SetNavigationMap(mapRid);
+					}
+				}
+			}
+		}
+
+		foreach (StandardCharacter character in GetChildren(true).OfType<StandardCharacter>()) {
+			Rid mapRid = NavRegion.GetNavigationMap();
+			Log.Me(() => $"Setting nav map for character {character.InstanceID} to {mapRid}...", true, true);
+			character.AIManager.NavAgent.SetNavigationMap(mapRid);
 		}
 	}
 }
