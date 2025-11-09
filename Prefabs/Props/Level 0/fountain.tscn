@@ -19,3 +19,7 @@ shape = SubResource("RectangleShape2D_huyye")
 [node name="Sprite2D" parent="." index="1"]
 texture = ExtResource("2_f2eto")
 region_rect = Rect2(256, 229, 32, 43)
+
+[node name="NavigationObstacle2D" parent="." index="2"]
+radius = 22.0
+vertices = PackedVector2Array(-16, -13, 16, -13, 16, 14, -16, 14)
