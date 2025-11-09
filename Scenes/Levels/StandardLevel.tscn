@@ -1119,12 +1119,11 @@ texture = ExtResource("2_qbyan")
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_6m8qg")
 
-[node name="Standard Level" type="Node2D" node_paths=PackedStringArray("SpawnParent", "CameraNodePaths")]
+[node name="Standard Level" type="Node2D" node_paths=PackedStringArray("SpawnParent")]
 z_as_relative = false
 y_sort_enabled = true
 script = ExtResource("1_svleo")
 SpawnParent = NodePath("Spawnpoints")
-CameraNodePaths = [null]
 
 [node name="Spawnpoints" type="Node2D" parent="."]
 y_sort_enabled = true
@@ -1133,10 +1132,10 @@ position = Vector2(37, 366)
 [node name="Camera Node Paths" type="Node2D" parent="."]
 
 [node name="TileMap" type="Node2D" parent="."]
+y_sort_enabled = true
 position = Vector2(0, 2)
 
 [node name="Ground" type="TileMapLayer" parent="TileMap"]
-y_sort_enabled = true
 position = Vector2(0, -2)
 tile_set = SubResource("TileSet_som2o")
 
@@ -1150,15 +1149,18 @@ y_sort_enabled = true
 position = Vector2(0, -2)
 tile_set = SubResource("TileSet_som2o")
 
-[node name="Non-colliding Props" type="TileMapLayer" parent="TileMap"]
+[node name="Floor Decorations" type="TileMapLayer" parent="TileMap"]
+y_sort_enabled = true
 position = Vector2(0, -4)
 tile_set = SubResource("TileSet_som2o")
-
-[node name="Props" type="Node2D" parent="."]
-y_sort_enabled = true
-
-[node name="Colliding" type="Node2D" parent="Props"]
-y_sort_enabled = true
+y_sort_origin = -16
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
 position = Vector2(298, 207)
+
+[node name="Props" type="Node2D" parent="NavigationRegion2D"]
+y_sort_enabled = true
+position = Vector2(-298, -207)
+
+[node name="Colliding" type="Node2D" parent="NavigationRegion2D/Props"]
+y_sort_enabled = true
