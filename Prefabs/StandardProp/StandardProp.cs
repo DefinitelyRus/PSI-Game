@@ -218,6 +218,11 @@ public partial class StandardProp : RigidBody2D {
 			if (!SilentlyAutoAssignInstanceID) Log.Warn(() => "InstanceID is not assigned. Generating a new one...", LogReady);
 			GenerateInstanceID();
 		}
+		
+		if (NavObstacle == null) {
+			Log.Err(() => "NavObstacle is not assigned. Please assign a NavigationObstacle2D to the prop.", LogReady);
+			return;
+		}
 
 		Log.Me(() => "Done!", LogReady);
 	}
