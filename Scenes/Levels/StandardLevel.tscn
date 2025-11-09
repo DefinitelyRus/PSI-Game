@@ -990,12 +990,12 @@ texture = ExtResource("2_qbyan")
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_6m8qg")
 
-[node name="map_1" type="Node2D" node_paths=PackedStringArray("SpawnParent", "CameraNodePaths")]
+[node name="Standard Level" type="Node2D" node_paths=PackedStringArray("SpawnParent", "CameraNodePaths")]
 z_as_relative = false
 y_sort_enabled = true
 script = ExtResource("1_svleo")
 SpawnParent = NodePath("Spawnpoints")
-CameraNodePaths = [NodePath("")]
+CameraNodePaths = [null]
 
 [node name="Spawnpoints" type="Node2D" parent="."]
 y_sort_enabled = true
