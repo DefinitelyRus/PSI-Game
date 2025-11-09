@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://byrn36lby0bim"]
+
+[ext_resource type="PackedScene" uid="uid://bnslwo4ecgkcn" path="res://Prefabs/StandardProp/StandardProp.tscn" id="1_pbaox"]
+[ext_resource type="Texture2D" uid="uid://f8i6teg6ade7" path="res://Sprites/World Sprites/Level 0 - Parking Lot/Parking_Props.png" id="2_vadbs"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vadbs"]
+size = Vector2(362, 136)
+
+[node name="Office Building" instance=ExtResource("1_pbaox")]
+PropName = "Office Building"
+PropID = "office_building"
+PropDescription = "A BIG office buildingOffice"
+
+[node name="CollisionShape2D" parent="." index="0"]
+position = Vector2(0, 99)
+shape = SubResource("RectangleShape2D_vadbs")
+
+[node name="Sprite2D" parent="." index="1"]
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("2_vadbs")
+region_rect = Rect2(756, 97, 304, 281)
