@@ -1,7 +1,7 @@
 [gd_scene load_steps=24 format=3 uid="uid://d2sumagtfmyln"]
 
 [ext_resource type="PackedScene" uid="uid://daotyvqai4b36" path="res://Prefabs/StandardCharacter/StandardCharacter.tscn" id="1_0iji5"]
-[ext_resource type="Texture2D" uid="uid://crgmwjswujr2l" path="res://Sprites/Enemies/drone.png" id="2_sx17p"]
+[ext_resource type="Texture2D" uid="uid://crgmwjswujr2l" path="res://Sprites/Enemies/Drone.png" id="2_sx17p"]
 
 [sub_resource type="Animation" id="Animation_w3adq"]
 resource_name = "attack"
@@ -21,7 +21,6 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_i46hf"]
 resource_name = "death"
-length = 0.9
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -29,10 +28,10 @@ tracks/0/path = NodePath("Sprite2D:frame_coords")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.4, 0.5, 0.6, 0.7, 0.8),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.5, 0.6, 0.7, 0.8, 0.89942145),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [Vector2i(0, 3), Vector2i(1, 3), Vector2i(2, 3), Vector2i(3, 3), Vector2i(4, 3), Vector2i(5, 3), Vector2i(6, 3)]
+"values": [Vector2i(0, 3), Vector2i(1, 3), Vector2i(2, 3), Vector2i(3, 3), Vector2i(4, 3), Vector2i(5, 3), Vector2i(6, 3), Vector2i(7, 3)]
 }
 
 [sub_resource type="Animation" id="Animation_slo08"]

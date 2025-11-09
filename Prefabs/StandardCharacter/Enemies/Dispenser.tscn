@@ -1,0 +1,177 @@
+[gd_scene load_steps=24 format=3 uid="uid://p07hej4n6jsc"]
+
+[ext_resource type="PackedScene" uid="uid://daotyvqai4b36" path="res://Prefabs/StandardCharacter/StandardCharacter.tscn" id="1_rntwx"]
+[ext_resource type="Texture2D" uid="uid://dpq8ap7lm8ark" path="res://Sprites/Enemies/Dispenser.png" id="2_rw6rr"]
+
+[sub_resource type="Animation" id="Animation_frxoa"]
+resource_name = "Attack"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.16666667, 0.33333334, 0.43333334),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Vector2i(0, 2), Vector2i(1, 2), Vector2i(2, 2), Vector2i(3, 2)]
+}
+
+[sub_resource type="Animation" id="Animation_peq8w"]
+resource_name = "Death"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.5, 0.5991496, 0.69933736, 0.8031032, 0.9016896),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector2i(0, 3), Vector2i(1, 3), Vector2i(2, 3), Vector2i(3, 3), Vector2i(4, 3), Vector2i(5, 3), Vector2i(6, 3), Vector2i(7, 3)]
+}
+
+[sub_resource type="Animation" id="Animation_brnq3"]
+resource_name = "Idle"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [Vector2i(0, 0), Vector2i(1, 0), Vector2i(2, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_b34ru"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2i(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_rw6rr"]
+resource_name = "Walk"
+length = 0.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.13333334, 0.26666668, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Vector2i(0, 1), Vector2i(1, 1), Vector2i(2, 1), Vector2i(3, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_peq8w"]
+_data = {
+&"Attack": SubResource("Animation_frxoa"),
+&"Death": SubResource("Animation_peq8w"),
+&"Idle": SubResource("Animation_brnq3"),
+&"RESET": SubResource("Animation_b34ru"),
+&"Walk": SubResource("Animation_rw6rr")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_rw6rr"]
+animation = &"Attack"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_brnq3"]
+animation = &"Death"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_b34ru"]
+animation = &"Idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_peq8w"]
+animation = &"Walk"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_frxoa"]
+advance_mode = 2
+advance_condition = &"is_dead"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_wh6co"]
+advance_mode = 2
+advance_condition = &"is_dead"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_hyu4v"]
+advance_mode = 2
+advance_condition = &"is_dead"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_1sgmu"]
+advance_mode = 2
+advance_condition = &"is_walking"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ioj1t"]
+advance_mode = 2
+advance_condition = &"is_walking"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_mb3js"]
+advance_mode = 2
+advance_condition = &"is_idling"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_cnunj"]
+advance_mode = 2
+advance_condition = &"is_idling"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_rw6rr"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_brnq3"]
+advance_mode = 2
+advance_condition = &"is_attacking"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_b34ru"]
+advance_mode = 2
+advance_condition = &"is_attacking"
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_rntwx"]
+states/Attack/node = SubResource("AnimationNodeAnimation_rw6rr")
+states/Attack/position = Vector2(537, 221)
+states/Death/node = SubResource("AnimationNodeAnimation_brnq3")
+states/Death/position = Vector2(537, 0)
+states/Idle/node = SubResource("AnimationNodeAnimation_b34ru")
+states/Idle/position = Vector2(370, 100)
+states/Walk/node = SubResource("AnimationNodeAnimation_peq8w")
+states/Walk/position = Vector2(701, 100)
+transitions = ["Idle", "Death", SubResource("AnimationNodeStateMachineTransition_frxoa"), "Walk", "Death", SubResource("AnimationNodeStateMachineTransition_wh6co"), "Attack", "Death", SubResource("AnimationNodeStateMachineTransition_hyu4v"), "Idle", "Walk", SubResource("AnimationNodeStateMachineTransition_1sgmu"), "Attack", "Walk", SubResource("AnimationNodeStateMachineTransition_ioj1t"), "Walk", "Idle", SubResource("AnimationNodeStateMachineTransition_mb3js"), "Attack", "Idle", SubResource("AnimationNodeStateMachineTransition_cnunj"), "Start", "Idle", SubResource("AnimationNodeStateMachineTransition_rw6rr"), "Idle", "Attack", SubResource("AnimationNodeStateMachineTransition_brnq3"), "Walk", "Attack", SubResource("AnimationNodeStateMachineTransition_b34ru")]
+graph_offset = Vector2(30, -99)
+
+[node name="Dispenser" instance=ExtResource("1_rntwx")]
+
+[node name="Sprite2D" parent="." index="7"]
+texture = ExtResource("2_rw6rr")
+vframes = 4
+frame = 0
+
+[node name="AnimationPlayer" parent="." index="8"]
+libraries = {
+&"": SubResource("AnimationLibrary_peq8w")
+}
+
+[node name="AnimationTree" type="AnimationTree" parent="." index="9"]
+tree_root = SubResource("AnimationNodeStateMachine_rntwx")
+anim_player = NodePath("../AnimationPlayer")
+parameters/conditions/is_attacking = false
+parameters/conditions/is_dead = false
+parameters/conditions/is_idling = false
+parameters/conditions/is_walking = false

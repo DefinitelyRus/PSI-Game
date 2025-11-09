@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://crgmwjswujr2l"
-path="res://.godot/imported/Drone.png-4326df0c47dba64db02e0091ee3cc84b.ctex"
+uid="uid://cjg2vncsjok4s"
+path="res://.godot/imported/Turret.png-711caa2f26e44ac4615b025d42f58c9a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/Enemies/Drone.png"
-dest_files=["res://.godot/imported/Drone.png-4326df0c47dba64db02e0091ee3cc84b.ctex"]
+source_file="res://Sprites/Enemies/Turret.png"
+dest_files=["res://.godot/imported/Turret.png-711caa2f26e44ac4615b025d42f58c9a.ctex"]
 
 [params]
 
