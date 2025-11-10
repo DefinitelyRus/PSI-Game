@@ -1,7 +1,72 @@
 [gd_scene load_steps=24 format=3 uid="uid://d2sumagtfmyln"]
 
 [ext_resource type="PackedScene" uid="uid://daotyvqai4b36" path="res://Prefabs/StandardCharacter/StandardCharacter.tscn" id="1_0iji5"]
-[ext_resource type="Texture2D" uid="uid://crgmwjswujr2l" path="res://Sprites/Enemies/Drone.png" id="2_sx17p"]
+[ext_resource type="Texture2D" uid="uid://crgmwjswujr2l" path="res://Sprites/Enemies/drone.png" id="2_sx17p"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_w3adq"]
+animation = &"Attack"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_6ji2q"]
+animation = &"Death"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_slo08"]
+animation = &"Idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_7j2fb"]
+animation = &"Walk"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_i46hf"]
+advance_mode = 2
+advance_condition = &"is_dead"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_io653"]
+advance_mode = 2
+advance_condition = &"is_walking"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ignri"]
+advance_mode = 2
+advance_condition = &"is_idling"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_trfj5"]
+advance_mode = 2
+advance_condition = &"is_attacking"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_cvdcq"]
+advance_mode = 2
+advance_condition = &"is_idling"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_h7rtq"]
+advance_mode = 2
+advance_condition = &"is_dead"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_mdlgl"]
+advance_mode = 2
+advance_condition = &"is_dead"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_vyfun"]
+advance_mode = 2
+advance_condition = &"is_walking"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_xv5ba"]
+advance_mode = 2
+advance_condition = &"is_attacking"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_6ji2q"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_6ji2q"]
+states/Attack/node = SubResource("AnimationNodeAnimation_w3adq")
+states/Attack/position = Vector2(499, 220)
+states/Death/node = SubResource("AnimationNodeAnimation_6ji2q")
+states/Death/position = Vector2(499, -18)
+states/End/position = Vector2(812, 103)
+states/Idle/node = SubResource("AnimationNodeAnimation_slo08")
+states/Idle/position = Vector2(333, 103)
+states/Start/position = Vector2(202, 103)
+states/Walk/node = SubResource("AnimationNodeAnimation_7j2fb")
+states/Walk/position = Vector2(653, 103)
+transitions = ["Idle", "Death", SubResource("AnimationNodeStateMachineTransition_i46hf"), "Idle", "Walk", SubResource("AnimationNodeStateMachineTransition_io653"), "Walk", "Idle", SubResource("AnimationNodeStateMachineTransition_ignri"), "Idle", "Attack", SubResource("AnimationNodeStateMachineTransition_trfj5"), "Attack", "Idle", SubResource("AnimationNodeStateMachineTransition_cvdcq"), "Attack", "Death", SubResource("AnimationNodeStateMachineTransition_h7rtq"), "Walk", "Death", SubResource("AnimationNodeStateMachineTransition_mdlgl"), "Attack", "Walk", SubResource("AnimationNodeStateMachineTransition_vyfun"), "Walk", "Attack", SubResource("AnimationNodeStateMachineTransition_xv5ba"), "Start", "Idle", SubResource("AnimationNodeStateMachineTransition_6ji2q")]
+graph_offset = Vector2(9, -89)
 
 [sub_resource type="Animation" id="Animation_w3adq"]
 resource_name = "attack"
@@ -92,81 +157,12 @@ _data = {
 &"Walk": SubResource("Animation_6ji2q")
 }
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_w3adq"]
-animation = &"Attack"
+[node name="Drone" node_paths=PackedStringArray("AnimationTree") instance=ExtResource("1_0iji5")]
+AnimationTree = NodePath("AnimationTree")
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_6ji2q"]
-animation = &"Death"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_slo08"]
-animation = &"Idle"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_7j2fb"]
-animation = &"Walk"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_i46hf"]
-advance_mode = 2
-advance_condition = &"is_dead"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_io653"]
-advance_mode = 2
-advance_condition = &"is_walking"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ignri"]
-advance_mode = 2
-advance_condition = &"is_idling"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_trfj5"]
-advance_mode = 2
-advance_condition = &"is_attacking"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_cvdcq"]
-advance_mode = 2
-advance_condition = &"is_idling"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_h7rtq"]
-advance_mode = 2
-advance_condition = &"is_dead"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_mdlgl"]
-advance_mode = 2
-advance_condition = &"is_dead"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_vyfun"]
-advance_mode = 2
-advance_condition = &"is_walking"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_xv5ba"]
-advance_mode = 2
-advance_condition = &"is_attacking"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_6ji2q"]
-advance_mode = 2
-
-[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_6ji2q"]
-states/Attack/node = SubResource("AnimationNodeAnimation_w3adq")
-states/Attack/position = Vector2(499, 220)
-states/Death/node = SubResource("AnimationNodeAnimation_6ji2q")
-states/Death/position = Vector2(499, -18)
-states/End/position = Vector2(812, 103)
-states/Idle/node = SubResource("AnimationNodeAnimation_slo08")
-states/Idle/position = Vector2(333, 103)
-states/Start/position = Vector2(202, 103)
-states/Walk/node = SubResource("AnimationNodeAnimation_7j2fb")
-states/Walk/position = Vector2(653, 103)
-transitions = ["Idle", "Death", SubResource("AnimationNodeStateMachineTransition_i46hf"), "Idle", "Walk", SubResource("AnimationNodeStateMachineTransition_io653"), "Walk", "Idle", SubResource("AnimationNodeStateMachineTransition_ignri"), "Idle", "Attack", SubResource("AnimationNodeStateMachineTransition_trfj5"), "Attack", "Idle", SubResource("AnimationNodeStateMachineTransition_cvdcq"), "Attack", "Death", SubResource("AnimationNodeStateMachineTransition_h7rtq"), "Walk", "Death", SubResource("AnimationNodeStateMachineTransition_mdlgl"), "Attack", "Walk", SubResource("AnimationNodeStateMachineTransition_vyfun"), "Walk", "Attack", SubResource("AnimationNodeStateMachineTransition_xv5ba"), "Start", "Idle", SubResource("AnimationNodeStateMachineTransition_6ji2q")]
-graph_offset = Vector2(9, -89)
-
-[node name="Drone" instance=ExtResource("1_0iji5")]
-
-[node name="Sprite2D" parent="." index="7"]
+[node name="Sprite2D" parent="." index="8"]
 texture = ExtResource("2_sx17p")
 vframes = 4
-
-[node name="AnimationPlayer" parent="." index="8"]
-libraries = {
-&"": SubResource("AnimationLibrary_w3adq")
-}
 
 [node name="AnimationTree" type="AnimationTree" parent="." index="9"]
 tree_root = SubResource("AnimationNodeStateMachine_6ji2q")
@@ -175,3 +171,8 @@ parameters/conditions/is_attacking = false
 parameters/conditions/is_dead = false
 parameters/conditions/is_idling = false
 parameters/conditions/is_walking = false
+
+[node name="AnimationPlayer" parent="." index="10"]
+libraries = {
+&"": SubResource("AnimationLibrary_w3adq")
+}
