@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://d0vd1cttixedg" path="res://Sprites/World Sprites/Level 0 - Parking Lot/Vehicles.png" id="2_rgc1r"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6abbo"]
-size = Vector2(36, 57)
+size = Vector2(28, 59)
 
 [node name="Blue Car" instance=ExtResource("1_0bgwb")]
 collision_layer = 9
@@ -13,9 +13,14 @@ PropID = "blue_car"
 PropDescription = "a blue car facing right"
 
 [node name="CollisionShape2D" parent="." index="0"]
-position = Vector2(0, 2.5)
+position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_6abbo")
 
 [node name="Sprite2D" parent="." index="1"]
 texture = ExtResource("2_rgc1r")
 region_rect = Rect2(133, 216, 37, 67)
+
+[node name="NavigationObstacle2D" parent="." index="2"]
+position = Vector2(0, 0)
+radius = 40.0
+vertices = PackedVector2Array(-17, -37, 17, -37, 17, 29, -17, 29)

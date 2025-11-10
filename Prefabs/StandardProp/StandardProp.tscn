@@ -28,5 +28,4 @@ region_rect = Rect2(80, 160, 16, 32)
 position = Vector2(0, 8)
 vertices = PackedVector2Array(-7, -5, 7, -5, 7, 5, -7, 5)
 affect_navigation_mesh = true
-carve_navigation_mesh = true
 avoidance_layers = 4
