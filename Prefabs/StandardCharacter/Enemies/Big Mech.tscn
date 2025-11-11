@@ -158,6 +158,11 @@ _data = {
 }
 
 [node name="Big Mech" node_paths=PackedStringArray("AnimationTree") instance=ExtResource("1_y36br")]
+CharacterName = "Juggernaut"
+CharacterID = "juggernaut"
+MaxSpeed = 24.0
+AccelerationTime = 1.0
+DespawnOnDeath = true
 AnimationTree = NodePath("AnimationTree")
 
 [node name="Sprite2D" parent="." index="8"]
