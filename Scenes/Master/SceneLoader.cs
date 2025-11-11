@@ -133,7 +133,7 @@ public partial class SceneLoader : Node
         }
 
 		Instance.Theatre.AddChild(level);
-
+        Instance.LoadedScene = level;
 		return;
     }
 
@@ -151,8 +151,9 @@ public partial class SceneLoader : Node
         }
 
         else Log.Err(() => "No units registered with Commander to spawn in the level.");
-        
+
         Instance.Theatre.AddChild(level);
+        Instance.LoadedScene = level;
 	}
 
 
