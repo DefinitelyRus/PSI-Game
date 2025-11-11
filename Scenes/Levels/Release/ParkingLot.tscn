@@ -471,6 +471,7 @@ position = Vector2(294, 322)
 end_position = Vector2(0, 29)
 
 [node name="Region 2" type="NavigationRegion2D" parent="Regions" index="3"]
+y_sort_enabled = true
 navigation_polygon = SubResource("NavigationPolygon_0bmdw")
 
 [node name="R2-R3" type="Node2D" parent="Regions" index="4"]
@@ -492,4 +493,5 @@ position = Vector2(752, 321)
 end_position = Vector2(0, 29)
 
 [node name="Region 3" type="NavigationRegion2D" parent="Regions" index="5"]
+y_sort_enabled = true
 navigation_polygon = SubResource("NavigationPolygon_ky56w")
