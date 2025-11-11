@@ -1268,22 +1268,29 @@ ClickArea = NodePath("Click Area")
 AnimationPlayer = NodePath("AnimationPlayer")
 
 [node name="Control Surface" type="Node2D" parent="." node_paths=PackedStringArray("Character")]
+position = Vector2(0, 3)
 script = ExtResource("3_r87il")
 Character = NodePath("..")
 LogReady = false
 
+[node name="Projectile Weapon" parent="." node_paths=PackedStringArray("WeaponOwner") instance=ExtResource("4_g5v64")]
+position = Vector2(0, 3)
+WeaponOwner = NodePath("..")
+
+[node name="AI Targeting Manager" type="Node2D" parent="."]
+position = Vector2(0, 3)
+script = ExtResource("4_tbsya")
+
 [node name="AI Agent Manager" type="Node2D" parent="." node_paths=PackedStringArray("Character", "ControlSurface", "NavAgent")]
+editor_description = "Manages the AI Pathfinding for this character.
+
+Note:
+Do not change its relative position. This causes the character to move erratically when attempting to reach its destination -- the CharacterBody2D reaches it, but not this node."
 script = ExtResource("4_rog04")
 Character = NodePath("..")
 ControlSurface = NodePath("../Control Surface")
 NavAgent = NodePath("../NavigationAgent2D")
 LogReady = false
-
-[node name="AI Targeting Manager" type="Node2D" parent="."]
-script = ExtResource("4_tbsya")
-
-[node name="Projectile Weapon" parent="." node_paths=PackedStringArray("WeaponOwner") instance=ExtResource("4_g5v64")]
-WeaponOwner = NodePath("..")
 
 [node name="Body Collider" type="CollisionShape2D" parent="."]
 position = Vector2(0, 9.5)
@@ -1301,15 +1308,17 @@ shape = SubResource("CapsuleShape2D_n5c1j")
 [node name="Click Area" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Click Area"]
-position = Vector2(0, -0.5)
 shape = SubResource("RectangleShape2D_6shlc")
 
 [node name="Audio Controller" type="Node2D" parent="."]
+position = Vector2(0, 9.5)
 script = ExtResource("5_ys8vw")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 y_sort_enabled = true
+position = Vector2(0, 9.5)
 texture = ExtResource("2_r87il")
+offset = Vector2(0, -9.5)
 hframes = 8
 vframes = 8
 frame = 1
@@ -1332,3 +1341,4 @@ time_horizon_obstacles = 0.5
 max_speed = 1000.0
 avoidance_layers = 16
 avoidance_mask = 28
+avoidance_priority = 0.2
