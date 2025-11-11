@@ -57,7 +57,10 @@ public partial class Level : Node2D {
 		foreach (Node2D category in categories) {
 			IEnumerable<StandardProp> categoryProps = category.GetChildren().OfType<StandardProp>();
 			props = props.Concat(categoryProps);
+			category.QueueFree();
 		}
+
+		PropsParent.QueueFree();
 
 		// Reparent each prop to the correct navigation region
 		// and set its nav map to the region's map rid
