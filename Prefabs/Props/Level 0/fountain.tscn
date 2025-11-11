@@ -3,8 +3,8 @@
 [ext_resource type="PackedScene" uid="uid://bnslwo4ecgkcn" path="res://Prefabs/StandardProp/StandardProp.tscn" id="1_eua2s"]
 [ext_resource type="Texture2D" uid="uid://f8i6teg6ade7" path="res://Sprites/World Sprites/Level 0 - Parking Lot/Parking_Props.png" id="2_f2eto"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_huyye"]
-size = Vector2(32, 26.5)
+[sub_resource type="CircleShape2D" id="CircleShape2D_eua2s"]
+radius = 15.0
 
 [node name="fountain" instance=ExtResource("1_eua2s")]
 collision_layer = 9
@@ -13,13 +13,15 @@ PropID = "fountain"
 PropDescription = "a fountain"
 
 [node name="CollisionShape2D" parent="." index="0"]
-position = Vector2(0, 8.25)
-shape = SubResource("RectangleShape2D_huyye")
+position = Vector2(0, 5)
+shape = SubResource("CircleShape2D_eua2s")
 
 [node name="Sprite2D" parent="." index="1"]
+position = Vector2(0, 8)
 texture = ExtResource("2_f2eto")
+offset = Vector2(0, -7.5)
 region_rect = Rect2(256, 229, 32, 43)
 
 [node name="NavigationObstacle2D" parent="." index="2"]
-radius = 22.0
-vertices = PackedVector2Array(-16, -13, 16, -13, 16, 14, -16, 14)
+position = Vector2(0, 5)
+vertices = PackedVector2Array(-18, -10, -8, -18, 8, -18, 18, -10, 18, 8, 10, 18, -10, 18, -18, 8)
