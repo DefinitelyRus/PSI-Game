@@ -81,10 +81,16 @@ public partial class Level : Node2D {
 		// Bake navigation polygons for all regions
 		foreach (NavigationRegion2D region in regions) {
 			Log.Me(() => $"Baking navigation polygon for region {region.Name}.");
+
+			if (region.NavigationPolygon == null) {
+				Log.Warn(() => $"Region {region.Name} has no NavigationPolygon assigned. Skipping bake.");
+				continue;
+			}
+
 			region.BakeNavigationPolygon(true);
 		}
 	}
-	
+
 	private Rid? GetMapRid(Vector2 position, out NavigationRegion2D? newRegion) {
 		List<NavigationRegion2D> regions = [.. RegionsParent.GetChildren().OfType<NavigationRegion2D>()];
 		foreach (NavigationRegion2D region in regions) {
