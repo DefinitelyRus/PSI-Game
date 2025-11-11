@@ -1119,13 +1119,12 @@ texture = ExtResource("2_qbyan")
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_6m8qg")
 
-[node name="Standard Level" type="Node2D" node_paths=PackedStringArray("SpawnParent", "NavRegion", "PropsParent")]
+[node name="Standard Level" type="Node2D" node_paths=PackedStringArray("SpawnParent", "PropsParent")]
 z_as_relative = false
 y_sort_enabled = true
 script = ExtResource("1_svleo")
 SpawnParent = NodePath("Spawnpoints")
-NavRegion = NodePath("NavigationRegion2D")
-PropsParent = NodePath("NavigationRegion2D/Props")
+PropsParent = NodePath("")
 
 [node name="Spawnpoints" type="Node2D" parent="."]
 y_sort_enabled = true
@@ -1158,13 +1157,9 @@ position = Vector2(0, -4)
 tile_set = SubResource("TileSet_som2o")
 y_sort_origin = -16
 
-[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+[node name="Regions" type="Node2D" parent="."]
 y_sort_enabled = true
-position = Vector2(298, 207)
 
-[node name="Props" type="Node2D" parent="NavigationRegion2D"]
+[node name="Region 1" type="NavigationRegion2D" parent="Regions"]
 y_sort_enabled = true
-position = Vector2(-298, -207)
-
-[node name="Colliding" type="Node2D" parent="NavigationRegion2D/Props"]
-y_sort_enabled = true
+enter_cost = 1.0
