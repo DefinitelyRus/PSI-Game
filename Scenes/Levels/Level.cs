@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Godot;
 namespace CommonScripts;
@@ -8,8 +9,8 @@ public partial class Level : Node2D {
 	[Export] public Node2D SpawnParent = null!;
 	[Export] public Node2D[] CameraNodePaths = [];
 	private int CurrentSpawnIndex = 0;
-	[Export] public NavigationRegion2D NavRegion = null!;
 	[Export] public Node2D PropsParent = null!;
+	[Export] public Node2D RegionsParent = null!;
 
 
 	public void SpawnUnit(StandardCharacter unit) {
@@ -47,10 +48,58 @@ public partial class Level : Node2D {
 		}
 	}
 
+	private void ReparentAllProps() {
+		IEnumerable<NavigationRegion2D> regions = RegionsParent.GetChildren().OfType<NavigationRegion2D>();
+		IEnumerable<Node2D> categories = PropsParent.GetChildren().OfType<Node2D>();
+		IEnumerable<StandardProp> props = [];
+
+		// List all props from all categories
+		foreach (Node2D category in categories) {
+			IEnumerable<StandardProp> categoryProps = category.GetChildren().OfType<StandardProp>();
+			props = props.Concat(categoryProps);
+		}
+
+		// Reparent each prop to the correct navigation region
+		// and set its nav map to the region's map rid
+		foreach (StandardProp prop in props) {
+			//Log.Me(() => $"Reparenting prop {prop.Name} for navigation.");
+			Rid? mapRid = GetMapRid(prop.GlobalPosition, out NavigationRegion2D? newRegion);
+
+			if (mapRid == null || newRegion == null) {
+				//Log.Warn(() => $"No navigation map found for prop {prop.Name} at position {prop.GlobalPosition}. Skipping setting nav map.");
+				continue;
+			}
+
+			Log.Me(() => $"Setting navigation map for prop {prop.Name} to region {newRegion.Name}.");
+			prop.NavObstacle.SetNavigationMap(mapRid.Value);
+			prop.Reparent(newRegion, true);
+		}
+
+		// Bake navigation polygons for all regions
+		foreach (NavigationRegion2D region in regions) {
+			Log.Me(() => $"Baking navigation polygon for region {region.Name}.");
+			region.BakeNavigationPolygon(true);
+		}
+	}
+	
+	private Rid? GetMapRid(Vector2 position, out NavigationRegion2D? newRegion) {
+		List<NavigationRegion2D> regions = [.. RegionsParent.GetChildren().OfType<NavigationRegion2D>()];
+		foreach (NavigationRegion2D region in regions) {
+			if (region.GetBounds().HasPoint(position)) {
+				newRegion = region;
+				return region.GetNavigationMap();
+			}
+		}
+		newRegion = null;
+		return null;
+	}
+
+
+	#region Godot Callbacks
 
 	public override void _EnterTree() {
-		if (NavRegion == null) {
-			Log.Err(() => "NavRegion is not assigned. Please assign a NavigationRegion2D to the level.");
+		if (RegionsParent == null) {
+			Log.Err(() => "RegionsParent is not assigned. Please assign a Node2D to hold regions in the level.");
 			return;
 		}
 
@@ -69,23 +118,9 @@ public partial class Level : Node2D {
 		if (CameraNodePaths.Length == 0) {
 			CameraMan.SetTarget(SpawnParent, true);
 		}
-		
-		foreach (Node2D child in PropsParent.GetChildren().OfType<Node2D>()) {
-			foreach (Node2D grandChild in child.GetChildren().Cast<Node2D>()) {
-				foreach (Node2D greatGrandChild in grandChild.GetChildren().Cast<Node2D>()) {
-					if (greatGrandChild is StandardProp prop) {
-						Rid mapRid = NavRegion.GetNavigationMap();
-						Log.Me(() => $"Setting nav map for prop {prop.InstanceID} to {mapRid}...");
-						prop.NavObstacle.SetNavigationMap(mapRid);
-					}
-				}
-			}
-		}
 
-		foreach (StandardCharacter character in GetChildren(true).OfType<StandardCharacter>()) {
-			Rid mapRid = NavRegion.GetNavigationMap();
-			Log.Me(() => $"Setting nav map for character {character.InstanceID} to {mapRid}...", true, true);
-			character.AIManager.NavAgent.SetNavigationMap(mapRid);
-		}
+		ReparentAllProps();
 	}
+	
+	#endregion
 }
