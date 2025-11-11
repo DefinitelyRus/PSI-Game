@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using Godot;
 namespace CommonScripts;
 
@@ -24,8 +26,11 @@ public partial class AITargetingManager : Node2D {
 
     public StandardCharacter? ManualTarget = null;
 
+    [Export] public bool EnableScanning = true;
 
     private void ScanForTargets(double delta) {
+        if (!EnableScanning) return;
+
         // Skip if still in cooldown
         if (_timeSinceLastTargetSwitch > 0f) {
             _timeSinceLastTargetSwitch -= (float) delta;
@@ -34,25 +39,29 @@ public partial class AITargetingManager : Node2D {
 
         // Check if current target is still valid, clear if not
         if (CurrentTarget != null) {
-            float distanceToCurrentTarget = ParentCharacter.Position.DistanceTo(CurrentTarget.Position);
-            bool targetOutOfRange = distanceToCurrentTarget > TargetLostRadius;
+            bool isValid = CheckTargetValidity(CurrentTarget, false);
 
-            if (targetOutOfRange) {
-                CurrentTarget = null;
+            Log.Me(() => $"{ParentCharacter.Name} -> {CurrentTarget.Name} validity check: {isValid}");
+
+            if (isValid) {
+                SetAimDirection();
                 return;
             }
 
-            if (!CurrentTarget.IsAlive) {
+            else {
                 CurrentTarget = null;
-                return;
+                AimDirection = null;
             }
         }
 
         // Scan for new targets
-        foreach (PhysicsBody2D entity in EntityManager.Entities) {
+        Node loadedScene = SceneLoader.Instance.LoadedScene;
+        List<StandardCharacter> potentialTargets = [.. loadedScene.GetChildren(false).OfType<StandardCharacter>()];
+
+        foreach (PhysicsBody2D entity in potentialTargets) {
             if (entity is not StandardCharacter character) continue;
             if (character == ParentCharacter) continue;
-            Log.Me(() => $"Scanning character: {character.Name}");
+            if (character == CurrentTarget) continue;
             if (!character.IsAlive) continue;
 
             // Skip if outside detection radius
@@ -61,48 +70,50 @@ public partial class AITargetingManager : Node2D {
 
             // If manual target is set, only consider that one
             if (ManualTarget != null && character != ManualTarget) continue;
-            
+
             bool isValid = CheckTargetValidity(character);
-            if (isValid) break;
+
+            if (isValid) {
+                Log.Me(() => $"{ParentCharacter.Name} -> {character.Name} considered as target.");
+                CurrentTarget = character;
+                SetAimDirection();
+                break;
+            }
         }
     }
 
-    private bool CheckTargetValidity(StandardCharacter newTarget) {
+    private bool CheckTargetValidity(StandardCharacter target, bool setAsCurrent = true) {
         float distanceToCurrentTarget = CurrentTarget != null ? ParentCharacter.Position.DistanceTo(CurrentTarget.Position) : float.MaxValue;
-        float distanceToNewTarget = ParentCharacter.Position.DistanceTo(newTarget.Position);
+        float distanceToNewTarget = ParentCharacter.Position.DistanceTo(target.Position);
+        bool closerThanCurrent = distanceToNewTarget < distanceToCurrentTarget;
+        bool fartherThanCurrent = distanceToNewTarget > distanceToCurrentTarget;
+        bool isCurrentTarget = target == CurrentTarget;
+
+        bool inRange = distanceToNewTarget <= TargetDetectionRadius;
+        bool isAlive = target.IsAlive;
+
+        if (!inRange || !isAlive) return false;
 
         switch (CurrentTargetMode) {
             case TargetMode.Nearest:
-                if (CurrentTarget == null || distanceToNewTarget < distanceToCurrentTarget) {
-                    CurrentTarget = newTarget;
-                    _timeSinceLastTargetSwitch = TargetSwitchCooldown;
+                if (closerThanCurrent || isCurrentTarget) {
+                    if (setAsCurrent) {
+                        CurrentTarget = target;
+                        _timeSinceLastTargetSwitch = TargetSwitchCooldown;
+                    }
+
                     return true;
                 }
 
                 break;
 
             case TargetMode.Farthest:
-                if (CurrentTarget == null || distanceToNewTarget > distanceToCurrentTarget) {
-                    CurrentTarget = newTarget;
-                    _timeSinceLastTargetSwitch = TargetSwitchCooldown;
-                    return true;
-                }
+                if (fartherThanCurrent || isCurrentTarget) {
+                    if (setAsCurrent) {
+                        CurrentTarget = target;
+                        _timeSinceLastTargetSwitch = TargetSwitchCooldown;
+                    }
 
-                break;
-
-            case TargetMode.LowestHealth:
-                if (CurrentTarget == null || newTarget.Health < CurrentTarget.Health) {
-                    CurrentTarget = newTarget;
-                    _timeSinceLastTargetSwitch = TargetSwitchCooldown;
-                    return true;
-                }
-
-                break;
-
-            case TargetMode.HighestHealth:
-                if (CurrentTarget == null || newTarget.Health > CurrentTarget.Health) {
-                    CurrentTarget = newTarget;
-                    _timeSinceLastTargetSwitch = TargetSwitchCooldown;
                     return true;
                 }
 
@@ -125,12 +136,22 @@ public partial class AITargetingManager : Node2D {
     public void SetAimDirection(Vector2? directionOverride = null) {
         if (CurrentTarget == null) return;
 
+        // Set aim direction towards current target
         if (directionOverride == null) AimDirection = (CurrentTarget.Position - ParentCharacter.Position).Normalized();
+
+        // Use provided direction override
         else AimDirection = directionOverride.Value.Normalized();
     }
 
     private void UpdateAimDirection(double delta) {
         if (AimDirection == null) return;
+
+        // Skip if character is moving
+        bool isCharacterMoving = ParentCharacter.Control.MovementDirection.Length() > 0f;
+        if (isCharacterMoving) {
+            ReadyToFire = false;
+            return;
+        }
 
         Vector2 currentFacing = ParentCharacter.Control.FacingDirection;
         float angleToTarget = currentFacing.AngleTo(AimDirection.Value);
@@ -161,6 +182,14 @@ public partial class AITargetingManager : Node2D {
 
     public void Attack() {
         if (!AttackPermitted) return;
+
+        // Skip if character is moving
+        bool isCharacterMoving = ParentCharacter.Control.MovementDirection.Length() > 0f;
+        if (isCharacterMoving) {
+            ParentCharacter.Control.IsAttacking = false;
+            return;
+        }
+
         bool toAttack = CurrentTarget != null && ReadyToFire;
         ParentCharacter.Control.IsAttacking = toAttack;
     }
