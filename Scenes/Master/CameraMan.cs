@@ -249,7 +249,7 @@ public partial class CameraMan : Node2D {
     public static void StopDragging() {
         LastMousePos = null;
     }
-    
+
     #endregion
 
     #region Screen Shake
@@ -311,6 +311,23 @@ public partial class CameraMan : Node2D {
         else mousePos -= ShakeOffset;
 
         return mousePos.Value;
+    }
+
+    #endregion
+
+    #region Other
+
+    public static bool IsPointVisible(Vector2 point, float margin = 0f) {
+        Vector2 viewportSize = Instance.GetViewportRect().Size;
+        Vector2 cameraTopLeft = Instance.GlobalPosition - (viewportSize / 2);
+        Vector2 cameraBottomRight = Instance.GlobalPosition + (viewportSize / 2);
+
+        Rect2 cameraRect = new(
+            cameraTopLeft - new Vector2(margin, margin),
+            cameraBottomRight - cameraTopLeft + new Vector2(margin * 2, margin * 2)
+        );
+
+        return cameraRect.HasPoint(point);
     }
 
     #endregion
