@@ -7,6 +7,7 @@ namespace CommonScripts;
 public partial class Level : Node2D {
 
 	[Export] public Node2D SpawnParent = null!;
+	[Export] public Node2D EnemySpawnParent = null!;
 	[Export] public Node2D[] CameraNodePaths = [];
 	private int CurrentSpawnIndex = 0;
 	[Export] public Node2D PropsParent = null!;
@@ -47,6 +48,74 @@ public partial class Level : Node2D {
 			return;
 		}
 	}
+
+
+	public void SpawnEnemy(StandardCharacter enemy, Vector2 position) {
+		AddChild(enemy);
+		enemy.GlobalPosition = position;
+	}
+
+
+	public void SpawnEnemy(StandardCharacter enemy, Node2D spawnPoint) {
+		AddChild(enemy);
+		enemy.GlobalPosition = spawnPoint.GlobalPosition;
+    }
+
+
+	/// <summary>
+	/// Finds the nearest spawn point to the given position within the specified radius.
+	/// </summary>
+	/// <param name="position">The position to find the nearest spawn point to.</param>
+	/// <param name="radius">The distance within which to search for spawn points.</param>
+	/// <param name="index">The nth closest spawn point to find.</param>
+	/// <returns>A Node2D or null if no suitable spawn point is found within the radius.</returns>
+	public Node2D? FindNearbySpawnPoint(Vector2 position, float radius = float.MaxValue, int index = 0, bool avoidCamera = true) {
+
+		#region Validation
+
+		if (index < 0) {
+			Log.Err(() => $"FindNearbySpawnPoint: Index {index} cannot be negative. Canceling.");
+			return null;
+		}
+
+		if (radius <= 0f) {
+			Log.Err(() => $"FindNearbySpawnPoint: Radius {radius} must be greater than zero. Canceling.");
+			return null;
+		}
+
+		Node2D[] SpawnPoints = [.. SpawnParent.GetChildren().OfType<Node2D>()];
+		if (SpawnPoints.Length == 0) {
+			Log.Err("No spawn points defined for this level. Canceling.");
+			return null;
+		}
+
+		#endregion
+
+		// Sort by distance to the given position
+		float distance(Node2D spawn) => spawn.GlobalPosition.DistanceTo(position);
+		List<Node2D> sortedSpawns = [.. SpawnPoints.OrderBy(distance)];
+
+		// Remove spawns outside the radius
+		bool inRadius(Node2D spawn) => distance(spawn) <= radius;
+		List<Node2D> spawnsInRange = [.. sortedSpawns.Where(inRadius)];
+
+		if (spawnsInRange.Count == 0) {
+			Log.Warn(() => $"No spawn points found within radius {radius} of position {position}.", true, true);
+			return null;
+		}
+
+		// Optionally remove spawns currently in camera view
+		if (avoidCamera) {
+			foreach (Node2D spawn in spawnsInRange.ToList()) {
+				if (CameraMan.IsPointVisible(spawn.GlobalPosition)) {
+					spawnsInRange.Remove(spawn);
+				}
+			}
+		}
+
+		return spawnsInRange.Count > index ? spawnsInRange[index] : null;
+	}
+
 
 	private void ReparentAllProps() {
 		IEnumerable<NavigationRegion2D> regions = RegionsParent.GetChildren().OfType<NavigationRegion2D>();
@@ -91,6 +160,7 @@ public partial class Level : Node2D {
 		}
 	}
 
+
 	private Rid? GetMapRid(Vector2 position, out NavigationRegion2D? newRegion) {
 		List<NavigationRegion2D> regions = [.. RegionsParent.GetChildren().OfType<NavigationRegion2D>()];
 		foreach (NavigationRegion2D region in regions) {
@@ -107,6 +177,16 @@ public partial class Level : Node2D {
 	#region Godot Callbacks
 
 	public override void _EnterTree() {
+		if (SpawnParent == null) {
+			Log.Err(() => "SpawnParent is not assigned. Please assign a Node2D to hold spawn points in the level.");
+			return;
+		}
+
+		if (EnemySpawnParent == null) {
+			Log.Err(() => "EnemySpawnParent is not assigned. Please assign a Node2D to hold enemy spawn points in the level.");
+			return;
+		}
+
 		if (RegionsParent == null) {
 			Log.Err(() => "RegionsParent is not assigned. Please assign a Node2D to hold regions in the level.");
 			return;
