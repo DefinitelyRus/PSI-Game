@@ -2,42 +2,42 @@
 
 [ext_resource type="Script" uid="uid://c66xjhe5i04ty" path="res://Scenes/Levels/Level.cs" id="1_svleo"]
 
-[node name="Standard Level" type="Node2D" node_paths=PackedStringArray("SpawnParent", "CameraNodePaths", "PropsParent", "RegionsParent")]
+[node name="Standard Level" type="Node2D" node_paths=PackedStringArray("SpawnParent", "EnemySpawnParent", "CameraNodePaths", "PropsParent", "RegionsParent")]
 z_as_relative = false
 y_sort_enabled = true
 script = ExtResource("1_svleo")
-SpawnParent = NodePath("Spawnpoints")
-CameraNodePaths = [NodePath("Spawnpoints/1")]
+SpawnParent = NodePath("Unit Spawns")
+EnemySpawnParent = NodePath("Enemy Spawns")
+CameraNodePaths = [NodePath("Unit Spawns/U1")]
 PropsParent = NodePath("Props")
 RegionsParent = NodePath("Regions")
 
-[node name="Spawnpoints" type="Node2D" parent="."]
+[node name="Unit Spawns" type="Node2D" parent="."]
 y_sort_enabled = true
 position = Vector2(37, 366)
 
-[node name="1" type="Node2D" parent="Spawnpoints"]
+[node name="U1" type="Node2D" parent="Unit Spawns"]
+
+[node name="Enemy Spawns" type="Node2D" parent="."]
+
+[node name="E01" type="Node2D" parent="Enemy Spawns"]
 
 [node name="Camera Node Paths" type="Node2D" parent="."]
 
 [node name="TileMap" type="Node2D" parent="."]
 y_sort_enabled = true
-position = Vector2(0, 2)
 
 [node name="Ground" type="TileMapLayer" parent="TileMap"]
-position = Vector2(0, -2)
 
 [node name="Walls" type="TileMapLayer" parent="TileMap"]
 y_sort_enabled = true
-position = Vector2(0, -2)
 
 [node name="Raised Decorations" type="TileMapLayer" parent="TileMap"]
 y_sort_enabled = true
-position = Vector2(0, -2)
 y_sort_origin = 16
 
 [node name="Floor Decorations" type="TileMapLayer" parent="TileMap"]
 y_sort_enabled = true
-position = Vector2(0, -4)
 y_sort_origin = -16
 
 [node name="Wall Decorations" type="TileMapLayer" parent="TileMap"]
