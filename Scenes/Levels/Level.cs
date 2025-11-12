@@ -69,7 +69,7 @@ public partial class Level : Node2D {
 	/// <param name="radius">The distance within which to search for spawn points.</param>
 	/// <param name="index">The nth closest spawn point to find.</param>
 	/// <returns>A Node2D or null if no suitable spawn point is found within the radius.</returns>
-	public Node2D? FindNearbySpawnPoint(Vector2 position, float radius = float.MaxValue, int index = 0, bool avoidCamera = true) {
+	public Node2D? FindNearbyEnemySpawnPoint(Vector2 position, float radius = float.MaxValue, int index = 0, bool avoidCamera = true) {
 
 		#region Validation
 
@@ -83,8 +83,8 @@ public partial class Level : Node2D {
 			return null;
 		}
 
-		Node2D[] SpawnPoints = [.. SpawnParent.GetChildren().OfType<Node2D>()];
-		if (SpawnPoints.Length == 0) {
+		Node2D[] EnemySpawns = [.. EnemySpawnParent.GetChildren(true).OfType<Node2D>()];
+		if (EnemySpawns.Length == 0) {
 			Log.Err("No spawn points defined for this level. Canceling.");
 			return null;
 		}
@@ -93,7 +93,7 @@ public partial class Level : Node2D {
 
 		// Sort by distance to the given position
 		float distance(Node2D spawn) => spawn.GlobalPosition.DistanceTo(position);
-		List<Node2D> sortedSpawns = [.. SpawnPoints.OrderBy(distance)];
+		List<Node2D> sortedSpawns = [.. EnemySpawns.OrderBy(distance)];
 
 		// Remove spawns outside the radius
 		bool inRadius(Node2D spawn) => distance(spawn) <= radius;
@@ -209,6 +209,8 @@ public partial class Level : Node2D {
 		}
 
 		ReparentAllProps();
+
+		AIDirector.StartLevel(this);
 	}
 	
 	#endregion
