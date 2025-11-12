@@ -31,7 +31,7 @@ public partial class EnemyManager : Node2D {
 
     public static EnemyManager Instance { get; private set; } = null!;
     
-    private static Level CurrentLevel = null!;
+    private static Level CurrentLevel => AIDirector.CurrentLevel;
 
     /// <summary>
     /// Enemies that have been spawned in on the game world.
@@ -50,11 +50,16 @@ public partial class EnemyManager : Node2D {
             return false;
         }
 
+        if (CurrentLevel == null) {
+            Log.Err(() => "No current level registered in EnemyManager. Cannot spawn enemies.");
+            return false;
+        }
+
         RandomNumberGenerator rng = new();
         int targetUnit = rng.RandiRange(0, PlayerUnits.Count - 1);
         int spawnIndex = rng.RandiRange(0, Instance.SpawnpointSelectionCount - 1);
 
-        Node2D? spawnPoint = CurrentLevel.FindNearbySpawnPoint(
+        Node2D? spawnPoint = CurrentLevel.FindNearbyEnemySpawnPoint(
             PlayerUnits[targetUnit].GlobalPosition,
             float.MaxValue,
             spawnIndex,
@@ -67,17 +72,6 @@ public partial class EnemyManager : Node2D {
         }
 
         else return false;
-    }
-
-    public static bool KillEnemy(StandardCharacter enemy) {
-        enemy.Kill();
-        bool wasRemoved = Enemies.Remove(enemy);
-        return wasRemoved;
-    }
-
-    public static void InitializeLevel(Level level) {
-        CurrentLevel = level;
-        Enemies.Clear();
     }
 
     #endregion
