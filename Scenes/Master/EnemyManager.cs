@@ -38,7 +38,7 @@ public partial class EnemyManager : Node2D {
     /// </summary>
     public static List<StandardCharacter> Enemies { get; private set; } = [];
 
-    private static List<StandardCharacter> PlayerUnits = [];
+    private static List<StandardCharacter> PlayerUnits => [.. Commander.GetAllUnits()];
 
     #region Spawn Management
 
@@ -77,10 +77,7 @@ public partial class EnemyManager : Node2D {
 
     public static void InitializeLevel(Level level) {
         CurrentLevel = level;
-
         Enemies.Clear();
-
-        PlayerUnits = [.. Commander.GetAllUnits()];
     }
 
     #endregion
