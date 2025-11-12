@@ -10,7 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://c5pxgte6pab6b" path="res://Prefabs/StandardCharacter/Units/Orra Kale/Orra Kale.tscn" id="5_m6dx2"]
 [ext_resource type="Script" uid="uid://b3xb0rhvopx03" path="res://Scenes/Master/InputManager.cs" id="5_qemos"]
 [ext_resource type="PackedScene" uid="uid://4av0n3taxtct" path="res://Scenes/Levels/Release/ParkingLot.tscn" id="10_8ixx1"]
-[ext_resource type="PackedScene" uid="uid://coptvt8w77vvk" path="res://Scenes/Levels/Debug/cs_office.tscn" id="10_iwwxa"]
+[ext_resource type="PackedScene" uid="uid://cj052mejqol48" path="res://Scenes/Levels/Debug/Office.tscn" id="10_iwwxa"]
 
 [node name="Master" type="Node" node_paths=PackedStringArray("SceneLoader", "InputManager")]
 process_mode = 3
