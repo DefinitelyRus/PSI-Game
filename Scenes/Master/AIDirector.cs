@@ -47,7 +47,7 @@ public partial class AIDirector : Node2D {
     public override void _Process(double delta) {
         switch (Mode) {
             case SpawnMode.Timed:
-                UpdateTimedSpawning(delta);
+                CallDeferred(nameof(UpdateTimedSpawning), delta);
                 break;
             case SpawnMode.Dynamic:
                 break;
@@ -62,7 +62,7 @@ public partial class AIDirector : Node2D {
 
     public static AIDirector Instance { get; private set; } = null!;
 
-    private static Level CurrentLevel = null!;
+    public static Level CurrentLevel { get; private set; } = null!;
 
     public enum SpawnMode {
         Timed,
@@ -82,8 +82,6 @@ public partial class AIDirector : Node2D {
     /// </summary>
     /// <param name="delta"></param>
     public static void UpdateTimedSpawning(double delta) {
-        // Spawn every X seconds to a random spawn point near a random player unit.
-        // Add a delay after spawning each enemy, based on the enemy's DelayAfterSpawn property.
 
         if (_timeDelayRemaining > 0d) {
             _timeDelayRemaining -= delta;
