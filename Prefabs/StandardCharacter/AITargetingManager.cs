@@ -41,8 +41,6 @@ public partial class AITargetingManager : Node2D {
         if (CurrentTarget != null) {
             bool isValid = CheckTargetValidity(CurrentTarget, false);
 
-            Log.Me(() => $"{ParentCharacter.Name} -> {CurrentTarget.Name} validity check: {isValid}");
-
             if (isValid) {
                 SetAimDirection();
                 return;
@@ -74,7 +72,6 @@ public partial class AITargetingManager : Node2D {
             bool isValid = CheckTargetValidity(character);
 
             if (isValid) {
-                Log.Me(() => $"{ParentCharacter.Name} -> {character.Name} considered as target.");
                 CurrentTarget = character;
                 SetAimDirection();
                 break;
