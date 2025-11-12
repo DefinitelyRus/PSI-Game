@@ -567,6 +567,11 @@ public partial class StandardCharacter : CharacterBody2D {
 		Log.Me(() => "Connecting HitArea.BodyEntered to OnBodyEntered...", enabled: LogReady);
 		HitArea.AreaEntered += OnAreaEntered;
 
+		CurrentMaxHealth = MaxHealth;
+		Health = MaxHealth;
+		CurrentMaxSpeed = MaxSpeed;
+
+
 		Log.Me(() => "Done!", enabled: LogReady);
 		return;
 	}
