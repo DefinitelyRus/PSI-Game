@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://d3cvhjbvnx1a1"]
+[gd_scene load_steps=13 format=3 uid="uid://d3cvhjbvnx1a1"]
 
 [ext_resource type="Script" uid="uid://cdfonun0qopbr" path="res://Scenes/Master/Master.cs" id="1_o4rt4"]
 [ext_resource type="Script" uid="uid://bskjggdrqe3xx" path="res://Scenes/Master/SceneLoader.cs" id="2_7tgqy"]
@@ -9,8 +9,13 @@
 [ext_resource type="Script" uid="uid://ccfcn78cg1s2f" path="res://Scenes/Master/EntityManager.cs" id="5_0hine"]
 [ext_resource type="PackedScene" uid="uid://c5pxgte6pab6b" path="res://Prefabs/StandardCharacter/Units/Orra Kale/Orra Kale.tscn" id="5_m6dx2"]
 [ext_resource type="Script" uid="uid://b3xb0rhvopx03" path="res://Scenes/Master/InputManager.cs" id="5_qemos"]
+[ext_resource type="Script" uid="uid://dd1nkkedx3kat" path="res://Scenes/Master/EnemyManager.cs" id="6_iwwxa"]
+[ext_resource type="Script" uid="uid://dv8fmgivi507t" path="res://Scenes/Master/AIDirector.cs" id="7_0hine"]
 [ext_resource type="PackedScene" uid="uid://4av0n3taxtct" path="res://Scenes/Levels/Release/ParkingLot.tscn" id="10_8ixx1"]
+<<<<<<< Updated upstream
 [ext_resource type="PackedScene" uid="uid://cj052mejqol48" path="res://Scenes/Levels/Debug/Office.tscn" id="10_iwwxa"]
+=======
+>>>>>>> Stashed changes
 
 [node name="Master" type="Node" node_paths=PackedStringArray("SceneLoader", "InputManager")]
 process_mode = 3
@@ -35,6 +40,12 @@ script = ExtResource("3_iwwxa")
 script = ExtResource("3_8ixx1")
 InitialUnits = [ExtResource("5_m6dx2")]
 
+[node name="Enemy Manager" type="Node2D" parent="."]
+script = ExtResource("6_iwwxa")
+
+[node name="AI Director" type="Node2D" parent="."]
+script = ExtResource("7_0hine")
+
 [node name="Entity Manager" type="Node2D" parent="."]
 script = ExtResource("5_0hine")
 
@@ -47,7 +58,6 @@ script = ExtResource("2_7tgqy")
 Master = NodePath("..")
 Theatre = NodePath("../Theatre")
 MainMenu = ExtResource("3_1t0lv")
-DevScene = ExtResource("10_iwwxa")
 Levels = [ExtResource("10_8ixx1")]
 LogReady = true
 
