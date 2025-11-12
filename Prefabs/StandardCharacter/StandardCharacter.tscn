@@ -12,11 +12,11 @@
 [ext_resource type="Texture2D" uid="uid://dsx2m05ecv2k1" path="res://Sprites/Units/Mira Kale/Death.png" id="9_n5c1j"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6shlc"]
-radius = 3.5
+radius = 4.5
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_n5c1j"]
-radius = 4.6
-height = 20.9
+radius = 5.0
+height = 22.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6shlc"]
 size = Vector2(22, 27)
