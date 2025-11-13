@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://dsp56htx850rs"]
+
+[ext_resource type="PackedScene" uid="uid://bnslwo4ecgkcn" path="res://Prefabs/StandardProp/StandardProp.tscn" id="1_vk2pl"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kfjfq"]
+size = Vector2(76, 54)
+
+[node name="Reception" instance=ExtResource("1_vk2pl")]
+
+[node name="CollisionShape2D" parent="." index="0"]
+shape = SubResource("RectangleShape2D_kfjfq")
+
+[node name="Sprite2D" parent="." index="1"]
+position = Vector2(0, 8)
+offset = Vector2(0, -2.205)
+region_rect = Rect2(272, 240, 80, 64)
+
+[node name="NavigationObstacle2D" parent="." index="2"]
+vertices = PackedVector2Array(-42, -35, 42, -35, 42, 31, -42, 31)

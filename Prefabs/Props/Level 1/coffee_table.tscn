@@ -3,16 +3,20 @@
 [ext_resource type="PackedScene" uid="uid://bnslwo4ecgkcn" path="res://Prefabs/StandardProp/StandardProp.tscn" id="1_qms86"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tu20h"]
-size = Vector2(26.5, 15.25)
+size = Vector2(26.5, 14)
 
 [node name="Coffee Table" instance=ExtResource("1_qms86")]
 PropName = "Coffee Table"
-PropDescription = "a wooden coffee table"
 PropID = "coffee_table"
+PropDescription = "a wooden coffee table"
 
 [node name="CollisionShape2D" parent="." index="0"]
-position = Vector2(-0.25, 8.625)
 shape = SubResource("RectangleShape2D_tu20h")
 
 [node name="Sprite2D" parent="." index="1"]
+position = Vector2(0, 8)
+offset = Vector2(0, -9.825)
 region_rect = Rect2(131, 614, 27, 33)
+
+[node name="NavigationObstacle2D" parent="." index="2"]
+vertices = PackedVector2Array(-17, -15, 17, -15, 17, 11, -17, 11)

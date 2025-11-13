@@ -2,8 +2,8 @@
 
 [ext_resource type="PackedScene" uid="uid://bnslwo4ecgkcn" path="res://Prefabs/StandardProp/StandardProp.tscn" id="1_0kp08"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_levpf"]
-size = Vector2(12, 13)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0kp08"]
+size = Vector2(14, 12.5)
 
 [node name="Photocopy Machine" instance=ExtResource("1_0kp08")]
 PropName = "Photocopy Machine"
@@ -11,8 +11,7 @@ PropID = "photocopy_machine"
 PropDescription = "a photocopy machine"
 
 [node name="CollisionShape2D" parent="." index="0"]
-position = Vector2(0, 6.5)
-shape = SubResource("RectangleShape2D_levpf")
+shape = SubResource("RectangleShape2D_0kp08")
 
 [node name="Sprite2D" parent="." index="1"]
 position = Vector2(0, 8)
@@ -20,5 +19,4 @@ offset = Vector2(0, -11)
 region_rect = Rect2(194, 208, 12, 32)
 
 [node name="NavigationObstacle2D" parent="." index="2"]
-position = Vector2(0, 6.5)
-vertices = PackedVector2Array(-10, -15, 10, -15, 10, 10, -10, 10)
+vertices = PackedVector2Array(-11, -15, 10, -15, 10, 10, -11, 10)

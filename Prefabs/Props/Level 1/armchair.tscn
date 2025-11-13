@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://bnslwo4ecgkcn" path="res://Prefabs/StandardProp/StandardProp.tscn" id="1_c4yry"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_8basm"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c4yry"]
 size = Vector2(16, 10)
 
 [node name="Armchair" instance=ExtResource("1_c4yry")]
@@ -12,12 +12,12 @@ PropDescription = "a yellow armchair"
 
 [node name="CollisionShape2D" parent="." index="0"]
 position = Vector2(0, 4)
-shape = SubResource("RectangleShape2D_8basm")
+shape = SubResource("RectangleShape2D_c4yry")
 
 [node name="Sprite2D" parent="." index="1"]
 position = Vector2(0, 4)
 offset = Vector2(0, -4)
-region_rect = Rect2(96, 246, 16, 18)
+region_rect = Rect2(64, 240, 16, 24)
 
 [node name="NavigationObstacle2D" parent="." index="2"]
 position = Vector2(0, 4)
