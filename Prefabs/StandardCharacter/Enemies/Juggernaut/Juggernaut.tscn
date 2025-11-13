@@ -1,15 +1,18 @@
-[gd_scene load_steps=27 format=3 uid="uid://bymb268wxlptk"]
+[gd_scene load_steps=28 format=3 uid="uid://bymb268wxlptk"]
 
 [ext_resource type="PackedScene" uid="uid://daotyvqai4b36" path="res://Prefabs/StandardCharacter/StandardCharacter.tscn" id="1_y36br"]
 [ext_resource type="Texture2D" uid="uid://br6a7pkrxulf5" path="res://Sprites/Enemies/Mech.png" id="2_7amjy"]
 [ext_resource type="Script" uid="uid://cks26k0vl72yx" path="res://Prefabs/StandardCharacter/Enemies/StandardEnemy.cs" id="2_f6w81"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_y36br"]
-radius = 9.0
-height = 34.0
+radius = 6.0
+height = 20.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7amjy"]
 radius = 20.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7amjy"]
+size = Vector2(61, 55)
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_y36br"]
 animation = &"Attack"
@@ -165,10 +168,10 @@ _data = {
 &"Walk": SubResource("Animation_f6w81")
 }
 
-[node name="Big Mech" node_paths=PackedStringArray("AnimationTree") instance=ExtResource("1_y36br")]
+[node name="Juggernaut" node_paths=PackedStringArray("AnimationTree") instance=ExtResource("1_y36br")]
 script = ExtResource("2_f6w81")
 StaticSpawnWeight = 5
-DelayAfterSpawn = 10.0
+DelayAfterSpawn = 30.0
 DynamicSpawnCost = 0
 CharacterName = "Juggernaut"
 CharacterID = "juggernaut"
@@ -177,6 +180,9 @@ MaxSpeed = 24.0
 AccelerationTime = 2.0
 DespawnOnDeath = true
 AnimationTree = NodePath("AnimationTree")
+
+[node name="Projectile Weapon" parent="." index="1"]
+BaseSpread = 5.0
 
 [node name="Body Collider" parent="." index="4"]
 position = Vector2(0, 31)
@@ -187,11 +193,12 @@ position = Vector2(0, 11)
 shape = SubResource("CircleShape2D_7amjy")
 
 [node name="Click Area" parent="." index="6"]
-visible = false
 monitoring = false
 monitorable = false
 
 [node name="CollisionShape2D" parent="Click Area" index="0"]
+position = Vector2(3.5, 7.5)
+shape = SubResource("RectangleShape2D_7amjy")
 disabled = true
 
 [node name="Audio Controller" parent="." index="7"]

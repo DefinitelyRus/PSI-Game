@@ -18,12 +18,22 @@ public partial class StandardProjectileWeapon : StandardWeapon
 			return;
 		}
 
+		if (WeaponOwner == null) {
+			Log.Warn(() => "No weapon owner assigned. Cannot assign as projectile owner.");
+			return;
+		}
+
+		if (!IsInstanceValid(WeaponOwner)) {
+			Log.Warn(() => $"{WeaponOwner.InstanceID} is not valid. Cannot assign as projectile owner.");
+			return;
+		}
+
 		StandardProjectile projectileInstance = Projectile.Instantiate<StandardProjectile>();
 		projectileInstance.GlobalPosition = GlobalPosition + AttackOrigin;
 		projectileInstance.RotationDegrees = AimDirection;
 		projectileInstance.Weapon = this;
 		projectileInstance.WeaponOwner = WeaponOwner;
-
+		
 		WeaponOwner.GetParent().AddChild(projectileInstance);
 	}
 
