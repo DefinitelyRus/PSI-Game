@@ -479,10 +479,10 @@ public partial class StandardWeapon : StandardItem
 
 	#region Nodes & Components
 
-	[ExportGroup("Nodes & Components")]
-	[Export] public StandardCharacter WeaponOwner = null!;
+	//[ExportGroup("Nodes & Components")]
+	public StandardCharacter? WeaponOwner = null;
 
-	public ControlSurface Control => WeaponOwner.Control;
+	public ControlSurface? Control => WeaponOwner?.Control;
 
 	#endregion
 
@@ -511,7 +511,8 @@ public partial class StandardWeapon : StandardItem
 		Log.Me(() => "A StandardWeapon has entered the tree. Passing to StandardItem...", LogReady);
 		base._EnterTree();
 
-		if (WeaponOwner == null) Log.Err(() => "No weapon owner assigned. Attacks cannot be rooted back to its owner.", LogReady);
+		Node parent = GetParent();
+		if (parent is StandardCharacter character) WeaponOwner = character;
 
 		Damage = 0;
 		Range = 0;
@@ -532,6 +533,11 @@ public partial class StandardWeapon : StandardItem
 
 	public override void _Process(double delta) {
 		Log.Me(() => $"Processing {ItemID} as StandardWeapon.", LogProcess);
+
+		if (Control == null) {
+			Log.Warn(() => "No ControlSurface assigned to WeaponOwner. Cannot process aiming or attacks.", LogProcess);
+			return;
+		}
 
 		AimDirection = Mathf.PosMod(Mathf.RadToDeg(Control.FacingDirection.Angle()) + 90f, 360f);
 		UpdateAttackOrigin();
