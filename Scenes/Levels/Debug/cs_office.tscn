@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://dboq7ap8y2i5r" path="res://Sprites/World Sprites/Level 1 - Office/Office_Props.png" id="3_6i37j"]
 [ext_resource type="PackedScene" uid="uid://bknph0ay5rnme" path="res://Prefabs/Props/Level 1/big_table.tscn" id="4_dmwp5"]
 [ext_resource type="PackedScene" uid="uid://ckrex7dx10ey8" path="res://Prefabs/Props/Level 1/photocopy_machine.tscn" id="5_14275"]
-[ext_resource type="PackedScene" uid="uid://cplcmhj4beq2b" path="res://Prefabs/Props/Level 1/armchair.tscn" id="6_6nnpa"]
+[ext_resource type="PackedScene" uid="uid://cplcmhj4beq2b" path="res://Prefabs/Props/Level 1/chair.tscn" id="6_6nnpa"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ibm8n"]
 texture = ExtResource("2_6i37j")

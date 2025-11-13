@@ -6,6 +6,9 @@
 size = Vector2(76, 54)
 
 [node name="Reception" instance=ExtResource("1_vk2pl")]
+PropName = "Reception"
+PropID = "reception"
+PropDescription = "a receptionist area"
 
 [node name="CollisionShape2D" parent="." index="0"]
 shape = SubResource("RectangleShape2D_kfjfq")

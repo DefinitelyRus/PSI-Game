@@ -3,17 +3,23 @@
 [ext_resource type="PackedScene" uid="uid://bnslwo4ecgkcn" path="res://Prefabs/StandardProp/StandardProp.tscn" id="1_xbesu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_d580u"]
-size = Vector2(22, 34)
+size = Vector2(22, 8)
 
 [node name="Vending Machine" instance=ExtResource("1_xbesu")]
 collision_layer = 9
 PropName = "Vending Machine"
-PropDescription = "a medium sized vending machine"
 PropID = "vending_machine"
+PropDescription = "a medium sized vending machine"
 
 [node name="CollisionShape2D" parent="." index="0"]
-position = Vector2(0, 0)
+position = Vector2(0, 10)
 shape = SubResource("RectangleShape2D_d580u")
 
 [node name="Sprite2D" parent="." index="1"]
+position = Vector2(0, 8)
+offset = Vector2(0, -11.065)
 region_rect = Rect2(37, 373, 22, 34)
+
+[node name="NavigationObstacle2D" parent="." index="2"]
+position = Vector2(0, 10)
+vertices = PackedVector2Array(-15, -15, 15, -15, 15, 10, -15, 10)

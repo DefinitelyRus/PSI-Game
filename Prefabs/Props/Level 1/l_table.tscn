@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://dhwy6fp4vnljs"]
+
+[ext_resource type="PackedScene" uid="uid://bnslwo4ecgkcn" path="res://Prefabs/StandardProp/StandardProp.tscn" id="1_lxuse"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lxuse"]
+size = Vector2(54, 31)
+
+[node name="L Table" instance=ExtResource("1_lxuse")]
+PropName = "L Table"
+PropID = "l_table"
+PropDescription = "an L shaped table"
+
+[node name="CollisionShape2D" parent="." index="0"]
+position = Vector2(0, 3)
+shape = SubResource("RectangleShape2D_lxuse")
+
+[node name="Sprite2D" parent="." index="1"]
+position = Vector2(0, 3)
+offset = Vector2(0, -3.245)
+region_rect = Rect2(276, 340, 55, 39)
+
+[node name="NavigationObstacle2D" parent="." index="2"]
+position = Vector2(0, 3)
+vertices = PackedVector2Array(-27, -16, 27, -16, 27, 15, -27, 15)

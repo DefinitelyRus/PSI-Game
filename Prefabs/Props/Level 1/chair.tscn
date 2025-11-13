@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://cplcmhj4beq2b"]
+
+[ext_resource type="PackedScene" uid="uid://bnslwo4ecgkcn" path="res://Prefabs/StandardProp/StandardProp.tscn" id="1_sruwg"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c4yry"]
+size = Vector2(68, 8)
+
+[node name="Chair" instance=ExtResource("1_sruwg")]
+PropName = "Chair"
+PropID = "Chair"
+PropDescription = "waiting chair"
+
+[node name="CollisionShape2D" parent="." index="0"]
+position = Vector2(0, 6)
+shape = SubResource("RectangleShape2D_c4yry")
+
+[node name="Sprite2D" parent="." index="1"]
+position = Vector2(0, 6)
+offset = Vector2(0, -5.14)
+region_rect = Rect2(276, 318, 67, 18)
+
+[node name="NavigationObstacle2D" parent="." index="2"]
+position = Vector2(0, 5)
+vertices = PackedVector2Array(-38, -11, 38, -11, 38, 9, -38, 9)
