@@ -8,8 +8,6 @@ public partial class AIDirector : Node2D {
 
     #region Instance Members
 
-    [Export] public PackedScene[] EnemyTypes = null!;
-
     [Export] public SpawnMode Mode = SpawnMode.Timed;
 
 	#region Godot Callbacks
@@ -22,23 +20,6 @@ public partial class AIDirector : Node2D {
         }
 
         Instance = this;
-
-        if (EnemyTypes.Length == 0) {
-            Log.Warn(() => "No enemy types assigned to AIDirector. No enemies will be spawned.");
-        }
-
-        foreach (PackedScene enemyType in EnemyTypes) {
-            if (enemyType == null) {
-                Log.Warn(() => "One of the enemy types assigned is null. Please check the setup.");
-                return;
-            }
-
-            Node instance = enemyType.Instantiate();
-            if (instance is not StandardEnemy) {
-                Log.Warn(() => $"One of the enemy types assigned is not a StandardEnemy. Please check the setup.");
-                return;
-            }
-        }
 	}
 
     public override void _Ready() {
@@ -77,10 +58,7 @@ public partial class AIDirector : Node2D {
 
     private static double _timeDelayRemaining = 0d;
 
-    /// <summary>
-    /// Spawns enemies at a set interval
-    /// </summary>
-    /// <param name="delta"></param>
+
     public static void UpdateTimedSpawning(double delta) {
 
         if (_timeDelayRemaining > 0d) {
@@ -90,25 +68,54 @@ public partial class AIDirector : Node2D {
 
         if (CurrentLevel == null) return;
 
+        if (CurrentLevel.EnemyTypes.Length == 0) {
+            Log.Warn(() => "No enemy types assigned to the current level for spawning.");
+            return;
+        }
+
         RandomNumberGenerator rng = new();
         List<StandardCharacter> units = [.. Commander.GetAllUnits()];
 
         int targetUnitIndex = rng.RandiRange(0, units.Count - 1);
-        int enemyTypeIndex = rng.RandiRange(0, Instance.EnemyTypes.Length - 1);
-
         Vector2 targetUnitPosition = units[targetUnitIndex].GlobalPosition;
-        PackedScene enemyScene = Instance.EnemyTypes[enemyTypeIndex];
-        StandardEnemy enemy = enemyScene.Instantiate<StandardEnemy>();
 
-        bool wasSpawned = EnemyManager.TrySpawnEnemy(enemy);
+        List<StandardEnemy> enemySelection = [];
+        int totalWeight = 0;
 
-        if (!wasSpawned) {
-            enemy.QueueFree();
-            return;
+        foreach (PackedScene enemyScene in CurrentLevel.EnemyTypes) {
+            Node node = enemyScene.Instantiate<StandardEnemy>();
+
+            if (node is not StandardEnemy enemy) {
+                Log.Warn(() => $"Enemy scene '{enemyScene.ResourcePath}' is not a StandardEnemy. Skipping.");
+                continue;
+            }
+            
+            enemySelection.Add(enemy);
+
+            totalWeight += enemy.StaticSpawnWeight;
         }
 
-        _timeDelayRemaining = enemy.DelayAfterSpawn;
-        enemy.AIManager.GoTo(targetUnitPosition);
+        int roll = rng.RandiRange(1, totalWeight);
+        int remainingRoll = roll;
+        enemySelection.Sort((a, b) => b.StaticSpawnWeight.CompareTo(a.StaticSpawnWeight));
+        
+        // Subtracts weights until it finds the selected enemy
+        foreach (StandardEnemy enemy in enemySelection) {
+            remainingRoll -= enemy.StaticSpawnWeight;
+
+            if (remainingRoll <= 0) {
+                bool wasSpawned = EnemyManager.TrySpawnEnemy(enemy);
+
+                if (!wasSpawned) {
+                    enemy.QueueFree();
+                    return;
+                }
+
+                _timeDelayRemaining = enemy.DelayAfterSpawn;
+                enemy.AIManager.GoTo(targetUnitPosition);
+                return;
+            }
+        }
     }
 
     #endregion
