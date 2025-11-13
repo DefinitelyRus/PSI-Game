@@ -168,7 +168,7 @@ _data = {
 &"Walk": SubResource("Animation_f6w81")
 }
 
-[node name="Big Mech" node_paths=PackedStringArray("AnimationTree") instance=ExtResource("1_y36br")]
+[node name="Juggernaut" node_paths=PackedStringArray("AnimationTree") instance=ExtResource("1_y36br")]
 script = ExtResource("2_f6w81")
 StaticSpawnWeight = 5
 DelayAfterSpawn = 30.0

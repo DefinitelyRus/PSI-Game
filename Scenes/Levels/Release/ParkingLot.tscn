@@ -21,7 +21,7 @@
 [ext_resource type="PackedScene" uid="uid://clmiwcllma2cx" path="res://Prefabs/Props/Level 0/porta_potty.tscn" id="18_ya6dq"]
 [ext_resource type="PackedScene" uid="uid://jdudiieer740" path="res://Prefabs/Props/Level 0/charger.tscn" id="19_le53x"]
 [ext_resource type="PackedScene" uid="uid://byrn36lby0bim" path="res://Prefabs/Props/Level 0/office_building.tscn" id="20_x4q38"]
-[ext_resource type="PackedScene" uid="uid://bymb268wxlptk" path="res://Prefabs/StandardCharacter/Enemies/Big Mech.tscn" id="21_r1bgn"]
+[ext_resource type="PackedScene" uid="uid://bymb268wxlptk" path="res://Prefabs/StandardCharacter/Enemies/Juggernaut/Juggernaut.tscn" id="21_r1bgn"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ky56w"]
 texture = ExtResource("2_0bmdw")
