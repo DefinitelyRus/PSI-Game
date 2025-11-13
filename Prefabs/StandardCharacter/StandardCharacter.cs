@@ -147,6 +147,7 @@ public partial class StandardCharacter : CharacterBody2D {
 		return;
 	}
 
+
 	/// <summary>
 	/// Kills the character and applies audio/visual effects if available.
 	/// It will also despawn the character if <see cref="DespawnOnDeath"/> is <c>true</c>.
@@ -159,7 +160,8 @@ public partial class StandardCharacter : CharacterBody2D {
 		if (!IsAlive) return;
 
 		// Set health to 0
-		Health = 0; //Redundancy; for when `Kill` is called without dealing any damage.
+		// Redundancy; for when `Kill` is called without dealing any damage.
+		Health = 0;
 		IsAlive = false;
 
 		bool useAnimation = AnimationTree != null && AnimationState != null && AnimationPlayer != null;
@@ -167,16 +169,12 @@ public partial class StandardCharacter : CharacterBody2D {
 		#region AVFX
 
 		if (useAnimation) {
-			// Set animation direction
 			AnimationTree!.Set("parameters/Death/blend_position", new Vector2(LastMovementDirection.X, -LastMovementDirection.Y));
 
-			// Set animation state, call lambda function if DespawnOnDeath
 			AnimationState!.Travel("Death");
 
-
-			//FIXME: "animation_finished" signal does not exist.
-			//var playback = (AnimationNodeStateMachinePlayback) AnimationTree.Get("parameters/playback");
-			//playback.Connect("animation_finished", Callable.From(OnDeathAnimationFinished)); 
+			// Not an ideal fix but it works.
+			if (DespawnOnDeath) GetTree().CreateTimer(1.5f).Timeout += QueueFree;
 		}
 
 		else if (DespawnOnDeath)
@@ -191,15 +189,6 @@ public partial class StandardCharacter : CharacterBody2D {
 		return;
 	}
 	
-	// Gets called in the last frame of the death animations!
-	public void OnDeathAnimationFinished()
-	{
-		if (DespawnOnDeath)
-		{
-			QueueFree();
-		}
-	}
-
 	#endregion
 
 	#region Speed
@@ -326,7 +315,7 @@ public partial class StandardCharacter : CharacterBody2D {
 		if (!IsAlive) return;
 
 		bool isWalking = Speed > 0;
-		bool isAttacking = Weapon.Control.IsAttacking;
+		bool isAttacking = Weapon.Control!.IsAttacking;
 		//^ TECHNICAL DEBT: This is inherently bugged. Animates attack even when not intended.
 		//					But so is the attack function itself.
 		//TODO: Replace with an IsAttacking property in StandardWeapon itself.
@@ -570,7 +559,6 @@ public partial class StandardCharacter : CharacterBody2D {
 		CurrentMaxHealth = MaxHealth;
 		Health = MaxHealth;
 		CurrentMaxSpeed = MaxSpeed;
-
 
 		Log.Me(() => "Done!", enabled: LogReady);
 		return;

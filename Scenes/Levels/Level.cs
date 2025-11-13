@@ -13,6 +13,13 @@ public partial class Level : Node2D {
 	[Export] public Node2D PropsParent = null!;
 	[Export] public Node2D RegionsParent = null!;
 
+	#region Debug
+
+	[ExportGroup("Debug")]
+	[Export] public bool LogReady = true;
+
+	#endregion
+
 
 	public void SpawnUnit(StandardCharacter unit) {
 		Node2D[] SpawnPoints = [.. SpawnParent.GetChildren().OfType<Node2D>()];
@@ -142,14 +149,14 @@ public partial class Level : Node2D {
 				continue;
 			}
 
-			Log.Me(() => $"Setting navigation map for prop {prop.Name} to region {newRegion.Name}.");
+			Log.Me(() => $"Setting navigation map for prop {prop.Name} to region {newRegion.Name}.", LogReady);
 			prop.NavObstacle.SetNavigationMap(mapRid.Value);
 			prop.Reparent(newRegion, true);
 		}
 
 		// Bake navigation polygons for all regions
 		foreach (NavigationRegion2D region in regions) {
-			Log.Me(() => $"Baking navigation polygon for region {region.Name}.");
+			Log.Me(() => $"Baking navigation polygon for region {region.Name}.", LogReady);
 
 			if (region.NavigationPolygon == null) {
 				Log.Warn(() => $"Region {region.Name} has no NavigationPolygon assigned. Skipping bake.");
