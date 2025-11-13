@@ -15,7 +15,7 @@
 radius = 4.5
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_n5c1j"]
-radius = 5.0
+radius = 7.0
 height = 22.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6shlc"]
@@ -1273,21 +1273,19 @@ script = ExtResource("3_r87il")
 Character = NodePath("..")
 LogReady = false
 
-[node name="Projectile Weapon" parent="." node_paths=PackedStringArray("WeaponOwner") instance=ExtResource("4_g5v64")]
+[node name="Projectile Weapon" parent="." instance=ExtResource("4_g5v64")]
 position = Vector2(0, 3)
-WeaponOwner = NodePath("..")
 
 [node name="AI Targeting Manager" type="Node2D" parent="."]
 position = Vector2(0, 3)
 script = ExtResource("4_tbsya")
 
-[node name="AI Agent Manager" type="Node2D" parent="." node_paths=PackedStringArray("Character", "ControlSurface", "NavAgent")]
+[node name="AI Agent Manager" type="Node2D" parent="." node_paths=PackedStringArray("ControlSurface", "NavAgent")]
 editor_description = "Manages the AI Pathfinding for this character.
 
 Note:
 Do not change its relative position. This causes the character to move erratically when attempting to reach its destination -- the CharacterBody2D reaches it, but not this node."
 script = ExtResource("4_rog04")
-Character = NodePath("..")
 ControlSurface = NodePath("../Control Surface")
 NavAgent = NodePath("../NavigationAgent2D")
 LogReady = false

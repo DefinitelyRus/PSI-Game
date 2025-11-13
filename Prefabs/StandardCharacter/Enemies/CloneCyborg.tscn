@@ -1,7 +1,15 @@
-[gd_scene load_steps=24 format=3 uid="uid://c1huap8uooafm"]
+[gd_scene load_steps=27 format=3 uid="uid://c1huap8uooafm"]
 
-[ext_resource type="PackedScene" uid="uid://daotyvqai4b36" path="res://Prefabs/StandardCharacter/StandardCharacter.tscn" id="1_rntwx"]
-[ext_resource type="Texture2D" uid="uid://dpq8ap7lm8ark" path="res://Sprites/Enemies/Dispenser.png" id="2_rw6rr"]
+[ext_resource type="PackedScene" uid="uid://daotyvqai4b36" path="res://Prefabs/StandardCharacter/StandardCharacter.tscn" id="1_qsybc"]
+[ext_resource type="Texture2D" uid="uid://dpq8ap7lm8ark" path="res://Sprites/Enemies/Dispenser.png" id="2_53o7x"]
+[ext_resource type="Script" uid="uid://cks26k0vl72yx" path="res://Prefabs/StandardCharacter/Enemies/StandardEnemy.cs" id="2_nyhra"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nyhra"]
+radius = 3.0
+height = 7.999993
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qsybc"]
+size = Vector2(24, 31)
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_rw6rr"]
 animation = &"Attack"
@@ -156,11 +164,35 @@ _data = {
 &"Walk": SubResource("Animation_rw6rr")
 }
 
-[node name="Dispenser" node_paths=PackedStringArray("AnimationTree") instance=ExtResource("1_rntwx")]
+[node name="Clone Cyborg" node_paths=PackedStringArray("AnimationTree") instance=ExtResource("1_qsybc")]
+script = ExtResource("2_nyhra")
+StaticSpawnWeight = 40
+DelayAfterSpawn = 5.0
+DynamicSpawnCost = 0
+CharacterName = "Clone Cyborg"
+CharacterID = "clone_cyborg"
+MaxHealth = 500.0
+MaxSpeed = 48.0
 AnimationTree = NodePath("AnimationTree")
 
+[node name="Projectile Weapon" parent="." index="1"]
+BaseDamage = 1.0
+
+[node name="Body Collider" parent="." index="4"]
+position = Vector2(0, 14)
+shape = SubResource("CapsuleShape2D_nyhra")
+
+[node name="Hit Area" parent="." index="5"]
+z_index = 1
+
+[node name="CollisionShape2D" parent="Click Area" index="0"]
+position = Vector2(0, 2.5)
+shape = SubResource("RectangleShape2D_qsybc")
+
 [node name="Sprite2D" parent="." index="8"]
-texture = ExtResource("2_rw6rr")
+position = Vector2(0, 14)
+texture = ExtResource("2_53o7x")
+offset = Vector2(0, -14)
 vframes = 4
 frame = 0
 
