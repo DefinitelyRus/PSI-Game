@@ -5,6 +5,8 @@ namespace CommonScripts;
 
 public partial class AITargetingManager : Node2D {
 
+    public StandardCharacter Character => GetParent<StandardCharacter>();
+
     #region Targeting
 
     [ExportGroup("Targeting")]
@@ -30,6 +32,7 @@ public partial class AITargetingManager : Node2D {
 
     private void ScanForTargets(double delta) {
         if (!EnableScanning) return;
+        if (!Character.IsAlive) return;
 
         // Skip if still in cooldown
         if (_timeSinceLastTargetSwitch > 0f) {
@@ -142,6 +145,7 @@ public partial class AITargetingManager : Node2D {
 
     private void UpdateAimDirection(double delta) {
         if (AimDirection == null) return;
+        if (!Character.IsAlive) return;
 
         // Skip if character is moving
         bool isCharacterMoving = ParentCharacter.Control.MovementDirection.Length() > 0f;
@@ -179,6 +183,10 @@ public partial class AITargetingManager : Node2D {
 
     public void Attack() {
         if (!AttackPermitted) return;
+        if (!Character.IsAlive) {
+            ParentCharacter.Control.IsAttacking = false;
+            return;
+        }
 
         // Skip if character is moving
         bool isCharacterMoving = ParentCharacter.Control.MovementDirection.Length() > 0f;

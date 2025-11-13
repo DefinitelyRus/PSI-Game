@@ -35,6 +35,8 @@ public partial class AIAgentManager : Node2D {
 
 
 	private void InputListener(string actionName, Variant args = new()) {
+		if (!Character.IsAlive) return;
+
 		Log.Me(() => $"{Character.InstanceID} received action command: {actionName}.", LogInput);
 
 		Vector2 mousePos = (Vector2) args;
@@ -87,7 +89,10 @@ public partial class AIAgentManager : Node2D {
 	}
 
 
+	// TODO: Do nothing if character is enemy.
 	public void Action1(Vector2 mousePos) {
+		if (!Character.IsAlive) return;
+
 		/*
 		 * Left click should:
 		 * - Select the character if clicked on it.
@@ -110,8 +115,10 @@ public partial class AIAgentManager : Node2D {
 		}
 	}
 
-
+	// TODO: Handle inputs as enemy. (Target this instead of commanding it.)
 	public void Action2(Vector2 mousePos) {
+		if (!Character.IsAlive) return;
+
 		/*
 		* Right click should:
 		* - Deselect the character if clicked on it.
@@ -128,9 +135,7 @@ public partial class AIAgentManager : Node2D {
 			if (clickedOn) IsSelected = false;
 
 			// Move to position if clicked elsewhere while selected.
-			else {
-				GoTo(mousePos);
-			}
+			else GoTo(mousePos);
 
 			// If an enemy or interactable object is clicked on, assign it as the current target.
 			EntityManager.HasEntityAtPosition(mousePos, out CurrentTarget);
@@ -142,7 +147,8 @@ public partial class AIAgentManager : Node2D {
 	#region Navigation
 
 	public void GoTo(Vector2 target) {
-		Log.Me(() => $"{Character.InstanceID} received move command to ({target.X:F2}, {target.Y:F2}).", LogInput);
+		if (!Character.IsAlive) return;
+
 		_hasDestination = true;
 		NavAgent.TargetPosition = target;
 	}
@@ -158,6 +164,13 @@ public partial class AIAgentManager : Node2D {
 
 
 	private void MoveTo() {
+		if (!Character.IsAlive) {
+			ControlSurface.MovementDirection = Vector2.Zero;
+			ControlSurface.MovementMultiplier = 0f;
+			NavAgent.Velocity = Vector2.Zero;
+			return;
+		}
+
 		if (!_hasDestination || NavAgent.IsNavigationFinished()) {
 			ControlSurface.MovementDirection = Vector2.Zero;
 			ControlSurface.MovementMultiplier = 0f;
