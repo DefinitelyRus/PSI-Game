@@ -61,6 +61,14 @@ public partial class CameraMan : Node2D {
 
     #endregion
 
+    #region Debug
+
+    [ExportGroup("Debug")]
+    [Export] public bool LogReady = true;
+    [Export] public bool LogInput = false;
+
+    #endregion
+
     #region Godot Callbacks
 
     public override void _EnterTree() {
@@ -233,7 +241,7 @@ public partial class CameraMan : Node2D {
         Vector2 mousePos = GetCleanMousePosition(mouseMotion.Position);
 
         if (LastMousePos == null) {
-            Log.Me(() => $"Setting LastMousePos to {mousePos}");
+            Log.Me(() => $"Setting LastMousePos to {mousePos}", Instance.LogInput);
             LastMousePos = mousePos;
             return;
         }
