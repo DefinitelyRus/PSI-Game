@@ -3,8 +3,8 @@
 [ext_resource type="Script" uid="uid://cw8no8c8uw51j" path="res://Prefabs/StandardProp/StandardProp.cs" id="1_kkaet"]
 [ext_resource type="Texture2D" uid="uid://dboq7ap8y2i5r" path="res://Sprites/World Sprites/Level 1 - Office/Office_Props.png" id="2_0olq7"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_bldob"]
-size = Vector2(12, 8.5)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_iebel"]
+size = Vector2(12, 9)
 
 [node name="StandardProp" type="RigidBody2D" node_paths=PackedStringArray("NavObstacle")]
 y_sort_enabled = true
@@ -15,8 +15,8 @@ script = ExtResource("1_kkaet")
 NavObstacle = NodePath("NavigationObstacle2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 7.75)
-shape = SubResource("RectangleShape2D_bldob")
+position = Vector2(0, 8)
+shape = SubResource("RectangleShape2D_iebel")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 y_sort_enabled = true

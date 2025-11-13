@@ -3,16 +3,21 @@
 [ext_resource type="PackedScene" uid="uid://bnslwo4ecgkcn" path="res://Prefabs/StandardProp/StandardProp.tscn" id="1_y2rk7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_okbbb"]
-size = Vector2(12, 7)
+size = Vector2(12, 7.5)
 
 [node name="Pot Bush" instance=ExtResource("1_y2rk7")]
 PropName = "Pot Bush"
-PropDescription = "a bush in a pot"
 PropID = "pot_bush"
+PropDescription = "a bush in a pot"
 
 [node name="CollisionShape2D" parent="." index="0"]
-position = Vector2(0, 10.5)
+position = Vector2(0, 8.25)
 shape = SubResource("RectangleShape2D_okbbb")
 
 [node name="Sprite2D" parent="." index="1"]
+position = Vector2(0, 8)
+offset = Vector2(0, -10.4)
 region_rect = Rect2(96, 122, 16, 28)
+
+[node name="NavigationObstacle2D" parent="." index="2"]
+vertices = PackedVector2Array(-10, -13, 9, -13, 9, 8, -10, 8)

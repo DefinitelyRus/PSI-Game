@@ -2,18 +2,22 @@
 
 [ext_resource type="PackedScene" uid="uid://bnslwo4ecgkcn" path="res://Prefabs/StandardProp/StandardProp.tscn" id="1_ijud2"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_xn4xr"]
-size = Vector2(32, 28)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ijud2"]
+size = Vector2(32, 8)
 
 [node name="Bookshelf" instance=ExtResource("1_ijud2")]
 collision_layer = 9
 PropName = "Bookshelf"
-PropDescription = "a white bookshelfBook"
 PropID = "bookshelf"
+PropDescription = "a white bookshelfBook"
 
 [node name="CollisionShape2D" parent="." index="0"]
-position = Vector2(0, 1)
-shape = SubResource("RectangleShape2D_xn4xr")
+shape = SubResource("RectangleShape2D_ijud2")
 
 [node name="Sprite2D" parent="." index="1"]
+position = Vector2(0, 8)
+offset = Vector2(0, -10.99)
 region_rect = Rect2(113, 200, 30, 30)
+
+[node name="NavigationObstacle2D" parent="." index="2"]
+vertices = PackedVector2Array(-20, -12, 19, -12, 19, 7, -20, 7)

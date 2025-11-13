@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://brhhm6ehuvt0w"]
+
+[ext_resource type="PackedScene" uid="uid://bnslwo4ecgkcn" path="res://Prefabs/StandardProp/StandardProp.tscn" id="1_obrd2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_l07ei"]
+size = Vector2(100, 40)
+
+[node name="Cubicle Group L" instance=ExtResource("1_obrd2")]
+PropName = "Cubicle Group L"
+PropID = "cubicle_group_l"
+PropDescription = "A 2x2 cluster of cubicles"
+
+[node name="CollisionShape2D" parent="." index="0"]
+position = Vector2(0, 11)
+shape = SubResource("RectangleShape2D_l07ei")
+
+[node name="Sprite2D" parent="." index="1"]
+position = Vector2(0, 12)
+offset = Vector2(0, -3.34)
+region_rect = Rect2(270, 6, 99, 57)
+
+[node name="NavigationObstacle2D" parent="." index="2"]
+position = Vector2(0, 12)
+vertices = PackedVector2Array(-54, -27, 54, -27, 54, 23, -54, 23)
