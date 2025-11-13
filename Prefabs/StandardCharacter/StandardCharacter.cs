@@ -46,7 +46,7 @@ public partial class StandardCharacter : CharacterBody2D {
 	/// <summary>
 	/// Whether the character should be despawned (removed from the tree) when it dies.
 	/// </summary>
-	[Export] public bool DespawnOnDeath = false;
+	[Export] public bool DespawnAfterAnimation = false;
 
 	#endregion
 
@@ -150,7 +150,7 @@ public partial class StandardCharacter : CharacterBody2D {
 
 	/// <summary>
 	/// Kills the character and applies audio/visual effects if available.
-	/// It will also despawn the character if <see cref="DespawnOnDeath"/> is <c>true</c>.
+	/// It will also despawn the character if <see cref="DespawnAfterAnimation"/> is <c>true</c>.
 	/// </summary>
 	/// <param name="v">Do verbose logging? Use <c>v</c> to follow the same verbosity as the encapsulating function, if available.</param>
 	/// <param name="s">Stack depth. Use <c>0</c> if on a root function, or <c>s + 1</c> if <c>s</c> is available in the encapsulating function.</param>
@@ -174,10 +174,10 @@ public partial class StandardCharacter : CharacterBody2D {
 			AnimationState!.Travel("Death");
 
 			// Not an ideal fix but it works.
-			if (DespawnOnDeath) GetTree().CreateTimer(1.5f).Timeout += QueueFree;
+			if (DespawnAfterAnimation) GetTree().CreateTimer(1.5f).Timeout += QueueFree;
 		}
 
-		else if (DespawnOnDeath)
+		else
 		{
 			QueueFree();
 

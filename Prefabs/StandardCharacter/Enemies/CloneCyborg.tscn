@@ -1,7 +1,15 @@
-[gd_scene load_steps=24 format=3 uid="uid://c1huap8uooafm"]
+[gd_scene load_steps=28 format=3 uid="uid://c1huap8uooafm"]
 
-[ext_resource type="PackedScene" uid="uid://daotyvqai4b36" path="res://Prefabs/StandardCharacter/StandardCharacter.tscn" id="1_rntwx"]
-[ext_resource type="Texture2D" uid="uid://dpq8ap7lm8ark" path="res://Sprites/Enemies/Dispenser.png" id="2_rw6rr"]
+[ext_resource type="PackedScene" uid="uid://daotyvqai4b36" path="res://Prefabs/StandardCharacter/StandardCharacter.tscn" id="1_qsybc"]
+[ext_resource type="Texture2D" uid="uid://dpq8ap7lm8ark" path="res://Sprites/Enemies/Dispenser.png" id="2_53o7x"]
+[ext_resource type="Script" uid="uid://cks26k0vl72yx" path="res://Prefabs/StandardCharacter/Enemies/StandardEnemy.cs" id="2_nyhra"]
+[ext_resource type="PackedScene" uid="uid://our1p40txuef" path="res://Prefabs/StandardWeapon/Projectile/Drone Gun/Drone Gun.tscn" id="3_nyhra"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nyhra"]
+radius = 2.9999962
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qsybc"]
+size = Vector2(24, 31)
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_rw6rr"]
 animation = &"Attack"
@@ -156,15 +164,42 @@ _data = {
 &"Walk": SubResource("Animation_rw6rr")
 }
 
-[node name="Dispenser" node_paths=PackedStringArray("AnimationTree") instance=ExtResource("1_rntwx")]
+[node name="Clone Cyborg" node_paths=PackedStringArray("Weapon", "AnimationTree") instance=ExtResource("1_qsybc")]
+script = ExtResource("2_nyhra")
+StaticSpawnWeight = 40
+DelayAfterSpawn = 5.0
+DynamicSpawnCost = 0
+CharacterName = "Clone Cyborg"
+CharacterID = "clone_cyborg"
+MaxHealth = 500.0
+MaxSpeed = 48.0
+Weapon = NodePath("Drone Gun")
 AnimationTree = NodePath("AnimationTree")
 
-[node name="Sprite2D" parent="." index="8"]
-texture = ExtResource("2_rw6rr")
+[node name="Drone Gun" parent="." index="1" instance=ExtResource("3_nyhra")]
+
+[node name="Projectile Weapon" parent="." index="2"]
+BaseDamage = 1.0
+
+[node name="Body Collider" parent="." index="5"]
+position = Vector2(0, 14)
+shape = SubResource("CapsuleShape2D_nyhra")
+
+[node name="Hit Area" parent="." index="6"]
+z_index = 1
+
+[node name="CollisionShape2D" parent="Click Area" index="0"]
+position = Vector2(0, 2.5)
+shape = SubResource("RectangleShape2D_qsybc")
+
+[node name="Sprite2D" parent="." index="9"]
+position = Vector2(0, 14)
+texture = ExtResource("2_53o7x")
+offset = Vector2(0, -14)
 vframes = 4
 frame = 0
 
-[node name="AnimationTree" type="AnimationTree" parent="." index="9"]
+[node name="AnimationTree" type="AnimationTree" parent="." index="10"]
 tree_root = SubResource("AnimationNodeStateMachine_rntwx")
 anim_player = NodePath("../AnimationPlayer")
 parameters/conditions/is_attacking = false
@@ -172,7 +207,7 @@ parameters/conditions/is_dead = false
 parameters/conditions/is_idling = false
 parameters/conditions/is_walking = false
 
-[node name="AnimationPlayer" parent="." index="10"]
+[node name="AnimationPlayer" parent="." index="11"]
 libraries = {
 &"": SubResource("AnimationLibrary_peq8w")
 }

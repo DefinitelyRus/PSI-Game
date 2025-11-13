@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://bq2lrnllhwyce"]
+
+[ext_resource type="PackedScene" uid="uid://dx7iwt4dptbck" path="res://Prefabs/StandardWeapon/Projectile/StandardProjectileWeapon.tscn" id="1_5sh60"]
+
+[node name="Projectile Weapon" instance=ExtResource("1_5sh60")]
+BaseDamage = 20.0
+BaseAttackSpeed = 8.0
+ItemName = "Assault Rifle"
+ItemID = "assault_rifle"

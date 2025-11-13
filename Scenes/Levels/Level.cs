@@ -57,6 +57,12 @@ public partial class Level : Node2D {
 	}
 
 
+	#region Enemy Spawning
+
+	[ExportGroup("Enemy Spawning")]
+	[Export] public PackedScene[] EnemyTypes = [];
+
+
 	public void SpawnEnemy(StandardCharacter enemy, Vector2 position) {
 		AddChild(enemy);
 		enemy.GlobalPosition = position;
@@ -123,6 +129,9 @@ public partial class Level : Node2D {
 		return spawnsInRange.Count > index ? spawnsInRange[index] : null;
 	}
 
+	#endregion
+
+	#region Navigation
 
 	private void ReparentAllProps() {
 		IEnumerable<NavigationRegion2D> regions = RegionsParent.GetChildren().OfType<NavigationRegion2D>();
@@ -180,6 +189,7 @@ public partial class Level : Node2D {
 		return null;
 	}
 
+	#endregion
 
 	#region Godot Callbacks
 

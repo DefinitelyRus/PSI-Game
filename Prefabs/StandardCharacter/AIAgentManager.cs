@@ -188,10 +188,11 @@ public partial class AIAgentManager : Node2D {
 		}
 
 		// If within weapon range, stop moving and target.
-		if (CurrentTarget != null) {
-			float distanceToTarget = GlobalPosition.DistanceTo(CurrentTarget.GlobalPosition);
+		AITargetingManager targetingManager = Character.GetNode<AITargetingManager>("AI Targeting Manager");
+		if (targetingManager.CurrentTarget != null) {
+			float distanceToTarget = GlobalPosition.DistanceTo(targetingManager.CurrentTarget.GlobalPosition);
 
-			if (distanceToTarget <= Character.Weapon.Range) {
+			if (distanceToTarget <= targetingManager.TargetDetectionRadius) {
 				ControlSurface.MovementDirection = Vector2.Zero;
 				ControlSurface.MovementMultiplier = 0f;
 				NavAgent.Velocity = Vector2.Zero;
