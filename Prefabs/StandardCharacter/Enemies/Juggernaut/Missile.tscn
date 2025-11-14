@@ -1,0 +1,50 @@
+[gd_scene load_steps=8 format=3 uid="uid://b2e85to6e55w5"]
+
+[ext_resource type="PackedScene" uid="uid://cx6l410gdgswd" path="res://Prefabs/StandardProjectile/StandardProjectile.tscn" id="1_qfyfm"]
+[ext_resource type="Texture2D" uid="uid://v4fxsckcy4vj" path="res://Sprites/Projectiles/Enemy Projectiles.png" id="2_ame6g"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vcv8b"]
+atlas = ExtResource("2_ame6g")
+region = Rect2(224, 128, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gau0v"]
+atlas = ExtResource("2_ame6g")
+region = Rect2(224, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k8jcu"]
+atlas = ExtResource("2_ame6g")
+region = Rect2(224, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v2d7r"]
+atlas = ExtResource("2_ame6g")
+region = Rect2(224, 32, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_gxh08"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vcv8b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gau0v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k8jcu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v2d7r")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[node name="Missile" instance=ExtResource("1_qfyfm")]
+ProjectileName = "Missile"
+ProjectileID = "missile"
+Force = 100.0
+
+[node name="AnimatedSprite2D" parent="." index="2"]
+sprite_frames = SubResource("SpriteFrames_gxh08")
+animation = &"default"
+frame_progress = 0.1020317

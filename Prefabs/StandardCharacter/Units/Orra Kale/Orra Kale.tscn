@@ -1,7 +1,7 @@
 [gd_scene load_steps=47 format=3 uid="uid://c5pxgte6pab6b"]
 
 [ext_resource type="PackedScene" uid="uid://daotyvqai4b36" path="res://Prefabs/StandardCharacter/StandardCharacter.tscn" id="1_jdgtp"]
-[ext_resource type="PackedScene" uid="uid://bq2lrnllhwyce" path="res://Prefabs/StandardWeapon/Projectile/Assault Rifle/AssaultRifle.tscn" id="2_haq8x"]
+[ext_resource type="PackedScene" uid="uid://bq2lrnllhwyce" path="res://Prefabs/StandardCharacter/Units/Mira Kale/AssaultRifle.tscn" id="2_haq8x"]
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_jdgtp"]
 animation = &"shoot_up"

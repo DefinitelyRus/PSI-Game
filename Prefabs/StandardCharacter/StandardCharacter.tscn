@@ -1,9 +1,8 @@
-[gd_scene load_steps=42 format=3 uid="uid://daotyvqai4b36"]
+[gd_scene load_steps=41 format=3 uid="uid://daotyvqai4b36"]
 
 [ext_resource type="Script" uid="uid://dbkinu8656olu" path="res://Prefabs/StandardCharacter/StandardCharacter.cs" id="1_udvt5"]
 [ext_resource type="Texture2D" uid="uid://bjipwk6ac5bx0" path="res://Sprites/Units/Mira Kale/Idle.png" id="2_r87il"]
 [ext_resource type="Script" uid="uid://cavubcy1osm40" path="res://Prefabs/StandardCharacter/ControlSurface.cs" id="3_r87il"]
-[ext_resource type="PackedScene" uid="uid://dx7iwt4dptbck" path="res://Prefabs/StandardWeapon/StandardProjectileWeapon/StandardProjectileWeapon.tscn" id="4_g5v64"]
 [ext_resource type="Script" uid="uid://vonec1xhm4cv" path="res://Prefabs/StandardCharacter/AIAgentManager.cs" id="4_rog04"]
 [ext_resource type="Script" uid="uid://bbfaqqnaycapn" path="res://Prefabs/StandardCharacter/AITargetingManager.cs" id="4_tbsya"]
 [ext_resource type="Script" uid="uid://ck7wv6qp55x1c" path="res://Prefabs/StandardCharacter/AudioController.cs" id="5_ys8vw"]
@@ -1263,7 +1262,7 @@ script = ExtResource("1_udvt5")
 Control = NodePath("Control Surface")
 AIAgent = NodePath("AI Agent Manager")
 TargetingManager = NodePath("AI Targeting Manager")
-Weapon = NodePath("Projectile Weapon")
+Weapon = NodePath("")
 HitArea = NodePath("Hit Area")
 ClickArea = NodePath("Click Area")
 AnimationPlayer = NodePath("AnimationPlayer")
@@ -1273,9 +1272,6 @@ position = Vector2(0, 3)
 script = ExtResource("3_r87il")
 Character = NodePath("..")
 LogReady = false
-
-[node name="Projectile Weapon" parent="." instance=ExtResource("4_g5v64")]
-position = Vector2(0, 3)
 
 [node name="AI Targeting Manager" type="Node2D" parent="."]
 position = Vector2(0, 3)

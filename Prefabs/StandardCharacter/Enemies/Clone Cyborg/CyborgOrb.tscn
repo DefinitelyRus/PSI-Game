@@ -1,0 +1,51 @@
+[gd_scene load_steps=8 format=3 uid="uid://cen8gk0081rnn"]
+
+[ext_resource type="PackedScene" uid="uid://cx6l410gdgswd" path="res://Prefabs/StandardProjectile/StandardProjectile.tscn" id="1_yo1br"]
+[ext_resource type="Texture2D" uid="uid://v4fxsckcy4vj" path="res://Sprites/Projectiles/Enemy Projectiles.png" id="2_0iymi"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_phj6o"]
+atlas = ExtResource("2_0iymi")
+region = Rect2(96, 128, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_swey1"]
+atlas = ExtResource("2_0iymi")
+region = Rect2(96, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y1orc"]
+atlas = ExtResource("2_0iymi")
+region = Rect2(96, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y3k6w"]
+atlas = ExtResource("2_0iymi")
+region = Rect2(96, 32, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_b7bkf"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_phj6o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_swey1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y1orc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y3k6w")
+}],
+"loop": true,
+"name": &"bullet",
+"speed": 5.0
+}]
+
+[node name="Cyborg Orb" instance=ExtResource("1_yo1br")]
+ProjectileName = "Cyborg Orb"
+ProjectileID = "cyborg_orb"
+Force = 160.0
+
+[node name="AnimatedSprite2D" parent="." index="2"]
+rotation = 1.5707964
+sprite_frames = SubResource("SpriteFrames_b7bkf")
+animation = &"bullet"
+frame_progress = 0.1497813

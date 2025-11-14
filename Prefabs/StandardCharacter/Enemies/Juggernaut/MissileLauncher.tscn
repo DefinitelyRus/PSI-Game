@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://cbi3y40yaijxa"]
+
+[ext_resource type="PackedScene" uid="uid://dx7iwt4dptbck" path="res://Prefabs/StandardWeapon/StandardProjectileWeapon/StandardProjectileWeapon.tscn" id="1_5iw2e"]
+[ext_resource type="PackedScene" uid="uid://b2e85to6e55w5" path="res://Prefabs/StandardCharacter/Enemies/Juggernaut/Missile.tscn" id="2_qjtcr"]
+
+[node name="Missile Launcher" instance=ExtResource("1_5iw2e")]
+Projectile = ExtResource("2_qjtcr")
+BaseDamage = 50.0
+BaseAttackSpeed = 3.0
+SpeedType = 1
+AttackOriginDistance = 16.0
+ItemName = "Missile Launcher"
+ItemID = "missile_launcher"

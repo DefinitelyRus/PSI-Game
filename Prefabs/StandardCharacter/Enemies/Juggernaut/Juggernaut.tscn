@@ -1,8 +1,9 @@
-[gd_scene load_steps=28 format=3 uid="uid://bymb268wxlptk"]
+[gd_scene load_steps=29 format=3 uid="uid://bymb268wxlptk"]
 
 [ext_resource type="PackedScene" uid="uid://daotyvqai4b36" path="res://Prefabs/StandardCharacter/StandardCharacter.tscn" id="1_y36br"]
 [ext_resource type="Texture2D" uid="uid://br6a7pkrxulf5" path="res://Sprites/Enemies/Mech.png" id="2_7amjy"]
 [ext_resource type="Script" uid="uid://cks26k0vl72yx" path="res://Prefabs/StandardCharacter/Enemies/StandardEnemy.cs" id="2_f6w81"]
+[ext_resource type="PackedScene" uid="uid://cbi3y40yaijxa" path="res://Prefabs/StandardCharacter/Enemies/Juggernaut/MissileLauncher.tscn" id="3_x4lwo"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_y36br"]
 radius = 6.0
@@ -14,72 +15,9 @@ radius = 20.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7amjy"]
 size = Vector2(61, 55)
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_y36br"]
-animation = &"Attack"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_7amjy"]
-animation = &"Death"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_f6w81"]
-animation = &"Idle"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_dnbfx"]
-animation = &"Walk"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_1auvr"]
-advance_mode = 2
-advance_condition = &"is_dead"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_0ovtv"]
-advance_mode = 2
-advance_condition = &"is_dead"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_vywgc"]
-advance_mode = 2
-advance_condition = &"is_dead"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_y36br"]
-advance_mode = 2
-advance_condition = &"is_walking"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_7amjy"]
-advance_mode = 2
-advance_condition = &"is_walking"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_f6w81"]
-advance_mode = 2
-advance_condition = &"is_idling"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_dnbfx"]
-advance_mode = 2
-advance_condition = &"is_idling"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_bvkgi"]
-advance_mode = 2
-advance_condition = &"is_attacking"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_bbn7b"]
-advance_mode = 2
-advance_condition = &"is_attacking"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_o4p14"]
-advance_mode = 2
-
-[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_y36br"]
-states/Attack/node = SubResource("AnimationNodeAnimation_y36br")
-states/Attack/position = Vector2(571, 223)
-states/Death/node = SubResource("AnimationNodeAnimation_7amjy")
-states/Death/position = Vector2(571, -6)
-states/Idle/node = SubResource("AnimationNodeAnimation_f6w81")
-states/Idle/position = Vector2(382, 104)
-states/Start/position = Vector2(204, 104)
-states/Walk/node = SubResource("AnimationNodeAnimation_dnbfx")
-states/Walk/position = Vector2(746, 104)
-transitions = ["Idle", "Death", SubResource("AnimationNodeStateMachineTransition_1auvr"), "Attack", "Death", SubResource("AnimationNodeStateMachineTransition_0ovtv"), "Walk", "Death", SubResource("AnimationNodeStateMachineTransition_vywgc"), "Idle", "Walk", SubResource("AnimationNodeStateMachineTransition_y36br"), "Attack", "Walk", SubResource("AnimationNodeStateMachineTransition_7amjy"), "Attack", "Idle", SubResource("AnimationNodeStateMachineTransition_f6w81"), "Walk", "Idle", SubResource("AnimationNodeStateMachineTransition_dnbfx"), "Walk", "Attack", SubResource("AnimationNodeStateMachineTransition_bvkgi"), "Idle", "Attack", SubResource("AnimationNodeStateMachineTransition_bbn7b"), "Start", "Idle", SubResource("AnimationNodeStateMachineTransition_o4p14")]
-graph_offset = Vector2(-42, -53)
-
 [sub_resource type="Animation" id="Animation_1auvr"]
 resource_name = "Attack"
+length = 3.0
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -88,10 +26,10 @@ tracks/0/path = NodePath("Sprite2D:frame_coords")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.2, 0.39999998),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
-"values": [Vector2i(0, 2), Vector2i(1, 2), Vector2i(2, 2), Vector2i(3, 2), Vector2i(4, 2)]
+"values": [Vector2i(1, 2), Vector2i(2, 2), Vector2i(0, 2)]
 }
 
 [sub_resource type="Animation" id="Animation_dnbfx"]
@@ -168,7 +106,71 @@ _data = {
 &"Walk": SubResource("Animation_f6w81")
 }
 
-[node name="Juggernaut" node_paths=PackedStringArray("AnimationTree") instance=ExtResource("1_y36br")]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_y36br"]
+animation = &"Attack"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_7amjy"]
+animation = &"Death"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_f6w81"]
+animation = &"Idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_dnbfx"]
+animation = &"Walk"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_1auvr"]
+advance_mode = 2
+advance_condition = &"is_dead"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_0ovtv"]
+advance_mode = 2
+advance_condition = &"is_dead"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_vywgc"]
+advance_mode = 2
+advance_condition = &"is_dead"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_y36br"]
+advance_mode = 2
+advance_condition = &"is_walking"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_7amjy"]
+advance_mode = 2
+advance_condition = &"is_walking"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_f6w81"]
+advance_mode = 2
+advance_condition = &"is_idling"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_dnbfx"]
+advance_mode = 2
+advance_condition = &"is_idling"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_bvkgi"]
+advance_mode = 2
+advance_condition = &"is_attacking"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_bbn7b"]
+advance_mode = 2
+advance_condition = &"is_attacking"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_o4p14"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_y36br"]
+states/Attack/node = SubResource("AnimationNodeAnimation_y36br")
+states/Attack/position = Vector2(571, 223)
+states/Death/node = SubResource("AnimationNodeAnimation_7amjy")
+states/Death/position = Vector2(571, -6)
+states/Idle/node = SubResource("AnimationNodeAnimation_f6w81")
+states/Idle/position = Vector2(382, 104)
+states/Start/position = Vector2(204, 104)
+states/Walk/node = SubResource("AnimationNodeAnimation_dnbfx")
+states/Walk/position = Vector2(746, 104)
+transitions = ["Idle", "Death", SubResource("AnimationNodeStateMachineTransition_1auvr"), "Attack", "Death", SubResource("AnimationNodeStateMachineTransition_0ovtv"), "Walk", "Death", SubResource("AnimationNodeStateMachineTransition_vywgc"), "Idle", "Walk", SubResource("AnimationNodeStateMachineTransition_y36br"), "Attack", "Walk", SubResource("AnimationNodeStateMachineTransition_7amjy"), "Attack", "Idle", SubResource("AnimationNodeStateMachineTransition_f6w81"), "Walk", "Idle", SubResource("AnimationNodeStateMachineTransition_dnbfx"), "Walk", "Attack", SubResource("AnimationNodeStateMachineTransition_bvkgi"), "Idle", "Attack", SubResource("AnimationNodeStateMachineTransition_bbn7b"), "Start", "Idle", SubResource("AnimationNodeStateMachineTransition_o4p14")]
+graph_offset = Vector2(-42, -53)
+
+[node name="Juggernaut" node_paths=PackedStringArray("Weapon", "AnimationTree") instance=ExtResource("1_y36br")]
 script = ExtResource("2_f6w81")
 StaticSpawnWeight = 5
 DelayAfterSpawn = 30.0
@@ -179,10 +181,10 @@ MaxHealth = 2500.0
 MaxSpeed = 16.0
 AccelerationTime = 2.0
 Tags = PackedStringArray("Enemy")
+Weapon = NodePath("Missile Launcher")
 AnimationTree = NodePath("AnimationTree")
 
-[node name="Projectile Weapon" parent="." index="1"]
-BaseSpread = 5.0
+[node name="Missile Launcher" parent="." index="1" instance=ExtResource("3_x4lwo")]
 
 [node name="AI Targeting Manager" parent="." index="2"]
 TargetDetectionRadius = 120.0
@@ -217,15 +219,15 @@ hframes = 9
 vframes = 6
 frame = 0
 
-[node name="AnimationTree" type="AnimationTree" parent="." index="9"]
+[node name="AnimationPlayer" parent="." index="9"]
+libraries = {
+&"": SubResource("AnimationLibrary_7amjy")
+}
+
+[node name="AnimationTree" type="AnimationTree" parent="." index="10"]
 tree_root = SubResource("AnimationNodeStateMachine_y36br")
 anim_player = NodePath("../AnimationPlayer")
 parameters/conditions/is_attacking = false
 parameters/conditions/is_dead = false
 parameters/conditions/is_idling = false
 parameters/conditions/is_walking = false
-
-[node name="AnimationPlayer" parent="." index="10"]
-libraries = {
-&"": SubResource("AnimationLibrary_7amjy")
-}
