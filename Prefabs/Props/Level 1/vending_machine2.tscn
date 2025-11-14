@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://coiu87ebqx5kb"]
+
+[ext_resource type="PackedScene" uid="uid://bnslwo4ecgkcn" path="res://Prefabs/StandardProp/StandardProp.tscn" id="1_3knpi"]
+
+[node name="Coffee Vending Machine" instance=ExtResource("1_3knpi")]
+PropName = "Coffee Vending Machine"
+PropID = "vending_machine2"
+PropDescription = "a vending machine for coffee"
+
+[node name="Sprite2D" parent="." index="1"]
+offset = Vector2(0, -6.16)
+region_rect = Rect2(102, 380, 21, 36)
+
+[node name="NavigationObstacle2D" parent="." index="2"]
+vertices = PackedVector2Array(-16, -12, 15, -12, 15, 8, -16, 8)
