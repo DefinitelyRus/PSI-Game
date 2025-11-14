@@ -37,14 +37,14 @@ public partial class EnemyManager : Node2D {
     /// </summary>
     public static List<StandardCharacter> Enemies { get; private set; } = [];
 
-    private static List<StandardCharacter> PlayerUnits => [.. Commander.GetAllUnits()];
+    private static List<StandardCharacter> _playerUnits => [.. Commander.GetAllUnits()];
 
     #region Spawn Management
 
     public static bool TrySpawnEnemy(StandardCharacter enemy) {
         Enemies.Add(enemy);
 
-        if (PlayerUnits.Count == 0) {
+        if (_playerUnits.Count == 0) {
             Log.Warn(() => "No player units registered in EnemyManager. Cannot select spawn points based on player unit positions.");
             return false;
         }
@@ -55,11 +55,11 @@ public partial class EnemyManager : Node2D {
         }
 
         RandomNumberGenerator rng = new();
-        int targetUnit = rng.RandiRange(0, PlayerUnits.Count - 1);
+        int targetUnit = rng.RandiRange(0, _playerUnits.Count - 1);
         int spawnIndex = rng.RandiRange(0, Instance.SpawnpointSelectionCount - 1);
 
         Node2D? spawnPoint = CurrentLevel.FindNearbyEnemySpawnPoint(
-            PlayerUnits[targetUnit].GlobalPosition,
+            _playerUnits[targetUnit].GlobalPosition,
             float.MaxValue,
             spawnIndex,
             true
