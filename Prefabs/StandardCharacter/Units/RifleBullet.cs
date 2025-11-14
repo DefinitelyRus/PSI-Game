@@ -10,8 +10,6 @@ public partial class RifleBullet : StandardProjectile
 		{
 			character.TakeDamage(Weapon.Damage);
 			QueueFree();
-
-			return;
 		}
 	}
 }
