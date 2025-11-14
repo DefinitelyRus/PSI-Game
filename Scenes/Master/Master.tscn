@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://d3cvhjbvnx1a1"]
+[gd_scene load_steps=13 format=3 uid="uid://d3cvhjbvnx1a1"]
 
 [ext_resource type="Script" uid="uid://cdfonun0qopbr" path="res://Scenes/Master/Master.cs" id="1_o4rt4"]
 [ext_resource type="Script" uid="uid://bskjggdrqe3xx" path="res://Scenes/Master/SceneLoader.cs" id="2_7tgqy"]
@@ -11,7 +11,6 @@
 [ext_resource type="Script" uid="uid://b3xb0rhvopx03" path="res://Scenes/Master/InputManager.cs" id="5_qemos"]
 [ext_resource type="Script" uid="uid://dd1nkkedx3kat" path="res://Scenes/Master/EnemyManager.cs" id="6_iwwxa"]
 [ext_resource type="Script" uid="uid://dv8fmgivi507t" path="res://Scenes/Master/AIDirector.cs" id="7_0hine"]
-[ext_resource type="PackedScene" uid="uid://bymb268wxlptk" path="res://Prefabs/StandardCharacter/Enemies/Juggernaut/Juggernaut.tscn" id="8_0hine"]
 [ext_resource type="PackedScene" uid="uid://4av0n3taxtct" path="res://Scenes/Levels/Release/ParkingLot.tscn" id="10_8ixx1"]
 
 [node name="Master" type="Node" node_paths=PackedStringArray("SceneLoader", "InputManager")]
@@ -39,10 +38,10 @@ InitialUnits = [ExtResource("5_m6dx2")]
 
 [node name="Enemy Manager" type="Node2D" parent="."]
 script = ExtResource("6_iwwxa")
+SpawnpointSelectionCount = 10
 
 [node name="AI Director" type="Node2D" parent="."]
 script = ExtResource("7_0hine")
-EnemyTypes = Array[PackedScene]([ExtResource("8_0hine")])
 
 [node name="Entity Manager" type="Node2D" parent="."]
 script = ExtResource("5_0hine")

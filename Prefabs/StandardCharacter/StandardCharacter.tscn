@@ -1249,7 +1249,7 @@ _data = {
 &"walk_up_right": SubResource("Animation_33sgy")
 }
 
-[node name="Standard Character" type="CharacterBody2D" node_paths=PackedStringArray("Control", "AIManager", "Weapon", "HitArea", "ClickArea", "AnimationPlayer")]
+[node name="Standard Character" type="CharacterBody2D" node_paths=PackedStringArray("Control", "AIAgent", "TargetingManager", "Weapon", "HitArea", "ClickArea", "AnimationPlayer")]
 process_mode = 1
 process_thread_group = 1
 process_thread_group_order = 0
@@ -1261,7 +1261,8 @@ collision_mask = 17
 motion_mode = 1
 script = ExtResource("1_udvt5")
 Control = NodePath("Control Surface")
-AIManager = NodePath("AI Agent Manager")
+AIAgent = NodePath("AI Agent Manager")
+TargetingManager = NodePath("AI Targeting Manager")
 Weapon = NodePath("Projectile Weapon")
 HitArea = NodePath("Hit Area")
 ClickArea = NodePath("Click Area")
@@ -1279,6 +1280,7 @@ position = Vector2(0, 3)
 [node name="AI Targeting Manager" type="Node2D" parent="."]
 position = Vector2(0, 3)
 script = ExtResource("4_tbsya")
+TargetSwitchCooldown = 1.0
 
 [node name="AI Agent Manager" type="Node2D" parent="." node_paths=PackedStringArray("ControlSurface", "NavAgent")]
 editor_description = "Manages the AI Pathfinding for this character.

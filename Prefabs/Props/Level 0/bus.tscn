@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://d0vd1cttixedg" path="res://Sprites/World Sprites/Level 0 - Parking Lot/Vehicles.png" id="2_viedb"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_huyye"]
-size = Vector2(110, 35)
+size = Vector2(110, 26)
 
 [node name="Bus" instance=ExtResource("1_2enan")]
 collision_layer = 9
@@ -13,9 +13,16 @@ PropID = "bus"
 PropDescription = "a big yellow bus"
 
 [node name="CollisionShape2D" parent="." index="0"]
-position = Vector2(0, 9.5)
+position = Vector2(0, 14)
 shape = SubResource("RectangleShape2D_huyye")
 
 [node name="Sprite2D" parent="." index="1"]
+position = Vector2(0, 14)
 texture = ExtResource("2_viedb")
+offset = Vector2(0, -18)
 region_rect = Rect2(721, 402, 111, 62)
+
+[node name="NavigationObstacle2D" parent="." index="2"]
+position = Vector2(0, 14)
+vertices = PackedVector2Array(-58, -21, 59, -21, 59, 17, -58, 17)
+avoidance_layers = 8

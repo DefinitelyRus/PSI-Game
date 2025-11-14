@@ -90,7 +90,7 @@ public partial class Commander : Node {
 	{
 		foreach (StandardCharacter unit in Units)
 		{
-			if (unit.AIManager.IsSelected)
+			if (unit.AIAgent.IsSelected)
 			{
 				yield return unit;
 			}
@@ -103,7 +103,7 @@ public partial class Commander : Node {
 		int count = 0;
 		foreach (StandardCharacter unit in Units)
 		{
-			if (unit.AIManager.IsSelected)
+			if (unit.AIAgent.IsSelected)
 			{
 				count++;
 			}
@@ -119,7 +119,7 @@ public partial class Commander : Node {
 			return;
 		}
 
-		Units[index].AIManager.IsSelected = true;
+		Units[index].AIAgent.IsSelected = true;
 	}
 
 
@@ -132,7 +132,7 @@ public partial class Commander : Node {
 		}
 
 		foreach (StandardCharacter unit in Units) {
-			unit.AIManager.IsSelected = true;
+			unit.AIAgent.IsSelected = true;
 		}
 
 		ClearFocusedUnit();
@@ -148,7 +148,7 @@ public partial class Commander : Node {
 		
 		foreach (StandardCharacter unit in Units)
 		{
-			unit.AIManager.IsSelected = false;
+			unit.AIAgent.IsSelected = false;
 		}
 		
 		ClearFocusedUnit();

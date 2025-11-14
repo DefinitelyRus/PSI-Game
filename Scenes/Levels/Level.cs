@@ -63,16 +63,15 @@ public partial class Level : Node2D {
 	[Export] public PackedScene[] EnemyTypes = [];
 
 
-	public void SpawnEnemy(StandardCharacter enemy, Vector2 position) {
-		AddChild(enemy);
-		enemy.GlobalPosition = position;
+	public void SpawnCharacter(StandardCharacter character, Vector2 position) {
+		AddChild(character);
+		character.GlobalPosition = position;
 	}
 
 
-	public void SpawnEnemy(StandardCharacter enemy, Node2D spawnPoint) {
-		AddChild(enemy);
-		enemy.GlobalPosition = spawnPoint.GlobalPosition;
-    }
+	public void SpawnCharacter(StandardCharacter character, Node2D spawnPoint) {
+		SpawnCharacter(character, spawnPoint.GlobalPosition);
+	}
 
 
 	/// <summary>
@@ -100,6 +99,11 @@ public partial class Level : Node2D {
 		if (EnemySpawns.Length == 0) {
 			Log.Err("No spawn points defined for this level. Canceling.");
 			return null;
+		}
+
+		if (index >= EnemySpawns.Length) {
+			Log.Warn(() => $"FindNearbySpawnPoint: Index {index} exceeds available spawn points ({EnemySpawns.Length}). Setting random index within range.");
+			index = new RandomNumberGenerator().RandiRange(0, EnemySpawns.Length - 1);
 		}
 
 		#endregion
@@ -145,7 +149,7 @@ public partial class Level : Node2D {
 			category.QueueFree();
 		}
 
-		PropsParent.QueueFree();
+		if (PropsParent.GetChildren().Count == 0) PropsParent.QueueFree();
 
 		// Reparent each prop to the correct navigation region
 		// and set its nav map to the region's map rid
@@ -227,7 +231,7 @@ public partial class Level : Node2D {
 
 		ReparentAllProps();
 
-		AIDirector.StartLevel(this);
+		AIDirector.CurrentLevel = this;
 	}
 	
 	#endregion
