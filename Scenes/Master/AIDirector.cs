@@ -33,6 +33,8 @@ public partial class AIDirector : Node2D {
             case SpawnMode.Dynamic:
                 break;
         }
+
+        SearchAndDestroy();
     }
 
     #endregion
@@ -89,7 +91,7 @@ public partial class AIDirector : Node2D {
                 Log.Warn(() => $"Enemy scene '{enemyScene.ResourcePath}' is not a StandardEnemy. Skipping.");
                 continue;
             }
-            
+
             enemySelection.Add(enemy);
 
             totalWeight += enemy.StaticSpawnWeight;
@@ -98,7 +100,7 @@ public partial class AIDirector : Node2D {
         int roll = rng.RandiRange(1, totalWeight);
         int remainingRoll = roll;
         enemySelection.Sort((a, b) => b.StaticSpawnWeight.CompareTo(a.StaticSpawnWeight));
-        
+
         // Subtracts weights until it finds the selected enemy
         foreach (StandardEnemy enemy in enemySelection) {
             remainingRoll -= enemy.StaticSpawnWeight;
@@ -112,9 +114,43 @@ public partial class AIDirector : Node2D {
                 }
 
                 _timeDelayRemaining = enemy.DelayAfterSpawn;
-                enemy.AIAgent.GoTo(targetUnitPosition);
                 return;
             }
+        }
+    }
+
+    #endregion
+
+
+
+    #region Navigation
+
+    public static StandardCharacter? FindNearestPlayer(Vector2 position) {
+        List<StandardCharacter> playerUnits = [.. Commander.GetAllUnits()];
+
+        if (playerUnits.Count == 0) {
+            Log.Warn(() => "No player units registered in EnemyManager. Cannot find nearest player unit.");
+            return null;
+        }
+
+        return playerUnits.OrderBy(unit => unit.GlobalPosition.DistanceTo(position)).FirstOrDefault();
+    }
+
+    private static void SearchAndDestroy() {
+        foreach (StandardCharacter enemy in EnemyManager.Enemies) {
+            if (!enemy.IsAlive) continue;
+
+            StandardCharacter? player = FindNearestPlayer(enemy.GlobalPosition);
+            if (player == null) return;
+
+            AIAgentManager agentManager = enemy.AIAgent;
+            if (agentManager.HasDestination) continue;
+
+			void GoToPlayer() {
+                agentManager.GoTo(player.GlobalPosition);
+            }
+
+            enemy.GetTree().CreateTimer(1f).Timeout += GoToPlayer;
         }
     }
 
