@@ -28,7 +28,7 @@ public partial class AIAgentManager : Node2D {
 	#region Inputs
 
 	public Vector2 TargetPosition => NavAgent.TargetPosition;
-	public bool HasDestination => TargetPosition != GlobalPosition;
+	public bool HasDestination { get; private set; } = false;
 	public bool IsSelected { get; set; } = false;
 
 	public bool Searching = false;
@@ -153,6 +153,7 @@ public partial class AIAgentManager : Node2D {
 		if (!Character.IsAlive) return;
 
 		NavAgent.TargetPosition = target;
+		HasDestination = true;
 	}
 
 
@@ -161,6 +162,7 @@ public partial class AIAgentManager : Node2D {
 		ControlSurface.MovementMultiplier = 0f;
 		NavAgent.TargetPosition = GlobalPosition;
 		NavAgent.Velocity = Vector2.Zero;
+		HasDestination = false;
 	}
 
 
