@@ -50,6 +50,7 @@ public partial class AITargetingManager : Node2D {
             }
 
             else {
+                if (ParentCharacter.Tags.Contains("Enemy")) ParentCharacter.AIAgent.GoTo(CurrentTarget.GlobalPosition);
                 CurrentTarget = null;
                 AimDirection = null;
             }
@@ -93,6 +94,9 @@ public partial class AITargetingManager : Node2D {
         bool isAlive = target.IsAlive;
 
         if (!inRange || !isAlive) return false;
+
+        if (ParentCharacter.Tags.Contains("Player") && target.Tags.Contains("Player")) return false;
+        if (ParentCharacter.Tags.Contains("Enemy") && target.Tags.Contains("Enemy")) return false;
 
         switch (CurrentTargetMode) {
             case TargetMode.Nearest:
