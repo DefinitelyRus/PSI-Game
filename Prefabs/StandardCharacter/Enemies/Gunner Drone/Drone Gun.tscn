@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://our1p40txuef"]
+
+[ext_resource type="PackedScene" uid="uid://dx7iwt4dptbck" path="res://Prefabs/StandardWeapon/StandardProjectileWeapon/StandardProjectileWeapon.tscn" id="1_s1cg3"]
+[ext_resource type="PackedScene" uid="uid://bxyktnim1kpjh" path="res://Prefabs/StandardCharacter/Enemies/Gunner Drone/DroneBullet.tscn" id="2_exnoy"]
+
+[node name="Drone Gun" instance=ExtResource("1_s1cg3")]
+Projectile = ExtResource("2_exnoy")
+BaseDamage = 5.0
+ItemName = "Drone Gun"
+ItemID = "drone_gun"

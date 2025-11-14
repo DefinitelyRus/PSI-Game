@@ -1,9 +1,9 @@
 [gd_scene load_steps=28 format=3 uid="uid://c1huap8uooafm"]
 
-[ext_resource type="PackedScene" uid="uid://daotyvqai4b36" path="res://Prefabs/StandardCharacter/StandardCharacter.tscn" id="1_qsybc"]
-[ext_resource type="Texture2D" uid="uid://dpq8ap7lm8ark" path="res://Sprites/Enemies/Dispenser.png" id="2_53o7x"]
-[ext_resource type="Script" uid="uid://cks26k0vl72yx" path="res://Prefabs/StandardCharacter/Enemies/StandardEnemy.cs" id="2_nyhra"]
-[ext_resource type="PackedScene" uid="uid://our1p40txuef" path="res://Prefabs/StandardWeapon/Projectile/Drone Gun/Drone Gun.tscn" id="3_nyhra"]
+[ext_resource type="PackedScene" uid="uid://daotyvqai4b36" path="res://Prefabs/StandardCharacter/StandardCharacter.tscn" id="1_kbbx7"]
+[ext_resource type="Script" uid="uid://cks26k0vl72yx" path="res://Prefabs/StandardCharacter/Enemies/StandardEnemy.cs" id="2_7st76"]
+[ext_resource type="PackedScene" uid="uid://our1p40txuef" path="res://Prefabs/StandardCharacter/Enemies/Gunner Drone/Drone Gun.tscn" id="3_ccblj"]
+[ext_resource type="Texture2D" uid="uid://dpq8ap7lm8ark" path="res://Sprites/Enemies/Dispenser.png" id="4_jams4"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nyhra"]
 radius = 2.9999962
@@ -165,8 +165,8 @@ _data = {
 &"Walk": SubResource("Animation_rw6rr")
 }
 
-[node name="Clone Cyborg" node_paths=PackedStringArray("Weapon", "AnimationTree") instance=ExtResource("1_qsybc")]
-script = ExtResource("2_nyhra")
+[node name="Clone Cyborg" node_paths=PackedStringArray("Weapon", "AnimationTree") instance=ExtResource("1_kbbx7")]
+script = ExtResource("2_7st76")
 StaticSpawnWeight = 40
 DelayAfterSpawn = 5.0
 DynamicSpawnCost = 0
@@ -179,7 +179,7 @@ DespawnAfterAnimation = true
 Weapon = NodePath("Drone Gun")
 AnimationTree = NodePath("AnimationTree")
 
-[node name="Drone Gun" parent="." index="1" instance=ExtResource("3_nyhra")]
+[node name="Drone Gun" parent="." index="1" instance=ExtResource("3_ccblj")]
 
 [node name="Projectile Weapon" parent="." index="2"]
 BaseDamage = 1.0
@@ -202,7 +202,7 @@ shape = SubResource("RectangleShape2D_qsybc")
 
 [node name="Sprite2D" parent="." index="9"]
 position = Vector2(0, 14)
-texture = ExtResource("2_53o7x")
+texture = ExtResource("4_jams4")
 offset = Vector2(0, -14)
 vframes = 4
 frame = 0

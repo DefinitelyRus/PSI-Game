@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://dbkinu8656olu" path="res://Prefabs/StandardCharacter/StandardCharacter.cs" id="1_udvt5"]
 [ext_resource type="Texture2D" uid="uid://bjipwk6ac5bx0" path="res://Sprites/Units/Mira Kale/Idle.png" id="2_r87il"]
 [ext_resource type="Script" uid="uid://cavubcy1osm40" path="res://Prefabs/StandardCharacter/ControlSurface.cs" id="3_r87il"]
-[ext_resource type="PackedScene" uid="uid://dx7iwt4dptbck" path="res://Prefabs/StandardWeapon/Projectile/StandardProjectileWeapon.tscn" id="4_g5v64"]
+[ext_resource type="PackedScene" uid="uid://dx7iwt4dptbck" path="res://Prefabs/StandardWeapon/StandardProjectileWeapon/StandardProjectileWeapon.tscn" id="4_g5v64"]
 [ext_resource type="Script" uid="uid://vonec1xhm4cv" path="res://Prefabs/StandardCharacter/AIAgentManager.cs" id="4_rog04"]
 [ext_resource type="Script" uid="uid://bbfaqqnaycapn" path="res://Prefabs/StandardCharacter/AITargetingManager.cs" id="4_tbsya"]
 [ext_resource type="Script" uid="uid://ck7wv6qp55x1c" path="res://Prefabs/StandardCharacter/AudioController.cs" id="5_ys8vw"]

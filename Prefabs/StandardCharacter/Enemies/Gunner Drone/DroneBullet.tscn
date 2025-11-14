@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://bxyktnim1kpjh"]
 
 [ext_resource type="PackedScene" uid="uid://cx6l410gdgswd" path="res://Prefabs/StandardProjectile/StandardProjectile.tscn" id="1_r3qyb"]
-[ext_resource type="Script" uid="uid://dj1hpsaq461ag" path="res://Prefabs/StandardProjectile/EnemyBullet/DroneBullet.cs" id="2_q1ont"]
+[ext_resource type="Script" uid="uid://dj1hpsaq461ag" path="res://Prefabs/StandardCharacter/Enemies/Gunner Drone/DroneBullet.cs" id="2_q1ont"]
 [ext_resource type="Texture2D" uid="uid://v4fxsckcy4vj" path="res://Sprites/Projectiles/Enemy Projectiles.png" id="2_yijrr"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ly8a1"]
