@@ -248,8 +248,12 @@ public partial class StandardProjectile : RigidBody2D
 
 	//Usually called when the projectile impacts a target.
 	protected virtual void Impact(Area2D area) {
-		Log.Warn(() => $"`Impact` on {ProjectileName} (ProjectileID: {ProjectileID}) is not implemented! Override to add custom functionality.");
-		return;
+		if (area.GetParent() is StandardCharacter character) {
+			if (character == WeaponOwner) return;
+			
+			character.TakeDamage(Weapon.Damage);
+			QueueFree();
+		}
 	}
 
 	//Usually called when the projectile is to be destroyed regardless of impact.
