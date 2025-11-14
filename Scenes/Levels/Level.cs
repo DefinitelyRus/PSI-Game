@@ -63,16 +63,15 @@ public partial class Level : Node2D {
 	[Export] public PackedScene[] EnemyTypes = [];
 
 
-	public void SpawnEnemy(StandardCharacter enemy, Vector2 position) {
-		AddChild(enemy);
-		enemy.GlobalPosition = position;
+	public void SpawnCharacter(StandardCharacter character, Vector2 position) {
+		AddChild(character);
+		character.GlobalPosition = position;
 	}
 
 
-	public void SpawnEnemy(StandardCharacter enemy, Node2D spawnPoint) {
-		AddChild(enemy);
-		enemy.GlobalPosition = spawnPoint.GlobalPosition;
-    }
+	public void SpawnCharacter(StandardCharacter character, Node2D spawnPoint) {
+		SpawnCharacter(character, spawnPoint.GlobalPosition);
+	}
 
 
 	/// <summary>
