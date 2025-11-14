@@ -4587,7 +4587,7 @@ position = Vector2(896, 304)
 position = Vector2(1052, 302)
 
 [node name="E14" type="Node2D" parent="Enemy Spawns" index="13"]
-position = Vector2(147, 693)
+position = Vector2(159, 703)
 
 [node name="E15" type="Node2D" parent="Enemy Spawns" index="14"]
 position = Vector2(534, 690)
