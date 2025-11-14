@@ -150,7 +150,7 @@ public partial class Level : Node2D {
 			category.QueueFree();
 		}
 
-		PropsParent.QueueFree();
+		if (PropsParent.GetChildren().Count == 0) PropsParent.QueueFree();
 
 		// Reparent each prop to the correct navigation region
 		// and set its nav map to the region's map rid
