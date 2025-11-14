@@ -1,3 +1,5 @@
+using System;
+using System.Linq;
 using Godot;
 namespace CommonScripts;
 
@@ -26,7 +28,7 @@ public partial class AIAgentManager : Node2D {
 	#region Inputs
 
 	public Vector2 TargetPosition => NavAgent.TargetPosition;
-	private bool _hasDestination = false;
+	public bool HasDestination => TargetPosition != GlobalPosition;
 	public bool IsSelected { get; set; } = false;
 
 	public bool Searching = false;
@@ -61,7 +63,7 @@ public partial class AIAgentManager : Node2D {
 				break;
 
 			case "stop_action":
-				Stop();
+				if (IsSelected) Stop();
 				break;
 		}
 	}
@@ -112,6 +114,7 @@ public partial class AIAgentManager : Node2D {
 		else if (IsSelected) {
 			GoTo(mousePos);
 			Searching = true;
+			Targeting = false;
 		}
 	}
 
@@ -149,55 +152,57 @@ public partial class AIAgentManager : Node2D {
 	public void GoTo(Vector2 target) {
 		if (!Character.IsAlive) return;
 
-		_hasDestination = true;
 		NavAgent.TargetPosition = target;
 	}
 
 
 	public void Stop() {
-		if (!IsSelected) return;
-		
-		_hasDestination = false;
+		ControlSurface.MovementDirection = Vector2.Zero;
+		ControlSurface.MovementMultiplier = 0f;
 		NavAgent.TargetPosition = GlobalPosition;
 		NavAgent.Velocity = Vector2.Zero;
 	}
 
 
 	private void MoveTo() {
-		if (!IsInstanceValid(Character))
-			Log.Warn(() => "Character instance is not valid. Behavior may be abnormal.");
 
-		if (!Character.IsAlive) {
-			ControlSurface.MovementDirection = Vector2.Zero;
-			ControlSurface.MovementMultiplier = 0f;
-			NavAgent.Velocity = Vector2.Zero;
+		#region Validation
+
+		if (!IsInstanceValid(Character)) Log.Warn(() => "Character instance is not valid. Behavior may be abnormal.");
+
+		bool deadCharacter = !Character.IsAlive;
+		bool noDestination = !HasDestination;
+		bool targetUnreachable = !NavAgent.IsTargetReachable();
+		bool doneNavigating = NavAgent.IsNavigationFinished();
+		
+		// Stop if any of the conditions are met.
+		if (deadCharacter || noDestination || doneNavigating) {
+			Stop();
 			return;
 		}
 
-		if (!_hasDestination || NavAgent.IsNavigationFinished()) {
-			ControlSurface.MovementDirection = Vector2.Zero;
-			ControlSurface.MovementMultiplier = 0f;
-			NavAgent.Velocity = Vector2.Zero;
-			return;
-		}
-
-		if (!NavAgent.IsTargetReachable()) {
+		if (targetUnreachable) {
 			Log.Me(() => $"{Character.InstanceID} cannot reach target at ({NavAgent.TargetPosition.X:F2}, {NavAgent.TargetPosition.Y:F2}). Stopping movement.", LogInput);
 			Stop();
 			return;
 		}
+
+		#endregion
 
 		// If within weapon range, stop moving and target.
 		AITargetingManager targetingManager = Character.GetNode<AITargetingManager>("AI Targeting Manager");
 		if (targetingManager.CurrentTarget != null) {
 			float distanceToTarget = GlobalPosition.DistanceTo(targetingManager.CurrentTarget.GlobalPosition);
 
-			if (distanceToTarget <= targetingManager.TargetDetectionRadius) {
-				ControlSurface.MovementDirection = Vector2.Zero;
-				ControlSurface.MovementMultiplier = 0f;
-				NavAgent.Velocity = Vector2.Zero;
-				Targeting = true;
-				Searching = false;
+			// If within target detection radius, stop and target.\
+			bool isPlayer = Character.Tags.Contains("Player");
+			bool isEnemy = Character.Tags.Contains("Enemy");
+			bool targetReached = distanceToTarget <= targetingManager.TargetDetectionRadius;
+			bool playerFoundEnemy = isPlayer && Searching && targetReached;
+			bool enemyFoundPlayer = isEnemy && targetReached;
+
+			if (playerFoundEnemy || enemyFoundPlayer) {
+				OnTargetReached();
 				return;
 			}
 		}
@@ -216,6 +221,14 @@ public partial class AIAgentManager : Node2D {
 		ControlSurface.FacingDirection = dir;   // Normalized in setter.
 		ControlSurface.MovementMultiplier = 1f;
 		NavAgent.SetVelocity(dir * Character.Speed);
+	}
+
+	private void OnTargetReached() {
+		ControlSurface.MovementDirection = Vector2.Zero;
+		ControlSurface.MovementMultiplier = 0f;
+		NavAgent.Velocity = Vector2.Zero;
+		Searching = false;
+		Targeting = false;
 	}
 
 	#endregion
