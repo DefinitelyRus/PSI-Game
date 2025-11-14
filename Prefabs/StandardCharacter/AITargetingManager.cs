@@ -175,8 +175,9 @@ public partial class AITargetingManager : Node2D {
         }
 
         // Check if ready to fire
-        float remainingAngle = currentFacing.AngleTo(AimDirection.Value);
-        ReadyToFire = Mathf.Abs(remainingAngle) < Mathf.DegToRad(5f); // 5 degrees tolerance
+        Vector2 updatedFacing = ParentCharacter.Control.FacingDirection;
+        float remainingAngle = updatedFacing.AngleTo(AimDirection.Value);
+        ReadyToFire = Mathf.Abs(remainingAngle) < Mathf.DegToRad(5f);
     }
 
     #endregion
