@@ -141,7 +141,8 @@ public partial class AITargetingManager : Node2D {
         if (CurrentTarget == null) return;
 
         // Set aim direction towards current target
-        if (directionOverride == null) AimDirection = (CurrentTarget.Position - ParentCharacter.Position).Normalized();
+        Vector2 targetPosition = CurrentTarget.HitArea.GlobalPosition;
+        if (directionOverride == null) AimDirection = (targetPosition - ParentCharacter.GlobalPosition).Normalized();
 
         // Use provided direction override
         else AimDirection = directionOverride.Value.Normalized();
