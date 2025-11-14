@@ -7,8 +7,7 @@ public partial class EnemyManager : Node2D {
 
     #region Instance Members
 
-    [Export] public int SpawnpointSelectionCount = 4;
-    [Export] public int SpawnpointSelectionRange = 512;
+    [Export] public int SpawnpointSelectionCount = 10;
 
     #region Godot Callbacks
 
