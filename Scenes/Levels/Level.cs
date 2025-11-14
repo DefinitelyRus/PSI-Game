@@ -102,6 +102,11 @@ public partial class Level : Node2D {
 			return null;
 		}
 
+		if (index >= EnemySpawns.Length) {
+			Log.Warn(() => $"FindNearbySpawnPoint: Index {index} exceeds available spawn points ({EnemySpawns.Length}). Setting random index within range.");
+			index = new RandomNumberGenerator().RandiRange(0, EnemySpawns.Length - 1);
+		}
+
 		#endregion
 
 		// Sort by distance to the given position
