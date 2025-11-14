@@ -112,7 +112,7 @@ public partial class AIDirector : Node2D {
                 }
 
                 _timeDelayRemaining = enemy.DelayAfterSpawn;
-                enemy.AIManager.GoTo(targetUnitPosition);
+                enemy.AIAgent.GoTo(targetUnitPosition);
                 return;
             }
         }
