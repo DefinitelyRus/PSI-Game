@@ -1280,6 +1280,7 @@ position = Vector2(0, 3)
 [node name="AI Targeting Manager" type="Node2D" parent="."]
 position = Vector2(0, 3)
 script = ExtResource("4_tbsya")
+TargetSwitchCooldown = 1.0
 
 [node name="AI Agent Manager" type="Node2D" parent="." node_paths=PackedStringArray("ControlSurface", "NavAgent")]
 editor_description = "Manages the AI Pathfinding for this character.
