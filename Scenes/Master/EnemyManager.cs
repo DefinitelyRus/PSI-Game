@@ -12,14 +12,17 @@ public partial class EnemyManager : Node2D {
     #region Godot Callbacks
 
     public override void _Ready() {
-        if (Instance != null)
-        {
+        if (Instance != null) {
             Log.Err("Multiple instances of EnemyManager detected. There should only be one EnemyManager in the scene.");
             QueueFree();
             return;
         }
 
         Instance = this;
+    }
+    
+    public override void _Process(double delta) {
+        SearchAndDestroy();
     }
 
     #endregion
@@ -71,6 +74,33 @@ public partial class EnemyManager : Node2D {
         }
 
         else return false;
+    }
+
+    #endregion
+
+    #region Navigation
+
+    public static StandardCharacter? FindNearestPlayer(Vector2 position) {
+        if (_playerUnits.Count == 0) {
+            Log.Warn(() => "No player units registered in EnemyManager. Cannot find nearest player unit.");
+            return null;
+        }
+
+        return _playerUnits.OrderBy(unit => unit.GlobalPosition.DistanceTo(position)).FirstOrDefault();
+    }
+
+    private static void SearchAndDestroy() {
+        foreach (StandardCharacter enemy in Enemies) {
+            if (!enemy.IsAlive) continue;
+
+            AIAgentManager agentManager = enemy.AIAgent;
+            if (agentManager.HasDestination) return;
+
+            StandardCharacter? player = FindNearestPlayer(enemy.GlobalPosition);
+            if (player == null) return;
+
+            agentManager.GoTo(player.GlobalPosition);
+        }
     }
 
     #endregion
