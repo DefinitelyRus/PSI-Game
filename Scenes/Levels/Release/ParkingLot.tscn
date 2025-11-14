@@ -5307,9 +5307,3 @@ navigation_polygon = SubResource("NavigationPolygon_bwdm5")
 [node name="Region 11" type="NavigationRegion2D" parent="Regions" index="18"]
 y_sort_enabled = true
 navigation_polygon = SubResource("NavigationPolygon_qwnr5")
-
-[node name="Mech 1" parent="." index="6" instance=ExtResource("21_r1bgn")]
-position = Vector2(244, 492)
-
-[node name="Mech 2" parent="." index="7" instance=ExtResource("21_r1bgn")]
-position = Vector2(316, 340)
