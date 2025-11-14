@@ -184,6 +184,11 @@ AnimationTree = NodePath("AnimationTree")
 [node name="Projectile Weapon" parent="." index="1"]
 BaseSpread = 5.0
 
+[node name="AI Targeting Manager" parent="." index="2"]
+TargetDetectionRadius = 120.0
+TargetLostRadius = 240.0
+TurnRate = 20.0
+
 [node name="Body Collider" parent="." index="4"]
 position = Vector2(0, 31)
 shape = SubResource("CapsuleShape2D_y36br")
