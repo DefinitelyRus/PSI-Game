@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Godot;
@@ -8,11 +7,13 @@ public partial class AIDirector : Node2D {
 
     #region Instance Members
 
-    [Export] public SpawnMode Mode = SpawnMode.Timed;
+    [Export] public SpawnMode Mode = SpawnMode.Static;
 
-	#region Godot Callbacks
+    [Export] public int SpawnpointSelectionCount = 10;
 
-	public override void _EnterTree() {
+    #region Godot Callbacks
+
+    public override void _EnterTree() {
         if (Instance != null) {
             Log.Err("Multiple instances of AIDirector detected. There should only be one AIDirector in the scene.");
             QueueFree();
@@ -27,8 +28,8 @@ public partial class AIDirector : Node2D {
 
     public override void _Process(double delta) {
         switch (Mode) {
-            case SpawnMode.Timed:
-                CallDeferred(nameof(UpdateTimedSpawning), delta);
+            case SpawnMode.Static:
+                CallDeferred(nameof(UpdateStaticSpawning), delta);
                 break;
             case SpawnMode.Dynamic:
                 break;
@@ -45,23 +46,20 @@ public partial class AIDirector : Node2D {
 
     public static AIDirector Instance { get; private set; } = null!;
 
-    public static Level CurrentLevel { get; private set; } = null!;
+    public static Level CurrentLevel { get; set; } = null!;
 
     public enum SpawnMode {
-        Timed,
+        Static,
         Dynamic
     }
 
-    public static void StartLevel(Level level) {
-        CurrentLevel = level;
-    }
 
-    #region Timed Spawning
+    #region Static Spawning
 
     private static double _timeDelayRemaining = 0d;
 
 
-    public static void UpdateTimedSpawning(double delta) {
+    public static void UpdateStaticSpawning(double delta) {
 
         if (_timeDelayRemaining > 0d) {
             _timeDelayRemaining -= delta;
@@ -106,7 +104,7 @@ public partial class AIDirector : Node2D {
             remainingRoll -= enemy.StaticSpawnWeight;
 
             if (remainingRoll <= 0) {
-                bool wasSpawned = EnemyManager.TrySpawnEnemy(enemy);
+                bool wasSpawned = TrySpawnEnemy(enemy);
 
                 if (!wasSpawned) {
                     enemy.QueueFree();
@@ -121,7 +119,46 @@ public partial class AIDirector : Node2D {
 
     #endregion
 
+    #region Spawn Management
 
+    /// <summary>
+    /// Enemies that have been spawned in on the game world.
+    /// </summary>
+    public static List<StandardCharacter> Enemies { get; private set; } = [];
+
+    public static bool TrySpawnEnemy(StandardCharacter enemy) {
+        List<StandardCharacter> playerUnits = [.. Commander.GetAllUnits()];
+        if (playerUnits.Count == 0) {
+            Log.Warn(() => "No player units registered in EnemyManager. Cannot select spawn points based on player unit positions.");
+            return false;
+        }
+
+        if (CurrentLevel == null) {
+            Log.Err(() => "No current level registered in EnemyManager. Cannot spawn enemies.");
+            return false;
+        }
+
+        RandomNumberGenerator rng = new();
+        int targetUnit = rng.RandiRange(0, playerUnits.Count - 1);
+        int spawnIndex = rng.RandiRange(0, Instance.SpawnpointSelectionCount - 1);
+
+        Node2D? spawnPoint = CurrentLevel.FindNearbyEnemySpawnPoint(
+            playerUnits[targetUnit].GlobalPosition,
+            float.MaxValue,
+            spawnIndex,
+            true
+        );
+
+        if (spawnPoint != null) {
+            CurrentLevel.SpawnCharacter(enemy, spawnPoint);
+            Enemies.Add(enemy);
+            return true;
+        }
+
+        else return false;
+    }
+
+    #endregion
 
     #region Navigation
 
@@ -137,7 +174,7 @@ public partial class AIDirector : Node2D {
     }
 
     private static void SearchAndDestroy() {
-        foreach (StandardCharacter enemy in EnemyManager.Enemies) {
+        foreach (StandardCharacter enemy in Enemies) {
             if (!enemy.IsAlive) continue;
 
             StandardCharacter? player = FindNearestPlayer(enemy.GlobalPosition);

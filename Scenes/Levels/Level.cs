@@ -231,7 +231,7 @@ public partial class Level : Node2D {
 
 		ReparentAllProps();
 
-		AIDirector.StartLevel(this);
+		AIDirector.CurrentLevel = this;
 	}
 	
 	#endregion
