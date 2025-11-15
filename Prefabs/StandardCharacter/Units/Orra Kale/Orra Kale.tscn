@@ -230,7 +230,7 @@ Weapon = NodePath("Assault Rifle")
 AnimationTree = NodePath("AnimationTree")
 
 [node name="Assault Rifle" parent="." index="1" instance=ExtResource("2_haq8x")]
-AttackOriginDistance = 24.0
+AttackOriginDistance = 32.0
 
 [node name="AI Targeting Manager" parent="." index="2"]
 TargetDetectionRadius = 240.0
