@@ -1,29 +1,30 @@
 using Godot;
-namespace CommonScripts;
+using CommonScripts;
+using Godot.Collections;
+namespace Game;
 
 public partial class AudioController : Node2D {
-    [Export] public AudioStream[] GunShot { get; set; } = [];
-    [Export] public AudioStream[] GunReady { get; set; } = [];
+    [Export] public Dictionary<string, AudioStream> AudioClips { get; set; } = new();
 
+    public void PlayAudio(string clipName, float volume = 1.0f) {
+        bool hasClip = AudioClips.TryGetValue(clipName, out AudioStream? value);
 
-    public void PlayGunShot(int level) {
-        if (level < 0 || level >= GunShot.Length) {
-            Log.Err($"No gun shot audio for level {level}.");
-            return;
+        if (hasClip) {
+            AudioStreamPlayer2D audioPlayer = new() {
+                Stream = value,
+                Autoplay = false,
+                VolumeLinear = volume
+            };
+
+            AddChild(audioPlayer);
+            
+            audioPlayer.Play();
+            audioPlayer.Connect("finished", Callable.From(audioPlayer.QueueFree));
         }
-
-        AudioStream stream = GunShot[level];
-        AudioManager.PlaySFX2D(stream, GlobalPosition);
+        
+        else {
+            Log.Err(() => $"Audio clip '{clipName}' not found in AudioClips dictionary.");
+        }
     }
 
-
-    public void PlayGunReady(int level) {
-        if (level < 0 || level >= GunReady.Length) {
-            Log.Err($"No gun ready audio for level {level}.");
-            return;
-        }
-
-        AudioStream stream = GunReady[level];
-        AudioManager.PlaySFX2D(stream, GlobalPosition);
-    }
 }

@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using Game;
 using Godot;
 namespace CommonScripts;
 
@@ -110,7 +112,18 @@ public partial class StandardCharacter : CharacterBody2D {
 		Health -= amount;
 
 		//TODO: AVFX here.
-		//
+		int count = 0;
+		bool doHitSound = GD.Randi() % 100 < 30; // 30% chance to play hit sound.
+		if (doHitSound) {
+			foreach (string key in AudioController.AudioClips.Keys) {
+				if (key.StartsWith("hit_")) count++;
+			}
+
+			if (count > 0) {
+				int randomIndex = (int) (GD.Randi() % count) + 1;
+				AudioController.PlayAudio($"hit_{randomIndex}");
+			}
+		}
 
 		// Kill on 0 health.
 		if (Health <= 0)
@@ -167,6 +180,8 @@ public partial class StandardCharacter : CharacterBody2D {
 		bool useAnimation = AnimationTree != null && AnimationState != null && AnimationPlayer != null;
 
 		#region AVFX
+
+		AudioController.PlayAudio("death");
 
 		if (useAnimation) {
 			AnimationTree!.Set("parameters/Death/blend_position", new Vector2(LastMovementDirection.X, -LastMovementDirection.Y));
@@ -349,6 +364,7 @@ public partial class StandardCharacter : CharacterBody2D {
 	[Export] public StandardWeapon Weapon = null!;
 	[Export] public Area2D HitArea = null!;
 	[Export] public Area2D ClickArea = null!;
+	[Export] public AudioController AudioController = null!;
 	[Export] public AnimationPlayer AnimationPlayer = null!;
 	[Export] public AnimationTree AnimationTree = null!;
 	public AnimationNodeStateMachinePlayback AnimationState => (AnimationNodeStateMachinePlayback) AnimationTree.Get("parameters/playback");

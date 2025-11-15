@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://b3r5ip546vbcn"
+path="res://.godot/imported/E4D1 - Beeptimer Anticipation Beeps 05.wav-35a4f6178e2fbecbed747d13bd631db6.sample"
+
+[deps]
+
+source_file="res://Prefabs/StandardCharacter/Enemies/Juggernaut/E4D1 - Beeptimer Anticipation Beeps 05.wav"
+dest_files=["res://.godot/imported/E4D1 - Beeptimer Anticipation Beeps 05.wav-35a4f6178e2fbecbed747d13bd631db6.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

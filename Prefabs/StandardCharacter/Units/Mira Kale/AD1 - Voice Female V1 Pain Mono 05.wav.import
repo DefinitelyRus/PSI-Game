@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://keegy5h5amr7"
+path="res://.godot/imported/AD1 - Voice Female V1 Pain Mono 05.wav-03a433b5799217f356cf3f1aea775038.sample"
+
+[deps]
+
+source_file="res://Prefabs/StandardCharacter/Units/Mira Kale/AD1 - Voice Female V1 Pain Mono 05.wav"
+dest_files=["res://.godot/imported/AD1 - Voice Female V1 Pain Mono 05.wav-03a433b5799217f356cf3f1aea775038.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

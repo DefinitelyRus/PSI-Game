@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://cmbm27sq0fbwy"
+path="res://.godot/imported/E4A1 - Gunartl Rocket Launcher Fire 02.wav-d535d22212838c23bfadf818eae01b79.sample"
+
+[deps]
+
+source_file="res://Prefabs/StandardCharacter/Enemies/Juggernaut/E4A1 - Gunartl Rocket Launcher Fire 02.wav"
+dest_files=["res://.godot/imported/E4A1 - Gunartl Rocket Launcher Fire 02.wav-d535d22212838c23bfadf818eae01b79.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

@@ -1,9 +1,11 @@
-[gd_scene load_steps=27 format=3 uid="uid://c6k63hyv33gxi"]
+[gd_scene load_steps=29 format=3 uid="uid://c6k63hyv33gxi"]
 
 [ext_resource type="PackedScene" uid="uid://daotyvqai4b36" path="res://Prefabs/StandardCharacter/StandardCharacter.tscn" id="1_02e0k"]
 [ext_resource type="PackedScene" uid="uid://dur6psrfmanl2" path="res://Prefabs/StandardCharacter/Enemies/Flakfly/BombTrigger.tscn" id="2_4m28a"]
 [ext_resource type="Script" uid="uid://cks26k0vl72yx" path="res://Prefabs/StandardCharacter/Enemies/StandardEnemy.cs" id="2_4m76y"]
 [ext_resource type="Texture2D" uid="uid://ccni0mrmdvsv1" path="res://Sprites/Enemies/Fly.png" id="2_w2x00"]
+[ext_resource type="AudioStream" uid="uid://bhj60p6dqublb" path="res://Prefabs/StandardCharacter/Enemies/Flakfly/E2A1 - Goresplt Giblet Splatter 02.wav" id="4_qt4mx"]
+[ext_resource type="AudioStream" uid="uid://1fwbi58ybfdq" path="res://Prefabs/StandardCharacter/Enemies/Flakfly/E2D1 - Gunmech Scope Deactivate 11.wav" id="5_o1vgr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xo0u3"]
 size = Vector2(28, 30)
@@ -190,6 +192,12 @@ position = Vector2(0, 0)
 [node name="CollisionShape2D" parent="Click Area" index="0"]
 position = Vector2(-1, 5)
 shape = SubResource("RectangleShape2D_xo0u3")
+
+[node name="Audio Controller" parent="." index="7"]
+AudioClips = Dictionary[String, AudioStream]({
+"attack_1": ExtResource("4_qt4mx"),
+"death": ExtResource("5_o1vgr")
+})
 
 [node name="Sprite2D" parent="." index="8"]
 texture = ExtResource("2_w2x00")

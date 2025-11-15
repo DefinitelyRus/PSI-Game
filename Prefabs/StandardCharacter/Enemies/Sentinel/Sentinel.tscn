@@ -1,9 +1,11 @@
-[gd_scene load_steps=29 format=3 uid="uid://3cxd35pr5lif"]
+[gd_scene load_steps=31 format=3 uid="uid://3cxd35pr5lif"]
 
 [ext_resource type="PackedScene" uid="uid://daotyvqai4b36" path="res://Prefabs/StandardCharacter/StandardCharacter.tscn" id="1_1ia5b"]
 [ext_resource type="Script" uid="uid://cks26k0vl72yx" path="res://Prefabs/StandardCharacter/Enemies/StandardEnemy.cs" id="2_5kolp"]
 [ext_resource type="PackedScene" uid="uid://cnn0d2aqc16gi" path="res://Prefabs/StandardCharacter/Enemies/Sentinel/SentinelGun.tscn" id="3_5kolp"]
 [ext_resource type="Texture2D" uid="uid://d4b2cgtr0rtob" path="res://Sprites/Enemies/Tentacles.png" id="3_n0lak"]
+[ext_resource type="AudioStream" uid="uid://dxk34m0tdvk7" path="res://Prefabs/StandardCharacter/Enemies/Sentinel/E5A1 - Lasrgun Plasma Rifle Fire 03.wav" id="4_rv41j"]
+[ext_resource type="AudioStream" uid="uid://upal0h6epip8" path="res://Prefabs/StandardCharacter/Enemies/Sentinel/E5D1 - Lasrgun Electron Impeller Charged Fire 02.wav" id="5_3qy2p"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_5kolp"]
 radius = 4.5
@@ -200,6 +202,12 @@ shape = SubResource("CapsuleShape2D_5kolp")
 
 [node name="CollisionShape2D" parent="Click Area" index="0"]
 shape = SubResource("RectangleShape2D_5kolp")
+
+[node name="Audio Controller" parent="." index="7"]
+AudioClips = Dictionary[String, AudioStream]({
+"attack_1": ExtResource("4_rv41j"),
+"death": ExtResource("5_3qy2p")
+})
 
 [node name="Sprite2D" parent="." index="8"]
 position = Vector2(0, 14)

@@ -1,7 +1,23 @@
-[gd_scene load_steps=47 format=3 uid="uid://c5pxgte6pab6b"]
+[gd_scene load_steps=63 format=3 uid="uid://c5pxgte6pab6b"]
 
 [ext_resource type="PackedScene" uid="uid://daotyvqai4b36" path="res://Prefabs/StandardCharacter/StandardCharacter.tscn" id="1_jdgtp"]
 [ext_resource type="PackedScene" uid="uid://bq2lrnllhwyce" path="res://Prefabs/StandardCharacter/Units/Mira Kale/AssaultRifle.tscn" id="2_haq8x"]
+[ext_resource type="AudioStream" uid="uid://c1h5dogvon8jd" path="res://Prefabs/StandardCharacter/Units/Mira Kale/AT1 - 9mm Single.wav" id="3_yjfud"]
+[ext_resource type="AudioStream" uid="uid://bjhku624wr50y" path="res://Prefabs/StandardCharacter/Units/Mira Kale/AT2 - 762x39 Single WAV.wav" id="4_nej0w"]
+[ext_resource type="AudioStream" uid="uid://crmi8pnduo2bq" path="res://Prefabs/StandardCharacter/Units/Mira Kale/AT3 - 762x54r Single WAV.wav" id="5_1vsjy"]
+[ext_resource type="AudioStream" uid="uid://bcthktn603kuy" path="res://Prefabs/StandardCharacter/Units/Mira Kale/AT1R - Semi 22LR Rack WAV.wav" id="6_w4osj"]
+[ext_resource type="AudioStream" uid="uid://dg4bcavj3btub" path="res://Prefabs/StandardCharacter/Units/Mira Kale/AT2R - Lever Cycle WAV.wav" id="7_j66tq"]
+[ext_resource type="AudioStream" uid="uid://7i3syeuxislj" path="res://Prefabs/StandardCharacter/Units/Mira Kale/AT3R - Lever Cycle Fast 2 WAV.wav" id="8_0gf41"]
+[ext_resource type="AudioStream" uid="uid://keegy5h5amr7" path="res://Prefabs/StandardCharacter/Units/Mira Kale/AD1 - Voice Female V1 Pain Mono 05.wav" id="9_1ee36"]
+[ext_resource type="AudioStream" uid="uid://cdfakuoxi3x6u" path="res://Prefabs/StandardCharacter/Units/Mira Kale/AH01 - Voice Female V2 Hit Short Mono 01.wav" id="10_smjp3"]
+[ext_resource type="AudioStream" uid="uid://bmason3dwajin" path="res://Prefabs/StandardCharacter/Units/Mira Kale/AH02 - Voice Female V2 Hit Short Mono 02.wav" id="11_ovcvx"]
+[ext_resource type="AudioStream" uid="uid://761tmw22pwvl" path="res://Prefabs/StandardCharacter/Units/Mira Kale/AH03 - Voice Female V2 Hit Short Mono 03.wav" id="12_8yhe2"]
+[ext_resource type="AudioStream" uid="uid://dntumxenjm81o" path="res://Prefabs/StandardCharacter/Units/Mira Kale/AH04 - Voice Female V2 Hit Short Mono 04.wav" id="13_qr1pa"]
+[ext_resource type="AudioStream" uid="uid://7gyslynk2ddw" path="res://Prefabs/StandardCharacter/Units/Mira Kale/AH05 - Voice Female V2 Hit Short Mono 05.wav" id="14_vwe7b"]
+[ext_resource type="AudioStream" uid="uid://cuwhtktc4euir" path="res://Prefabs/StandardCharacter/Units/Mira Kale/AH06 - Voice Female V2 Hit Short Mono 06.wav" id="15_sqlpr"]
+[ext_resource type="AudioStream" uid="uid://dp1xl4a7rbk1n" path="res://Prefabs/StandardCharacter/Units/Mira Kale/AH07 - Voice Female V2 Hit Short Mono 07.wav" id="16_4fyl1"]
+[ext_resource type="AudioStream" uid="uid://difbnj6iwvqsq" path="res://Prefabs/StandardCharacter/Units/Mira Kale/AH08 - Voice Female V2 Hit Short Mono 08.wav" id="17_tmde6"]
+[ext_resource type="AudioStream" uid="uid://dgbhupop4b5do" path="res://Prefabs/StandardCharacter/Units/Mira Kale/AH09 - Voice Female V2 Hit Short Mono 09.wav" id="18_8hr5x"]
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_jdgtp"]
 animation = &"shoot_up"
@@ -235,6 +251,26 @@ AttackOriginDistance = 32.0
 [node name="AI Targeting Manager" parent="." index="2"]
 TargetDetectionRadius = 240.0
 TargetLostRadius = 300.0
+
+[node name="Audio Controller" parent="." index="7"]
+AudioClips = Dictionary[String, AudioStream]({
+"attack_1": ExtResource("3_yjfud"),
+"attack_2": ExtResource("4_nej0w"),
+"attack_3": ExtResource("5_1vsjy"),
+"death": ExtResource("9_1ee36"),
+"hit_1": ExtResource("10_smjp3"),
+"hit_2": ExtResource("11_ovcvx"),
+"hit_3": ExtResource("12_8yhe2"),
+"hit_4": ExtResource("13_qr1pa"),
+"hit_5": ExtResource("14_vwe7b"),
+"hit_6": ExtResource("15_sqlpr"),
+"hit_7": ExtResource("16_4fyl1"),
+"hit_8": ExtResource("17_tmde6"),
+"hit_9": ExtResource("18_8hr5x"),
+"ready_1": ExtResource("6_w4osj"),
+"ready_2": ExtResource("7_j66tq"),
+"ready_3": ExtResource("8_0gf41")
+})
 
 [node name="AnimationTree" type="AnimationTree" parent="." index="10"]
 deterministic = false

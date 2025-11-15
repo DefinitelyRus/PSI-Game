@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://dntumxenjm81o"
+path="res://.godot/imported/AH04 - Voice Female V2 Hit Short Mono 04.wav-c03923c1b62cb85ea2ba7768e2d94927.sample"
+
+[deps]
+
+source_file="res://Prefabs/StandardCharacter/Units/Mira Kale/AH04 - Voice Female V2 Hit Short Mono 04.wav"
+dest_files=["res://.godot/imported/AH04 - Voice Female V2 Hit Short Mono 04.wav-c03923c1b62cb85ea2ba7768e2d94927.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

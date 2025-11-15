@@ -1,9 +1,11 @@
-[gd_scene load_steps=60 format=3 uid="uid://bymiistxia5re"]
+[gd_scene load_steps=62 format=3 uid="uid://bymiistxia5re"]
 
 [ext_resource type="PackedScene" uid="uid://daotyvqai4b36" path="res://Prefabs/StandardCharacter/StandardCharacter.tscn" id="1_ot42w"]
 [ext_resource type="PackedScene" uid="uid://ciwjphogs064d" path="res://Prefabs/StandardCharacter/Enemies/Sentry/TurretGun.tscn" id="2_f756v"]
 [ext_resource type="Script" uid="uid://cks26k0vl72yx" path="res://Prefabs/StandardCharacter/Enemies/StandardEnemy.cs" id="2_rfyjh"]
 [ext_resource type="Texture2D" uid="uid://cjg2vncsjok4s" path="res://Sprites/Enemies/Turret.png" id="3_rfyjh"]
+[ext_resource type="AudioStream" uid="uid://cns3hly088oev" path="res://Prefabs/StandardCharacter/Enemies/Clone Cyborg/E1A1 - Lasrgun Particle Compressor Fire 01.wav" id="4_4762o"]
+[ext_resource type="AudioStream" uid="uid://bo5ky4m4n2r5i" path="res://Prefabs/StandardCharacter/Enemies/Clone Cyborg/E1D1 - Guntech Tormentor Shotgun Fire 05.wav" id="5_hhxgx"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8d8a3"]
 radius = 4.5
@@ -498,6 +500,12 @@ shape = SubResource("CapsuleShape2D_8d8a3")
 
 [node name="CollisionShape2D" parent="Click Area" index="0"]
 shape = SubResource("RectangleShape2D_8d8a3")
+
+[node name="Audio Controller" parent="." index="7"]
+AudioClips = Dictionary[String, AudioStream]({
+"attack_1": ExtResource("4_4762o"),
+"death": ExtResource("5_hhxgx")
+})
 
 [node name="Sprite2D" parent="." index="8"]
 position = Vector2(0, 7)

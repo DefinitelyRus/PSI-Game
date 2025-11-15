@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bo5ky4m4n2r5i"
+path="res://.godot/imported/E1D1 - Guntech Tormentor Shotgun Fire 05.wav-d3cf6e25a6a70cdfdaa4540d75fc0f90.sample"
+
+[deps]
+
+source_file="res://Prefabs/StandardCharacter/Enemies/Clone Cyborg/E1D1 - Guntech Tormentor Shotgun Fire 05.wav"
+dest_files=["res://.godot/imported/E1D1 - Guntech Tormentor Shotgun Fire 05.wav-d3cf6e25a6a70cdfdaa4540d75fc0f90.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

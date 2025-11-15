@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://xerwuxlsy8ys"
+path="res://.godot/imported/BH7 - Voice Male V2 Hit Mono 07.wav-757d80295a6be1424ac187a7d9ebe9da.sample"
+
+[deps]
+
+source_file="res://Prefabs/StandardCharacter/Units/Orra Kale/BH7 - Voice Male V2 Hit Mono 07.wav"
+dest_files=["res://.godot/imported/BH7 - Voice Male V2 Hit Mono 07.wav-757d80295a6be1424ac187a7d9ebe9da.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2
