@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bk1nkk1ge4j37"
+path="res://.godot/imported/Unit Focus - Fui Holographic Button Press 1.wav-c562d2db682554e16cb5f112312b7cab.sample"
+
+[deps]
+
+source_file="res://Prefabs/UI/Unit Focus - Fui Holographic Button Press 1.wav"
+dest_files=["res://.godot/imported/Unit Focus - Fui Holographic Button Press 1.wav-c562d2db682554e16cb5f112312b7cab.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

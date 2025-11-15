@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://b1krrm78k27kq"
+path="res://.godot/imported/Item Permanent - Holographic Tap Interaction.wav-87e2af2372a31d52b1ce673172471625.sample"
+
+[deps]
+
+source_file="res://Prefabs/StandardItem/Item Permanent - Holographic Tap Interaction.wav"
+dest_files=["res://.godot/imported/Item Permanent - Holographic Tap Interaction.wav-87e2af2372a31d52b1ce673172471625.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2
