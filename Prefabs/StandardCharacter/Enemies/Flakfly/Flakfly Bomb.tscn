@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://cys3ya3jluh3a"]
+
+[ext_resource type="PackedScene" uid="uid://cx6l410gdgswd" path="res://Prefabs/StandardProjectile/StandardProjectile.tscn" id="1_wd4yq"]
+[ext_resource type="Script" uid="uid://br1vl21gwka6f" path="res://Prefabs/StandardCharacter/Enemies/Flakfly/FlakflyBomb.cs" id="2_l1dow"]
+
+[node name="Flakfly Bomb" instance=ExtResource("1_wd4yq")]
+script = ExtResource("2_l1dow")
+ProjectileName = "Flakfly Bomb"
+ProjectileID = "flakfly_bomb"
+
+[node name="AnimatedSprite2D" parent="." index="2"]
+visible = false

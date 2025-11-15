@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://dur6psrfmanl2"]
+
+[ext_resource type="PackedScene" uid="uid://dx7iwt4dptbck" path="res://Prefabs/StandardWeapon/StandardProjectileWeapon/StandardProjectileWeapon.tscn" id="1_7gbgc"]
+[ext_resource type="PackedScene" uid="uid://cys3ya3jluh3a" path="res://Prefabs/StandardCharacter/Enemies/Flakfly/Flakfly Bomb.tscn" id="2_5kewr"]
+
+[node name="BombTrigger" instance=ExtResource("1_7gbgc")]
+Projectile = ExtResource("2_5kewr")
+BaseDamage = 80.0
+AttackOriginType = 0
+ItemName = "Bomb Trigger"
+ItemID = "bomb_trigger"
