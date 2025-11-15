@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://bpchf1dns2sq2"]
+
+[ext_resource type="PackedScene" uid="uid://bnslwo4ecgkcn" path="res://Prefabs/StandardProp/StandardProp.tscn" id="1_wwoqv"]
+[ext_resource type="Texture2D" uid="uid://yik1c23xcmb4" path="res://Sprites/World Sprites/Level 2 - Warehouse/Warehouse-Asset.png" id="2_d21im"]
+
+[node name="Traffic Cone" instance=ExtResource("1_wwoqv")]
+PropName = "Traffic Cone"
+PropID = "traffic_cone"
+PropDescription = "A traffic cone"
+
+[node name="Sprite2D" parent="." index="1"]
+texture = ExtResource("2_d21im")
+region_rect = Rect2(113, 207, 15, 17)

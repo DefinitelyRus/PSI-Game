@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://bd85hatbqy62f"]
+
+[ext_resource type="PackedScene" uid="uid://bnslwo4ecgkcn" path="res://Prefabs/StandardProp/StandardProp.tscn" id="1_3cd1p"]
+[ext_resource type="Texture2D" uid="uid://yik1c23xcmb4" path="res://Sprites/World Sprites/Level 2 - Warehouse/Warehouse-Asset.png" id="2_sc1sf"]
+
+[node name="Board" instance=ExtResource("1_3cd1p")]
+PropName = "Board"
+PropID = "board"
+PropDescription = "A drawing board"
+
+[node name="Sprite2D" parent="." index="1"]
+texture = ExtResource("2_sc1sf")
+region_rect = Rect2(240, 33, 32, 29)

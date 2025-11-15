@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://dvqyo20be6ci8"]
+
+[ext_resource type="PackedScene" uid="uid://bnslwo4ecgkcn" path="res://Prefabs/StandardProp/StandardProp.tscn" id="1_nfog1"]
+[ext_resource type="Texture2D" uid="uid://yik1c23xcmb4" path="res://Sprites/World Sprites/Level 2 - Warehouse/Warehouse-Asset.png" id="2_rh6lc"]
+
+[node name="Barrel_2" instance=ExtResource("1_nfog1")]
+PropName = "Barrel 2"
+PropID = "barrel_2"
+PropDescription = "3 barrels"
+
+[node name="Sprite2D" parent="." index="1"]
+texture = ExtResource("2_rh6lc")
+region_rect = Rect2(258, 113, 29, 32)

@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://b83ravx2pf44u"]
+
+[ext_resource type="PackedScene" uid="uid://bnslwo4ecgkcn" path="res://Prefabs/StandardProp/StandardProp.tscn" id="1_1g618"]
+[ext_resource type="Texture2D" uid="uid://yik1c23xcmb4" path="res://Sprites/World Sprites/Level 2 - Warehouse/Warehouse-Asset.png" id="2_n1m0q"]
+
+[node name="Blue Container" instance=ExtResource("1_1g618")]
+PropName = "Blue Container"
+PropID = "blue_container"
+PropDescription = "A blue shipping container"
+
+[node name="Sprite2D" parent="." index="1"]
+texture = ExtResource("2_n1m0q")
+region_rect = Rect2(72, 147, 52, 43)

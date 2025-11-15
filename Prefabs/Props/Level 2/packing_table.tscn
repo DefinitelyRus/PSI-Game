@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://pg8f56uiiqf"]
+
+[ext_resource type="PackedScene" uid="uid://bnslwo4ecgkcn" path="res://Prefabs/StandardProp/StandardProp.tscn" id="1_xkr7v"]
+[ext_resource type="Texture2D" uid="uid://yik1c23xcmb4" path="res://Sprites/World Sprites/Level 2 - Warehouse/Warehouse-Asset.png" id="2_0bfnw"]
+
+[node name="Packing Table" instance=ExtResource("1_xkr7v")]
+PropName = "Package Table"
+PropID = "package_table"
+PropDescription = "a packaging table"
+
+[node name="Sprite2D" parent="." index="1"]
+texture = ExtResource("2_0bfnw")
+region_rect = Rect2(291, 94, 43, 31)
