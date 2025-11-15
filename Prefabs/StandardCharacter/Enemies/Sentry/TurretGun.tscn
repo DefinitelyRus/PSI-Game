@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://ciwjphogs064d"]
+
+[ext_resource type="PackedScene" uid="uid://dx7iwt4dptbck" path="res://Prefabs/StandardWeapon/StandardProjectileWeapon/StandardProjectileWeapon.tscn" id="1_jhrdg"]
+[ext_resource type="PackedScene" uid="uid://bxyktnim1kpjh" path="res://Prefabs/StandardCharacter/Enemies/Gunner Drone/DroneBullet.tscn" id="2_jgfga"]
+
+[node name="Turret" instance=ExtResource("1_jhrdg")]
+Projectile = ExtResource("2_jgfga")
+BaseDamage = 15.0
+BaseRange = 320.0
+BaseAttackSpeed = 10.0
+AttackOriginDistance = 16.0

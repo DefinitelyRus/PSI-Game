@@ -44,6 +44,7 @@ animations = [{
 script = ExtResource("2_q1ont")
 ProjectileName = "Drone Bullet"
 ProjectileID = "drone_bullet"
+Lifespan = 5.0
 Force = 300.0
 
 [node name="AnimatedSprite2D" parent="." index="2"]

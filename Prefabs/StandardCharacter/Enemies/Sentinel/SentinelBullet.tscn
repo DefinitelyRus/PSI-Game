@@ -1,0 +1,54 @@
+[gd_scene load_steps=9 format=3 uid="uid://bqhyl0dkmtsg"]
+
+[ext_resource type="PackedScene" uid="uid://cx6l410gdgswd" path="res://Prefabs/StandardProjectile/StandardProjectile.tscn" id="1_l8vkb"]
+[ext_resource type="Script" uid="uid://dj1hpsaq461ag" path="res://Prefabs/StandardCharacter/Enemies/Gunner Drone/DroneBullet.cs" id="2_ukiw3"]
+[ext_resource type="Texture2D" uid="uid://v4fxsckcy4vj" path="res://Sprites/Projectiles/Enemy Projectiles.png" id="3_vjua0"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j36fi"]
+atlas = ExtResource("3_vjua0")
+region = Rect2(32, 128, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m2nlb"]
+atlas = ExtResource("3_vjua0")
+region = Rect2(32, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_80vdn"]
+atlas = ExtResource("3_vjua0")
+region = Rect2(32, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_48lun"]
+atlas = ExtResource("3_vjua0")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1gb5q"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j36fi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m2nlb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_80vdn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_48lun")
+}],
+"loop": true,
+"name": &"default",
+"speed": 20.0
+}]
+
+[node name="Drone Bullet" instance=ExtResource("1_l8vkb")]
+script = ExtResource("2_ukiw3")
+ProjectileName = "Sentinel Bullet"
+ProjectileID = "sentinel_bullet"
+Lifespan = 5.0
+Force = 200.0
+
+[node name="AnimatedSprite2D" parent="." index="2"]
+rotation = 3.1415927
+sprite_frames = SubResource("SpriteFrames_1gb5q")
+animation = &"default"
+frame_progress = 0.19759117

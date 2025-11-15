@@ -206,7 +206,6 @@ monitorable = false
 [node name="CollisionShape2D" parent="Click Area" index="0"]
 position = Vector2(3.5, 7.5)
 shape = SubResource("RectangleShape2D_7amjy")
-disabled = true
 
 [node name="Audio Controller" parent="." index="7"]
 position = Vector2(0, 0)

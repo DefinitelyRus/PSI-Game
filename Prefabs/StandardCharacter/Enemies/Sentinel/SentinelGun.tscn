@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://cnn0d2aqc16gi"]
+
+[ext_resource type="PackedScene" uid="uid://dx7iwt4dptbck" path="res://Prefabs/StandardWeapon/StandardProjectileWeapon/StandardProjectileWeapon.tscn" id="1_1wgyj"]
+[ext_resource type="PackedScene" uid="uid://bqhyl0dkmtsg" path="res://Prefabs/StandardCharacter/Enemies/Sentinel/SentinelBullet.tscn" id="2_1wgyj"]
+
+[node name="Sentinel Gun" instance=ExtResource("1_1wgyj")]
+Projectile = ExtResource("2_1wgyj")
+BaseDamage = 40.0
+BaseRange = 1280.0
+BaseAttackSpeed = 5.0
+SpeedType = 1
+ItemName = "Sentinel Gun"
+ItemID = "sentinel_gun"
