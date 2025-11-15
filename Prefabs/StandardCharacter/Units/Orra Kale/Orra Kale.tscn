@@ -222,12 +222,19 @@ transitions = ["Walk", "Attack", SubResource("AnimationNodeStateMachineTransitio
 graph_offset = Vector2(-118, -27)
 
 [node name="Orra Kale" node_paths=PackedStringArray("Weapon", "AnimationTree") instance=ExtResource("1_jdgtp")]
-CharacterName = "Orra Kale"
-CharacterID = "orra_kale"
+CharacterName = "Mira Kale"
+CharacterID = "mira_kale"
+MaxHealth = 99999.0
+Tags = PackedStringArray("Unit")
 Weapon = NodePath("Assault Rifle")
 AnimationTree = NodePath("AnimationTree")
 
 [node name="Assault Rifle" parent="." index="1" instance=ExtResource("2_haq8x")]
+AttackOriginDistance = 24.0
+
+[node name="AI Targeting Manager" parent="." index="2"]
+TargetDetectionRadius = 240.0
+TargetLostRadius = 300.0
 
 [node name="AnimationTree" type="AnimationTree" parent="." index="10"]
 deterministic = false
@@ -242,5 +249,5 @@ parameters/Death/blend_position = Vector2(-0.20413435, 0.76)
 parameters/Idle/blend_position = Vector2(0.0010354519, -1.0086957)
 parameters/Walk/blend_position = Vector2(1.0002195, 0.62464285)
 
-[node name="NavigationAgent2D" parent="." index="12"]
+[node name="NavigationAgent2D" parent="." index="11"]
 debug_enabled = true
