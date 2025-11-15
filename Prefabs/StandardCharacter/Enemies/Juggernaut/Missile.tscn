@@ -42,7 +42,8 @@ animations = [{
 [node name="Missile" instance=ExtResource("1_qfyfm")]
 ProjectileName = "Missile"
 ProjectileID = "missile"
-Force = 100.0
+Lifespan = 5.0
+Force = 80.0
 
 [node name="AnimatedSprite2D" parent="." index="2"]
 sprite_frames = SubResource("SpriteFrames_gxh08")
