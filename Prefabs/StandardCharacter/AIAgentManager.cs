@@ -169,8 +169,21 @@ public partial class AIAgentManager : Node2D {
 
 	private void MoveTo() {
 
-		if (CheckIfShouldStop()) {
+		if (ShouldStop()) {
 			Stop();
+			return;
+		}
+
+		if (EnemyStop()) {
+			Stop();
+			return;
+		}
+
+		// Soft pause for combat while navigating (does not clear destination).
+		if (ShouldPause()) {
+			ControlSurface.MovementDirection = Vector2.Zero;
+			ControlSurface.MovementMultiplier = 0f;
+			NavAgent.Velocity = Vector2.Zero;
 			return;
 		}
 
@@ -190,50 +203,80 @@ public partial class AIAgentManager : Node2D {
 		NavAgent.SetVelocity(dir * Character.Speed);
 	}
 	
-	private bool CheckIfShouldStop(bool doStop = false) {
-		if (!IsInstanceValid(Character)) {
-			Log.Warn(() => "Character instance is not valid. Stopping movement.");
-			if (doStop) Stop();
-			return true;
-		}
+	private bool EnemyStop() {
 
-		if (!Character.IsAlive) {
-			Log.Me(() => $"{Character.InstanceID} is not alive. Stopping movement.", LogPhysics);
-			if (doStop) Stop();
-			return true;
-		}
+		if (!IsInstanceValid(Character)) return false;
 
-		if (!HasDestination) {
-			Log.Me(() => $"{Character.InstanceID} has no destination. Stopping movement.", LogPhysics);
-			if (doStop) Stop();
-			return true;
-		}
-
-		if (!NavAgent.IsTargetReachable()) {
-			Log.Me(() => $"{Character.InstanceID} cannot reach target at ({NavAgent.TargetPosition.X:F2}, {NavAgent.TargetPosition.Y:F2}). Stopping movement.", LogPhysics);
-			if (doStop) Stop();
-			return true;
-		}
-
-		if (NavAgent.IsNavigationFinished()) {
-			Log.Me(() => $"{Character.InstanceID} has finished navigation. Stopping movement.", LogPhysics);
-			if (doStop) Stop();
-			return true;
-		}
-
-		// If within weapon range, stop moving and target.
+		// Stop if within combat range of current target.
 		AITargetingManager targetingManager = Character.TargetingManager;
+		if (targetingManager == null) return false;
+
 		if (targetingManager.CurrentTarget != null) {
-			float distanceToTarget = GlobalPosition.DistanceTo(targetingManager.CurrentTarget.GlobalPosition);
-			bool isPlayer = Character.Tags.Contains("Player");
+			Vector2 targetPos = targetingManager.CurrentTarget.GlobalPosition;
+			float distanceToTarget = GlobalPosition.DistanceTo(targetPos);
 			bool isEnemy = Character.Tags.Contains("Enemy");
 			bool targetReached = distanceToTarget <= targetingManager.TargetDetectionRadius;
-			bool playerShouldStop = isPlayer && Searching && targetReached;
-			bool enemyShouldStop = isEnemy && targetReached;
 
-			bool characterShouldStop = playerShouldStop || enemyShouldStop;
-			if (doStop && characterShouldStop) Stop();
-			return characterShouldStop;
+			if (isEnemy && targetReached) return true;
+		}
+
+		return false;
+	}
+
+
+	public bool ShouldStop() {
+
+		// Stop if the character instance is invalid.
+		if (!IsInstanceValid(Character)) {
+			Log.Warn(() => "Character instance is not valid. Stopping movement.");
+			return true;
+		}
+
+		// Stop if the character is not alive.
+		if (!Character.IsAlive) {
+			Log.Me(() => $"{Character.InstanceID} is not alive. Stopping movement.", LogPhysics);
+			return true;
+		}
+
+		// Stop if there is no destination set.
+		if (!HasDestination) {
+			Log.Me(() => $"{Character.InstanceID} has no destination. Stopping movement.", LogPhysics);
+			return true;
+		}
+
+		// Stop if the target is unreachable.
+		if (!NavAgent.IsTargetReachable()) {
+			Log.Me(() => $"{Character.InstanceID} cannot reach target at ({NavAgent.TargetPosition.X:F2}, {NavAgent.TargetPosition.Y:F2}). Stopping movement.", LogPhysics);
+			return true;
+		}
+
+		// Stop if navigation is finished.
+		if (NavAgent.IsNavigationFinished()) {
+			Log.Me(() => $"{Character.InstanceID} has finished navigation. Stopping movement.", LogPhysics);
+			return true;
+		}
+
+		return false;
+	}
+
+
+	private bool ShouldPause() {
+		// Only player-controlled characters pause for combat while navigating.
+		bool isUnit = Character.Tags.Contains("Unit");
+		if (!isUnit) return false;
+
+		AITargetingManager targetingManager = Character.TargetingManager;
+		if (targetingManager == null) return false;
+		if (targetingManager.CurrentTarget == null) return false;
+
+		Vector2 targetPos = targetingManager.CurrentTarget.GlobalPosition;
+		float distanceToTarget = GlobalPosition.DistanceTo(targetPos);
+		bool targetReached = distanceToTarget <= targetingManager.TargetDetectionRadius;
+
+		// Within range of target, pause navigation.
+		if (targetReached) {
+			Log.Me(() => $"{Character.InstanceID} is pausing navigation for combat with target at ({targetPos.X:F2}, {targetPos.Y:F2}).", LogPhysics);
+			return true;
 		}
 
 		return false;
@@ -267,12 +310,7 @@ public partial class AIAgentManager : Node2D {
 
 
 	public override void _Ready() {
-		// Connect InputListener to the ActionCommand signal.
-		StringName signal = nameof(InputManager.ActionCommand);
-		Callable callable = new(this, nameof(InputListener));
-		Master.InputManager.Connect(signal, callable);
-
-		GetTree().CreateTimer(1.0f).Timeout += () => GoTo(GlobalPosition);
+		if (Character.Tags.Contains("Enemy")) GetTree().CreateTimer(1.0f).Timeout += () => GoTo(GlobalPosition);
 
 		Log.Me(() => $"AIAgentManager is ready for {Character.InstanceID}.", LogReady);
 	}
@@ -282,4 +320,5 @@ public partial class AIAgentManager : Node2D {
 	}
 
 	#endregion
+
 }

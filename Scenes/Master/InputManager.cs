@@ -7,8 +7,6 @@ public partial class InputManager : Node2D {
 
 	#region Instance Members
 
-	[Signal] public delegate void ActionCommandEventHandler(string actionName, Variant args);
-
 	#region Debugging
 
 	[ExportGroup("Debugging")]
@@ -82,19 +80,22 @@ public partial class InputManager : Node2D {
 
 	private void ReceiveRTSInputs() {
 		Vector2 mousePos = CameraMan.GetCleanMousePosition();
-		var action = SignalName.ActionCommand;
+		bool ctrlPressed = Input.IsActionPressed("ctrl_modifier");
 
 		// Camera controls
 		ReceiveCameraInputs();
 
 		// Unit interactions
-		if (Input.IsActionJustPressed("select_1")) EmitSignal(action, LeftClick, mousePos);     // Select, Move + Attack / Interact (in range)
-		if (Input.IsActionJustPressed("select_2")) EmitSignal(action, RightClick, mousePos);    // Deselect, Move, Move + Attack / Interact (targeted)
-		if (Input.IsActionJustPressed("stop_action")) EmitSignal(action, StopAction, new());    // Stop
-		if (Input.IsActionJustPressed("select_unit_1")) Commander.SetFocusedUnit(0);
-		if (Input.IsActionJustPressed("select_unit_2")) Commander.SetFocusedUnit(1);
+		if (Input.IsActionJustPressed("select_1")) Commander.MoveAndSearch(mousePos);
+		if (Input.IsActionJustPressed("select_2")) Commander.MoveAndTarget(mousePos);
+		if (Input.IsActionJustPressed("stop_action")) Commander.StopSelectedUnits();
+		if (Input.IsActionJustPressed("select_unit_1")) Commander.SetFocusedUnit(0, ctrlPressed);
+		if (Input.IsActionJustPressed("select_unit_2")) Commander.SetFocusedUnit(1, ctrlPressed);
 		if (Input.IsActionJustPressed("select_all_units")) Commander.SelectAllUnits();
 		if (Input.IsActionJustPressed("deselect_all_units")) Commander.DeselectAllUnits();
+
+		// Prime to drop item with CTRL
+		Commander.PrimeDrop = ctrlPressed;
 
 		// Toggle item use with 1-5
 		if (Input.IsActionJustPressed("item_1")) Commander.SelectItem(0);
@@ -102,9 +103,6 @@ public partial class InputManager : Node2D {
 		if (Input.IsActionJustPressed("item_3")) Commander.SelectItem(2);
 		if (Input.IsActionJustPressed("item_4")) Commander.SelectItem(3);
 		if (Input.IsActionJustPressed("item_5")) Commander.SelectItem(4);
-
-		// Prime to drop item with CTRL
-		Commander.PrimeDrop = Input.IsActionPressed("prime_drop_item");
 	}
 	
 	#endregion

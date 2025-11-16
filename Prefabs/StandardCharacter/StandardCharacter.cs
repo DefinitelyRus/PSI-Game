@@ -579,9 +579,15 @@ public partial class StandardCharacter : CharacterBody2D {
 		Health = MaxHealth;
 		CurrentMaxSpeed = MaxSpeed;
 
+
+		// Register this character so global click detection can find it.
+		EntityManager.AddCharacter(this);
+
 		Log.Me(() => "Done!", enabled: LogReady);
 		return;
 	}
+
+	// Removed deferred registration helper; registration is immediate in _Ready.
 
 	public override void _Process(double delta) {
 		UpdateAnimations();
@@ -589,6 +595,11 @@ public partial class StandardCharacter : CharacterBody2D {
 
 	public override void _PhysicsProcess(double delta) {
 		Move(delta);
+	}
+
+	public override void _ExitTree() {
+		// Unregister to avoid stale references.
+		if (EntityManager.Instance != null) EntityManager.RemoveCharacter(this);
 	}
 
 	#endregion

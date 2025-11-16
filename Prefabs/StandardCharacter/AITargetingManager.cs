@@ -5,8 +5,6 @@ namespace CommonScripts;
 
 public partial class AITargetingManager : Node2D {
 
-    public StandardCharacter Character => GetParent<StandardCharacter>();
-
     #region Targeting
 
     [ExportGroup("Targeting")]
@@ -24,7 +22,7 @@ public partial class AITargetingManager : Node2D {
         HighestHealth
     }
 
-    public StandardCharacter? CurrentTarget { get; private set; } = null;
+    public StandardCharacter? CurrentTarget { get; set; } = null;
 
     public StandardCharacter? ManualTarget = null;
 
@@ -33,50 +31,72 @@ public partial class AITargetingManager : Node2D {
     private void ScanForTargets(double delta) {
         if (!EnableScanning) return;
         if (!Character.IsAlive) return;
+        if (!IsInstanceValid(Character)) return;
 
-        // Skip if still in cooldown
+        // When explicit targeting is active, do NOT scan for new targets.
+        bool targetingFlag = Character.AIAgent.Targeting;
+        // If we've exited explicit targeting mode, release any manual target so scanning works normally.
+        if (!targetingFlag && ManualTarget != null) {
+            // Clear manual target reference if it's no longer valid or we are back to search mode.
+            if (!IsInstanceValid(ManualTarget) || !ManualTarget.IsAlive) ManualTarget = null;
+            else ManualTarget = null; // Always clear after leaving targeting mode to allow free selection.
+        }
+        if (targetingFlag) {
+            // Maintain current target only: validate and keep aiming, else clear.
+            if (CurrentTarget != null) {
+                if (CheckTargetValidity(CurrentTarget, false)) {
+                    SetAimDirection();
+                } else {
+                    ClearTarget();
+                }
+            }
+            return; // Skip any scanning logic.
+        }
+
+        // Skip if still in cooldown (only applies while scanning/searching)
         if (_timeSinceLastTargetSwitch > 0f) {
             _timeSinceLastTargetSwitch -= (float) delta;
             return;
         }
 
-        // Check if current target is still valid, clear if not
-        if (CurrentTarget != null) {
-            bool isValid = CheckTargetValidity(CurrentTarget, false);
+        // Determine whether scanning is allowed.
+        bool isUnit = Character.Tags.Contains("Unit");
+        bool searchingFlag = Character.AIAgent.Searching;
+        bool isStandingStill = !Character.AIAgent.HasDestination;
 
-            if (isValid) {
+        bool allowScan = (isUnit && searchingFlag) || isStandingStill || Character.Tags.Contains("Enemy");
+        if (!allowScan) return;
+
+        // First validate existing target (non-targeting mode)
+        if (CurrentTarget != null) {
+            bool stillValid = CheckTargetValidity(CurrentTarget, false);
+            if (stillValid) {
                 SetAimDirection();
                 return;
-            }
-
-            else {
-                if (ParentCharacter.Tags.Contains("Enemy")) ParentCharacter.AIAgent.GoTo(CurrentTarget.GlobalPosition);
-                CurrentTarget = null;
-                AimDirection = null;
+            } else {
+                // For enemies, optionally continue moving toward last target position.
+                if (Character.Tags.Contains("Enemy")) Character.AIAgent.GoTo(CurrentTarget.GlobalPosition);
+                ClearTarget();
             }
         }
 
-        // Scan for new targets
+        // Perform scan for new targets.
         Node loadedScene = SceneLoader.Instance.LoadedScene;
         List<StandardCharacter> potentialTargets = [.. loadedScene.GetChildren(false).OfType<StandardCharacter>()];
 
         foreach (PhysicsBody2D entity in potentialTargets) {
-            if (entity is not StandardCharacter character) continue;
-            if (character == ParentCharacter) continue;
-            if (character == CurrentTarget) continue;
-            if (!character.IsAlive) continue;
+            if (entity is not StandardCharacter candidate) continue;
+            if (candidate == Character) continue;
+            if (candidate == CurrentTarget) continue;
+            if (!candidate.IsAlive) continue;
 
-            // Skip if outside detection radius
-            float distanceToCharacter = ParentCharacter.Position.DistanceTo(character.Position);
-            if (distanceToCharacter > TargetDetectionRadius) continue;
+            float distance = Character.Position.DistanceTo(candidate.Position);
+            if (distance > TargetDetectionRadius) continue;
+            // Only restrict to manual target while in explicit targeting mode.
+            if (targetingFlag && ManualTarget != null && candidate != ManualTarget) continue;
 
-            // If manual target is set, only consider that one
-            if (ManualTarget != null && character != ManualTarget) continue;
-
-            bool isValid = CheckTargetValidity(character);
-
-            if (isValid) {
-                CurrentTarget = character;
+            if (CheckTargetValidity(candidate)) {
+                CurrentTarget = candidate;
                 SetAimDirection();
                 break;
             }
@@ -84,8 +104,10 @@ public partial class AITargetingManager : Node2D {
     }
 
     private bool CheckTargetValidity(StandardCharacter target, bool setAsCurrent = true) {
-        float distanceToCurrentTarget = CurrentTarget != null ? ParentCharacter.Position.DistanceTo(CurrentTarget.Position) : float.MaxValue;
-        float distanceToNewTarget = ParentCharacter.Position.DistanceTo(target.Position);
+        if (!IsInstanceValid(target)) return false;
+
+        float distanceToCurrentTarget = CurrentTarget != null ? Character.Position.DistanceTo(CurrentTarget.Position) : float.MaxValue;
+        float distanceToNewTarget = Character.Position.DistanceTo(target.Position);
         bool closerThanCurrent = distanceToNewTarget < distanceToCurrentTarget;
         bool fartherThanCurrent = distanceToNewTarget > distanceToCurrentTarget;
         bool isCurrentTarget = target == CurrentTarget;
@@ -95,8 +117,8 @@ public partial class AITargetingManager : Node2D {
 
         if (!inRange || !isAlive) return false;
 
-        if (ParentCharacter.Tags.Contains("Player") && target.Tags.Contains("Player")) return false;
-        if (ParentCharacter.Tags.Contains("Enemy") && target.Tags.Contains("Enemy")) return false;
+        if (Character.Tags.Contains("Unit") && target.Tags.Contains("Unit")) return false;
+        if (Character.Tags.Contains("Enemy") && target.Tags.Contains("Enemy")) return false;
 
         switch (CurrentTargetMode) {
             case TargetMode.Nearest:
@@ -127,6 +149,12 @@ public partial class AITargetingManager : Node2D {
         return false;
     }
 
+
+    public void ClearTarget() {
+        CurrentTarget = null;
+        AimDirection = null;
+    }
+
     #endregion
 
     #region Aiming
@@ -142,7 +170,7 @@ public partial class AITargetingManager : Node2D {
 
         // Set aim direction towards current target
         Vector2 targetPosition = CurrentTarget.HitArea.GlobalPosition;
-        if (directionOverride == null) AimDirection = (targetPosition - ParentCharacter.GlobalPosition).Normalized();
+        if (directionOverride == null) AimDirection = (targetPosition - Character.GlobalPosition).Normalized();
 
         // Use provided direction override
         else AimDirection = directionOverride.Value.Normalized();
@@ -153,29 +181,29 @@ public partial class AITargetingManager : Node2D {
         if (!Character.IsAlive) return;
 
         // Skip if character is moving
-        bool isCharacterMoving = ParentCharacter.Control.MovementDirection.Length() > 0f;
+        bool isCharacterMoving = Character.Control.MovementDirection.Length() > 0f;
         if (isCharacterMoving) {
             ReadyToFire = false;
             return;
         }
 
-        Vector2 currentFacing = ParentCharacter.Control.FacingDirection;
+        Vector2 currentFacing = Character.Control.FacingDirection;
         float angleToTarget = currentFacing.AngleTo(AimDirection.Value);
         float maxTurnAngle = Mathf.DegToRad(TurnRate) * (float) delta;
 
         // Rotate towards target if not already facing it
-        if (Mathf.Abs(angleToTarget) <= maxTurnAngle) ParentCharacter.Control.FacingDirection = AimDirection.Value;
+        if (Mathf.Abs(angleToTarget) <= maxTurnAngle) Character.Control.FacingDirection = AimDirection.Value;
 
         // Turn incrementally towards target
         else {
             float turnDirection = Mathf.Sign(angleToTarget);
             float newAngle = currentFacing.Angle() + turnDirection * maxTurnAngle;
             Vector2 newFacing = new(Mathf.Cos(newAngle), Mathf.Sin(newAngle));
-            ParentCharacter.Control.FacingDirection = newFacing;
+            Character.Control.FacingDirection = newFacing;
         }
 
         // Check if ready to fire
-        Vector2 updatedFacing = ParentCharacter.Control.FacingDirection;
+        Vector2 updatedFacing = Character.Control.FacingDirection;
         float remainingAngle = updatedFacing.AngleTo(AimDirection.Value);
         ReadyToFire = Mathf.Abs(remainingAngle) < Mathf.DegToRad(5f);
     }
@@ -190,27 +218,26 @@ public partial class AITargetingManager : Node2D {
     public void Attack() {
         if (!AttackPermitted) return;
         if (!Character.IsAlive) {
-            ParentCharacter.Control.IsAttacking = false;
+            Character.Control.IsAttacking = false;
             return;
         }
 
         // Skip if character is moving
-        bool isCharacterMoving = ParentCharacter.Control.MovementDirection.Length() > 0f;
+        bool isCharacterMoving = Character.Control.MovementDirection.Length() > 0f;
         if (isCharacterMoving) {
-            ParentCharacter.Control.IsAttacking = false;
+            Character.Control.IsAttacking = false;
             return;
         }
 
         bool toAttack = CurrentTarget != null && ReadyToFire;
-        ParentCharacter.Control.IsAttacking = toAttack;
+        Character.Control.IsAttacking = toAttack;
     }
 
     #endregion
 
     #region Nodes & Components
 
-    //[ExportGroup("Nodes & Components")]
-    public StandardCharacter ParentCharacter => GetParent<StandardCharacter>();
+    public StandardCharacter Character => GetParent<StandardCharacter>();
 
     #endregion
 

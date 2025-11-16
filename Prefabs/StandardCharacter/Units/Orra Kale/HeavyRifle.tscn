@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://dr2el8snmmerp"]
+
+[ext_resource type="PackedScene" uid="uid://dx7iwt4dptbck" path="res://Prefabs/StandardWeapon/StandardProjectileWeapon/StandardProjectileWeapon.tscn" id="1_mph2u"]
+
+[node name="Heavy Rifle" instance=ExtResource("1_mph2u")]
+BaseDamage = 150.0
+BaseRange = 960.0
+BaseAttackSpeed = 0.3
+SpeedType = 1

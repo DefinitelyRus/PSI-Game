@@ -5918,6 +5918,9 @@ BackgroundMusic = ExtResource("2_qwnr5")
 EnemyTypes = [ExtResource("2_ky56w"), ExtResource("4_l0dwa"), ExtResource("21_r1bgn"), ExtResource("5_gt7q3"), ExtResource("6_ywmet"), ExtResource("7_8xng2")]
 metadata/_edit_horizontal_guides_ = [16.0]
 
+[node name="U2" type="Node2D" parent="Unit Spawns" index="1"]
+position = Vector2(-21, 14)
+
 [node name="E01" parent="Enemy Spawns" index="0"]
 position = Vector2(100, 121)
 
