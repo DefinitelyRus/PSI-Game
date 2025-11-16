@@ -1,13 +1,14 @@
-[gd_scene load_steps=57 format=4 uid="uid://2sdjs7gc04c5"]
+[gd_scene load_steps=58 format=4 uid="uid://2sdjs7gc04c5"]
 
 [ext_resource type="PackedScene" uid="uid://drho55fepd4p7" path="res://Scenes/Levels/StandardLevel.tscn" id="1_oafpl"]
+[ext_resource type="AudioStream" uid="uid://bro8ih20wrpc2" path="res://Audio/Music/L2 - Grand Project Extended.mp3" id="2_4n7bc"]
 [ext_resource type="Texture2D" uid="uid://dc6keunkgx6tt" path="res://Sprites/World Sprites/Level 1 - Office/Room_Builder.png" id="2_knigi"]
 [ext_resource type="Texture2D" uid="uid://c1fkbtqy3eneo" path="res://Sprites/World Sprites/Level 1 - Office/Interiors_free_16x16.png" id="3_x4gmr"]
 [ext_resource type="Texture2D" uid="uid://dboq7ap8y2i5r" path="res://Sprites/World Sprites/Level 1 - Office/Office_Props.png" id="4_4n7bc"]
 [ext_resource type="PackedScene" uid="uid://brhhm6ehuvt0w" path="res://Prefabs/Props/Level 1/cubicle_group_l.tscn" id="5_4ilei"]
 [ext_resource type="PackedScene" uid="uid://cvffuc70sd7yo" path="res://Prefabs/Props/Level 1/cubicle_group_s.tscn" id="6_0jbu7"]
 [ext_resource type="PackedScene" uid="uid://dhwy6fp4vnljs" path="res://Prefabs/Props/Level 1/l_table.tscn" id="7_tj6ml"]
-[ext_resource type="PackedScene" uid="uid://bj3c3uwxnbcou" path="res://Prefabs/Props/Level 1/l_table_2.tscn" id="8_knigi"]
+[ext_resource type="PackedScene" path="res://Prefabs/Props/Level 1/l_table_2.tscn" id="8_knigi"]
 [ext_resource type="PackedScene" uid="uid://ul0y4uios3h8" path="res://Prefabs/Props/Level 1/bookshelf.tscn" id="8_y14h8"]
 [ext_resource type="PackedScene" uid="uid://cdqlens22s5ci" path="res://Prefabs/Props/Level 1/pot_bush.tscn" id="9_0lpw1"]
 [ext_resource type="PackedScene" uid="uid://r8h8th2wwmvh" path="res://Prefabs/Props/Level 1/coffee_table.tscn" id="10_aw231"]
@@ -15,7 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://dsp56htx850rs" path="res://Prefabs/Props/Level 1/reception.tscn" id="12_2knar"]
 [ext_resource type="PackedScene" uid="uid://bhcsyy3di16se" path="res://Prefabs/Props/Level 1/black_couch.tscn" id="13_giix2"]
 [ext_resource type="PackedScene" uid="uid://cplcmhj4beq2b" path="res://Prefabs/Props/Level 1/chair.tscn" id="14_ht7ph"]
-[ext_resource type="PackedScene" uid="uid://bh4ior7florkf" path="res://Prefabs/Props/elevator.tscn" id="14_x4gmr"]
+[ext_resource type="PackedScene" path="res://Prefabs/Props/elevator.tscn" id="14_x4gmr"]
 [ext_resource type="PackedScene" uid="uid://djr2h8w2v4ben" path="res://Prefabs/Props/Level 1/vending_machine.tscn" id="15_2ub8j"]
 [ext_resource type="PackedScene" uid="uid://coiu87ebqx5kb" path="res://Prefabs/Props/Level 1/vending_machine2.tscn" id="16_h7g2r"]
 [ext_resource type="PackedScene" uid="uid://bpledjlueicmm" path="res://Prefabs/Props/Level 1/water_dispenser.tscn" id="17_ad4xd"]
@@ -7261,6 +7262,8 @@ polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Arr
 outlines = Array[PackedVector2Array]([PackedVector2Array(544, 144, 816, 144, 816, 352, 752, 352, 752, 192, 544, 192)])
 
 [node name="Office" instance=ExtResource("1_oafpl")]
+BackgroundMusic = ExtResource("2_4n7bc")
+LevelIndex = 1
 
 [node name="Unit Spawns" parent="." index="0"]
 position = Vector2(463, 695)

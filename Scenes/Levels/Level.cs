@@ -41,9 +41,9 @@ public partial class Level : Node2D {
 
 	AttemptSpawn:
 		try {
-			// Rid mapRid = NavRegion.GetNavigationMap();
-			// unit.AIManager.NavAgent.SetNavigationMap(mapRid);
-			AddChild(unit);
+			bool hasParent = unit.GetParent() != null;
+			if (hasParent) unit.Reparent(this);
+			else AddChild(unit);
 			unit.GlobalPosition = SpawnPoints[CurrentSpawnIndex].GlobalPosition;
 			CurrentSpawnIndex = (CurrentSpawnIndex + 1) % SpawnPoints.Length;
 		}

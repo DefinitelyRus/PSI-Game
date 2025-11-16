@@ -2,8 +2,8 @@
 
 [ext_resource type="PackedScene" uid="uid://drho55fepd4p7" path="res://Scenes/Levels/StandardLevel.tscn" id="1_okcn4"]
 [ext_resource type="Texture2D" uid="uid://f8i6teg6ade7" path="res://Sprites/World Sprites/Level 0 - Parking Lot/Parking_Props.png" id="2_0bmdw"]
-[ext_resource type="AudioStream" uid="uid://br2j85dxv6ams" path="res://Audio/Music/Dystopian.wav" id="2_bwdm5"]
 [ext_resource type="PackedScene" uid="uid://c1huap8uooafm" path="res://Prefabs/StandardCharacter/Enemies/Clone Cyborg/CloneCyborg.tscn" id="2_ky56w"]
+[ext_resource type="AudioStream" uid="uid://ddkyno80wlpon" path="res://Audio/Music/L1 - Dystopian Extended.mp3" id="2_qwnr5"]
 [ext_resource type="PackedScene" uid="uid://cn3kulioaf5g5" path="res://Prefabs/Props/Level 0/blue_car.tscn" id="2_vkc6n"]
 [ext_resource type="PackedScene" uid="uid://ca5w8afviyff0" path="res://Prefabs/Props/Level 0/beige_car.tscn" id="3_x4q38"]
 [ext_resource type="PackedScene" uid="uid://d2sumagtfmyln" path="res://Prefabs/StandardCharacter/Enemies/Gunner Drone/Drone.tscn" id="4_l0dwa"]
@@ -5914,7 +5914,7 @@ outlines = Array[PackedVector2Array]([PackedVector2Array(1616, 400, 2304, 400, 2
 
 [node name="Level" node_paths=PackedStringArray("CameraNodePaths") instance=ExtResource("1_okcn4")]
 CameraNodePaths = [NodePath("Props/Panels/Green Car3"), NodePath("Props/Panels/Entrance"), NodePath("Unit Spawns/U1")]
-BackgroundMusic = ExtResource("2_bwdm5")
+BackgroundMusic = ExtResource("2_qwnr5")
 EnemyTypes = [ExtResource("2_ky56w"), ExtResource("4_l0dwa"), ExtResource("21_r1bgn"), ExtResource("5_gt7q3"), ExtResource("6_ywmet"), ExtResource("7_8xng2")]
 metadata/_edit_horizontal_guides_ = [16.0]
 

@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://ddkyno80wlpon"
+path="res://.godot/imported/L1 - Dystopian Extended.mp3-8a8c59cc75172cf4becfb5a158423445.mp3str"
+
+[deps]
+
+source_file="res://Audio/Music/L1 - Dystopian Extended.mp3"
+dest_files=["res://.godot/imported/L1 - Dystopian Extended.mp3-8a8c59cc75172cf4becfb5a158423445.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
