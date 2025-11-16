@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://4qvt0npxdxuh"
-path="res://.godot/imported/Walk_Gun.png-1fde1f2feba3ab36d054a7eca37898b4.ctex"
+uid="uid://cmbyk6d55tbfx"
+path="res://.godot/imported/Standing Shooting.png-7805210c0d0c9d4e7469737c4ea29a86.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/Units/Orra Kale/Walk_Gun.png"
-dest_files=["res://.godot/imported/Walk_Gun.png-1fde1f2feba3ab36d054a7eca37898b4.ctex"]
+source_file="res://Sprites/Units/Orra Kale/Standing Shooting.png"
+dest_files=["res://.godot/imported/Standing Shooting.png-7805210c0d0c9d4e7469737c4ea29a86.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cmbyk6d55tbfx"
-path="res://.godot/imported/Shooting.png-ebab9c3b32f2dcb888bf6878985cab7f.ctex"
+uid="uid://dawi8tw8kb81c"
+path="res://.godot/imported/Idle.png-050a265c687d02abe89ada5039f1efac.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/Units/Orra Kale/Shooting.png"
-dest_files=["res://.godot/imported/Shooting.png-ebab9c3b32f2dcb888bf6878985cab7f.ctex"]
+source_file="res://Sprites/Units/Orra Kale/Idle.png"
+dest_files=["res://.godot/imported/Idle.png-050a265c687d02abe89ada5039f1efac.ctex"]
 
 [params]
 

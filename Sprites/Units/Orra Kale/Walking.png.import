@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dawi8tw8kb81c"
-path="res://.godot/imported/Idle_Gun.png-82f491c52b5ddc7779d57d4f72829867.ctex"
+uid="uid://4qvt0npxdxuh"
+path="res://.godot/imported/Walking.png-83e7c7163975e124cc7954a33696f3ac.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/Units/Orra Kale/Idle_Gun.png"
-dest_files=["res://.godot/imported/Idle_Gun.png-82f491c52b5ddc7779d57d4f72829867.ctex"]
+source_file="res://Sprites/Units/Orra Kale/Walking.png"
+dest_files=["res://.godot/imported/Walking.png-83e7c7163975e124cc7954a33696f3ac.ctex"]
 
 [params]
 
