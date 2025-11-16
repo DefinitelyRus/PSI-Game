@@ -46,6 +46,7 @@ public partial class StandardProp : RigidBody2D {
 
 	[ExportGroup("Nodes & Components")]
 	[Export] public NavigationObstacle2D NavObstacle = null!;
+	[Export] public Sprite2D Sprite = null!;
 
 	#endregion
 
@@ -224,11 +225,22 @@ public partial class StandardProp : RigidBody2D {
 			return;
 		}
 
+		if (Sprite == null) {
+			Log.Err(() => "Sprite is not assigned. This prop will not be visible.", LogReady);
+			return;
+		}
+
 		Log.Me(() => "Done!", LogReady);
 	}
 
 	public override void _Ready() {
 		Log.Me(() => $"Readying {InstanceID}...", LogReady);
+		
+		if (string.IsNullOrEmpty(InstanceID)) {
+			Log.Me(() => $"InstanceID for prop at {GlobalPosition} is empty in _Ready. Generating now...", LogReady);
+			GenerateInstanceID();
+		}
+
 		Name = InstanceID;
 
 		Log.Me(() => "Done!", LogReady);

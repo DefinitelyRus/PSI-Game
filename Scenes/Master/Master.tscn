@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://d3cvhjbvnx1a1"]
+[gd_scene load_steps=13 format=3 uid="uid://d3cvhjbvnx1a1"]
 
 [ext_resource type="Script" uid="uid://cdfonun0qopbr" path="res://Scenes/Master/Master.cs" id="1_o4rt4"]
 [ext_resource type="Script" uid="uid://bskjggdrqe3xx" path="res://Scenes/Master/SceneLoader.cs" id="2_7tgqy"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://rbirnmt14654" path="res://Scenes/Main Menu/MainMenu.tscn" id="3_1t0lv"]
 [ext_resource type="Script" uid="uid://coj1ftn5dishm" path="res://Scenes/Master/Commander.cs" id="3_8ixx1"]
 [ext_resource type="Script" uid="uid://bw8770jogthra" path="res://Scenes/Master/CameraMan.cs" id="3_iwwxa"]
+[ext_resource type="Script" uid="uid://d03x1tcc0l2p3" path="res://Scenes/Master/GameManager.cs" id="4_iwwxa"]
 [ext_resource type="Script" uid="uid://ccfcn78cg1s2f" path="res://Scenes/Master/EntityManager.cs" id="5_0hine"]
 [ext_resource type="PackedScene" uid="uid://c5pxgte6pab6b" path="res://Prefabs/StandardCharacter/Units/Orra Kale/Orra Kale.tscn" id="5_m6dx2"]
 [ext_resource type="Script" uid="uid://b3xb0rhvopx03" path="res://Scenes/Master/InputManager.cs" id="5_qemos"]
@@ -30,6 +31,9 @@ process_thread_group = 1
 process_thread_group_order = 0
 process_thread_messages = 0
 script = ExtResource("3_iwwxa")
+
+[node name="Game Manager" type="Node2D" parent="."]
+script = ExtResource("4_iwwxa")
 
 [node name="Commander" type="Node" parent="."]
 script = ExtResource("3_8ixx1")

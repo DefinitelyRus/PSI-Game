@@ -51,7 +51,7 @@ public partial class AudioManager : Node2D {
 
 	#region Media Control
 
-	public static AudioStreamPlayer PlaySFX(AudioStream stream, float volume = 0f) {
+	public static AudioStreamPlayer PlaySFX(AudioStream stream, float volume = 1f) {
 		AudioStreamPlayer sfxPlayer = new();
 		Instance.AddChild(sfxPlayer);
 
@@ -65,7 +65,7 @@ public partial class AudioManager : Node2D {
 	}
 
 
-	public static AudioStreamPlayer2D PlaySFX2D(AudioStream stream, Vector2 position, float volume = 0f) {
+	public static AudioStreamPlayer2D PlaySFX2D(AudioStream stream, Vector2 position, float volume = 1f) {
 		AudioStreamPlayer2D sfxPlayer = new();
 		Instance.AddChild(sfxPlayer);
 
@@ -80,7 +80,7 @@ public partial class AudioManager : Node2D {
 	}
 
 
-	public static void PlayMusic(AudioStream stream, float volume = 0f) {
+	public static void PlayMusic(AudioStream stream, float volume = 1f) {
 		Instance.MusicPlayer.Stream = stream;
 		Instance.MusicPlayer.VolumeLinear = volume * Instance.MusicVolume;
 		Instance.MusicPlayer.Play();

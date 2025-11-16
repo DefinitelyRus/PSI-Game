@@ -165,6 +165,15 @@ public partial class SceneLoader : Node
         if (returnToMainMenu) Instance.Theatre.AddChild(Instance.MainMenu.Instantiate());
     }
 
+    public static void NextLevel() {
+        UnloadLevel(false);
+
+        if (Instance.LoadedScene is Level currentLevel) {
+            uint nextLevelIndex = currentLevel.LevelIndex + 1;
+            LoadLevel(nextLevelIndex);
+        }
+    }
+
     #endregion
 
     #endregion
