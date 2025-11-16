@@ -160,21 +160,22 @@ public partial class Commander : Node {
 
 	public static StandardCharacter FocusedUnit { get; private set; } = null!;
 	public static List<StandardItem> UnitInventory => FocusedUnit.Inventory;
+	public static StandardCharacter TargetedUnit { get; private set; } = null!;
 
 	public static bool PrimeDrop { get; set; } = false;
 
 
-	public static void SetFocusedUnit(int index)
+	public static void SetFocusedUnit(int index, bool moveCamera = true)
 	{
 		if (index < 0 || index > Units.Count) {
-			Log.Err(() => $"SetFocusedUnit: Index {index} is out of range (0 to {Units.Count - 1}).");
+			Log.Err(() => $"Unit at index {index} does not exist. Cannot focus.");
 			return;
 		}
 
 		FocusedUnit = Units[index];
 		SelectUnit(index);
 
-		CameraMan.SetTarget(FocusedUnit);
+		if (moveCamera) CameraMan.SetTarget(FocusedUnit);
 	}
 
 
@@ -200,6 +201,63 @@ public partial class Commander : Node {
 		if (PrimeDrop) FocusedUnit.RemoveItemFromInventory(itemIndex, true, out var _);
 		else FocusedUnit.ToggleEquipItem(itemIndex);
 	}
+
+
+	public static void MoveAndSearch(Vector2 mousePos) {
+		foreach (StandardCharacter unit in GetSelectedUnits()) {
+			AIAgentManager agent = unit.AIAgent;
+			agent.Action1(mousePos);
+			agent.Searching = true;
+			agent.Targeting = false;
+		}
+	}
+
+
+	public static void MoveAndTarget(Vector2 mousePos) {
+		foreach (StandardCharacter unit in GetSelectedUnits()) {
+			AIAgentManager agent = unit.AIAgent;
+			AITargetingManager targeter = unit.TargetingManager;
+
+			agent.Stop();
+			agent.CurrentTarget = null;
+			targeter.ClearTarget();
+
+			agent.GoTo(mousePos);
+			agent.Targeting = true;
+			agent.Searching = false;
+
+			bool pointingAtEntity = EntityManager.HasEntityAtPosition(mousePos, out var entity);
+			
+			if (!pointingAtEntity) {
+				Log.Me(() => $"MoveAndTarget: No entity found at ({mousePos.X:F2}, {mousePos.Y:F2}). Moving only.", Instance.LogInput);
+				continue;
+			}
+
+			if (entity is StandardCharacter targetUnit && targetUnit.IsAlive && targetUnit != unit) {
+				agent.CurrentTarget = targetUnit;
+				targeter.ManualTarget = targetUnit;
+				targeter.CurrentTarget = targetUnit;
+				
+				targeter.SetAimDirection();
+
+				Log.Me(() => $"MoveAndTarget: {unit.InstanceID} targeting unit {targetUnit.InstanceID} at ({mousePos.X:F2}, {mousePos.Y:F2}).", Instance.LogInput);
+			}
+			
+			else {
+				Log.Me(() => $"MoveAndTarget: Entity at ({mousePos.X:F2}, {mousePos.Y:F2}) not a valid StandardCharacter target. Moving only.", Instance.LogInput);
+			}
+		}
+	}
+
+
+	public static void StopSelectedUnits() {
+		foreach (StandardCharacter unit in GetSelectedUnits()) {
+			AIAgentManager agent = unit.AIAgent;
+			agent.Stop();
+			agent.Targeting = false;
+			agent.Searching = false;
+		}
+    }
 
 	#endregion
 
