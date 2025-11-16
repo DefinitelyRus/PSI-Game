@@ -12,6 +12,10 @@ public partial class Level : Node2D {
 	private int CurrentSpawnIndex = 0;
 	[Export] public Node2D PropsParent = null!;
 	[Export] public Node2D RegionsParent = null!;
+	[Export] public AudioStream BackgroundMusic = null!;
+	[Export] public float EnemyStaticSpawningDelayMultiplier = 1f;
+	[Export] public uint LevelIndex = 0;
+
 
 	#region Debug
 
@@ -155,14 +159,14 @@ public partial class Level : Node2D {
 		// and set its nav map to the region's map rid
 		foreach (StandardProp prop in props) {
 			//Log.Me(() => $"Reparenting prop {prop.Name} for navigation.");
-			Rid? mapRid = GetMapRid(prop.GlobalPosition, out NavigationRegion2D? newRegion);
+			Rid? mapRid = GetMapRid(prop.NavObstacle.GlobalPosition, out NavigationRegion2D? newRegion);
 
 			if (mapRid == null || newRegion == null) {
-				//Log.Warn(() => $"No navigation map found for prop {prop.Name} at position {prop.GlobalPosition}. Skipping setting nav map.");
+				Log.Me(() => $"No navigation region found for {prop.InstanceID} at {prop.GlobalPosition}. Skipping reparent.", LogReady);
 				continue;
 			}
 
-			Log.Me(() => $"Setting navigation map for prop {prop.Name} to region {newRegion.Name}.", LogReady);
+			Log.Me(() => $"Setting navigation map for prop {prop.InstanceID} to region {newRegion.Name}.", LogReady);
 			prop.NavObstacle.SetNavigationMap(mapRid.Value);
 			prop.Reparent(newRegion, true);
 		}
@@ -221,17 +225,14 @@ public partial class Level : Node2D {
 
 
 	public override void _Ready() {
-		// Set node paths for CameraMan
-		CameraMan.SetCameraPath(CameraNodePaths);
-
-		// If no node paths set, use spawn point.
-		if (CameraNodePaths.Length == 0) {
-			CameraMan.SetTarget(SpawnParent, true);
-		}
+		if (CameraNodePaths.Length != 0) CameraMan.SetCameraPath(CameraNodePaths);
+		else CameraMan.SetTarget(SpawnParent, true);
 
 		ReparentAllProps();
 
 		AIDirector.CurrentLevel = this;
+
+		if (BackgroundMusic != null) AudioManager.PlayMusic(BackgroundMusic);
 	}
 	
 	#endregion

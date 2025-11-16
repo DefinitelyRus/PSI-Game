@@ -117,22 +117,26 @@ public partial class CameraMan : Node2D {
                 return;
             }
 
-            path.Name = $"{StartTargetName}_{index}";
+            if (!IsInstanceValid(path)) {
+                Log.Err(() => $"Camera path node at index {index} is not a valid instance. Please check the node.");
+                return;
+            }
+
+
+            //path.Name = $"{StartTargetName}_{index}";
             index++;
         }
 
         NodePaths = nodePaths;
         CurrentPathIndex = 0;
         WaitTimer = Instance.NodePathStayTime;
+        SetTarget(NodePaths[NodePaths.Length - 1], true);
         SetTarget(NodePaths[CurrentPathIndex]);
     }
 
 
     private static void ScanPathReached() {
         if (Target == null) return;
-
-        bool isNodePath = Target.Name.ToString().StartsWith(StartTargetName);
-        if (!isNodePath) return;
 
         bool reached = HasArrivedAtTarget();
         bool waitExpired = WaitTimer <= 0f;
@@ -142,7 +146,7 @@ public partial class CameraMan : Node2D {
             return;
         }
 
-        if (reached && isNodePath) NextNodePath();
+        if (reached) NextNodePath();
     }
 
 
@@ -171,6 +175,8 @@ public partial class CameraMan : Node2D {
 
 
     public static void SetTarget(Node2D target, bool instant = false) {
+        Log.Me(() => $"Setting camera target to {target.Name}.");
+
         Target = target;
 
         bool snapToTarget = !Instance.SmoothFollow || instant;
