@@ -9,7 +9,7 @@
 [ext_resource type="Script" uid="uid://d03x1tcc0l2p3" path="res://Scenes/Master/GameManager.cs" id="4_iwwxa"]
 [ext_resource type="Script" uid="uid://ccfcn78cg1s2f" path="res://Scenes/Master/EntityManager.cs" id="5_0hine"]
 [ext_resource type="Script" uid="uid://b3xb0rhvopx03" path="res://Scenes/Master/InputManager.cs" id="5_qemos"]
-[ext_resource type="PackedScene" path="res://Prefabs/StandardCharacter/Units/Mira Kale/Mira Kale.tscn" id="6_0hine"]
+[ext_resource type="PackedScene" uid="uid://b6yrlsn2k0uvf" path="res://Prefabs/StandardCharacter/Units/Mira Kale/Mira Kale.tscn" id="6_0hine"]
 [ext_resource type="Script" uid="uid://dv8fmgivi507t" path="res://Scenes/Master/AIDirector.cs" id="7_0hine"]
 [ext_resource type="PackedScene" uid="uid://4av0n3taxtct" path="res://Scenes/Levels/Release/ParkingLot.tscn" id="10_8ixx1"]
 [ext_resource type="PackedScene" uid="uid://2sdjs7gc04c5" path="res://Scenes/Levels/Release/Office.tscn" id="13_0hine"]
