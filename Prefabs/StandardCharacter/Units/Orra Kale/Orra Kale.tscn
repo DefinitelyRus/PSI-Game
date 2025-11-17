@@ -1,4 +1,4 @@
-[gd_scene load_steps=91 format=3 uid="uid://dmuhp2l2j70gn"]
+[gd_scene load_steps=92 format=3 uid="uid://dmuhp2l2j70gn"]
 
 [ext_resource type="PackedScene" uid="uid://daotyvqai4b36" path="res://Prefabs/StandardCharacter/StandardCharacter.tscn" id="1_jdgtp"]
 [ext_resource type="PackedScene" uid="uid://dr2el8snmmerp" path="res://Prefabs/StandardCharacter/Units/Orra Kale/HeavyRifle.tscn" id="2_07s0f"]
@@ -17,6 +17,7 @@
 [ext_resource type="AudioStream" uid="uid://dl6ahpb22oyi3" path="res://Prefabs/StandardCharacter/Units/Orra Kale/BH6 - Voice Male V2 Hit Mono 06.wav" id="12_631s6"]
 [ext_resource type="AudioStream" uid="uid://xerwuxlsy8ys" path="res://Prefabs/StandardCharacter/Units/Orra Kale/BH7 - Voice Male V2 Hit Mono 07.wav" id="13_lhtwr"]
 [ext_resource type="AudioStream" uid="uid://bnla3742dh622" path="res://Prefabs/StandardCharacter/Units/Orra Kale/BH8 - Voice Male V2 Hit Mono 08.wav" id="14_dnljx"]
+[ext_resource type="Texture2D" uid="uid://cmbyk6d55tbfx" path="res://Sprites/Units/Orra Kale/Standing Shooting.png" id="17_smjp3"]
 
 [sub_resource type="Animation" id="Animation_l5av8"]
 length = 0.001
@@ -487,6 +488,18 @@ tracks/0/keys = {
 "update": 1,
 "values": [Vector2i(0, 0), Vector2i(1, 0)]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("17_smjp3")]
+}
 
 [sub_resource type="Animation" id="Animation_tmde6"]
 resource_name = "shoot_down_left"
@@ -499,10 +512,22 @@ tracks/0/path = NodePath("Sprite2D:frame_coords")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.05),
+"times": PackedFloat32Array(0, 0.1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [Vector2i(1, 1), Vector2i(0, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("17_smjp3")]
 }
 
 [sub_resource type="Animation" id="Animation_8hr5x"]
@@ -516,10 +541,22 @@ tracks/0/path = NodePath("Sprite2D:frame_coords")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.05),
+"times": PackedFloat32Array(0, 0.1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [Vector2i(1, 5), Vector2i(0, 5)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("17_smjp3")]
 }
 
 [sub_resource type="Animation" id="Animation_631s6"]
@@ -533,10 +570,22 @@ tracks/0/path = NodePath("Sprite2D:frame_coords")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.05),
+"times": PackedFloat32Array(0, 0.1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [Vector2i(1, 7), Vector2i(0, 7)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("17_smjp3")]
 }
 
 [sub_resource type="Animation" id="Animation_lhtwr"]
@@ -550,10 +599,22 @@ tracks/0/path = NodePath("Sprite2D:frame_coords")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.05),
+"times": PackedFloat32Array(0, 0.1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [Vector2i(1, 6), Vector2i(0, 6)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("17_smjp3")]
 }
 
 [sub_resource type="Animation" id="Animation_vwe7b"]
@@ -567,10 +628,22 @@ tracks/0/path = NodePath("Sprite2D:frame_coords")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.05),
+"times": PackedFloat32Array(0, 0.1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [Vector2i(1, 3), Vector2i(0, 3)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("17_smjp3")]
 }
 
 [sub_resource type="Animation" id="Animation_sqlpr"]
@@ -584,10 +657,22 @@ tracks/0/path = NodePath("Sprite2D:frame_coords")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.05),
+"times": PackedFloat32Array(0, 0.1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [Vector2i(1, 2), Vector2i(0, 2)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("17_smjp3")]
 }
 
 [sub_resource type="Animation" id="Animation_4fyl1"]
@@ -601,10 +686,22 @@ tracks/0/path = NodePath("Sprite2D:frame_coords")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.033333335),
+"times": PackedFloat32Array(0, 0.099999994),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [Vector2i(1, 4), Vector2i(0, 4)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("17_smjp3")]
 }
 
 [sub_resource type="Animation" id="Animation_1ee36"]
@@ -1105,16 +1202,21 @@ states/Start/position = Vector2(203, 100)
 states/Walk/node = SubResource("AnimationNodeBlendSpace2D_5hjy4")
 states/Walk/position = Vector2(836, 100)
 transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_haq8x"), "Idle", "Death", SubResource("AnimationNodeStateMachineTransition_5hjy4"), "Attack", "Death", SubResource("AnimationNodeStateMachineTransition_km3j1"), "Walk", "Death", SubResource("AnimationNodeStateMachineTransition_fntse"), "Idle", "Attack", SubResource("AnimationNodeStateMachineTransition_qqotl"), "Walk", "Attack", SubResource("AnimationNodeStateMachineTransition_k02c7"), "Idle", "Walk", SubResource("AnimationNodeStateMachineTransition_yjfud"), "Attack", "Walk", SubResource("AnimationNodeStateMachineTransition_nej0w"), "Attack", "Idle", SubResource("AnimationNodeStateMachineTransition_1vsjy"), "Walk", "Idle", SubResource("AnimationNodeStateMachineTransition_w4osj")]
-graph_offset = Vector2(59, -5)
+graph_offset = Vector2(36, 55)
 
 [node name="Orra Kale" node_paths=PackedStringArray("Weapon", "AnimationTree") instance=ExtResource("1_jdgtp")]
 CharacterName = "Orra Kale"
 CharacterID = "orra_kale"
+MaxHealth = 300.0
 Tags = PackedStringArray("Unit")
 Weapon = NodePath("Heavy Rifle")
 AnimationTree = NodePath("AnimationTree")
 
 [node name="Heavy Rifle" parent="." index="1" instance=ExtResource("2_07s0f")]
+
+[node name="AI Targeting Manager" parent="." index="2"]
+TargetDetectionRadius = 480.0
+TargetLostRadius = 720.0
 
 [node name="Audio Controller" parent="." index="7"]
 AudioClips = Dictionary[String, AudioStream]({
@@ -1151,3 +1253,6 @@ parameters/Attack/blend_position = Vector2(-0.43164063, 0.15002191)
 parameters/Death/blend_position = Vector2(-0.15468752, -1.0443687)
 parameters/Idle/blend_position = Vector2(0.33749998, 0.4631579)
 parameters/Walk/blend_position = Vector2(-0.0064452887, -0.4583333)
+
+[node name="NavigationAgent2D" parent="." index="11"]
+debug_enabled = true
