@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Godot;
 namespace CommonScripts;
 
@@ -102,6 +103,7 @@ public partial class CameraMan : Node2D {
     private static Node2D[] NodePaths { get; set; } = [];
     private static int CurrentPathIndex = 0;
     private static float WaitTimer = 0f;
+    private static bool PathComplete = false;
 
 
     public static void SetCameraPath(Node2D[] nodePaths) {
@@ -130,12 +132,13 @@ public partial class CameraMan : Node2D {
         NodePaths = nodePaths;
         CurrentPathIndex = 0;
         WaitTimer = Instance.NodePathStayTime;
-        SetTarget(NodePaths[NodePaths.Length - 1], true);
+        SetTarget(NodePaths[^1], true);
         SetTarget(NodePaths[CurrentPathIndex]);
     }
 
 
     private static void ScanPathReached() {
+        if (PathComplete) return;
         if (Target == null) return;
 
         bool reached = HasArrivedAtTarget();
@@ -154,10 +157,28 @@ public partial class CameraMan : Node2D {
         if (NodePaths.Length == 0) return;
 
         CurrentPathIndex++;
-        if (CurrentPathIndex >= NodePaths.Length) return;
+        if (CurrentPathIndex >= NodePaths.Length) {
+            var _ = CompletedPath();
+            return;
+        }
 
         SetTarget(NodePaths[CurrentPathIndex]);
         WaitTimer = Instance.NodePathStayTime;
+    }
+
+
+    public static async Task CompletedPath() {
+        PathComplete = true;
+        UIManager.SetHUDVisible(false, -1);
+        UIManager.SetHUDVisible(true, 0);
+        UIManager.SetHUDVisible(true, 1);
+
+        SceneTree tree = Instance.GetTree();
+        SceneTreeTimer timer = tree.CreateTimer(1f);
+        await Instance.ToSignal(timer, SceneTreeTimer.SignalName.Timeout);
+        UIManager.SetHUDVisible(true, 2);
+
+        Commander.SetFocusedUnit(0, true);
     }
 
 
