@@ -606,7 +606,8 @@ public partial class StandardItem : RigidBody2D
 		if (Sprite != null) Sprite.Visible = true;
 
 		Collider.Disabled = false;
-		ClickArea.Visible = true;
+		CollisionShape2D areaCollider = ClickArea.GetChild<CollisionShape2D>(0);
+		areaCollider.Disabled = false;
 	}
 
 	/// <summary>
