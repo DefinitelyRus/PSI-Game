@@ -25,10 +25,7 @@ class_name PlayerUI
 var _current_opacity: float
 var _active_timer: float = 0.0
 
-# TEST: Setting the inventory and char preview icon
-var item_icons := {
-	"bullets": "res://Sprites/Projectiles/Bullet.png",
-}
+@export var item_icons: Dictionary[String, Texture2D] = {}
 
 var char_icon := {
 	"char1": "res://Sprites/Units/Mira Kale//Idle.png",
@@ -64,37 +61,28 @@ func manage_slots(target: int) -> void:
 			inventory_slots[i].disabled = false
 
 ## Set item icon to a specific hotbar slot
-func set_item(icon: String, target: int) -> void:
+func set_item(icon: Texture2D, target: int) -> void:
 	if target < 0 or target >= inventory_slots.size():
 		push_warning("Invalid slot index: %d" % target)
 		return
 	
 	var button := inventory_slots[target]
-	
-	if item_icons.has(icon):
-		var tex := load(item_icons[icon]) as Texture2D
-		var style := StyleBoxTexture.new()
-		style.texture = tex
-	
-		button.add_theme_stylebox_override("normal", style)
-		button.add_theme_stylebox_override("hover", style)
-		button.add_theme_stylebox_override("pressed", style)
-	else:
-		push_warning("[Player_UI.set_item] This thing is NOT found in dictionary: " % icon)
+	var style := StyleBoxTexture.new()
+	style.texture = icon
+
+	button.add_theme_stylebox_override("normal", style)
+	button.add_theme_stylebox_override("hover", style)
+	button.add_theme_stylebox_override("pressed", style)
 
 func _on_inventory_slot_pressed() -> void:
 	activate_hud()
 
 # ---------- CHARACTER PREVIEW ----------
-func set_char_preview(icon: String) -> void:
-	if char_icon.has(icon):
-		var tex := load(char_icon[icon]) as Texture2D
-		var style := StyleBoxTexture.new()
-		style.texture = tex
-	
-		current_character.add_theme_stylebox_override("disabled", style)
-	else:
-		push_warning("[Player_UI.set_char_preview] This thing is NOT found in dictionary: " % icon)
+func set_char_preview(icon: Texture2D) -> void:
+	var style := StyleBoxTexture.new()
+	style.texture = icon
+
+	current_character.add_theme_stylebox_override("disabled", style)
 
 # ---------- OPACITY MANAGER ----------
 func _process(delta: float) -> void:
@@ -119,24 +107,23 @@ func is_cursor_near_hud() -> bool:
 
 # ---------- GODOT CALLBACKS -----------
 func _ready() -> void:
-	# TEST: Disables inventory slots upon load
-	for i in range(inventory_slots.size()):
-		var slot = inventory_slots[i]
-		slot.disabled = true
-		slot.pressed.connect(_on_inventory_slot_pressed)
-	
-	# TEST: Disables power upon load
-	for i in range(power.size()):
-		power[i].disabled = true
-	
-	# TEST for the health and power info
-	update_health(60, 100)
-	manage_slots(3)
-	set_power(1, 2)
-	set_item("bullets", 2) 
-	
-	# TEST: Sets the char_preview icon upon load
-	set_char_preview("char1")
+	## TEST: Disables inventory slots upon load
+	#for i in range(inventory_slots.size()):
+		#var slot = inventory_slots[i]
+		#slot.disabled = true
+		#slot.pressed.connect(_on_inventory_slot_pressed)
+	#
+	## TEST: Disables power upon load
+	#for i in range(power.size()):
+		#power[i].disabled = true
+	#
+	## TEST for the health and power info
+	#update_health(60, 100)
+	#manage_slots(3)
+	#set_power(1, 2)
+	#
+	## TEST: Sets the char_preview icon upon load
+	#set_char_preview("char1")
 	
 	# Opacity Manager Variables
 	_current_opacity = default_opacity
