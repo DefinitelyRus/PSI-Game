@@ -755,9 +755,9 @@ public partial class StandardItem : RigidBody2D
 	/// </summary>
 	/// <param name="v">Do verbose logging? Use <c>v</c> to follow the same verbosity as the encapsulating function, if available.</param>
 	/// <param name="s">Stack depth. Use <c>0</c> if on a root function, or <c>s + 1</c> if <c>s</c> is available in the encapsulating function.</param>
-	public virtual void Use() {
+	public virtual Variant? Use() {
 		Log.Warn(() => $"`UseItem` on \"{ItemName}\" (ItemID: {ItemID}) is not implemented! Override to add custom functionality.");
-		return;
+		return null;
 	}
 
 	/// <summary>
@@ -766,9 +766,9 @@ public partial class StandardItem : RigidBody2D
 	/// </summary>
 	/// <param name="v">Do verbose logging? Use <c>v</c> to follow the same verbosity as the encapsulating function, if available.</param>
 	/// <param name="s">Stack depth. Use <c>0</c> if on a root function, or <c>s + 1</c> if <c>s</c> is available in the encapsulating function.</param>
-	public virtual void PickUp() {
+	public virtual Variant? PickUp() {
 		AudioManager.PlaySFX("item_pickup");
-		return;
+		return null;
 	}
 
 	/// <summary>
@@ -777,9 +777,9 @@ public partial class StandardItem : RigidBody2D
 	/// </summary>
 	/// <param name="v">Do verbose logging? Use <c>v</c> to follow the same verbosity as the encapsulating function, if available.</param>
 	/// <param name="s">Stack depth. Use <c>0</c> if on a root function, or <c>s + 1</c> if <c>s</c> is available in the encapsulating function.</param>
-	public virtual void Equip() {
+	public virtual Variant? Equip() {
 		Log.Warn(() => $"`Equip` on \"{ItemName}\" (ItemID: {ItemID}) is not implemented! Override to add custom functionality.");
-		return;
+		return null;
 	}
 
 	/// <summary>
@@ -788,9 +788,9 @@ public partial class StandardItem : RigidBody2D
 	/// </summary>
 	/// <param name="v">Do verbose logging? Use <c>v</c> to follow the same verbosity as the encapsulating function, if available.</param>
 	/// <param name="s">Stack depth. Use <c>0</c> if on a root function, or <c>s + 1</c> if <c>s</c> is available in the encapsulating function.</param>
-	public virtual void Unequip() {
+	public virtual Variant? Unequip() {
 		Log.Warn(() => $"`Unequip` on \"{ItemName}\" (ItemID: {ItemID}) is not implemented! Override to add custom functionality.");
-		return;
+		return null;
 	}
 
 	/// <summary>
@@ -799,9 +799,10 @@ public partial class StandardItem : RigidBody2D
 	/// </summary>
 	/// <param name="v">Do verbose logging? Use <c>v</c> to follow the same verbosity as the encapsulating function, if available.</param>
 	/// <param name="s">Stack depth. Use <c>0</c> if on a root function, or <c>s + 1</c> if <c>s</c> is available in the encapsulating function.</param>
-	public virtual void Drop() {
+	public virtual Variant? Drop() {
 		AudioManager.PlaySFX("item_drop");
-		return;
+		SpawnInWorld();
+		return null;
 	}
 
 	/// <summary>
@@ -810,9 +811,9 @@ public partial class StandardItem : RigidBody2D
 	/// </summary>
 	/// <param name="v">Do verbose logging? Use <c>v</c> to follow the same verbosity as the encapsulating function, if available.</param>
 	/// <param name="s">Stack depth. Use <c>0</c> if on a root function, or <c>s + 1</c> if <c>s</c> is available in the encapsulating function.</param>
-	public virtual void Break() {
+	public virtual Variant? Break() {
 		Log.Warn(() => $"`Break` on \"{ItemName}\" (ItemID: {ItemID}) is not implemented! Override to add custom functionality.");
-		return;
+		return null;
 	}
 
 	/// <summary>
@@ -821,9 +822,9 @@ public partial class StandardItem : RigidBody2D
 	/// </summary>
 	/// <param name="v">Do verbose logging? Use <c>v</c> to follow the same verbosity as the encapsulating function, if available.</param>
 	/// <param name="s">Stack depth. Use <c>0</c> if on a root function, or <c>s + 1</c> if <c>s</c> is available in the encapsulating function.</param>
-	public virtual void Buy() {
+	public virtual Variant? Buy() {
 		Log.Warn(() => $"`Buy` on \"{ItemName}\" (ItemID: {ItemID}) is not implemented! Override to add custom functionality.");
-		return;
+		return null;
 	}
 
 	/// <summary>
@@ -832,9 +833,9 @@ public partial class StandardItem : RigidBody2D
 	/// </summary>
 	/// <param name="v">Do verbose logging? Use <c>v</c> to follow the same verbosity as the encapsulating function, if available.</param>
 	/// <param name="s">Stack depth. Use <c>0</c> if on a root function, or <c>s + 1</c> if <c>s</c> is available in the encapsulating function.</param>
-	public virtual void Sell() {
+	public virtual Variant? Sell() {
 		Log.Warn(() => $"`Sell` on \"{ItemName}\" (ItemID: {ItemID}) is not implemented! Override to add custom functionality.");
-		return;
+		return null;
 	}
 
 	#endregion
