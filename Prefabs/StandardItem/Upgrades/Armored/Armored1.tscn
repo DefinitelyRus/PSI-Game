@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://cmpa77mm5ct43"]
+
+[ext_resource type="PackedScene" uid="uid://cgwbyxdsmb6ty" path="res://Prefabs/StandardItem/Upgrades/UpgradeItem.tscn" id="1_bv0yu"]
+[ext_resource type="Script" uid="uid://ba5svmvm40s16" path="res://Prefabs/StandardItem/Upgrades/Armored/Armored.cs" id="2_o5jas"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_8tx1j"]
+load_path = "res://.godot/imported/16x16.png-053846a8720945d8ec3e8a763fb7e2e9.ctex"
+
+[node name="Armored I" instance=ExtResource("1_bv0yu")]
+script = ExtResource("2_o5jas")
+ItemName = "Armored I"
+ItemID = "armored_1"
+IsUsable = false
+DeleteOnEmpty = true
+RemoveQuantityOnBreak = true
+MaxQuantity = 99
+BaseCooldownTime = 0.0
+LogReady = true
+StatMultiplier = 1.5
+
+[node name="Sprite2D" parent="." index="1"]
+texture = SubResource("CompressedTexture2D_8tx1j")
+region_rect = Rect2(112, 656, 16, 16)

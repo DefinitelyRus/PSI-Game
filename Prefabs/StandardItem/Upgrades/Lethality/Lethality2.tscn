@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://htmqhuhs7lg"]
+
+[ext_resource type="PackedScene" uid="uid://cgwbyxdsmb6ty" path="res://Prefabs/StandardItem/Upgrades/UpgradeItem.tscn" id="1_kyqbm"]
+[ext_resource type="Script" uid="uid://c78kcttba033o" path="res://Prefabs/StandardItem/Upgrades/Lethality/Lethality.cs" id="2_26ysg"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_leows"]
+load_path = "res://.godot/imported/16x16.png-053846a8720945d8ec3e8a763fb7e2e9.ctex"
+
+[node name="Lethality II" instance=ExtResource("1_kyqbm")]
+script = ExtResource("2_26ysg")
+StatMultiplier = 5.0
+ItemName = "Lethality II"
+ItemID = "lethality_2"
+
+[node name="Sprite2D" parent="." index="1"]
+texture = SubResource("CompressedTexture2D_leows")
+region_rect = Rect2(240, 656, 16, 16)
