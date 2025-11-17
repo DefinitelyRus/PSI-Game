@@ -144,8 +144,40 @@ public partial class AITargetingManager : Node2D {
                 }
 
                 break;
-        }
 
+            case TargetMode.HighestHealth:
+
+                float currentHealth = CurrentTarget != null ? CurrentTarget.Health : float.MinValue;
+                float targetHealth = target.Health;
+                bool higherHealthThanCurrent = targetHealth > currentHealth;
+
+                if (higherHealthThanCurrent || isCurrentTarget) {
+                    if (setAsCurrent) {
+                        CurrentTarget = target;
+                        _timeSinceLastTargetSwitch = TargetSwitchCooldown;
+                    }
+                    
+                    return true;
+                }
+
+                break;
+
+            case TargetMode.LowestHealth:
+
+                float currentLowHealth = CurrentTarget != null ? CurrentTarget.Health : float.MaxValue;
+                float targetLowHealth = target.Health;
+                bool lowerHealthThanCurrent = targetLowHealth < currentLowHealth;
+                if (lowerHealthThanCurrent || isCurrentTarget) {
+                    if (setAsCurrent) {
+                        CurrentTarget = target;
+                        _timeSinceLastTargetSwitch = TargetSwitchCooldown;
+                    }
+
+                    return true;
+                }
+
+                break;
+        }
         return false;
     }
 

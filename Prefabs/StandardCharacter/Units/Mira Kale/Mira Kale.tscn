@@ -1,7 +1,7 @@
 [gd_scene load_steps=60 format=3 uid="uid://b6yrlsn2k0uvf"]
 
 [ext_resource type="PackedScene" uid="uid://daotyvqai4b36" path="res://Prefabs/StandardCharacter/StandardCharacter.tscn" id="1_jdgtp"]
-[ext_resource type="PackedScene" uid="uid://bq2lrnllhwyce" path="res://Prefabs/StandardCharacter/Units/Mira Kale/AssaultRifle.tscn" id="2_haq8x"]
+[ext_resource type="PackedScene" uid="uid://bq2lrnllhwyce" path="res://Prefabs/StandardCharacter/Units/Mira Kale/AssaultRifle_T1.tscn" id="2_haq8x"]
 [ext_resource type="AudioStream" uid="uid://c1h5dogvon8jd" path="res://Prefabs/StandardCharacter/Units/Mira Kale/AT1 - 9mm Single.wav" id="3_fb1hh"]
 [ext_resource type="AudioStream" uid="uid://bjhku624wr50y" path="res://Prefabs/StandardCharacter/Units/Mira Kale/AT2 - 762x39 Single WAV.wav" id="4_426db"]
 [ext_resource type="AudioStream" uid="uid://crmi8pnduo2bq" path="res://Prefabs/StandardCharacter/Units/Mira Kale/AT3 - 762x54r Single WAV.wav" id="5_w5y3c"]

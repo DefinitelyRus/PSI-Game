@@ -1,7 +1,7 @@
 [gd_scene load_steps=92 format=3 uid="uid://dmuhp2l2j70gn"]
 
 [ext_resource type="PackedScene" uid="uid://daotyvqai4b36" path="res://Prefabs/StandardCharacter/StandardCharacter.tscn" id="1_jdgtp"]
-[ext_resource type="PackedScene" uid="uid://dr2el8snmmerp" path="res://Prefabs/StandardCharacter/Units/Orra Kale/HeavyRifle.tscn" id="2_07s0f"]
+[ext_resource type="PackedScene" uid="uid://dr2el8snmmerp" path="res://Prefabs/StandardCharacter/Units/Orra Kale/HeavyRifle_T1.tscn" id="2_07s0f"]
 [ext_resource type="Texture2D" uid="uid://dawi8tw8kb81c" path="res://Sprites/Units/Orra Kale/Idle.png" id="2_haq8x"]
 [ext_resource type="Texture2D" uid="uid://fmonl61opssy" path="res://Sprites/Units/Orra Kale/Death.png" id="3_l5av8"]
 [ext_resource type="AudioStream" uid="uid://dk3xusqfhntyl" path="res://Prefabs/StandardCharacter/Units/Orra Kale/BT1 - 22LR Single WAV.wav" id="3_smjp3"]
@@ -1218,6 +1218,7 @@ AnimationTree = NodePath("AnimationTree")
 [node name="AI Targeting Manager" parent="." index="2"]
 TargetDetectionRadius = 480.0
 TargetLostRadius = 720.0
+CurrentTargetMode = 3
 
 [node name="Audio Controller" parent="." index="7"]
 AudioClips = Dictionary[String, AudioStream]({

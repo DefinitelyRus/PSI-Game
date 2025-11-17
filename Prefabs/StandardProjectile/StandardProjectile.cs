@@ -14,7 +14,7 @@ public partial class StandardProjectile : RigidBody2D
 	[Export] public Area2D HitArea = null!;
 	[Export] public StandardCharacter WeaponOwner = null!;
 	[Export] public StandardProjectileWeapon Weapon = null!;
-	[Export] public Node2D[] Targets { get; private set; } = [];
+	[Export] public Node2D[] Targets { get; set; } = [];
 
 	[Export] public TargetModes TargetMode { get; protected set; } = TargetModes.Any;
 
@@ -224,7 +224,15 @@ public partial class StandardProjectile : RigidBody2D
 		
 		Log.Me(() => $"Area entered: {area.Name}", LogCollision);
 
-		bool isTarget = Targets.Contains(area);
+
+		bool isTarget = false;
+
+		foreach (Node2D target in Targets) {
+            if (area.GetParent() == target) {
+                isTarget = true;
+				break;
+            }
+		}
 
 		// Whitelist
 		if (TargetMode == TargetModes.Whitelist) {

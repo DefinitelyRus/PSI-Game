@@ -7,6 +7,7 @@
 script = ExtResource("2_kw8fn")
 ProjectileName = "Rifle Bullet"
 ProjectileID = "rifle_bullet"
+TargetMode = 2
 Force = 1500.0
 
 [node name="Collision Shape" parent="." index="0"]

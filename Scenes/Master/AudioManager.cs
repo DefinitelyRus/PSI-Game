@@ -1,4 +1,5 @@
 using Godot;
+using Godot.Collections;
 namespace CommonScripts;
 
 public partial class AudioManager : Node2D {
@@ -16,6 +17,9 @@ public partial class AudioManager : Node2D {
 	#endregion
 
 	#region Nodes & Components
+
+	[ExportGroup("Nodes & Components")]
+	[Export] public Dictionary<string, AudioStream> SFXLibrary { get; private set; } = [];
 
 	public AudioStreamPlayer MusicPlayer { get; private set; } = null!;
 
@@ -51,6 +55,16 @@ public partial class AudioManager : Node2D {
 
 	#region Media Control
 
+	public static AudioStreamPlayer? PlaySFX(string sfxName, float volume = 1f) {
+		if (!Instance.SFXLibrary.TryGetValue(sfxName, out AudioStream? stream)) {
+			Log.Warn(() => $"SFX '{sfxName}' not found in SFX Library!", true, true);
+			return null;
+		}
+
+		return PlaySFX(stream, volume);
+	}
+
+
 	public static AudioStreamPlayer PlaySFX(AudioStream stream, float volume = 1f) {
 		AudioStreamPlayer sfxPlayer = new();
 		Instance.AddChild(sfxPlayer);
@@ -58,10 +72,20 @@ public partial class AudioManager : Node2D {
 		sfxPlayer.Stream = stream;
 		sfxPlayer.VolumeLinear = volume * Instance.SFXVolume;
 		sfxPlayer.Autoplay = false;
-		sfxPlayer.Finished += () => sfxPlayer.QueueFree();
+		sfxPlayer.Finished += sfxPlayer.QueueFree;
 
 		sfxPlayer.Play();
 		return sfxPlayer;
+	}
+
+
+	public static AudioStreamPlayer2D? PlaySFX2D(string sfxName, Vector2 position, float volume = 1f) {
+		if (!Instance.SFXLibrary.TryGetValue(sfxName, out AudioStream? stream)) {
+			Log.Warn(() => $"SFX '{sfxName}' not found in SFX Library!", true, true);
+			return null;
+		}
+
+		return PlaySFX2D(stream, position, volume);
 	}
 
 
@@ -73,7 +97,7 @@ public partial class AudioManager : Node2D {
 		sfxPlayer.VolumeLinear = volume * Instance.SFXVolume;
 		sfxPlayer.Position = position;
 		sfxPlayer.Autoplay = false;
-		sfxPlayer.Finished += () => sfxPlayer.QueueFree();
+		sfxPlayer.Finished += sfxPlayer.QueueFree;
 
 		sfxPlayer.Play();
 		return sfxPlayer;
