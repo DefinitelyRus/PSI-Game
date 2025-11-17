@@ -210,12 +210,12 @@ public partial class Commander : Node {
 
 	public static void SelectItem(int itemIndex) {
 		if (FocusedUnit == null) {
-			Log.Me(() => "SelectItem: No focused unit set.", Instance.LogInput);
+			Log.Me(() => "No focused unit set.", Instance.LogInput);
 			return;
 		}
 
 		if (itemIndex < 0 || itemIndex >= FocusedUnit.Inventory.Count) {
-			Log.Me(() => $"SelectItem: Item index {itemIndex} is out of range (0 to {FocusedUnit.Inventory.Count - 1}).", Instance.LogInput);
+			Log.Me(() => $"Item index {itemIndex} is out of range (0 to {FocusedUnit.Inventory.Count - 1}).", Instance.LogInput);
 			return;
 		}
 
