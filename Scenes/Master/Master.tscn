@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://d3cvhjbvnx1a1"]
+[gd_scene load_steps=17 format=3 uid="uid://d3cvhjbvnx1a1"]
 
 [ext_resource type="Script" uid="uid://cdfonun0qopbr" path="res://Scenes/Master/Master.cs" id="1_o4rt4"]
 [ext_resource type="Script" uid="uid://bskjggdrqe3xx" path="res://Scenes/Master/SceneLoader.cs" id="2_7tgqy"]
@@ -12,9 +12,10 @@
 [ext_resource type="PackedScene" uid="uid://b6yrlsn2k0uvf" path="res://Prefabs/StandardCharacter/Units/Mira Kale/Mira Kale.tscn" id="6_0hine"]
 [ext_resource type="Script" uid="uid://dv8fmgivi507t" path="res://Scenes/Master/AIDirector.cs" id="7_0hine"]
 [ext_resource type="PackedScene" uid="uid://dmuhp2l2j70gn" path="res://Prefabs/StandardCharacter/Units/Orra Kale/Orra Kale.tscn" id="7_4hy21"]
-[ext_resource type="PackedScene" uid="uid://4av0n3taxtct" path="res://Scenes/Levels/Release/ParkingLot.tscn" id="10_8ixx1"]
-[ext_resource type="PackedScene" uid="uid://2sdjs7gc04c5" path="res://Scenes/Levels/Release/Office.tscn" id="13_0hine"]
+[ext_resource type="PackedScene" uid="uid://4av0n3taxtct" path="res://Scenes/Levels/Release/ParkingLot/ParkingLot.tscn" id="10_8ixx1"]
+[ext_resource type="PackedScene" uid="uid://2sdjs7gc04c5" path="res://Scenes/Levels/Release/Office/Office.tscn" id="13_0hine"]
 [ext_resource type="PackedScene" uid="uid://o52kke4dfdo0" path="res://Prefabs/UI/player_ui.tscn" id="14_yfaob"]
+[ext_resource type="PackedScene" uid="uid://b2uvlodlqe2mk" path="res://Scenes/Levels/Release/Warehouse/Warehouse.tscn" id="15_xey05"]
 
 [node name="Master" type="Node" node_paths=PackedStringArray("SceneLoader", "InputManager")]
 process_mode = 3

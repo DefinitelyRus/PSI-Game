@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://drho55fepd4p7" path="res://Scenes/Levels/StandardLevel.tscn" id="1_lp5d7"]
 [ext_resource type="Texture2D" uid="uid://yik1c23xcmb4" path="res://Sprites/World Sprites/Level 2 - Warehouse/Warehouse-Asset.png" id="2_s4xl0"]
-[ext_resource type="PackedScene" uid="uid://bh4ior7florkf" path="res://Prefabs/Props/elevator.tscn" id="3_keoyu"]
+[ext_resource type="PackedScene" path="res://Prefabs/Props/elevator.tscn" id="3_keoyu"]
 [ext_resource type="PackedScene" uid="uid://codtaou87i321" path="res://Prefabs/Props/Level 2/blue_container_up.tscn" id="4_0fd54"]
 [ext_resource type="PackedScene" uid="uid://0m603sv8ko18" path="res://Prefabs/Props/Level 2/beige_container_side.tscn" id="4_uswmi"]
 [ext_resource type="PackedScene" uid="uid://hvosro84sbgh" path="res://Prefabs/Props/Level 2/beige_container_up.tscn" id="5_ac5sp"]
