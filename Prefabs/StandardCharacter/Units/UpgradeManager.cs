@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using CommonScripts;
 using Godot;
 namespace Game;
@@ -90,7 +89,7 @@ public partial class UpgradeManager : Node2D {
             AudioManager.PlaySFX("error");
             return;
         }
-        
+
         Items.Add(item);
     }
 
