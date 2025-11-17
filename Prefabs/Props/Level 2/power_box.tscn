@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://c3bc6dpnew5m2"]
+
+[ext_resource type="PackedScene" uid="uid://bnslwo4ecgkcn" path="res://Prefabs/StandardProp/StandardProp.tscn" id="1_okd7g"]
+[ext_resource type="Texture2D" uid="uid://yik1c23xcmb4" path="res://Sprites/World Sprites/Level 2 - Warehouse/Warehouse-Asset.png" id="2_h78pc"]
+
+[node name="Power Box" instance=ExtResource("1_okd7g")]
+PropName = "Power Box"
+PropID = "power_box"
+PropDescription = "A big power boxs"
+
+[node name="Sprite2D" parent="." index="1"]
+texture = ExtResource("2_h78pc")
+region_rect = Rect2(226, 149, 44, 55)
