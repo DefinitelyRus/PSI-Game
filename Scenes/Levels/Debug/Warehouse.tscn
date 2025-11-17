@@ -1697,7 +1697,7 @@ tile_set = SubResource("TileSet_d3n7q")
 y_sort_origin = 16
 
 [node name="Floor Decorations" parent="TileMap" index="4"]
-tile_map_data = PackedByteArray("AAB3ABEAAAAiAAoAAAB3ABQAAAAiAAoAAABvABEAAAAfAAoAAABvABQAAAAfAAoAAABbAAUAAAAPAAcAAABbAAgAAAAPAAcAAABjAAgAAAAPAAcAAABjAAUAAAAPAAcAAABjAB8AAAAAAAIAAABjACAAAAAAAAMAAABkAB8AAAABAAIAAABkACAAAAABAAMAAABlAB8AAAACAAIAAABlACAAAAACAAMAAABmAB8AAAADAAIAAABmACAAAAADAAMAAABnAB8AAAAEAAIAAABnACAAAAAEAAMAAABoACAAAAAFAAMAAABgAB4AAAAPAAcAAABoAB4AAAAPAAcAAABgACEAAAAPAAcAAABoACEAAAAPAAcAAABoAB8AAAAFAAIAAABjACEAAAAEAAYAAABlAB4AAAAEAAYAAAByABQAAAAiAAoAAAB1ABEAAAAgAAoAAABxABAAAAACAAYAAABdAAYAAAAGAAYAAABiAAcAAAAEAAYAAAAQABgAAAAPAAcAAAAdABgAAAAPAAcAAAAQABwAAAAPAAcAAAAdABwAAAAPAAcAAAAQABYAAAAPAAAAAAAQABcAAAAPAAEAAAARABYAAAAQAAAAAAARABcAAAAQAAEAAABYABEAAAAgAAMAAABYABIAAAAgAAQAAABZABEAAAAhAAMAAABZABIAAAAhAAQAAABXABUAAAAgAAEAAABXABQAAAAgAAAAAABYABQAAAAhAAAAAABYABUAAAAhAAEAAABZABUAAAAiAAEAAABWABMAAAAgAAIAAABXABMAAAAhAAIAAABWABEAAAAiAAMAAAAEAAAAAAACAAYAAAAFAAEAAAACAAYAAAAbAAwAAAACAAYAAAAeAAgAAAACAAYAAAASABIAAAACAAYAAAAKAA4AAAACAAYAAAAGABIAAAACAAYAAAANABUAAAACAAYAAAALAB0AAAACAAYAAAAgACAAAAAVAAYAAFArABgAAAACAAYAAAAnABUAAAACAAYAAAAxAA4AAAACAAYAAAAyAAkAAAACAAYAAABAAAsAAAACAAYAAAA6ABIAAAACAAYAAAA+ABsAAAACAAYAAAA4ACQAAAACAAYAAAAvACIAAAACAAYAAABGACUAAAACAAYAAABMACAAAAACAAYAAABLABUAAAACAAYAAABMAA4AAAACAAYAAAADABEAAAAGAAYA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AACzAB4AAAAEAAYAAAC0ADQAAAAKAA0AAACvACQAAAAKAA0AAACcACAAAAAKAA0AAACFACgAAAAKAA0AAACTADAAAAAKAA0AAACiAC8AAAAJAA0AAAC3ACUAAAAJAA0AAACMACUAAAAJAA0AAACCAB4AAAAJAA0AAAClACgAAAALAA0AAACxACsAAAALAA0AAACYACQAAAALAA0AAACOADgAAAAKAA0AAACHAB0AAAAPAAgAAACRAB0AAAAPAAgAAACbAB0AAAAPAAgAAAClAB0AAAAPAAgAAACvAB0AAAAPAAgAAAC0ADkAAAAPAAgAAACCADkAAAAPAAgAAACVADkAAAAPAAgAAACqADkAAAAPAAgAAACgADkAAAAPAAgAAACMADkAAAAPAAgAAADAACIAAAAPAAgAAADBACQAAAACAAYAAADEACQAAAAKAA0AAADHACMAAAAEAAYAAADHACUAAAAPAAgAAADJABoAAAACAAYAAADJACUAAAACAAYAAADKABwAAAAKAA0AAADKAB8AAAAKAA0AAADKACQAAAAEAAYAAADLACAAAAACAAYAAADMACIAAAAJAA0AAADNAB0AAAAFAAYAAADNACMAAAAKAA0AAADPAB4AAAAKAA0AAADPACIAAAAPAAgAAADQABsAAAACAAYAAADRAB8AAAAFAAYAAADRACIAAAACAAYAAADRACQAAAAJAA0AAACAAC4AAAAVAAYAACCBAC4AAAAWAAYAACCBACUAAAAcAAwAAFCBACYAAAAdAAwAAFCAACUAAAAcAA0AAFCAACYAAAAdAA0AAFCAADgAAAAcAAwAACCAADcAAAAcAA0AACCBADgAAAAdAAwAACCBADcAAAAdAA0AACCJADcAAAAVAAYAAFCJADgAAAAWAAYAAFCTADgAAAAcAA0AAHCTADcAAAAdAA0AAHCUADgAAAAcAAwAAHCUADcAAAAdAAwAAHCTACkAAAAVAAYAAACUACkAAAAWAAYAAACeACAAAAAVAAYAAFCeACEAAAAWAAYAAFCTACAAAAAcAAwAAACTACEAAAAcAA0AAACUACAAAAAdAAwAAACUACEAAAAdAA0AAAA=")
+tile_map_data = PackedByteArray("AAB3ABEAAAAiAAoAAAB3ABQAAAAiAAoAAABvABEAAAAfAAoAAABvABQAAAAfAAoAAABbAAUAAAAPAAcAAABbAAgAAAAPAAcAAABjAAgAAAAPAAcAAABjAAUAAAAPAAcAAABjAB8AAAAAAAIAAABjACAAAAAAAAMAAABkAB8AAAABAAIAAABkACAAAAABAAMAAABlAB8AAAACAAIAAABlACAAAAACAAMAAABmAB8AAAADAAIAAABmACAAAAADAAMAAABnAB8AAAAEAAIAAABnACAAAAAEAAMAAABoACAAAAAFAAMAAABgAB4AAAAPAAcAAABoAB4AAAAPAAcAAABgACEAAAAPAAcAAABoACEAAAAPAAcAAABoAB8AAAAFAAIAAABjACEAAAAEAAYAAABlAB4AAAAEAAYAAAByABQAAAAiAAoAAAB1ABEAAAAgAAoAAABxABAAAAACAAYAAABdAAYAAAAGAAYAAABiAAcAAAAEAAYAAAAQABgAAAAPAAcAAAAdABgAAAAPAAcAAAAQABwAAAAPAAcAAAAdABwAAAAPAAcAAAAQABYAAAAPAAAAAAAQABcAAAAPAAEAAAARABYAAAAQAAAAAAARABcAAAAQAAEAAABYABEAAAAgAAMAAABYABIAAAAgAAQAAABZABEAAAAhAAMAAABZABIAAAAhAAQAAABXABUAAAAgAAEAAABXABQAAAAgAAAAAABYABQAAAAhAAAAAABYABUAAAAhAAEAAABZABUAAAAiAAEAAABWABMAAAAgAAIAAABXABMAAAAhAAIAAABWABEAAAAiAAMAAAAEAAAAAAACAAYAAAAFAAEAAAACAAYAAAAbAAwAAAACAAYAAAAeAAgAAAACAAYAAAASABIAAAACAAYAAAAKAA4AAAACAAYAAAAGABIAAAACAAYAAAANABUAAAACAAYAAAALAB0AAAACAAYAAAAgACAAAAAVAAYAAFArABgAAAACAAYAAAAnABUAAAACAAYAAAAxAA4AAAACAAYAAAAyAAkAAAACAAYAAABAAAsAAAACAAYAAAA6ABIAAAACAAYAAAA+ABsAAAACAAYAAAA4ACQAAAACAAYAAAAvACIAAAACAAYAAABGACUAAAACAAYAAABMACAAAAACAAYAAABLABUAAAACAAYAAABMAA4AAAACAAYAAAADABEAAAAGAAYA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")
 tile_set = SubResource("TileSet_ix7g4")
 
 [node name="Elevators" type="Node2D" parent="Props" index="0"]
@@ -1734,63 +1734,96 @@ position = Vector2(844, 407)
 position = Vector2(2076, 551)
 
 [node name="beige_container_up9" parent="Props/Shipping Containers1" index="5" instance=ExtResource("5_ac5sp")]
-position = Vector2(2556, 680)
+position = Vector2(2536, 680)
 
-[node name="beige_container_up8" parent="Props/Shipping Containers1" index="6" instance=ExtResource("5_ac5sp")]
-position = Vector2(2151, 699)
+[node name="beige_container_up10" parent="Props/Shipping Containers1" index="6" instance=ExtResource("5_ac5sp")]
+position = Vector2(2794, 565)
 
-[node name="beige_container_up2" parent="Props/Shipping Containers1" index="7" instance=ExtResource("5_ac5sp")]
+[node name="beige_container_up11" parent="Props/Shipping Containers1" index="7" instance=ExtResource("5_ac5sp")]
+position = Vector2(2905, 760)
+
+[node name="beige_container_up8" parent="Props/Shipping Containers1" index="8" instance=ExtResource("5_ac5sp")]
+position = Vector2(2131, 699)
+
+[node name="beige_container_up2" parent="Props/Shipping Containers1" index="9" instance=ExtResource("5_ac5sp")]
 position = Vector2(690, 183)
 
-[node name="beige_container_up3" parent="Props/Shipping Containers1" index="8" instance=ExtResource("5_ac5sp")]
+[node name="beige_container_up3" parent="Props/Shipping Containers1" index="10" instance=ExtResource("5_ac5sp")]
 position = Vector2(545, 456)
 
-[node name="Beige Container" parent="Props/Shipping Containers1" index="9" instance=ExtResource("4_uswmi")]
+[node name="Beige Container" parent="Props/Shipping Containers1" index="11" instance=ExtResource("4_uswmi")]
 position = Vector2(606, 206)
 
-[node name="Beige Container3" parent="Props/Shipping Containers1" index="10" instance=ExtResource("4_uswmi")]
+[node name="Beige Container3" parent="Props/Shipping Containers1" index="12" instance=ExtResource("4_uswmi")]
 position = Vector2(564, 408)
 
-[node name="Beige Container10" parent="Props/Shipping Containers1" index="11" instance=ExtResource("4_uswmi")]
+[node name="Beige Container10" parent="Props/Shipping Containers1" index="13" instance=ExtResource("4_uswmi")]
 position = Vector2(1169, 347)
 
-[node name="Beige Container4" parent="Props/Shipping Containers1" index="12" instance=ExtResource("4_uswmi")]
+[node name="Beige Container4" parent="Props/Shipping Containers1" index="14" instance=ExtResource("4_uswmi")]
 position = Vector2(587, 437)
 
-[node name="Beige Container6" parent="Props/Shipping Containers1" index="13" instance=ExtResource("4_uswmi")]
+[node name="Beige Container6" parent="Props/Shipping Containers1" index="15" instance=ExtResource("4_uswmi")]
 position = Vector2(671, 611)
 
-[node name="Beige Container5" parent="Props/Shipping Containers1" index="14" instance=ExtResource("4_uswmi")]
+[node name="Beige Container5" parent="Props/Shipping Containers1" index="16" instance=ExtResource("4_uswmi")]
 position = Vector2(594, 462)
 
-[node name="Beige Container7" parent="Props/Shipping Containers1" index="15" instance=ExtResource("4_uswmi")]
+[node name="Beige Container7" parent="Props/Shipping Containers1" index="17" instance=ExtResource("4_uswmi")]
 position = Vector2(1240, 123)
 
-[node name="Beige Container8" parent="Props/Shipping Containers1" index="16" instance=ExtResource("4_uswmi")]
+[node name="Beige Container8" parent="Props/Shipping Containers1" index="18" instance=ExtResource("4_uswmi")]
 position = Vector2(1185, 130)
 
-[node name="Beige Container9" parent="Props/Shipping Containers1" index="17" instance=ExtResource("4_uswmi")]
+[node name="Beige Container9" parent="Props/Shipping Containers1" index="19" instance=ExtResource("4_uswmi")]
 position = Vector2(1218, 153)
 
-[node name="Beige Container12" parent="Props/Shipping Containers1" index="18" instance=ExtResource("4_uswmi")]
+[node name="Beige Container12" parent="Props/Shipping Containers1" index="20" instance=ExtResource("4_uswmi")]
 position = Vector2(2056, 495)
 
-[node name="Beige Container16" parent="Props/Shipping Containers1" index="19" instance=ExtResource("4_uswmi")]
-position = Vector2(2552, 640)
+[node name="Beige Container16" parent="Props/Shipping Containers1" index="21" instance=ExtResource("4_uswmi")]
+position = Vector2(2532, 640)
 
-[node name="Beige Container17" parent="Props/Shipping Containers1" index="20" instance=ExtResource("4_uswmi")]
-position = Vector2(2471, 623)
+[node name="Beige Container17" parent="Props/Shipping Containers1" index="22" instance=ExtResource("4_uswmi")]
+position = Vector2(2451, 623)
 
-[node name="Beige Container13" parent="Props/Shipping Containers1" index="21" instance=ExtResource("4_uswmi")]
-position = Vector2(2217, 771)
+[node name="Beige Container23" parent="Props/Shipping Containers1" index="23" instance=ExtResource("4_uswmi")]
+position = Vector2(2609, 468)
 
-[node name="Beige Container15" parent="Props/Shipping Containers1" index="22" instance=ExtResource("4_uswmi")]
-position = Vector2(2464, 735)
+[node name="Beige Container18" parent="Props/Shipping Containers1" index="24" instance=ExtResource("4_uswmi")]
+position = Vector2(2802, 609)
 
-[node name="Beige Container14" parent="Props/Shipping Containers1" index="23" instance=ExtResource("4_uswmi")]
-position = Vector2(2269, 792)
+[node name="Beige Container19" parent="Props/Shipping Containers1" index="25" instance=ExtResource("4_uswmi")]
+position = Vector2(2882, 715)
 
-[node name="Beige Container11" parent="Props/Shipping Containers1" index="24" instance=ExtResource("4_uswmi")]
+[node name="Beige Container22" parent="Props/Shipping Containers1" index="26" instance=ExtResource("4_uswmi")]
+position = Vector2(2784, 765)
+
+[node name="Beige Container26" parent="Props/Shipping Containers1" index="27" instance=ExtResource("4_uswmi")]
+position = Vector2(2748, 896)
+
+[node name="Beige Container25" parent="Props/Shipping Containers1" index="28" instance=ExtResource("4_uswmi")]
+position = Vector2(2658, 932)
+
+[node name="Beige Container20" parent="Props/Shipping Containers1" index="29" instance=ExtResource("4_uswmi")]
+position = Vector2(2859, 741)
+
+[node name="Beige Container24" parent="Props/Shipping Containers1" index="30" instance=ExtResource("4_uswmi")]
+position = Vector2(2661, 476)
+
+[node name="Beige Container13" parent="Props/Shipping Containers1" index="31" instance=ExtResource("4_uswmi")]
+position = Vector2(2197, 771)
+
+[node name="Beige Container15" parent="Props/Shipping Containers1" index="32" instance=ExtResource("4_uswmi")]
+position = Vector2(2444, 735)
+
+[node name="Beige Container21" parent="Props/Shipping Containers1" index="33" instance=ExtResource("4_uswmi")]
+position = Vector2(2444, 735)
+
+[node name="Beige Container14" parent="Props/Shipping Containers1" index="34" instance=ExtResource("4_uswmi")]
+position = Vector2(2249, 792)
+
+[node name="Beige Container11" parent="Props/Shipping Containers1" index="35" instance=ExtResource("4_uswmi")]
 position = Vector2(1241, 614)
 
 [node name="ShippingContainers2" type="Node2D" parent="Props" index="2"]
@@ -1821,123 +1854,156 @@ position = Vector2(2038, 537)
 position = Vector2(2099, 499)
 
 [node name="blue_container_up9" parent="Props/ShippingContainers2" index="8" instance=ExtResource("4_0fd54")]
-position = Vector2(2269, 595)
+position = Vector2(2249, 595)
 
-[node name="blue_container_up10" parent="Props/ShippingContainers2" index="9" instance=ExtResource("4_0fd54")]
-position = Vector2(2277, 648)
+[node name="blue_container_up12" parent="Props/ShippingContainers2" index="9" instance=ExtResource("4_0fd54")]
+position = Vector2(2769, 719)
 
-[node name="Blue Container" parent="Props/ShippingContainers2" index="10" instance=ExtResource("6_0pyxq")]
+[node name="blue_container_up13" parent="Props/ShippingContainers2" index="10" instance=ExtResource("4_0fd54")]
+position = Vector2(2703, 910)
+
+[node name="blue_container_up10" parent="Props/ShippingContainers2" index="11" instance=ExtResource("4_0fd54")]
+position = Vector2(2257, 648)
+
+[node name="blue_container_up11" parent="Props/ShippingContainers2" index="12" instance=ExtResource("4_0fd54")]
+position = Vector2(2806, 725)
+
+[node name="Blue Container" parent="Props/ShippingContainers2" index="13" instance=ExtResource("6_0pyxq")]
 position = Vector2(564, 354)
 
-[node name="Blue Container3" parent="Props/ShippingContainers2" index="11" instance=ExtResource("6_0pyxq")]
+[node name="Blue Container3" parent="Props/ShippingContainers2" index="14" instance=ExtResource("6_0pyxq")]
 position = Vector2(2155, 525)
 
-[node name="Blue Container4" parent="Props/ShippingContainers2" index="12" instance=ExtResource("6_0pyxq")]
-position = Vector2(2526, 612)
+[node name="Blue Container5" parent="Props/ShippingContainers2" index="15" instance=ExtResource("6_0pyxq")]
+position = Vector2(2840, 766)
 
-[node name="Blue Container2" parent="Props/ShippingContainers2" index="13" instance=ExtResource("6_0pyxq")]
+[node name="Blue Container6" parent="Props/ShippingContainers2" index="16" instance=ExtResource("6_0pyxq")]
+position = Vector2(2625, 503)
+
+[node name="Blue Container4" parent="Props/ShippingContainers2" index="17" instance=ExtResource("6_0pyxq")]
+position = Vector2(2506, 612)
+
+[node name="Blue Container2" parent="Props/ShippingContainers2" index="18" instance=ExtResource("6_0pyxq")]
 position = Vector2(528, 602)
 
-[node name="Container Big" parent="Props/ShippingContainers2" index="14" instance=ExtResource("8_2xd7g")]
+[node name="Container Big" parent="Props/ShippingContainers2" index="19" instance=ExtResource("8_2xd7g")]
 position = Vector2(763, 336)
 
-[node name="Container Big2" parent="Props/ShippingContainers2" index="15" instance=ExtResource("8_2xd7g")]
+[node name="Container Big2" parent="Props/ShippingContainers2" index="20" instance=ExtResource("8_2xd7g")]
 position = Vector2(798, 336)
 
-[node name="Container Big3" parent="Props/ShippingContainers2" index="16" instance=ExtResource("8_2xd7g")]
+[node name="Container Big3" parent="Props/ShippingContainers2" index="21" instance=ExtResource("8_2xd7g")]
 position = Vector2(832, 336)
 
-[node name="Container Big4" parent="Props/ShippingContainers2" index="17" instance=ExtResource("8_2xd7g")]
+[node name="Container Big4" parent="Props/ShippingContainers2" index="22" instance=ExtResource("8_2xd7g")]
 position = Vector2(867, 336)
 
-[node name="Container Big5" parent="Props/ShippingContainers2" index="18" instance=ExtResource("8_2xd7g")]
+[node name="Container Big5" parent="Props/ShippingContainers2" index="23" instance=ExtResource("8_2xd7g")]
 position = Vector2(763, 411)
 
-[node name="Container Big6" parent="Props/ShippingContainers2" index="19" instance=ExtResource("8_2xd7g")]
+[node name="Container Big6" parent="Props/ShippingContainers2" index="24" instance=ExtResource("8_2xd7g")]
 position = Vector2(798, 411)
 
-[node name="Container Big11" parent="Props/ShippingContainers2" index="20" instance=ExtResource("8_2xd7g")]
-position = Vector2(2168, 628)
+[node name="Container Big11" parent="Props/ShippingContainers2" index="25" instance=ExtResource("8_2xd7g")]
+position = Vector2(2148, 628)
 
-[node name="Container Big12" parent="Props/ShippingContainers2" index="21" instance=ExtResource("8_2xd7g")]
-position = Vector2(2202, 628)
+[node name="Container Big12" parent="Props/ShippingContainers2" index="26" instance=ExtResource("8_2xd7g")]
+position = Vector2(2182, 628)
 
-[node name="Container Big16" parent="Props/ShippingContainers2" index="22" instance=ExtResource("8_2xd7g")]
-position = Vector2(2236, 628)
+[node name="Container Big16" parent="Props/ShippingContainers2" index="27" instance=ExtResource("8_2xd7g")]
+position = Vector2(2216, 628)
 
-[node name="Container Big17" parent="Props/ShippingContainers2" index="23" instance=ExtResource("8_2xd7g")]
-position = Vector2(2164, 766)
+[node name="Container Big17" parent="Props/ShippingContainers2" index="28" instance=ExtResource("8_2xd7g")]
+position = Vector2(2144, 766)
 
-[node name="Container Big22" parent="Props/ShippingContainers2" index="24" instance=ExtResource("8_2xd7g")]
-position = Vector2(2202, 703)
+[node name="Container Big22" parent="Props/ShippingContainers2" index="29" instance=ExtResource("8_2xd7g")]
+position = Vector2(2182, 703)
 
-[node name="Container Big23" parent="Props/ShippingContainers2" index="25" instance=ExtResource("8_2xd7g")]
-position = Vector2(2236, 703)
+[node name="Container Big23" parent="Props/ShippingContainers2" index="30" instance=ExtResource("8_2xd7g")]
+position = Vector2(2216, 703)
 
-[node name="Container Big25" parent="Props/ShippingContainers2" index="26" instance=ExtResource("8_2xd7g")]
-position = Vector2(2475, 896)
+[node name="Container Big25" parent="Props/ShippingContainers2" index="31" instance=ExtResource("8_2xd7g")]
+position = Vector2(2455, 896)
 
-[node name="Container Big26" parent="Props/ShippingContainers2" index="27" instance=ExtResource("8_2xd7g")]
-position = Vector2(2509, 896)
+[node name="Container Big26" parent="Props/ShippingContainers2" index="32" instance=ExtResource("8_2xd7g")]
+position = Vector2(2489, 896)
 
-[node name="Container Big27" parent="Props/ShippingContainers2" index="28" instance=ExtResource("8_2xd7g")]
-position = Vector2(2543, 896)
+[node name="Container Big27" parent="Props/ShippingContainers2" index="33" instance=ExtResource("8_2xd7g")]
+position = Vector2(2523, 896)
 
-[node name="Container Big28" parent="Props/ShippingContainers2" index="29" instance=ExtResource("8_2xd7g")]
-position = Vector2(2475, 820)
+[node name="Container Big28" parent="Props/ShippingContainers2" index="34" instance=ExtResource("8_2xd7g")]
+position = Vector2(2455, 820)
 
-[node name="Container Big29" parent="Props/ShippingContainers2" index="30" instance=ExtResource("8_2xd7g")]
-position = Vector2(2509, 820)
+[node name="Container Big29" parent="Props/ShippingContainers2" index="35" instance=ExtResource("8_2xd7g")]
+position = Vector2(2489, 820)
 
-[node name="Container Big30" parent="Props/ShippingContainers2" index="31" instance=ExtResource("8_2xd7g")]
-position = Vector2(2543, 820)
+[node name="Container Big30" parent="Props/ShippingContainers2" index="36" instance=ExtResource("8_2xd7g")]
+position = Vector2(2523, 820)
 
-[node name="Container Big31" parent="Props/ShippingContainers2" index="32" instance=ExtResource("8_2xd7g")]
-position = Vector2(2474, 679)
+[node name="Container Big31" parent="Props/ShippingContainers2" index="37" instance=ExtResource("8_2xd7g")]
+position = Vector2(2454, 679)
 
-[node name="Container Big34" parent="Props/ShippingContainers2" index="33" instance=ExtResource("8_2xd7g")]
-position = Vector2(2509, 667)
+[node name="Container Big35" parent="Props/ShippingContainers2" index="38" instance=ExtResource("8_2xd7g")]
+position = Vector2(2811, 499)
 
-[node name="Container Big32" parent="Props/ShippingContainers2" index="34" instance=ExtResource("8_2xd7g")]
-position = Vector2(2509, 744)
+[node name="Container Big37" parent="Props/ShippingContainers2" index="39" instance=ExtResource("8_2xd7g")]
+position = Vector2(2849, 576)
 
-[node name="Container Big33" parent="Props/ShippingContainers2" index="35" instance=ExtResource("8_2xd7g")]
-position = Vector2(2543, 744)
+[node name="Container Big38" parent="Props/ShippingContainers2" index="40" instance=ExtResource("8_2xd7g")]
+position = Vector2(2885, 576)
 
-[node name="Container Big7" parent="Props/ShippingContainers2" index="36" instance=ExtResource("8_2xd7g")]
+[node name="Container Big39" parent="Props/ShippingContainers2" index="41" instance=ExtResource("8_2xd7g")]
+position = Vector2(2852, 654)
+
+[node name="Container Big40" parent="Props/ShippingContainers2" index="42" instance=ExtResource("8_2xd7g")]
+position = Vector2(2809, 661)
+
+[node name="Container Big41" parent="Props/ShippingContainers2" index="43" instance=ExtResource("8_2xd7g")]
+position = Vector2(2886, 661)
+
+[node name="Container Big34" parent="Props/ShippingContainers2" index="44" instance=ExtResource("8_2xd7g")]
+position = Vector2(2489, 667)
+
+[node name="Container Big32" parent="Props/ShippingContainers2" index="45" instance=ExtResource("8_2xd7g")]
+position = Vector2(2489, 744)
+
+[node name="Container Big33" parent="Props/ShippingContainers2" index="46" instance=ExtResource("8_2xd7g")]
+position = Vector2(2523, 744)
+
+[node name="Container Big7" parent="Props/ShippingContainers2" index="47" instance=ExtResource("8_2xd7g")]
 position = Vector2(837, 474)
 
-[node name="Container Big8" parent="Props/ShippingContainers2" index="37" instance=ExtResource("8_2xd7g")]
+[node name="Container Big8" parent="Props/ShippingContainers2" index="48" instance=ExtResource("8_2xd7g")]
 position = Vector2(878, 426)
 
-[node name="Container Big9" parent="Props/ShippingContainers2" index="38" instance=ExtResource("8_2xd7g")]
+[node name="Container Big9" parent="Props/ShippingContainers2" index="49" instance=ExtResource("8_2xd7g")]
 position = Vector2(763, 486)
 
-[node name="Container Big10" parent="Props/ShippingContainers2" index="39" instance=ExtResource("8_2xd7g")]
+[node name="Container Big10" parent="Props/ShippingContainers2" index="50" instance=ExtResource("8_2xd7g")]
 position = Vector2(798, 486)
 
-[node name="Container Big13" parent="Props/ShippingContainers2" index="40" instance=ExtResource("8_2xd7g")]
+[node name="Container Big13" parent="Props/ShippingContainers2" index="51" instance=ExtResource("8_2xd7g")]
 position = Vector2(1047, 336)
 
-[node name="Container Big14" parent="Props/ShippingContainers2" index="41" instance=ExtResource("8_2xd7g")]
+[node name="Container Big14" parent="Props/ShippingContainers2" index="52" instance=ExtResource("8_2xd7g")]
 position = Vector2(1082, 336)
 
-[node name="Container Big15" parent="Props/ShippingContainers2" index="42" instance=ExtResource("8_2xd7g")]
+[node name="Container Big15" parent="Props/ShippingContainers2" index="53" instance=ExtResource("8_2xd7g")]
 position = Vector2(1116, 336)
 
-[node name="Container Big18" parent="Props/ShippingContainers2" index="43" instance=ExtResource("8_2xd7g")]
+[node name="Container Big18" parent="Props/ShippingContainers2" index="54" instance=ExtResource("8_2xd7g")]
 position = Vector2(1082, 411)
 
-[node name="Container Big19" parent="Props/ShippingContainers2" index="44" instance=ExtResource("8_2xd7g")]
+[node name="Container Big19" parent="Props/ShippingContainers2" index="55" instance=ExtResource("8_2xd7g")]
 position = Vector2(1116, 411)
 
-[node name="Container Big20" parent="Props/ShippingContainers2" index="45" instance=ExtResource("8_2xd7g")]
+[node name="Container Big20" parent="Props/ShippingContainers2" index="56" instance=ExtResource("8_2xd7g")]
 position = Vector2(1151, 411)
 
-[node name="Container Big21" parent="Props/ShippingContainers2" index="46" instance=ExtResource("8_2xd7g")]
+[node name="Container Big21" parent="Props/ShippingContainers2" index="57" instance=ExtResource("8_2xd7g")]
 position = Vector2(1047, 442)
 
-[node name="Container Big24" parent="Props/ShippingContainers2" index="47" instance=ExtResource("8_2xd7g")]
+[node name="Container Big24" parent="Props/ShippingContainers2" index="58" instance=ExtResource("8_2xd7g")]
 position = Vector2(1151, 486)
 
 [node name="Lift" type="Node2D" parent="Props" index="3"]
@@ -1947,7 +2013,7 @@ y_sort_enabled = true
 position = Vector2(547, 277)
 
 [node name="Lift3" parent="Props/Lift" index="1" instance=ExtResource("8_ac5sp")]
-position = Vector2(2205, 804)
+position = Vector2(2185, 804)
 
 [node name="Lift2" parent="Props/Lift" index="2" instance=ExtResource("8_ac5sp")]
 position = Vector2(1110, 170)
@@ -1959,27 +2025,36 @@ y_sort_enabled = true
 position = Vector2(518, 306)
 
 [node name="Tires7" parent="Props/Tires" index="1" instance=ExtResource("9_0pyxq")]
-position = Vector2(2168, 823)
+position = Vector2(2148, 823)
 
 [node name="Tires9" parent="Props/Tires" index="2" instance=ExtResource("9_0pyxq")]
-position = Vector2(2464, 753)
+position = Vector2(2444, 753)
 
-[node name="Tires8" parent="Props/Tires" index="3" instance=ExtResource("9_0pyxq")]
+[node name="Tires10" parent="Props/Tires" index="3" instance=ExtResource("9_0pyxq")]
+position = Vector2(2777, 487)
+
+[node name="Tires11" parent="Props/Tires" index="4" instance=ExtResource("9_0pyxq")]
+position = Vector2(2876, 784)
+
+[node name="Tires8" parent="Props/Tires" index="5" instance=ExtResource("9_0pyxq")]
 position = Vector2(2120, 538)
 
-[node name="Tires3" parent="Props/Tires" index="4" instance=ExtResource("9_0pyxq")]
+[node name="Tires12" parent="Props/Tires" index="6" instance=ExtResource("9_0pyxq")]
+position = Vector2(2665, 893)
+
+[node name="Tires3" parent="Props/Tires" index="7" instance=ExtResource("9_0pyxq")]
 position = Vector2(575, 604)
 
-[node name="Tires4" parent="Props/Tires" index="5" instance=ExtResource("9_0pyxq")]
+[node name="Tires4" parent="Props/Tires" index="8" instance=ExtResource("9_0pyxq")]
 position = Vector2(515, 465)
 
-[node name="Tires5" parent="Props/Tires" index="6" instance=ExtResource("9_0pyxq")]
+[node name="Tires5" parent="Props/Tires" index="9" instance=ExtResource("9_0pyxq")]
 position = Vector2(1200, 599)
 
-[node name="Tires2" parent="Props/Tires" index="7" instance=ExtResource("9_0pyxq")]
+[node name="Tires2" parent="Props/Tires" index="10" instance=ExtResource("9_0pyxq")]
 position = Vector2(647, 118)
 
-[node name="Tires6" parent="Props/Tires" index="8" instance=ExtResource("9_0pyxq")]
+[node name="Tires6" parent="Props/Tires" index="11" instance=ExtResource("9_0pyxq")]
 position = Vector2(826, 533)
 
 [node name="Cones and Rails" type="Node2D" parent="Props" index="5"]
@@ -1998,7 +2073,7 @@ position = Vector2(2034, 575)
 position = Vector2(2104, 595)
 
 [node name="Traffic Cone11" parent="Props/Cones and Rails" index="4" instance=ExtResource("10_kfees")]
-position = Vector2(2140, 640)
+position = Vector2(2120, 623)
 
 [node name="Traffic Cone4" parent="Props/Cones and Rails" index="5" instance=ExtResource("10_kfees")]
 position = Vector2(596, 584)
@@ -2015,13 +2090,22 @@ position = Vector2(494, 311)
 [node name="Traffic Cone7" parent="Props/Cones and Rails" index="9" instance=ExtResource("10_kfees")]
 position = Vector2(1387, 372)
 
-[node name="Traffic Cone8" parent="Props/Cones and Rails" index="10" instance=ExtResource("10_kfees")]
+[node name="Traffic Cone12" parent="Props/Cones and Rails" index="10" instance=ExtResource("10_kfees")]
+position = Vector2(2572, 487)
+
+[node name="Traffic Cone13" parent="Props/Cones and Rails" index="11" instance=ExtResource("10_kfees")]
+position = Vector2(2705, 502)
+
+[node name="Traffic Cone14" parent="Props/Cones and Rails" index="12" instance=ExtResource("10_kfees")]
+position = Vector2(2760, 554)
+
+[node name="Traffic Cone8" parent="Props/Cones and Rails" index="13" instance=ExtResource("10_kfees")]
 position = Vector2(1429, 233)
 
-[node name="Guard Rail" parent="Props/Cones and Rails" index="11" instance=ExtResource("12_i4cxx")]
+[node name="Guard Rail" parent="Props/Cones and Rails" index="14" instance=ExtResource("12_i4cxx")]
 position = Vector2(1408, 253)
 
-[node name="Guard Rail2" parent="Props/Cones and Rails" index="12" instance=ExtResource("12_i4cxx")]
+[node name="Guard Rail2" parent="Props/Cones and Rails" index="15" instance=ExtResource("12_i4cxx")]
 position = Vector2(1408, 356)
 
 [node name="Tables" type="Node2D" parent="Props" index="6"]
@@ -2058,87 +2142,108 @@ position = Vector2(689, 130)
 position = Vector2(1108, 523)
 
 [node name="Boxes34" parent="Props/Boxes" index="2" instance=ExtResource("12_6p1r8")]
-position = Vector2(2275, 694)
+position = Vector2(2255, 694)
 
-[node name="Boxes35" parent="Props/Boxes" index="3" instance=ExtResource("12_6p1r8")]
-position = Vector2(2593, 748)
+[node name="Boxes38" parent="Props/Boxes" index="3" instance=ExtResource("12_6p1r8")]
+position = Vector2(2738, 496)
 
-[node name="Boxes28" parent="Props/Boxes" index="4" instance=ExtResource("12_6p1r8")]
+[node name="Boxes39" parent="Props/Boxes" index="4" instance=ExtResource("12_6p1r8")]
+position = Vector2(3017, 503)
+
+[node name="Boxes35" parent="Props/Boxes" index="5" instance=ExtResource("12_6p1r8")]
+position = Vector2(2573, 748)
+
+[node name="Boxes28" parent="Props/Boxes" index="6" instance=ExtResource("12_6p1r8")]
 position = Vector2(3327, 467)
 
-[node name="Boxes16" parent="Props/Boxes" index="5" instance=ExtResource("12_6p1r8")]
+[node name="Boxes16" parent="Props/Boxes" index="7" instance=ExtResource("12_6p1r8")]
 position = Vector2(539, 148)
 
-[node name="Boxes10" parent="Props/Boxes" index="6" instance=ExtResource("12_6p1r8")]
+[node name="Boxes10" parent="Props/Boxes" index="8" instance=ExtResource("12_6p1r8")]
 position = Vector2(528, 570)
 
-[node name="Boxes8" parent="Props/Boxes" index="7" instance=ExtResource("12_6p1r8")]
+[node name="Boxes8" parent="Props/Boxes" index="9" instance=ExtResource("12_6p1r8")]
 position = Vector2(39, 58)
 
-[node name="Boxes13" parent="Props/Boxes" index="8" instance=ExtResource("12_6p1r8")]
+[node name="Boxes13" parent="Props/Boxes" index="10" instance=ExtResource("12_6p1r8")]
 position = Vector2(74, 199)
 
-[node name="Boxes5" parent="Props/Boxes" index="9" instance=ExtResource("13_2xd7g")]
+[node name="Boxes5" parent="Props/Boxes" index="11" instance=ExtResource("13_2xd7g")]
 position = Vector2(572, 559)
 
-[node name="Boxes14" parent="Props/Boxes" index="10" instance=ExtResource("13_2xd7g")]
+[node name="Boxes14" parent="Props/Boxes" index="12" instance=ExtResource("13_2xd7g")]
 position = Vector2(1185, 377)
 
-[node name="Boxes18" parent="Props/Boxes" index="11" instance=ExtResource("13_2xd7g")]
+[node name="Boxes18" parent="Props/Boxes" index="13" instance=ExtResource("13_2xd7g")]
 position = Vector2(1428, 374)
 
-[node name="Boxes21" parent="Props/Boxes" index="12" instance=ExtResource("13_2xd7g")]
+[node name="Boxes21" parent="Props/Boxes" index="14" instance=ExtResource("13_2xd7g")]
 position = Vector2(1714, 72)
 
-[node name="Boxes27" parent="Props/Boxes" index="13" instance=ExtResource("13_2xd7g")]
+[node name="Boxes27" parent="Props/Boxes" index="15" instance=ExtResource("13_2xd7g")]
 position = Vector2(3345, 487)
 
-[node name="Boxes26" parent="Props/Boxes" index="14" instance=ExtResource("13_2xd7g")]
+[node name="Boxes26" parent="Props/Boxes" index="16" instance=ExtResource("13_2xd7g")]
 position = Vector2(1664, 263)
 
-[node name="Boxes22" parent="Props/Boxes" index="15" instance=ExtResource("13_2xd7g")]
+[node name="Boxes22" parent="Props/Boxes" index="17" instance=ExtResource("13_2xd7g")]
 position = Vector2(1868, 471)
 
-[node name="Boxes15" parent="Props/Boxes" index="16" instance=ExtResource("13_2xd7g")]
+[node name="Boxes15" parent="Props/Boxes" index="18" instance=ExtResource("13_2xd7g")]
 position = Vector2(1097, 129)
 
-[node name="Boxes25" parent="Props/Boxes" index="17" instance=ExtResource("13_2xd7g")]
+[node name="Boxes25" parent="Props/Boxes" index="19" instance=ExtResource("13_2xd7g")]
 position = Vector2(871, 502)
 
-[node name="Boxes23" parent="Props/Boxes" index="18" instance=ExtResource("13_2xd7g")]
+[node name="Boxes23" parent="Props/Boxes" index="20" instance=ExtResource("13_2xd7g")]
 position = Vector2(1055, 498)
 
-[node name="Boxes29" parent="Props/Boxes" index="19" instance=ExtResource("13_2xd7g")]
-position = Vector2(2131, 597)
+[node name="Boxes29" parent="Props/Boxes" index="21" instance=ExtResource("13_2xd7g")]
+position = Vector2(2193, 572)
 
-[node name="Boxes32" parent="Props/Boxes" index="20" instance=ExtResource("13_2xd7g")]
+[node name="Boxes32" parent="Props/Boxes" index="22" instance=ExtResource("13_2xd7g")]
 position = Vector2(2137, 476)
 
-[node name="Boxes30" parent="Props/Boxes" index="21" instance=ExtResource("13_2xd7g")]
-position = Vector2(2420, 760)
+[node name="Boxes30" parent="Props/Boxes" index="23" instance=ExtResource("13_2xd7g")]
+position = Vector2(2400, 760)
 
-[node name="Boxes31" parent="Props/Boxes" index="22" instance=ExtResource("13_2xd7g")]
-position = Vector2(2577, 722)
+[node name="Boxes36" parent="Props/Boxes" index="24" instance=ExtResource("13_2xd7g")]
+position = Vector2(2800, 795)
 
-[node name="Boxes33" parent="Props/Boxes" index="23" instance=ExtResource("13_2xd7g")]
-position = Vector2(2492, 596)
+[node name="Boxes42" parent="Props/Boxes" index="25" instance=ExtResource("13_2xd7g")]
+position = Vector2(2798, 922)
 
-[node name="Boxes6" parent="Props/Boxes" index="24" instance=ExtResource("13_2xd7g")]
+[node name="Boxes37" parent="Props/Boxes" index="26" instance=ExtResource("13_2xd7g")]
+position = Vector2(2842, 493)
+
+[node name="Boxes41" parent="Props/Boxes" index="27" instance=ExtResource("13_2xd7g")]
+position = Vector2(2673, 506)
+
+[node name="Boxes31" parent="Props/Boxes" index="28" instance=ExtResource("13_2xd7g")]
+position = Vector2(2557, 722)
+
+[node name="Boxes33" parent="Props/Boxes" index="29" instance=ExtResource("13_2xd7g")]
+position = Vector2(2472, 596)
+
+[node name="Boxes40" parent="Props/Boxes" index="30" instance=ExtResource("13_2xd7g")]
+position = Vector2(2497, 468)
+
+[node name="Boxes6" parent="Props/Boxes" index="31" instance=ExtResource("13_2xd7g")]
 position = Vector2(602, 242)
 
-[node name="Boxes17" parent="Props/Boxes" index="25" instance=ExtResource("13_2xd7g")]
+[node name="Boxes17" parent="Props/Boxes" index="32" instance=ExtResource("13_2xd7g")]
 position = Vector2(375, 120)
 
-[node name="Boxes11" parent="Props/Boxes" index="26" instance=ExtResource("13_2xd7g")]
+[node name="Boxes11" parent="Props/Boxes" index="33" instance=ExtResource("13_2xd7g")]
 position = Vector2(613, 408)
 
-[node name="Boxes7" parent="Props/Boxes" index="27" instance=ExtResource("13_2xd7g")]
+[node name="Boxes7" parent="Props/Boxes" index="34" instance=ExtResource("13_2xd7g")]
 position = Vector2(186, 0)
 
-[node name="Boxes12" parent="Props/Boxes" index="28" instance=ExtResource("13_2xd7g")]
+[node name="Boxes12" parent="Props/Boxes" index="35" instance=ExtResource("13_2xd7g")]
 position = Vector2(38, 217)
 
-[node name="Boxes19" parent="Props/Boxes" index="29" instance=ExtResource("13_2xd7g")]
+[node name="Boxes19" parent="Props/Boxes" index="36" instance=ExtResource("13_2xd7g")]
 position = Vector2(444, 496)
 
 [node name="Barrel" type="Node2D" parent="Props" index="8"]
@@ -2169,48 +2274,72 @@ position = Vector2(618, 612)
 position = Vector2(2152, 561)
 
 [node name="Barrel10" parent="Props/Barrel" index="8" instance=ExtResource("15_unv6h")]
-position = Vector2(2606, 654)
+position = Vector2(2586, 654)
 
-[node name="Barrel_2" parent="Props/Barrel" index="9" instance=ExtResource("16_qv70o")]
+[node name="Barrel14" parent="Props/Barrel" index="9" instance=ExtResource("15_unv6h")]
+position = Vector2(2553, 472)
+
+[node name="Barrel11" parent="Props/Barrel" index="10" instance=ExtResource("15_unv6h")]
+position = Vector2(2764, 529)
+
+[node name="Barrel13" parent="Props/Barrel" index="11" instance=ExtResource("15_unv6h")]
+position = Vector2(2869, 516)
+
+[node name="Barrel12" parent="Props/Barrel" index="12" instance=ExtResource("15_unv6h")]
+position = Vector2(2911, 801)
+
+[node name="Barrel_2" parent="Props/Barrel" index="13" instance=ExtResource("16_qv70o")]
 position = Vector2(718, 152)
 
-[node name="Barrel_5" parent="Props/Barrel" index="10" instance=ExtResource("16_qv70o")]
+[node name="Barrel_5" parent="Props/Barrel" index="14" instance=ExtResource("16_qv70o")]
 position = Vector2(473, 279)
 
-[node name="Barrel_3" parent="Props/Barrel" index="11" instance=ExtResource("16_qv70o")]
+[node name="Barrel_3" parent="Props/Barrel" index="15" instance=ExtResource("16_qv70o")]
 position = Vector2(638, 575)
 
-[node name="Barrel_7" parent="Props/Barrel" index="12" instance=ExtResource("16_qv70o")]
+[node name="Barrel_7" parent="Props/Barrel" index="16" instance=ExtResource("16_qv70o")]
 position = Vector2(856, 526)
 
-[node name="Barrel_8" parent="Props/Barrel" index="13" instance=ExtResource("16_qv70o")]
+[node name="Barrel_8" parent="Props/Barrel" index="17" instance=ExtResource("16_qv70o")]
 position = Vector2(1069, 525)
 
-[node name="Barrel_6" parent="Props/Barrel" index="14" instance=ExtResource("16_qv70o")]
+[node name="Barrel_6" parent="Props/Barrel" index="18" instance=ExtResource("16_qv70o")]
 position = Vector2(1228, 582)
 
-[node name="Barrel_11" parent="Props/Barrel" index="15" instance=ExtResource("16_qv70o")]
+[node name="Barrel_11" parent="Props/Barrel" index="19" instance=ExtResource("16_qv70o")]
 position = Vector2(2109, 574)
 
-[node name="Barrel_12" parent="Props/Barrel" index="16" instance=ExtResource("16_qv70o")]
-position = Vector2(2254, 825)
+[node name="Barrel_18" parent="Props/Barrel" index="20" instance=ExtResource("16_qv70o")]
+position = Vector2(2708, 481)
 
-[node name="Barrel_13" parent="Props/Barrel" index="17" instance=ExtResource("16_qv70o")]
-position = Vector2(2437, 787)
+[node name="Barrel_12" parent="Props/Barrel" index="21" instance=ExtResource("16_qv70o")]
+position = Vector2(2234, 825)
 
-[node name="Barrel_15" parent="Props/Barrel" index="18" instance=ExtResource("16_qv70o")]
-position = Vector2(2526, 585)
+[node name="Barrel_13" parent="Props/Barrel" index="22" instance=ExtResource("16_qv70o")]
+position = Vector2(2417, 787)
 
-[node name="Barrel_14" parent="Props/Barrel" index="19" instance=ExtResource("16_qv70o")]
-position = Vector2(2587, 689)
+[node name="Barrel_15" parent="Props/Barrel" index="23" instance=ExtResource("16_qv70o")]
+position = Vector2(2506, 585)
 
-[node name="Barrel_9" parent="Props/Barrel" index="20" instance=ExtResource("16_qv70o")]
+[node name="Barrel_17" parent="Props/Barrel" index="24" instance=ExtResource("16_qv70o")]
+position = Vector2(2519, 490)
+
+[node name="Barrel_14" parent="Props/Barrel" index="25" instance=ExtResource("16_qv70o")]
+position = Vector2(2567, 689)
+
+[node name="Barrel_16" parent="Props/Barrel" index="26" instance=ExtResource("16_qv70o")]
+position = Vector2(2832, 801)
+
+[node name="Barrel_19" parent="Props/Barrel" index="27" instance=ExtResource("16_qv70o")]
+position = Vector2(2769, 930)
+
+[node name="Barrel_9" parent="Props/Barrel" index="28" instance=ExtResource("16_qv70o")]
 position = Vector2(1901, 476)
 
-[node name="Barrel_4" parent="Props/Barrel" index="21" instance=ExtResource("16_qv70o")]
+[node name="Barrel_4" parent="Props/Barrel" index="29" instance=ExtResource("16_qv70o")]
 position = Vector2(1262, 162)
 
-[node name="Barrel_10" parent="Props/Barrel" index="22" instance=ExtResource("16_qv70o")]
+[node name="Barrel_10" parent="Props/Barrel" index="30" instance=ExtResource("16_qv70o")]
 position = Vector2(1663, 330)
 
 [node name="Drawing Board" type="Node2D" parent="Props" index="9"]
@@ -2237,55 +2366,67 @@ position = Vector2(1792, 115)
 [node name="Storage Rack10" parent="Props/Storage Rack" index="2" instance=ExtResource("19_wnnuq")]
 position = Vector2(1847, 570)
 
-[node name="Storage Rack20" parent="Props/Storage Rack" index="3" instance=ExtResource("19_wnnuq")]
+[node name="Storage Rack21" parent="Props/Storage Rack" index="3" instance=ExtResource("19_wnnuq")]
+position = Vector2(2989, 472)
+
+[node name="Storage Rack22" parent="Props/Storage Rack" index="4" instance=ExtResource("19_wnnuq")]
+position = Vector2(2892, 465)
+
+[node name="Storage Rack24" parent="Props/Storage Rack" index="5" instance=ExtResource("19_wnnuq")]
+position = Vector2(2253, 467)
+
+[node name="Storage Rack25" parent="Props/Storage Rack" index="6" instance=ExtResource("19_wnnuq")]
+position = Vector2(2351, 466)
+
+[node name="Storage Rack20" parent="Props/Storage Rack" index="7" instance=ExtResource("19_wnnuq")]
 position = Vector2(1585, 331)
 
-[node name="Storage Rack19" parent="Props/Storage Rack" index="4" instance=ExtResource("19_wnnuq")]
+[node name="Storage Rack19" parent="Props/Storage Rack" index="8" instance=ExtResource("19_wnnuq")]
 position = Vector2(1633, 363)
 
-[node name="Storage Rack4" parent="Props/Storage Rack" index="5" instance=ExtResource("19_wnnuq")]
+[node name="Storage Rack4" parent="Props/Storage Rack" index="9" instance=ExtResource("19_wnnuq")]
 position = Vector2(3152, 536)
 
-[node name="Storage Rack3" parent="Props/Storage Rack" index="6" instance=ExtResource("19_wnnuq")]
+[node name="Storage Rack3" parent="Props/Storage Rack" index="10" instance=ExtResource("19_wnnuq")]
 position = Vector2(145, 189)
 
-[node name="Storage Rack5" parent="Props/Storage Rack" index="7" instance=ExtResource("19_wnnuq")]
+[node name="Storage Rack5" parent="Props/Storage Rack" index="11" instance=ExtResource("19_wnnuq")]
 position = Vector2(511, 201)
 
-[node name="Storage Rack6" parent="Props/Storage Rack" index="8" instance=ExtResource("19_wnnuq")]
+[node name="Storage Rack6" parent="Props/Storage Rack" index="12" instance=ExtResource("19_wnnuq")]
 position = Vector2(511, 235)
 
-[node name="Storage Rack9" parent="Props/Storage Rack" index="9" instance=ExtResource("19_wnnuq")]
+[node name="Storage Rack9" parent="Props/Storage Rack" index="13" instance=ExtResource("19_wnnuq")]
 position = Vector2(270, 0)
 
-[node name="Storage Rack7" parent="Props/Storage Rack" index="10" instance=ExtResource("19_wnnuq")]
+[node name="Storage Rack7" parent="Props/Storage Rack" index="14" instance=ExtResource("19_wnnuq")]
 position = Vector2(386, 201)
 
-[node name="Storage Rack11" parent="Props/Storage Rack" index="11" instance=ExtResource("19_wnnuq")]
+[node name="Storage Rack11" parent="Props/Storage Rack" index="15" instance=ExtResource("19_wnnuq")]
 position = Vector2(876, 194)
 
-[node name="Storage Rack13" parent="Props/Storage Rack" index="12" instance=ExtResource("19_wnnuq")]
+[node name="Storage Rack13" parent="Props/Storage Rack" index="16" instance=ExtResource("19_wnnuq")]
 position = Vector2(972, 194)
 
-[node name="Storage Rack12" parent="Props/Storage Rack" index="13" instance=ExtResource("19_wnnuq")]
+[node name="Storage Rack12" parent="Props/Storage Rack" index="17" instance=ExtResource("19_wnnuq")]
 position = Vector2(876, 207)
 
-[node name="Storage Rack14" parent="Props/Storage Rack" index="14" instance=ExtResource("19_wnnuq")]
+[node name="Storage Rack14" parent="Props/Storage Rack" index="18" instance=ExtResource("19_wnnuq")]
 position = Vector2(972, 207)
 
-[node name="Storage Rack15" parent="Props/Storage Rack" index="15" instance=ExtResource("19_wnnuq")]
+[node name="Storage Rack15" parent="Props/Storage Rack" index="19" instance=ExtResource("19_wnnuq")]
 position = Vector2(876, 104)
 
-[node name="Storage Rack16" parent="Props/Storage Rack" index="16" instance=ExtResource("19_wnnuq")]
+[node name="Storage Rack16" parent="Props/Storage Rack" index="20" instance=ExtResource("19_wnnuq")]
 position = Vector2(876, 118)
 
-[node name="Storage Rack17" parent="Props/Storage Rack" index="17" instance=ExtResource("19_wnnuq")]
+[node name="Storage Rack17" parent="Props/Storage Rack" index="21" instance=ExtResource("19_wnnuq")]
 position = Vector2(972, 104)
 
-[node name="Storage Rack18" parent="Props/Storage Rack" index="18" instance=ExtResource("19_wnnuq")]
+[node name="Storage Rack18" parent="Props/Storage Rack" index="22" instance=ExtResource("19_wnnuq")]
 position = Vector2(972, 118)
 
-[node name="Storage Rack8" parent="Props/Storage Rack" index="19" instance=ExtResource("19_wnnuq")]
+[node name="Storage Rack8" parent="Props/Storage Rack" index="23" instance=ExtResource("19_wnnuq")]
 position = Vector2(386, 235)
 
 [node name="Chest" type="Node2D" parent="Props" index="11"]
@@ -2303,10 +2444,13 @@ position = Vector2(2175, 490)
 [node name="Chest4" parent="Props/Chest" index="3" instance=ExtResource("20_l0mnp")]
 position = Vector2(1797, 364)
 
-[node name="Chest5" parent="Props/Chest" index="4" instance=ExtResource("20_l0mnp")]
+[node name="Chest7" parent="Props/Chest" index="4" instance=ExtResource("20_l0mnp")]
+position = Vector2(2866, 811)
+
+[node name="Chest5" parent="Props/Chest" index="5" instance=ExtResource("20_l0mnp")]
 position = Vector2(1493, 571)
 
-[node name="Chest3" parent="Props/Chest" index="5" instance=ExtResource("20_l0mnp")]
+[node name="Chest3" parent="Props/Chest" index="6" instance=ExtResource("20_l0mnp")]
 position = Vector2(461, 114)
 
 [node name="Regions" parent="." index="5"]
