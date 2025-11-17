@@ -177,13 +177,14 @@ DelayAfterSpawn = 5.0
 DynamicSpawnCost = 0
 CharacterName = "Tentacle Bot"
 CharacterID = "tentacle_bot"
-MaxHealth = 400.0
+MaxHealth = 800.0
 Tags = PackedStringArray("Enemy")
 DespawnAfterAnimation = true
 Weapon = NodePath("Sentinel Gun")
 AnimationTree = NodePath("AnimationTree")
 
 [node name="Sentinel Gun" parent="." index="1" instance=ExtResource("3_5kolp")]
+BaseDamage = 100.0
 
 [node name="AI Targeting Manager" parent="." index="2"]
 TargetDetectionRadius = 400.0

@@ -175,14 +175,15 @@ DelayAfterSpawn = 5.0
 DynamicSpawnCost = 0
 CharacterName = "Clone Cyborg"
 CharacterID = "clone_cyborg"
-MaxHealth = 250.0
-MaxSpeed = 32.0
+MaxHealth = 400.0
+MaxSpeed = 24.0
 Tags = PackedStringArray("Enemy")
 DespawnAfterAnimation = true
 Weapon = NodePath("Cyborg Gun")
 AnimationTree = NodePath("AnimationTree")
 
 [node name="Cyborg Gun" parent="." index="1" instance=ExtResource("3_kbbx7")]
+BaseDamage = 50.0
 
 [node name="AI Targeting Manager" parent="." index="2"]
 TargetDetectionRadius = 80.0

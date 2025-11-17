@@ -479,7 +479,7 @@ DelayAfterSpawn = 3.0
 DynamicSpawnCost = 0
 CharacterName = "Sentry"
 CharacterID = "sentry"
-MaxHealth = 200.0
+MaxHealth = 1500.0
 MaxSpeed = 0.0
 Tags = PackedStringArray("Enemy")
 DespawnAfterAnimation = true
@@ -487,6 +487,12 @@ Weapon = NodePath("Turret")
 AnimationTree = NodePath("AnimationTree")
 
 [node name="Turret" parent="." index="1" instance=ExtResource("2_f756v")]
+BaseDamage = 50.0
+
+[node name="AI Targeting Manager" parent="." index="2"]
+TargetDetectionRadius = 180.0
+TargetLostRadius = 240.0
+TurnRate = 180.0
 
 [node name="Body Collider" parent="." index="4"]
 position = Vector2(0, 7)

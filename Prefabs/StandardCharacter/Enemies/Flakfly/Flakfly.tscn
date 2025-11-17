@@ -170,13 +170,13 @@ DelayAfterSpawn = 1.0
 DynamicSpawnCost = 0
 CharacterName = "Flakfly"
 CharacterID = "flakfly"
-MaxHealth = 50.0
 MaxSpeed = 32.0
 DespawnAfterAnimation = true
 Weapon = NodePath("Bomb Triggerer")
 AnimationTree = NodePath("AnimationTree")
 
 [node name="Bomb Triggerer" parent="." index="1" instance=ExtResource("2_4m28a")]
+BaseDamage = 200.0
 
 [node name="AI Targeting Manager" parent="." index="2"]
 TargetDetectionRadius = 16.0

@@ -173,6 +173,7 @@ DelayAfterSpawn = 2.0
 DynamicSpawnCost = 0
 CharacterName = "Drone"
 CharacterID = "drone"
+MaxHealth = 200.0
 MaxSpeed = 72.0
 Tags = PackedStringArray("Enemy")
 DespawnAfterAnimation = true
@@ -181,8 +182,11 @@ AnimationTree = NodePath("AnimationTree")
 
 [node name="Drone Gun" parent="." index="1" instance=ExtResource("2_tleep")]
 position = Vector2(0, 3)
+BaseDamage = 25.0
 
 [node name="AI Targeting Manager" parent="." index="2"]
+TargetDetectionRadius = 100.0
+CurrentTargetMode = 3
 TurnRate = 36000.0
 
 [node name="Hit Area" parent="." index="5"]
