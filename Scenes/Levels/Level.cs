@@ -225,6 +225,8 @@ public partial class Level : Node2D {
 
 
 	public override void _Ready() {
+		Commander.DeselectAllUnits();
+		
 		if (CameraNodePaths.Length != 0) CameraMan.SetCameraPath(CameraNodePaths);
 		else CameraMan.SetTarget(SpawnParent, true);
 
