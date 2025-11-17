@@ -1218,6 +1218,7 @@ AnimationTree = NodePath("AnimationTree")
 [node name="AI Targeting Manager" parent="." index="2"]
 TargetDetectionRadius = 480.0
 TargetLostRadius = 720.0
+CurrentTargetMode = 3
 
 [node name="Audio Controller" parent="." index="7"]
 AudioClips = Dictionary[String, AudioStream]({
