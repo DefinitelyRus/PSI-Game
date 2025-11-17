@@ -1210,13 +1210,14 @@ CharacterName = "Orra Kale"
 CharacterID = "orra_kale"
 MaxHealth = 300.0
 Tags = PackedStringArray("Unit")
-Weapon = NodePath("Heavy Rifle")
+Weapon = NodePath("Heavy Rifle 1")
 AnimationTree = NodePath("AnimationTree")
 
-[node name="Heavy Rifle" parent="." index="1" instance=ExtResource("2_07s0f")]
+[node name="Heavy Rifle 1" parent="." index="1" instance=ExtResource("2_07s0f")]
+BaseDamage = 50.0
 
 [node name="AI Targeting Manager" parent="." index="2"]
-TargetDetectionRadius = 480.0
+TargetDetectionRadius = 240.0
 TargetLostRadius = 720.0
 CurrentTargetMode = 3
 

@@ -239,15 +239,16 @@ CharacterName = "Mira Kale"
 CharacterID = "mira_kale"
 MaxHealth = 500.0
 Tags = PackedStringArray("Unit")
-Weapon = NodePath("Assault Rifle")
+Weapon = NodePath("Assault Rifle 1")
 AnimationTree = NodePath("AnimationTree")
 
-[node name="Assault Rifle" parent="." index="1" instance=ExtResource("2_haq8x")]
-BaseDamage = 25.0
+[node name="Assault Rifle 1" parent="." index="1" instance=ExtResource("2_haq8x")]
+BaseDamage = 10.0
 AttackOriginDistance = 32.0
 
 [node name="AI Targeting Manager" parent="." index="2"]
-TargetLostRadius = 320.0
+TargetDetectionRadius = 120.0
+TargetLostRadius = 240.0
 
 [node name="Audio Controller" parent="." index="7"]
 AudioClips = Dictionary[String, AudioStream]({
