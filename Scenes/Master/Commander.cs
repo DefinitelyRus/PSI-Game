@@ -1,5 +1,6 @@
 using Godot;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace CommonScripts;
 
@@ -120,7 +121,24 @@ public partial class Commander : Node {
 		}
 
 		Units[index].AIAgent.IsSelected = true;
+
+		SingleUnitControl();
 	}
+
+
+	public static void SingleUnitControl() {
+        if (Units.Count == 0) {
+			Log.Warn("No units are registered. Cannot select.", true, true);
+			return;
+		}
+
+		if (GetSelectedUnitCount() != 1) return;
+
+		StandardCharacter unit = GetSelectedUnits().First();
+
+		UIManager.SetHUDVisible(true, 0);
+		UIManager.SetHealth(unit.Health, unit.CurrentMaxHealth);
+    }
 
 
 	public static void SelectAllUnits()
@@ -152,6 +170,8 @@ public partial class Commander : Node {
 		}
 		
 		ClearFocusedUnit();
+
+		UIManager.SetHUDVisible(false, 0);
 	}
 
 	#endregion
@@ -172,6 +192,7 @@ public partial class Commander : Node {
 			return;
 		}
 
+		DeselectAllUnits();
 		FocusedUnit = Units[index];
 		SelectUnit(index);
 
