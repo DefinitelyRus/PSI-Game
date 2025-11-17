@@ -126,10 +126,7 @@ public partial class StandardCharacter : CharacterBody2D {
 		}
 
 		// Kill on 0 health.
-		if (Health <= 0)
-		{
-			Kill();
-		}  
+		if (Health <= 0) Kill();
 			
 		return;
 	}
