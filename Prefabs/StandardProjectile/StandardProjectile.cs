@@ -224,7 +224,15 @@ public partial class StandardProjectile : RigidBody2D
 		
 		Log.Me(() => $"Area entered: {area.Name}", LogCollision);
 
-		bool isTarget = Targets.Contains(area);
+
+		bool isTarget = false;
+
+		foreach (Node2D target in Targets) {
+            if (area.GetParent() == target) {
+                isTarget = true;
+				break;
+            }
+		}
 
 		// Whitelist
 		if (TargetMode == TargetModes.Whitelist) {
