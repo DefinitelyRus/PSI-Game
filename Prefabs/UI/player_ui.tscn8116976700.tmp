@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://o52kke4dfdo0"]
+[gd_scene load_steps=19 format=3 uid="uid://o52kke4dfdo0"]
 
 [ext_resource type="Texture2D" uid="uid://kqo44exiy3bv" path="res://Sprites/UI/Modern_UI_Style_2_32x32.png" id="1_7a7a1"]
 [ext_resource type="Script" uid="uid://bdv1hbweo6wlo" path="res://Prefabs/UI/player_hud.gd" id="1_av0rp"]
@@ -10,14 +10,10 @@
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_lsael"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ck6j7"]
-bg_color = Color(0.50534403, 0.5053441, 0.50534385, 1)
-expand_margin_bottom = 11.0
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lsael"]
 bg_color = Color(0.94902, 0.282353, 0.133333, 1)
 expand_margin_top = 1.0
-expand_margin_bottom = 11.0
+expand_margin_bottom = 1.0
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_av0rp"]
 texture = ExtResource("1_7a7a1")
@@ -82,14 +78,15 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 50
 script = ExtResource("1_av0rp")
-health_bar = NodePath("Left-Info/Player_Info/BG/Info/HealthContainer/VBoxContainer/Health_bar")
-power = [NodePath("Left-Info/Player_Info/BG/Info/PowerContainer/HBoxContainer/Power1"), NodePath("Left-Info/Player_Info/BG/Info/PowerContainer/HBoxContainer/Power2")]
+health_bar = NodePath("Left-Info/Player_Info/HealthBG/Health/MarginContainer/Health_bar")
+power = [NodePath("Left-Info/Player_Info/Power/HBoxContainer/Power1"), NodePath("Left-Info/Player_Info/Power/HBoxContainer/Power2")]
 current_character = NodePath("Right-Info/Preview")
 inventory_slots = [NodePath("Left-Info/Inventory/InvSlot1"), NodePath("Left-Info/Inventory/InvSlot2"), NodePath("Left-Info/Inventory/InvSlot3"), NodePath("Left-Info/Inventory/InvSlot4"), NodePath("Left-Info/Inventory/InvSlot5")]
 hud_container = NodePath(".")
 char_info = NodePath("Left-Info/Player_Info")
 char_inventory = NodePath("Left-Info/Inventory")
 char_preview = NodePath("Right-Info")
+near_cursor_opacity = 0.6
 
 [node name="Left-Info" type="VBoxContainer" parent="HUD"]
 layout_mode = 2
@@ -102,56 +99,53 @@ size_flags_horizontal = 0
 size_flags_vertical = 0
 mouse_filter = 2
 
-[node name="BG" type="HBoxContainer" parent="HUD/Left-Info/Player_Info"]
+[node name="HealthBG" type="HBoxContainer" parent="HUD/Left-Info/Player_Info"]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 theme_override_constants/separation = 10
 
-[node name="Info" type="NinePatchRect" parent="HUD/Left-Info/Player_Info/BG"]
-custom_minimum_size = Vector2(156, 49.3)
+[node name="Health" type="NinePatchRect" parent="HUD/Left-Info/Player_Info/HealthBG"]
+custom_minimum_size = Vector2(184, 38)
 layout_mode = 2
 size_flags_horizontal = 0
 texture = ExtResource("6_7rjoj")
-region_rect = Rect2(578, 483, 92, 29)
+region_rect = Rect2(579, 501, 208, 38)
 
-[node name="HealthContainer" type="MarginContainer" parent="HUD/Left-Info/Player_Info/BG/Info"]
+[node name="MarginContainer" type="MarginContainer" parent="HUD/Left-Info/Player_Info/HealthBG/Health"]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
-theme_override_constants/margin_left = 7
-theme_override_constants/margin_top = 5
+theme_override_constants/margin_left = 36
+theme_override_constants/margin_top = 15
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HUD/Left-Info/Player_Info/BG/Info/HealthContainer"]
-layout_mode = 2
-
-[node name="Health_bar" type="HSlider" parent="HUD/Left-Info/Player_Info/BG/Info/HealthContainer/VBoxContainer"]
+[node name="Health_bar" type="HSlider" parent="HUD/Left-Info/Player_Info/HealthBG/Health/MarginContainer"]
 z_index = -1
-custom_minimum_size = Vector2(113, 0)
+custom_minimum_size = Vector2(140, 0)
 layout_mode = 2
 theme_override_icons/grabber = SubResource("CompressedTexture2D_lsael")
 theme_override_icons/grabber_highlight = SubResource("CompressedTexture2D_lsael")
 theme_override_icons/grabber_disabled = SubResource("CompressedTexture2D_lsael")
-theme_override_styles/slider = SubResource("StyleBoxFlat_ck6j7")
 theme_override_styles/grabber_area = SubResource("StyleBoxFlat_lsael")
 value = 100.0
 editable = false
 scrollable = false
 
-[node name="PowerContainer" type="MarginContainer" parent="HUD/Left-Info/Player_Info/BG/Info"]
-layout_mode = 1
-offset_right = 45.0
-offset_bottom = 34.0
-theme_override_constants/margin_left = 1
-theme_override_constants/margin_top = 15
-
-[node name="HBoxContainer" type="HBoxContainer" parent="HUD/Left-Info/Player_Info/BG/Info/PowerContainer"]
+[node name="Power" type="HBoxContainer" parent="HUD/Left-Info/Player_Info"]
+visible = false
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme_override_constants/separation = 0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_constants/separation = 10
 
-[node name="Power1" type="Button" parent="HUD/Left-Info/Player_Info/BG/Info/PowerContainer/HBoxContainer"]
+[node name="Power" type="Label" parent="HUD/Left-Info/Player_Info/Power"]
+layout_mode = 2
+text = "Power"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HUD/Left-Info/Player_Info/Power"]
+layout_mode = 2
+
+[node name="Power1" type="Button" parent="HUD/Left-Info/Player_Info/Power/HBoxContainer"]
 custom_minimum_size = Vector2(20, 20)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -162,7 +156,7 @@ theme_override_styles/pressed = SubResource("StyleBoxTexture_av0rp")
 theme_override_styles/hover = SubResource("StyleBoxTexture_av0rp")
 theme_override_styles/disabled = SubResource("StyleBoxTexture_7a7a1")
 
-[node name="Power2" type="Button" parent="HUD/Left-Info/Player_Info/BG/Info/PowerContainer/HBoxContainer"]
+[node name="Power2" type="Button" parent="HUD/Left-Info/Player_Info/Power/HBoxContainer"]
 custom_minimum_size = Vector2(20, 20)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -174,6 +168,7 @@ theme_override_styles/hover = SubResource("StyleBoxTexture_av0rp")
 theme_override_styles/disabled = SubResource("StyleBoxTexture_7a7a1")
 
 [node name="Inventory" type="VBoxContainer" parent="HUD/Left-Info"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 8
@@ -233,6 +228,7 @@ focus_mode = 0
 disabled = true
 
 [node name="Pop-Up" type="Control" parent="." node_paths=PackedStringArray("popUP_container", "header_text", "paragraph_text", "button_container", "button_row1", "row1_buttons", "button_row2", "row2_buttons", "button_row3", "row3_buttons")]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -309,6 +305,7 @@ layout_mode = 2
 [node name="Header" type="Label" parent="Pop-Up/Content/TextsContainer/Texts/Title Bar/Header"]
 layout_mode = 2
 size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.20392157, 0.5647059, 0.7529412, 1)
 theme_override_fonts/font = ExtResource("7_ck6j7")
 theme_override_font_sizes/font_size = 32
 text = "Explosion"
@@ -322,6 +319,7 @@ custom_minimum_size = Vector2(260, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
+theme_override_colors/font_color = Color(0.20392157, 0.5647059, 0.7529412, 1)
 theme_override_fonts/font = ExtResource("7_ck6j7")
 theme_override_font_sizes/font_size = 16
 text = "Boom! Boom!"
@@ -350,6 +348,7 @@ theme_override_constants/separation = 8
 custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
 focus_mode = 0
+theme_override_colors/font_color = Color(0.20392157, 0.5647059, 0.7529412, 1)
 theme_override_fonts/font = ExtResource("7_ck6j7")
 theme_override_font_sizes/font_size = 16
 theme_override_styles/normal = SubResource("StyleBoxTexture_0i7dx")
@@ -359,6 +358,7 @@ theme_override_styles/hover = SubResource("StyleBoxTexture_uycg4")
 custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
 focus_mode = 0
+theme_override_colors/font_color = Color(0.20392157, 0.5647059, 0.7529412, 1)
 theme_override_fonts/font = ExtResource("7_ck6j7")
 theme_override_font_sizes/font_size = 16
 theme_override_styles/normal = SubResource("StyleBoxTexture_0i7dx")
@@ -370,6 +370,7 @@ text = "
 custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
 focus_mode = 0
+theme_override_colors/font_color = Color(0.20392157, 0.5647059, 0.7529412, 1)
 theme_override_fonts/font = ExtResource("7_ck6j7")
 theme_override_font_sizes/font_size = 16
 theme_override_styles/normal = SubResource("StyleBoxTexture_0i7dx")
@@ -386,6 +387,7 @@ theme_override_constants/separation = 8
 custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
 focus_mode = 0
+theme_override_colors/font_color = Color(0.20392157, 0.5647059, 0.7529412, 1)
 theme_override_fonts/font = ExtResource("7_ck6j7")
 theme_override_font_sizes/font_size = 16
 theme_override_styles/normal = SubResource("StyleBoxTexture_0i7dx")
@@ -397,6 +399,7 @@ text = "
 custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
 focus_mode = 0
+theme_override_colors/font_color = Color(0.20392157, 0.5647059, 0.7529412, 1)
 theme_override_fonts/font = ExtResource("7_ck6j7")
 theme_override_font_sizes/font_size = 16
 theme_override_styles/normal = SubResource("StyleBoxTexture_0i7dx")
@@ -408,6 +411,7 @@ text = "
 custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
 focus_mode = 0
+theme_override_colors/font_color = Color(0.20392157, 0.5647059, 0.7529412, 1)
 theme_override_fonts/font = ExtResource("7_ck6j7")
 theme_override_font_sizes/font_size = 16
 theme_override_styles/normal = SubResource("StyleBoxTexture_0i7dx")
@@ -424,6 +428,7 @@ theme_override_constants/separation = 8
 custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
 focus_mode = 0
+theme_override_colors/font_color = Color(0.20392157, 0.5647059, 0.7529412, 1)
 theme_override_fonts/font = ExtResource("7_ck6j7")
 theme_override_font_sizes/font_size = 16
 theme_override_styles/normal = SubResource("StyleBoxTexture_0i7dx")
@@ -435,6 +440,7 @@ text = "
 custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
 focus_mode = 0
+theme_override_colors/font_color = Color(0.20392157, 0.5647059, 0.7529412, 1)
 theme_override_fonts/font = ExtResource("7_ck6j7")
 theme_override_font_sizes/font_size = 16
 theme_override_styles/normal = SubResource("StyleBoxTexture_0i7dx")
@@ -446,6 +452,7 @@ text = "
 custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
 focus_mode = 0
+theme_override_colors/font_color = Color(0.20392157, 0.5647059, 0.7529412, 1)
 theme_override_fonts/font = ExtResource("7_ck6j7")
 theme_override_font_sizes/font_size = 16
 theme_override_styles/normal = SubResource("StyleBoxTexture_0i7dx")

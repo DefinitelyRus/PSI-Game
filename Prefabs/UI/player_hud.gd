@@ -15,16 +15,6 @@ class_name PlayerUI
 @export var char_inventory: VBoxContainer
 @export var char_preview: VBoxContainer
 
-@export_group("Opacity Manager")
-@export var default_opacity: float = 0.8     
-@export var active_opacity: float = 1.0       
-@export var near_cursor_opacity: float = 0.15
-@export var fade_speed: float = 3.0          
-@export var active_duration: float = 2.0
-
-var _current_opacity: float
-var _active_timer: float = 0.0
-
 @export var item_icons: Dictionary[String, Texture2D] = {}
 
 var char_icon := {
@@ -74,9 +64,6 @@ func set_item(icon: Texture2D, target: int) -> void:
 	button.add_theme_stylebox_override("hover", style)
 	button.add_theme_stylebox_override("pressed", style)
 
-func _on_inventory_slot_pressed() -> void:
-	activate_hud()
-
 # ---------- CHARACTER PREVIEW ----------
 func set_char_preview(icon: Texture2D) -> void:
 	var style := StyleBoxTexture.new()
@@ -84,29 +71,9 @@ func set_char_preview(icon: Texture2D) -> void:
 
 	current_character.add_theme_stylebox_override("disabled", style)
 
-# ---------- OPACITY MANAGER ----------
-func _process(delta: float) -> void:
-	if _active_timer > 0:
-		_active_timer -= delta
-		_current_opacity = lerp(_current_opacity, active_opacity, delta * fade_speed)
-	else:
-		var target_opacity = default_opacity
-		if is_cursor_near_hud():
-			target_opacity = near_cursor_opacity
-		_current_opacity = lerp(_current_opacity, target_opacity, delta * fade_speed)
-	
-	hud_container.modulate.a = _current_opacity
-
-func activate_hud() -> void:
-	_active_timer = active_duration
-
-func is_cursor_near_hud() -> bool:
-	var mouse_pos = get_viewport().get_mouse_position()
-	var rect = hud_container.get_global_rect()
-	return rect.has_point(mouse_pos)
-
 # ---------- GODOT CALLBACKS -----------
 func _ready() -> void:
+	pass
 	## TEST: Disables inventory slots upon load
 	#for i in range(inventory_slots.size()):
 		#var slot = inventory_slots[i]
@@ -124,7 +91,3 @@ func _ready() -> void:
 	#
 	## TEST: Sets the char_preview icon upon load
 	#set_char_preview("char1")
-	
-	# Opacity Manager Variables
-	_current_opacity = default_opacity
-	hud_container.modulate.a = _current_opacity
