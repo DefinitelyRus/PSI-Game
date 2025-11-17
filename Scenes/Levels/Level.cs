@@ -150,7 +150,6 @@ public partial class Level : Node2D {
 		foreach (Node2D category in categories) {
 			IEnumerable<StandardProp> categoryProps = category.GetChildren().OfType<StandardProp>();
 			props = props.Concat(categoryProps);
-			category.QueueFree();
 		}
 
 		if (PropsParent.GetChildren().Count == 0) PropsParent.QueueFree();
@@ -226,7 +225,7 @@ public partial class Level : Node2D {
 
 	public override void _Ready() {
 		Commander.DeselectAllUnits();
-		
+
 		if (CameraNodePaths.Length != 0) CameraMan.SetCameraPath(CameraNodePaths);
 		else CameraMan.SetTarget(SpawnParent, true);
 
