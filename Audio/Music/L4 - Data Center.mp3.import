@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bbsa5m8opv6b3"
+path="res://.godot/imported/L4 - Data Center.mp3-8403cc5525a63a4bc09aa042354d05c1.mp3str"
+
+[deps]
+
+source_file="res://Audio/Music/L4 - Data Center.mp3"
+dest_files=["res://.godot/imported/L4 - Data Center.mp3-8403cc5525a63a4bc09aa042354d05c1.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
