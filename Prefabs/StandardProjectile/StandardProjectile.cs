@@ -14,7 +14,7 @@ public partial class StandardProjectile : RigidBody2D
 	[Export] public Area2D HitArea = null!;
 	[Export] public StandardCharacter WeaponOwner = null!;
 	[Export] public StandardProjectileWeapon Weapon = null!;
-	[Export] public Node2D[] Targets { get; private set; } = [];
+	[Export] public Node2D[] Targets { get; set; } = [];
 
 	[Export] public TargetModes TargetMode { get; protected set; } = TargetModes.Any;
 
