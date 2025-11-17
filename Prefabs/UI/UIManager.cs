@@ -18,6 +18,15 @@ public partial class UIManager : CanvasLayer {
         Instance = this;
     }
 
+	public override void _Ready() {
+		SetItemIcon(0, null!);
+        SetItemIcon(1, null!);
+        SetItemIcon(2, null!);
+        SetItemIcon(3, null!);
+        SetItemIcon(4, null!);
+	}
+
+
 	public override void _Process(double delta) {
         Commander.SingleUnitControl();
 	}
@@ -94,7 +103,7 @@ public partial class UIManager : CanvasLayer {
     }
 
     public static void SetItemIcon(int slotIndex, Texture2D icon) {
-        HUD.CallDeferred("set_item_icon", icon, slotIndex);
+        HUD.CallDeferred("set_item", icon, slotIndex);
     }
 
     public static void SetCharPreview(Sprite2D sprite) {
