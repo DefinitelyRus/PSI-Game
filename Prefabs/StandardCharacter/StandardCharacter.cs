@@ -350,6 +350,11 @@ public partial class StandardCharacter : CharacterBody2D {
 		}
 	}
 
+	public void OnDeathAnimationFinished() {
+		ClickArea.GetChild<CollisionShape2D>(0).Disabled = true;
+		HitArea.GetChild<CollisionShape2D>(0).Disabled = true;
+    }
+
 	#endregion
 
 	#region Nodes & Components
