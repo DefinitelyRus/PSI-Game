@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://bu66tvivcujc8"]
+
+[ext_resource type="PackedScene" uid="uid://bnslwo4ecgkcn" path="res://Prefabs/StandardProp/StandardProp.tscn" id="1_h4ff8"]
+[ext_resource type="Texture2D" uid="uid://b88vn7c70p7iq" path="res://Sprites/World Sprites/Level 3 - Datacenter/DataCenter.png" id="2_r8g3f"]
+
+[node name="Server Rack" instance=ExtResource("1_h4ff8")]
+PropName = "Server Rack"
+PropID = "server_rack"
+PropDescription = "3 Server racks together"
+
+[node name="Sprite2D" parent="." index="1"]
+texture = ExtResource("2_r8g3f")
+region_rect = Rect2(65, 0, 63, 32)

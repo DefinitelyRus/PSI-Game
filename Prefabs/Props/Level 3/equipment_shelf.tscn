@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://42ed0vi8tau1"]
+
+[ext_resource type="PackedScene" uid="uid://bnslwo4ecgkcn" path="res://Prefabs/StandardProp/StandardProp.tscn" id="1_wstx5"]
+[ext_resource type="Texture2D" uid="uid://b88vn7c70p7iq" path="res://Sprites/World Sprites/Level 3 - Datacenter/DataCenter.png" id="2_7u8p7"]
+
+[node name="Equipment Shelf" instance=ExtResource("1_wstx5")]
+PropName = "Equipment Shelf"
+PropID = "equipment_shelf"
+PropDescription = "A shelf for equpment"
+
+[node name="Sprite2D" parent="." index="1"]
+texture = ExtResource("2_7u8p7")
+region_rect = Rect2(32, 34, 95, 30)

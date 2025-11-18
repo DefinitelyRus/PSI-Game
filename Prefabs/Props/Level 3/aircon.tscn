@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://c235rcgfeuptt"]
+
+[ext_resource type="PackedScene" uid="uid://bnslwo4ecgkcn" path="res://Prefabs/StandardProp/StandardProp.tscn" id="1_fanvk"]
+[ext_resource type="Texture2D" uid="uid://b88vn7c70p7iq" path="res://Sprites/World Sprites/Level 3 - Datacenter/DataCenter.png" id="2_y604k"]
+
+[node name="Aircon" instance=ExtResource("1_fanvk")]
+PropName = "Aircon"
+PropID = "aircon"
+PropDescription = "An aircon"
+
+[node name="Sprite2D" parent="." index="1"]
+texture = ExtResource("2_y604k")
+region_rect = Rect2(128, 32, 32, 32)

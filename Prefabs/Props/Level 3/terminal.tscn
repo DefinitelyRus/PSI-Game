@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://d31jg1ctihrkr"]
+
+[ext_resource type="PackedScene" uid="uid://bnslwo4ecgkcn" path="res://Prefabs/StandardProp/StandardProp.tscn" id="1_1a0v7"]
+[ext_resource type="Texture2D" uid="uid://b88vn7c70p7iq" path="res://Sprites/World Sprites/Level 3 - Datacenter/DataCenter.png" id="2_ff7gx"]
+
+[node name="Terminal" instance=ExtResource("1_1a0v7")]
+PropName = "Terminal"
+PropID = "terminal"
+PropDescription = "A terminal"
+
+[node name="Sprite2D" parent="." index="1"]
+texture = ExtResource("2_ff7gx")
+region_rect = Rect2(32, 3, 32, 27)
