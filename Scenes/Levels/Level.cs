@@ -274,7 +274,7 @@ public partial class Level : Node2D {
 
 		AIDirector.CurrentLevel = this;
 
-		if (BackgroundMusic != null) AudioManager.PlayMusic(BackgroundMusic);
+		if (BackgroundMusic != null) AudioManager.StreamAudio(BackgroundMusic);
 	}
 	
 	#endregion

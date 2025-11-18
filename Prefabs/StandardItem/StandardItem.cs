@@ -767,7 +767,7 @@ public partial class StandardItem : RigidBody2D
 	/// <param name="v">Do verbose logging? Use <c>v</c> to follow the same verbosity as the encapsulating function, if available.</param>
 	/// <param name="s">Stack depth. Use <c>0</c> if on a root function, or <c>s + 1</c> if <c>s</c> is available in the encapsulating function.</param>
 	public virtual Variant? PickUp() {
-		AudioManager.PlaySFX("item_pickup");
+		AudioManager.StreamAudio("item_pickup");
 		return null;
 	}
 
@@ -800,7 +800,7 @@ public partial class StandardItem : RigidBody2D
 	/// <param name="v">Do verbose logging? Use <c>v</c> to follow the same verbosity as the encapsulating function, if available.</param>
 	/// <param name="s">Stack depth. Use <c>0</c> if on a root function, or <c>s + 1</c> if <c>s</c> is available in the encapsulating function.</param>
 	public virtual Variant? Drop() {
-		AudioManager.PlaySFX("item_drop");
+		AudioManager.StreamAudio("item_drop");
 		SpawnInWorld();
 		return null;
 	}
