@@ -1,27 +1,14 @@
 [gd_scene load_steps=4 format=3 uid="uid://ckianc0f8bmk7"]
 
-[ext_resource type="Script" uid="uid://bro68gtf38wj2" path="res://Prefabs/StandardItem/StandardItem.cs" id="1_bo641"]
+[ext_resource type="PackedScene" uid="uid://cgwbyxdsmb6ty" path="res://Prefabs/StandardItem/Upgrades/UpgradeItem.tscn" id="1_3i45y"]
+[ext_resource type="Script" uid="uid://basu4r7n3lbwl" path="res://Prefabs/StandardItem/Upgrades/Speed/Speed.cs" id="1_bo641"]
 [ext_resource type="Texture2D" uid="uid://bfnnm6r5rxoq7" path="res://Sprites/Icons/16x16.png" id="2_3i45y"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_8ro5o"]
-
-[node name="Speed II" type="RigidBody2D" node_paths=PackedStringArray("Sprite")]
-gravity_scale = 0.0
+[node name="Speed II" instance=ExtResource("1_3i45y")]
 script = ExtResource("1_bo641")
 ItemName = "Speed II"
 ItemID = "speed_2"
-IsUsable = true
-DeleteOnEmpty = false
-RemoveQuantityOnBreak = false
-MaxQuantity = 1
-BaseCooldownTime = 5.0
-Sprite = NodePath("Sprite2D")
-LogReady = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_8ro5o")
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" parent="." index="1"]
 texture = ExtResource("2_3i45y")
-region_enabled = true
-region_rect = Rect2(208, 880, 16, 16)
+region_rect = Rect2(160, 656, 16, 16)

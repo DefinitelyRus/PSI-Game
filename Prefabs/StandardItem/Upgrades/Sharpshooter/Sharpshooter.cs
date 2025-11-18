@@ -1,24 +1,33 @@
 using CommonScripts;
-using Godot;
 namespace Game;
 
-public partial class Sharpshooter : StandardItem {
+public partial class Sharpshooter : UpgradeItem {
     
-    [Export] public float StatMultiplier { get; private set; } = 1.5f;
+    public override void PowerOn() {
+        AITargetingManager? targeter = OwnerCharacter?.TargetingManager;
 
-    public StandardCharacter? OwnerCharacter { get; private set; } = null;
+        if (targeter == null) {
+            Log.Warn(() => $"PowerOn called on {ItemName}, but OwnerCharacter has no TargetingManager.");
+            return;
+        }
 
-    public void SetOwner(StandardCharacter owner) {
-        OwnerCharacter = owner;
-    }
+        OriginalValue = targeter.TargetDetectionRadius;
 
-    public virtual void PowerOn() {
-        Log.Warn(() => $"PowerOn called on {ItemName}, but not implemented.");
+        targeter.TargetDetectionRadius *= Value;
+        base.PowerOn();
         return;
     }
 
-    public virtual void PowerOff() {
-        Log.Warn(() => $"PowerOff called on {ItemName}, but not implemented.");
+    public override void PowerOff() {
+        AITargetingManager? targeter = OwnerCharacter?.TargetingManager;
+
+        if (targeter == null) {
+            Log.Warn(() => $"PowerOff called on {ItemName}, but OwnerCharacter has no TargetingManager.");
+            return;
+        }
+
+        targeter.TargetDetectionRadius = OriginalValue;
+        base.PowerOff();
         return;
     }
 }

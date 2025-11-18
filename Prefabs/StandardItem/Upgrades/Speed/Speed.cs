@@ -1,22 +1,33 @@
 using CommonScripts;
-using Godot;
 namespace Game;
 
-public partial class Speed : StandardItem {
+public partial class Speed : UpgradeItem {
     
-    [Export] public float StatMultiplier { get; private set; } = 1.5f;
+    public override void PowerOn() {
+        StandardCharacter? character = OwnerCharacter;
 
-    public StandardCharacter? OwnerCharacter { get; private set; } = null;
+        if (character == null) {
+            Log.Warn(() => $"PowerOn called on {ItemName}, but OwnerCharacter is null.");
+            return;
+        }
 
-    public void SetOwner(StandardCharacter owner) {
-        OwnerCharacter = owner;
-    }
+        OriginalValue = character.CurrentMaxSpeed;
 
-    public virtual void PowerOn() {
+        character.CurrentMaxSpeed *= Value;
+        base.PowerOn();
         return;
     }
 
-    public virtual void PowerOff() {
+    public override void PowerOff() {
+        StandardCharacter? character = OwnerCharacter;
+
+        if (character == null) {
+            Log.Warn(() => $"PowerOff called on {ItemName}, but OwnerCharacter is null.");
+            return;
+        }
+
+        character.CurrentMaxSpeed = OriginalValue;
+        base.PowerOff();
         return;
     }
 }

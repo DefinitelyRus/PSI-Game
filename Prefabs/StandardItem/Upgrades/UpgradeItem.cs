@@ -5,7 +5,9 @@ namespace Game;
 
 public partial class UpgradeItem : StandardItem {
     
-    [Export] public float StatMultiplier { get; private set; } = 1.5f;
+    [Export] public float Value { get; private set; } = 1.5f;
+
+    public float OriginalValue { get; protected set; } = 1.0f;
 
     [Export] public Dictionary<string, AudioStream> SFX { get; private set; } = [];
 

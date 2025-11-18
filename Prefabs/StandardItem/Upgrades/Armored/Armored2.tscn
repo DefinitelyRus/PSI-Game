@@ -8,7 +8,7 @@ load_path = "res://.godot/imported/16x16.png-053846a8720945d8ec3e8a763fb7e2e9.ct
 
 [node name="Armored II" instance=ExtResource("1_dxdgl")]
 script = ExtResource("2_hme4f")
-StatMultiplier = 3.0
+Value = 3.0
 ItemName = "Armored II"
 ItemID = "armored_2"
 IsUsable = false

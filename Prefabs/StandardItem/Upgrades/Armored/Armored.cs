@@ -1,16 +1,33 @@
 using CommonScripts;
-using Godot;
 namespace Game;
 
-public partial class Armored1 : StandardItem {
-    
-    [Export] public float StatMultiplier { get; private set; } = 1.5f;
+public partial class Armored : UpgradeItem {
 
-    public override Variant? Equip() {
-        return StatMultiplier;
+    public override void PowerOn() {
+        StandardCharacter? character = OwnerCharacter;
+
+        if (character == null) {
+            Log.Warn(() => $"PowerOn called on {ItemName}, but OwnerCharacter is null.");
+            return;
+        }
+
+        OriginalValue = character.CurrentMaxHealth;
+
+        character.CurrentMaxHealth = (int) (character.CurrentMaxHealth * Value);
+        base.PowerOn();
+        return;
     }
 
-    public override Variant? Unequip() {
-        return 1.0f;
+    public override void PowerOff() {
+        StandardCharacter? character = OwnerCharacter;
+
+        if (character == null) {
+            Log.Warn(() => $"PowerOff called on {ItemName}, but OwnerCharacter is null.");
+            return;
+        }
+
+        character.CurrentMaxHealth = (int) OriginalValue;
+        base.PowerOff();
+        return;
     }
 }
