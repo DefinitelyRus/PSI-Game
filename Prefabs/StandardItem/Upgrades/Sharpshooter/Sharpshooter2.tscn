@@ -6,7 +6,6 @@
 
 [node name="Sharpshooter 2" instance=ExtResource("1_53fh1")]
 script = ExtResource("2_ofcuv")
-StatMultiplier = 1.5
 ItemName = "Sharpshooter II"
 ItemID = "sharpshooter_2"
 

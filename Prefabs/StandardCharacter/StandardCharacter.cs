@@ -363,6 +363,7 @@ public partial class StandardCharacter : CharacterBody2D {
 	[Export] public ControlSurface Control = null!;
 	[Export] public AIAgentManager AIAgent = null!;
 	[Export] public AITargetingManager TargetingManager = null!;
+	[Export] public UpgradeManager UpgradeManager = null!;
 	[Export] public StandardWeapon Weapon = null!;
 	[Export] public Area2D HitArea = null!;
 	[Export] public Area2D ClickArea = null!;
@@ -548,6 +549,8 @@ public partial class StandardCharacter : CharacterBody2D {
 
 		if (TargetingManager == null) Log.Err("AITargetingManager is not assigned. This character cannot target enemies.");
 
+		if (UpgradeManager == null) Log.Err("UpgradeManager is not assigned. This character cannot use upgrades.");
+
 		if (Weapon == null && !AllowNoWeapon) Log.Warn("StandardWeapon is not assigned. This character cannot attack.");
 
 		if (HitArea == null && !AllowNoHitArea) Log.Warn("HitArea is not assigned. This character will have buggy hit behavior.");
@@ -581,15 +584,11 @@ public partial class StandardCharacter : CharacterBody2D {
 		Health = MaxHealth;
 		CurrentMaxSpeed = MaxSpeed;
 
-
-		// Register this character so global click detection can find it.
 		EntityManager.AddCharacter(this);
 
 		Log.Me(() => "Done!", enabled: LogReady);
 		return;
 	}
-
-	// Removed deferred registration helper; registration is immediate in _Ready.
 
 	public override void _Process(double delta) {
 		UpdateAnimations();

@@ -8,7 +8,7 @@ load_path = "res://.godot/imported/16x16.png-053846a8720945d8ec3e8a763fb7e2e9.ct
 
 [node name="Lethality II" instance=ExtResource("1_kyqbm")]
 script = ExtResource("2_26ysg")
-StatMultiplier = 5.0
+Value = 5.0
 ItemName = "Lethality II"
 ItemID = "lethality_2"
 

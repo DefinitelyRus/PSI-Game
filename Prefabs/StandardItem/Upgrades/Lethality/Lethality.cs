@@ -1,18 +1,9 @@
 using CommonScripts;
-using Godot;
 namespace Game;
 
-public partial class Lethality : StandardItem {
-    
-    [Export] public float StatMultiplier { get; private set; } = 1.5f;
+public partial class Lethality : UpgradeItem {
 
-    public StandardCharacter? OwnerCharacter { get; private set; } = null;
-
-    public void SetOwner(StandardCharacter owner) {
-        OwnerCharacter = owner;
-    }
-
-    public virtual void PowerOn() {
+    public override void PowerOn() {
         StandardWeapon? weapon = OwnerCharacter?.Weapon;
 
         if (weapon == null) {
@@ -23,15 +14,16 @@ public partial class Lethality : StandardItem {
         StatModifier modifier = new(
             $"Lethality_{InstanceID}",
             "Damage",
-            StatMultiplier,
+            Value,
             StatModifier.ModifierType.Multiply
         );
 
         weapon.Modifiers.Add(modifier);
+        base.PowerOn();
         return;
     }
 
-    public virtual void PowerOff() {
+    public override void PowerOff() {
         StandardWeapon? weapon = OwnerCharacter?.Weapon;
 
         if (weapon == null) {
@@ -40,6 +32,7 @@ public partial class Lethality : StandardItem {
         }
 
         weapon.Modifiers.RemoveAll(m => m.ID == $"Lethality_{InstanceID}");
+        base.PowerOff();
         return;
     }
 }

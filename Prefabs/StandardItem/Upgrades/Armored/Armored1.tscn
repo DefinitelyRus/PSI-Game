@@ -16,7 +16,6 @@ RemoveQuantityOnBreak = true
 MaxQuantity = 99
 BaseCooldownTime = 0.0
 LogReady = true
-StatMultiplier = 1.5
 
 [node name="Sprite2D" parent="." index="1"]
 texture = SubResource("CompressedTexture2D_8tx1j")

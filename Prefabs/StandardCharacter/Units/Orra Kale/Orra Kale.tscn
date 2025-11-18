@@ -1,8 +1,9 @@
-[gd_scene load_steps=92 format=3 uid="uid://dmuhp2l2j70gn"]
+[gd_scene load_steps=93 format=3 uid="uid://dmuhp2l2j70gn"]
 
 [ext_resource type="PackedScene" uid="uid://daotyvqai4b36" path="res://Prefabs/StandardCharacter/StandardCharacter.tscn" id="1_jdgtp"]
 [ext_resource type="PackedScene" uid="uid://dr2el8snmmerp" path="res://Prefabs/StandardCharacter/Units/Orra Kale/HeavyRifle_T1.tscn" id="2_07s0f"]
 [ext_resource type="Texture2D" uid="uid://dawi8tw8kb81c" path="res://Sprites/Units/Orra Kale/Idle.png" id="2_haq8x"]
+[ext_resource type="Script" uid="uid://nqh1hdf0si5s" path="res://Prefabs/StandardCharacter/Units/UpgradeManager.cs" id="2_ovcvx"]
 [ext_resource type="Texture2D" uid="uid://fmonl61opssy" path="res://Sprites/Units/Orra Kale/Death.png" id="3_l5av8"]
 [ext_resource type="AudioStream" uid="uid://dk3xusqfhntyl" path="res://Prefabs/StandardCharacter/Units/Orra Kale/BT1 - 22LR Single WAV.wav" id="3_smjp3"]
 [ext_resource type="Texture2D" uid="uid://4qvt0npxdxuh" path="res://Sprites/Units/Orra Kale/Walking.png" id="4_5hjy4"]
@@ -1205,23 +1206,28 @@ states/Walk/position = Vector2(836, 100)
 transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_haq8x"), "Idle", "Death", SubResource("AnimationNodeStateMachineTransition_5hjy4"), "Attack", "Death", SubResource("AnimationNodeStateMachineTransition_km3j1"), "Walk", "Death", SubResource("AnimationNodeStateMachineTransition_fntse"), "Idle", "Attack", SubResource("AnimationNodeStateMachineTransition_qqotl"), "Walk", "Attack", SubResource("AnimationNodeStateMachineTransition_k02c7"), "Idle", "Walk", SubResource("AnimationNodeStateMachineTransition_yjfud"), "Attack", "Walk", SubResource("AnimationNodeStateMachineTransition_nej0w"), "Attack", "Idle", SubResource("AnimationNodeStateMachineTransition_1vsjy"), "Walk", "Idle", SubResource("AnimationNodeStateMachineTransition_w4osj")]
 graph_offset = Vector2(36, 55)
 
-[node name="Orra Kale" node_paths=PackedStringArray("Weapon", "AnimationTree") instance=ExtResource("1_jdgtp")]
+[node name="Orra Kale" node_paths=PackedStringArray("UpgradeManager", "Weapon", "AnimationTree") instance=ExtResource("1_jdgtp")]
 CharacterName = "Orra Kale"
 CharacterID = "orra_kale"
 MaxHealth = 300.0
 Tags = PackedStringArray("Unit")
+UpgradeManager = NodePath("Upgrade Manager")
 Weapon = NodePath("Heavy Rifle 1")
 AnimationTree = NodePath("AnimationTree")
 
-[node name="Heavy Rifle 1" parent="." index="1" instance=ExtResource("2_07s0f")]
+[node name="Upgrade Manager" type="Node" parent="." index="1" node_paths=PackedStringArray("Character")]
+script = ExtResource("2_ovcvx")
+Character = NodePath("..")
+
+[node name="Heavy Rifle 1" parent="." index="2" instance=ExtResource("2_07s0f")]
 BaseDamage = 50.0
 
-[node name="AI Targeting Manager" parent="." index="2"]
+[node name="AI Targeting Manager" parent="." index="3"]
 TargetDetectionRadius = 240.0
 TargetLostRadius = 720.0
 CurrentTargetMode = 3
 
-[node name="Audio Controller" parent="." index="7"]
+[node name="Audio Controller" parent="." index="8"]
 AudioClips = Dictionary[String, AudioStream]({
 "attack_1": ExtResource("3_smjp3"),
 "attack_2": ExtResource("4_ovcvx"),
@@ -1237,15 +1243,15 @@ AudioClips = Dictionary[String, AudioStream]({
 "hit_8": ExtResource("14_dnljx")
 })
 
-[node name="Sprite2D" parent="." index="8"]
+[node name="Sprite2D" parent="." index="9"]
 texture = ExtResource("2_haq8x")
 
-[node name="AnimationPlayer" parent="." index="9"]
+[node name="AnimationPlayer" parent="." index="10"]
 libraries = {
 &"": SubResource("AnimationLibrary_l5av8")
 }
 
-[node name="AnimationTree" type="AnimationTree" parent="." index="10"]
+[node name="AnimationTree" type="AnimationTree" parent="." index="11"]
 tree_root = SubResource("AnimationNodeStateMachine_haq8x")
 anim_player = NodePath("../AnimationPlayer")
 parameters/conditions/is_attacking = false
@@ -1257,5 +1263,5 @@ parameters/Death/blend_position = Vector2(-0.15468752, -1.0443687)
 parameters/Idle/blend_position = Vector2(0.33749998, 0.4631579)
 parameters/Walk/blend_position = Vector2(-0.0064452887, -0.4583333)
 
-[node name="NavigationAgent2D" parent="." index="11"]
+[node name="NavigationAgent2D" parent="." index="12"]
 debug_enabled = true
