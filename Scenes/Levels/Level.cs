@@ -147,7 +147,33 @@ public partial class Level : Node2D {
 			}
 		}
 
-		return spawnsInRange.Count > index ? spawnsInRange[index] : null;
+		Node2D? chosenSpawn = spawnsInRange.Count > index ? spawnsInRange[index] : null;
+
+		if (chosenSpawn == null) return null;
+
+		// If the spawn point is occupied...
+		if (EntityManager.HasEntityAtPosition(chosenSpawn.GlobalPosition, out PhysicsBody2D? otherEntity)) {
+			// Redundancy: Return the current spawn if there's no entity
+			if (otherEntity == null) return chosenSpawn;
+
+			// Return the current spawn if the entity is not a character
+			if (otherEntity is not StandardCharacter otherCharacter) return chosenSpawn;
+
+			// Redundancy: Reroll if occupied by a player unit
+			bool isPlayer = otherCharacter.Tags.Contains("Unit");
+			if (isPlayer) FindNearbyEnemySpawnPoint(position, radius, index + 1, avoidCamera);
+
+			// Kill the occupying character with a 20% chance
+			bool coinFlip = GD.Randi() % 5 == 0;
+			if (coinFlip) EntityManager.RemoveCharacter(otherCharacter);
+
+			// Recursively search for the next available spawn point.
+			// May throw a warning if index is out of range.
+			// Possibly infinite recursion if all spawn points are occupied.
+			else chosenSpawn = FindNearbyEnemySpawnPoint(position, radius, index + 1, avoidCamera);
+		}
+
+		return chosenSpawn;
 	}
 
 	#endregion
