@@ -249,7 +249,7 @@ script = ExtResource("2_426db")
 Character = NodePath("..")
 
 [node name="Assault Rifle 1" parent="." index="2" instance=ExtResource("2_haq8x")]
-BaseDamage = 10.0
+BaseDamage = 30.0
 AttackOriginDistance = 32.0
 
 [node name="AI Targeting Manager" parent="." index="3"]
