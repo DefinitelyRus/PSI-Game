@@ -1,20 +1,33 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using Godot;
 namespace CommonScripts;
 
 public partial class Level : Node2D {
 
+	#region Nodes & Components
+
+	[ExportGroup("Nodes & Components")]
 	[Export] public Node2D SpawnParent = null!;
 	[Export] public Node2D EnemySpawnParent = null!;
-	[Export] public Node2D[] CameraNodePaths = [];
-	private int CurrentSpawnIndex = 0;
 	[Export] public Node2D PropsParent = null!;
 	[Export] public Node2D RegionsParent = null!;
+	[Export] public Node2D[] CameraNodePaths = [];
 	[Export] public AudioStream BackgroundMusic = null!;
+
+	#endregion
+
+	#region Properties
+
+	[ExportGroup("Properties")]
 	[Export] public float EnemyStaticSpawningDelayMultiplier = 1f;
+	[Export] public uint EnemyCountLimit = 50;
 	[Export] public uint LevelIndex = 0;
+	private int CurrentSpawnIndex = 0;
+
+	#endregion
 
 
 	#region Debug
