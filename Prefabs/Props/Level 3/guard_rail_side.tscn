@@ -1,13 +1,25 @@
-[gd_scene load_steps=3 format=3 uid="uid://feiaaql0lfuh"]
+[gd_scene load_steps=4 format=3 uid="uid://feiaaql0lfuh"]
 
 [ext_resource type="PackedScene" uid="uid://bnslwo4ecgkcn" path="res://Prefabs/StandardProp/StandardProp.tscn" id="1_ajks2"]
 [ext_resource type="Texture2D" uid="uid://b88vn7c70p7iq" path="res://Sprites/World Sprites/Level 3 - Datacenter/DataCenter.png" id="2_65lj8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_65lj8"]
+size = Vector2(13, 47)
 
 [node name="Guard Rail Side" instance=ExtResource("1_ajks2")]
 PropName = "Guard Rail Side"
 PropID = "guard_rail_side"
 PropDescription = "A guard rail facing the side"
 
+[node name="CollisionShape2D" parent="." index="0"]
+position = Vector2(0, 2)
+shape = SubResource("RectangleShape2D_65lj8")
+
 [node name="Sprite2D" parent="." index="1"]
+position = Vector2(0, 2)
 texture = ExtResource("2_65lj8")
 region_rect = Rect2(0, 130, 16, 62)
+
+[node name="NavigationObstacle2D" parent="." index="2"]
+position = Vector2(0, 2)
+vertices = PackedVector2Array(-11, -33, 12, -33, 11, 28, -11, 28)
