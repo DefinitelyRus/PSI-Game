@@ -60,14 +60,14 @@ public partial class UpgradeManager : Node {
 
         if (powered) {
             if (CurrentPower >= CurrentMaxPower) {
-                AudioManager.PlaySFX("error");
+                AudioManager.StreamAudio("error");
                 return;
             }
 
             if (!item.IsEquipped) {
                 item.Equip();
                 CurrentPower++;
-                AudioManager.PlaySFX("power_item");
+                AudioManager.StreamAudio("power_item");
             }
         }
         
@@ -75,7 +75,7 @@ public partial class UpgradeManager : Node {
             if (item.IsEquipped) {
                 item.Unequip();
                 CurrentPower = Mathf.Max(CurrentPower - 1, 0);
-                AudioManager.PlaySFX("unpower_item");
+                AudioManager.StreamAudio("unpower_item");
             }
         }
     }
@@ -133,7 +133,7 @@ public partial class UpgradeManager : Node {
 
     public void AddItem(StandardItem item) {
         if (Items.Count >= CurrentMaxSlots) {
-            AudioManager.PlaySFX("error");
+            AudioManager.StreamAudio("error");
             return;
         }
 

@@ -18,12 +18,12 @@ public partial class UpgradeItem : StandardItem {
     }
 
     public virtual void PowerOn() {
-        AudioManager.PlaySFX(SFX["activate"], 0.8f);
+        AudioManager.StreamAudio(SFX["activate"], $"activate_{InstanceID}", 0.8f);
         return;
     }
 
     public virtual void PowerOff() {
-        AudioManager.PlaySFX(SFX["deactivate"], 0.8f);
+        AudioManager.StreamAudio(SFX["deactivate"], $"deactivate_{InstanceID}", 0.8f);
         return;
     }
 }

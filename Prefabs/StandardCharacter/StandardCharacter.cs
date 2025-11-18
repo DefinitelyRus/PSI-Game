@@ -109,6 +109,8 @@ public partial class StandardCharacter : CharacterBody2D {
 			return;
 		}
 
+		if (CameraMan.IsDamageLocked && Commander.GetAllUnits().Contains(this)) return;
+
 		Health -= amount;
 
 		//TODO: AVFX here.
@@ -511,6 +513,7 @@ public partial class StandardCharacter : CharacterBody2D {
 	[ExportSubgroup("Ignore Unassigned Values")]
 	[Export] public bool SilentlyAutoAssignDefaultName = false;
 	[Export] public bool AllowNoWeapon = false;
+	[Export] public bool AllowNoUpgradeManager = true;
 	[Export] public bool AllowNoHitArea = false;
 	[Export] public bool AllowNoClickArea = false;
 	[Export] public bool AllowNoAnimationPlayer = false;
@@ -549,7 +552,7 @@ public partial class StandardCharacter : CharacterBody2D {
 
 		if (TargetingManager == null) Log.Err("AITargetingManager is not assigned. This character cannot target enemies.");
 
-		if (UpgradeManager == null) Log.Err("UpgradeManager is not assigned. This character cannot use upgrades.");
+		if (UpgradeManager == null && !AllowNoUpgradeManager) Log.Err("UpgradeManager is not assigned. This character cannot use upgrades.");
 
 		if (Weapon == null && !AllowNoWeapon) Log.Warn("StandardWeapon is not assigned. This character cannot attack.");
 

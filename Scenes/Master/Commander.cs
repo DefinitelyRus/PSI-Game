@@ -120,7 +120,10 @@ public partial class Commander : Node {
 			return;
 		}
 
-		Units[index].AIAgent.IsSelected = true;
+		// Select exactly one unit
+		for (int i = 0; i < Units.Count; i++) {
+			Units[i].AIAgent.IsSelected = i == index;
+		}
 
 		SingleUnitControl();
 	}
@@ -192,7 +195,9 @@ public partial class Commander : Node {
 			return;
 		}
 
+		if (CameraMan.IsPathActive) CameraMan.FinishPathInstantly(skipFocus: true);
 		DeselectAllUnits();
+		
 		FocusedUnit = Units[index];
 		SelectUnit(index);
 
@@ -203,8 +208,7 @@ public partial class Commander : Node {
 	public static void ClearFocusedUnit()
 	{
 		FocusedUnit = null!;
-
-		CameraMan.ClearTarget();
+	if (!CameraMan.IsPathActive) CameraMan.ClearTarget();
 	}
 
 

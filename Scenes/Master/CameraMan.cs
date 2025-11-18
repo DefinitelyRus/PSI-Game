@@ -86,6 +86,7 @@ public partial class CameraMan : Node2D {
         FollowTarget(delta);
         ScanPathReached();
         ShakeDecay(delta);
+    UpdateLocks(delta);
     }
 
     #endregion
@@ -104,6 +105,13 @@ public partial class CameraMan : Node2D {
     private static int CurrentPathIndex = 0;
     private static float WaitTimer = 0f;
     private static bool PathComplete = false;
+    private static bool ControlsLocked = false;
+    private static bool DamageLocked = false;
+    private static float DamageUnlockTimer = 0f;
+
+    public static bool IsPathActive => NodePaths.Length > 0 && !PathComplete;
+    public static bool IsControlsLocked => ControlsLocked;
+    public static bool IsDamageLocked => DamageLocked;
 
 
     public static void SetCameraPath(Node2D[] nodePaths) {
@@ -124,16 +132,20 @@ public partial class CameraMan : Node2D {
                 return;
             }
 
-
-            //path.Name = $"{StartTargetName}_{index}";
             index++;
         }
 
+        // All checks passed, set the camera path to the provided nodes.
         NodePaths = nodePaths;
         CurrentPathIndex = 0;
         WaitTimer = Instance.NodePathStayTime;
-        SetTarget(NodePaths[^1], true);
-        SetTarget(NodePaths[CurrentPathIndex]);
+        PathComplete = false;
+        ControlsLocked = true;
+        DamageLocked = true;
+        DamageUnlockTimer = 0f;
+
+        SetTarget(NodePaths[^1], true); // Snap to final target immediately
+        SetTarget(NodePaths[CurrentPathIndex]); // Set initial target
     }
 
 
@@ -158,7 +170,7 @@ public partial class CameraMan : Node2D {
 
         CurrentPathIndex++;
         if (CurrentPathIndex >= NodePaths.Length) {
-            var _ = CompletedPath();
+            CompletePath();
             return;
         }
 
@@ -167,18 +179,39 @@ public partial class CameraMan : Node2D {
     }
 
 
-    public static async Task CompletedPath() {
+    public static void CompletePath() {
         PathComplete = true;
+
+        // Unlock controls after path completion
+        ControlsLocked = false;
+        DamageLocked = true;
+        DamageUnlockTimer = 5f;
+
+        Commander.SetFocusedUnit(0, true);
+
+        // Show HUD again
         UIManager.SetHUDVisible(false, -1);
         UIManager.SetHUDVisible(true, 0);
         UIManager.SetHUDVisible(true, 1);
+        UIManager.SetHUDVisible(true, 2);
+    }
 
-        SceneTree tree = Instance.GetTree();
-        SceneTreeTimer timer = tree.CreateTimer(1f);
-        await Instance.ToSignal(timer, SceneTreeTimer.SignalName.Timeout);
+
+    public static void FinishPathInstantly(bool skipFocus = false) {
+        PathComplete = true;
+
+        // Unlock controls after path completion
+        ControlsLocked = false;
+        DamageLocked = true;
+        DamageUnlockTimer = 5f;
+
+        // Show HUD again
+        UIManager.SetHUDVisible(false, -1);
+        UIManager.SetHUDVisible(true, 0);
+        UIManager.SetHUDVisible(true, 1);
         UIManager.SetHUDVisible(true, 2);
 
-        Commander.SetFocusedUnit(0, true);
+        if (!skipFocus) Commander.SetFocusedUnit(0, true);
     }
 
 
@@ -186,6 +219,10 @@ public partial class CameraMan : Node2D {
         NodePaths = [];
         CurrentPathIndex = 0;
         WaitTimer = 0f;
+        PathComplete = false;
+        ControlsLocked = false;
+        DamageLocked = false;
+        DamageUnlockTimer = 0f;
     }
 
     #endregion
@@ -252,6 +289,7 @@ public partial class CameraMan : Node2D {
     #region Directional Movement
 
     public static void Move(Vector2 direction) {
+    if (IsPathActive) FinishPathInstantly();
         Instance.GlobalPosition += direction.Normalized() * Instance.Speed;
 
         if (Target != null) Target = null;
@@ -264,6 +302,7 @@ public partial class CameraMan : Node2D {
 
     public static void Drag(InputEvent input) {
         if (input is not InputEventMouseMotion mouseMotion) return;
+        if (IsPathActive) FinishPathInstantly();
 
         Vector2 mousePos = GetCleanMousePosition(mouseMotion.Position);
 
@@ -351,6 +390,16 @@ public partial class CameraMan : Node2D {
     #endregion
 
     #region Other
+
+    private static void UpdateLocks(double delta) {
+        if (DamageUnlockTimer > 0f) {
+            DamageUnlockTimer -= (float) delta;
+            if (DamageUnlockTimer <= 0f) {
+                DamageUnlockTimer = 0f;
+                DamageLocked = false;
+            }
+        }
+    }
 
     public static bool IsPointVisible(Vector2 point, float margin = 0f) {
         Vector2 viewportSize = Instance.GetViewportRect().Size;

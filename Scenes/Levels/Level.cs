@@ -16,6 +16,7 @@ public partial class Level : Node2D {
 	[Export] public Node2D RegionsParent = null!;
 	[Export] public Node2D[] CameraNodePaths = [];
 	[Export] public AudioStream BackgroundMusic = null!;
+	[Export] public AudioStream AmbientAudio = null!;
 
 	#endregion
 
@@ -81,6 +82,8 @@ public partial class Level : Node2D {
 
 
 	public void SpawnCharacter(StandardCharacter character, Vector2 position) {
+		if (!character.IsAlive) return;
+
 		AddChild(character);
 		character.GlobalPosition = position;
 	}
@@ -272,7 +275,8 @@ public partial class Level : Node2D {
 
 		AIDirector.CurrentLevel = this;
 
-		if (BackgroundMusic != null) AudioManager.PlayMusic(BackgroundMusic);
+		if (BackgroundMusic != null) AudioManager.StreamAudio(BackgroundMusic);
+		if (AmbientAudio != null) AudioManager.StreamAudio(AmbientAudio);
 	}
 	
 	#endregion
