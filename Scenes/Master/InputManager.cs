@@ -65,11 +65,13 @@ public partial class InputManager : Node2D {
 
 	private void ReceiveCameraInputs(InputEvent input) {
         if (input is not InputEventMouseMotion) return;
+		if (CameraMan.IsControlsLocked) return;
 		if (Input.IsActionPressed("select_3")) CameraMan.Drag(input);
     }
 
 
 	private void ReceiveCameraInputs() {
+		if (CameraMan.IsControlsLocked) return;
 		if (Input.IsActionPressed("move_up")) CameraMan.Move(Vector2.Up);
 		if (Input.IsActionPressed("move_down")) CameraMan.Move(Vector2.Down);
 		if (Input.IsActionPressed("move_left")) CameraMan.Move(Vector2.Left);
@@ -82,22 +84,38 @@ public partial class InputManager : Node2D {
 		Vector2 mousePos = CameraMan.GetCleanMousePosition();
 		bool ctrlPressed = Input.IsActionPressed("ctrl_modifier");
 
-		// Camera controls
 		ReceiveCameraInputs();
 
-		// Unit interactions
+		// Only allow focusing on units while controls are locked
+		if (CameraMan.IsControlsLocked) {
+			if (ctrlPressed && Input.IsActionJustPressed("select_unit_1")) Commander.SetFocusedUnit(0, true);
+			if (ctrlPressed && Input.IsActionJustPressed("select_unit_2")) Commander.SetFocusedUnit(1, true);
+			Commander.PrimeDrop = false;
+
+			return;
+		}
+
+		// RTS Unit Selection Inputs
+		if (Input.IsActionJustPressed("select_unit_1")) {
+			if (ctrlPressed) Commander.SetFocusedUnit(0, true);
+			else Commander.SelectUnit(0);
+		}
+
+		if (Input.IsActionJustPressed("select_unit_2")) {
+			if (ctrlPressed) Commander.SetFocusedUnit(1, true);
+			else Commander.SelectUnit(1);
+		}
+
+		// RTS Command Inputs
 		if (Input.IsActionJustPressed("select_1")) Commander.MoveAndSearch(mousePos);
 		if (Input.IsActionJustPressed("select_2")) Commander.MoveAndTarget(mousePos);
 		if (Input.IsActionJustPressed("stop_action")) Commander.StopSelectedUnits();
-		if (Input.IsActionJustPressed("select_unit_1")) Commander.SetFocusedUnit(0, ctrlPressed);
-		if (Input.IsActionJustPressed("select_unit_2")) Commander.SetFocusedUnit(1, ctrlPressed);
+		
 		if (Input.IsActionJustPressed("select_all_units")) Commander.SelectAllUnits();
 		if (Input.IsActionJustPressed("deselect_all_units")) Commander.DeselectAllUnits();
 
-		// Prime to drop item with CTRL
+		// Item Management Inputs
 		Commander.PrimeDrop = ctrlPressed;
-
-		// Toggle item use with 1-5
 		if (Input.IsActionJustPressed("item_1")) Commander.SelectItem(0);
 		if (Input.IsActionJustPressed("item_2")) Commander.SelectItem(1);
 		if (Input.IsActionJustPressed("item_3")) Commander.SelectItem(2);

@@ -109,6 +109,8 @@ public partial class StandardCharacter : CharacterBody2D {
 			return;
 		}
 
+		if (CameraMan.IsDamageLocked && Commander.GetAllUnits().Contains(this)) return;
+
 		Health -= amount;
 
 		//TODO: AVFX here.
