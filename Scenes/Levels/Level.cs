@@ -81,6 +81,8 @@ public partial class Level : Node2D {
 
 
 	public void SpawnCharacter(StandardCharacter character, Vector2 position) {
+		if (!character.IsAlive) return;
+
 		AddChild(character);
 		character.GlobalPosition = position;
 	}
