@@ -170,7 +170,15 @@ public partial class AIDirector : Node2D {
             return null;
         }
 
-        return playerUnits.OrderBy(unit => unit.GlobalPosition.DistanceTo(position)).FirstOrDefault();
+        StandardCharacter? nearestUnit = null;
+        foreach (StandardCharacter unit in playerUnits) {
+            if (!unit.IsAlive) continue;
+
+            float current = unit.GlobalPosition.DistanceTo(position);
+            if (nearestUnit == null || current < nearestUnit.GlobalPosition.DistanceTo(position)) nearestUnit = unit;
+        }
+
+        return nearestUnit;
     }
 
     private static void SearchAndDestroy() {
