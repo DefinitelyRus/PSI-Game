@@ -36,7 +36,7 @@ public partial class OldInputManager : Node2D {
 			bool faceFollows = _facingMode == FacingModes.Follow || _facingMode == FacingModes.AlwaysFollow;
 
 			if (moveFollows && faceFollows) {
-				new Ctx().Warn(() => "Both MovementMode and FacingMode are set to `Follow` or `AlwaysFollow`. Setting to `Static` instead.");
+				Log.Warn(() => "Both MovementMode and FacingMode are set to `Follow` or `AlwaysFollow`. Setting to `Static` instead.");
 				_movementMode = MovementModes.Static;
 			}
 			else _movementMode = value;
