@@ -1,9 +1,64 @@
-[gd_scene load_steps=3 format=3 uid="uid://bh4ior7florkf"]
+[gd_scene load_steps=8 format=3 uid="uid://bh4ior7florkf"]
 
 [ext_resource type="PackedScene" uid="uid://bnslwo4ecgkcn" path="res://Prefabs/StandardProp/StandardProp.tscn" id="1_k8nf6"]
+[ext_resource type="Texture2D" uid="uid://8luhw3uosuwh" path="res://Sprites/World Sprites/Elevator.png" id="2_ryu41"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k8nf6"]
 size = Vector2(32, 7.5)
+
+[sub_resource type="Animation" id="Animation_ryu41"]
+resource_name = "Door Open"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.033333335, 0.06666667, 0.10000001, 0.13333334, 0.16666667, 0.20000002, 0.23333335, 0.26666668, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+}
+
+[sub_resource type="Animation" id="Animation_y3665"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_w0iwt"]
+resource_name = "Door Close"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.033333335, 0.06666667, 0.10000001, 0.13333334, 0.16666667, 0.20000002, 0.23333335, 0.26666668, 0.3087926),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_w0iwt"]
+_data = {
+&"Door Close": SubResource("Animation_w0iwt"),
+&"Door Open": SubResource("Animation_ryu41"),
+&"RESET": SubResource("Animation_y3665")
+}
 
 [node name="Elevator" instance=ExtResource("1_k8nf6")]
 
@@ -12,8 +67,15 @@ shape = SubResource("RectangleShape2D_k8nf6")
 
 [node name="Sprite2D" parent="." index="1"]
 position = Vector2(0, 8)
+texture = ExtResource("2_ryu41")
 offset = Vector2(0, -12.275)
-region_rect = Rect2(256, 128, 32, 32)
+hframes = 10
+region_rect = Rect2(0, 0, 320, 30)
 
 [node name="NavigationObstacle2D" parent="." index="2"]
 vertices = PackedVector2Array(-20, -11, 21, -11, 21, 8, -20, 8)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="3"]
+libraries = {
+&"": SubResource("AnimationLibrary_w0iwt")
+}
