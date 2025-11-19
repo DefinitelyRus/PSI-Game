@@ -8,13 +8,18 @@ size = Vector2(44, 9)
 
 [node name="Bench Chair" instance=ExtResource("1_ru3ii")]
 PropName = "Bench Chair"
-PropDescription = "a bench chair"
 PropID = "bench_chair"
+PropDescription = "a bench chair"
 
 [node name="CollisionShape2D" parent="." index="0"]
 position = Vector2(0, 6.5)
 shape = SubResource("RectangleShape2D_42hyy")
 
 [node name="Sprite2D" parent="." index="1"]
+position = Vector2(0, 6.5)
 texture = ExtResource("2_up4cg")
+offset = Vector2(0, -6.5)
 region_rect = Rect2(83, 217, 42, 22)
+
+[node name="NavigationObstacle2D" parent="." index="2"]
+vertices = PackedVector2Array(-26, -14, 26, -14, 26, 7, -26, 7)

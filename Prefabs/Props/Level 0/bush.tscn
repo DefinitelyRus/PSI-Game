@@ -8,13 +8,18 @@ size = Vector2(31, 8.5)
 
 [node name="Bush" instance=ExtResource("1_yb4lm")]
 PropName = "Bush"
-PropDescription = "a green bush"
 PropID = "bush"
+PropDescription = "a green bush"
 
 [node name="CollisionShape2D" parent="." index="0"]
 position = Vector2(-0.5, 7.75)
 shape = SubResource("RectangleShape2D_xtyyi")
 
 [node name="Sprite2D" parent="." index="1"]
+position = Vector2(0, 8)
 texture = ExtResource("2_34ike")
+offset = Vector2(0, -8)
 region_rect = Rect2(177, 185, 31, 23)
+
+[node name="NavigationObstacle2D" parent="." index="2"]
+vertices = PackedVector2Array(-20, -14, 19, -14, 19, 8, -20, 8)

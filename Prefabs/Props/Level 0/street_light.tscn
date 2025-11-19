@@ -24,4 +24,4 @@ region_rect = Rect2(129, 275, 14, 61)
 [node name="NavigationObstacle2D" parent="." index="2"]
 position = Vector2(0, 26)
 radius = 14.0
-vertices = PackedVector2Array(-8, -7, 8, -7, 8, 7, -8, 7)
+vertices = PackedVector2Array(-10, -13, 10, -13, 10, 9, -10, 9)

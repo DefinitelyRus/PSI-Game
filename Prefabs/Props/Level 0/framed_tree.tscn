@@ -17,5 +17,10 @@ position = Vector2(0, 20.5)
 shape = SubResource("RectangleShape2D_huyye")
 
 [node name="Sprite2D" parent="." index="1"]
+position = Vector2(0, 20.5)
 texture = ExtResource("2_1yfyi")
+offset = Vector2(0, -20.5)
 region_rect = Rect2(403, 120, 42, 64)
+
+[node name="NavigationObstacle2D" parent="." index="2"]
+vertices = PackedVector2Array(-20, -7, 20, -7, 20, 28, -20, 28)
