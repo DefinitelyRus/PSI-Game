@@ -12,9 +12,14 @@ PropID = "green_car"
 PropDescription = "a green car"
 
 [node name="CollisionShape2D" parent="." index="0"]
-position = Vector2(0, -2)
+position = Vector2(0, 6)
 shape = SubResource("RectangleShape2D_0rw65")
 
 [node name="Sprite2D" parent="." index="1"]
+position = Vector2(0, 6)
 texture = ExtResource("2_c2klp")
+offset = Vector2(0, -6)
 region_rect = Rect2(354, 296, 77, 40)
+
+[node name="NavigationObstacle2D" parent="." index="2"]
+vertices = PackedVector2Array(-43, -24, 43, -24, 43, 16, -43, 16)
