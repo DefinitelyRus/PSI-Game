@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://bj3c3uwxnbcou"]
+[gd_scene load_steps=3 format=3 uid="uid://bx6pp5taql4w8"]
 
 [ext_resource type="PackedScene" uid="uid://bnslwo4ecgkcn" path="res://Prefabs/StandardProp/StandardProp.tscn" id="1_ycm6h"]
 
@@ -8,14 +8,19 @@ size = Vector2(54, 30)
 [node name="L Table 2" instance=ExtResource("1_ycm6h")]
 
 [node name="CollisionShape2D" parent="." index="0"]
+visible = false
 position = Vector2(0, 5)
 shape = SubResource("RectangleShape2D_8p75s")
+disabled = true
 
-[node name="Sprite2D" parent="." index="1"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." index="1"]
+polygon = PackedVector2Array(-27, -12, 26, -12, 26, 1, 11, 1, 11, 12, -11, 12, -11, 18, -27, 18)
+
+[node name="Sprite2D" parent="." index="2"]
 position = Vector2(0, 5)
 offset = Vector2(0, -7.35)
 region_rect = Rect2(272, 384, 64, 48)
 
-[node name="NavigationObstacle2D" parent="." index="2"]
+[node name="NavigationObstacle2D" parent="." index="3"]
 position = Vector2(0, 5)
-vertices = PackedVector2Array(-31, -25, 30, -25, 30, 19, -31, 19)
+vertices = PackedVector2Array(-31, -25, 30, -25, 30, 0, 15, 0, 15, 11, -7, 11, -7, 17, -31, 17)
