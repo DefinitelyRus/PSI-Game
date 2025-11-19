@@ -4,7 +4,7 @@ class_name PlayerUI
 @export_group("Player Info")
 @export var health_bar: HSlider
 @export var power: Array[Button] = []
-@export var current_character: Button
+@export var current_character: Label
 
 @export_group("Inventory")
 @export var inventory_slots: Array[Button] = []
