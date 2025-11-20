@@ -15,10 +15,10 @@ position = Vector2(0, 11)
 shape = SubResource("RectangleShape2D_l07ei")
 
 [node name="Sprite2D" parent="." index="1"]
-position = Vector2(0, 12)
-offset = Vector2(0, -3.34)
+position = Vector2(0, 11)
+offset = Vector2(0, -6)
 region_rect = Rect2(270, 6, 99, 57)
 
 [node name="NavigationObstacle2D" parent="." index="2"]
 position = Vector2(0, 12)
-vertices = PackedVector2Array(-54, -27, 54, -27, 54, 23, -54, 23)
+vertices = PackedVector2Array(-54, -31, 54, -31, 54, 23, -54, 23)

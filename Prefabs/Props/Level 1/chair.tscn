@@ -16,7 +16,7 @@ shape = SubResource("RectangleShape2D_c4yry")
 
 [node name="Sprite2D" parent="." index="1"]
 position = Vector2(0, 6)
-offset = Vector2(0, -5.14)
+offset = Vector2(0, -5)
 region_rect = Rect2(276, 318, 67, 18)
 
 [node name="NavigationObstacle2D" parent="." index="2"]
