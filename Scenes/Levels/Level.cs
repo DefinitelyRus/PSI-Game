@@ -40,6 +40,7 @@ public partial class Level : Node2D {
 
 
 	public void SpawnUnit(StandardCharacter unit) {
+		if (!unit.IsAlive) return;
 		Node2D[] SpawnPoints = [.. SpawnParent.GetChildren().OfType<Node2D>()];
 
 		if (SpawnPoints.Length == 0) {
@@ -266,6 +267,7 @@ public partial class Level : Node2D {
 
 
 	public override void _Ready() {
+		Commander.PurgeDeadUnits();
 		Commander.DeselectAllUnits();
 
 		if (CameraNodePaths.Length != 0) CameraMan.SetCameraPath(CameraNodePaths);

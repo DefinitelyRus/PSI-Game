@@ -58,8 +58,8 @@ public partial class Commander : Node {
 
 	public static void RegisterUnit(StandardCharacter unit)
 	{
-		if (Units.Contains(unit))
-		{
+		if (!unit.IsAlive) return;
+		if (Units.Contains(unit)) {
 			Log.Warn("This unit has already been added to the list. Cannot add.", true, true);
 			return;
 		}
@@ -78,6 +78,14 @@ public partial class Commander : Node {
 	public static void ClearUnits()
 	{
 		Units.Clear();
+	}
+
+	public static void PurgeDeadUnits()
+	{
+		for (int i = Units.Count - 1; i >= 0; i--) {
+			StandardCharacter u = Units[i];
+			if (!u.IsAlive) Units.RemoveAt(i);
+		}
 	}
 
 
@@ -115,10 +123,7 @@ public partial class Commander : Node {
 
 	public static void SelectUnit(int index)
 	{
-		if (index < 0 || index >= Units.Count) {
-			Log.Me(() => $"Cannot select unit at index {index} in an array of {Units.Count} units.");
-			return;
-		}
+		if (index < 0 || index >= Units.Count) return;
 
 		// Select exactly one unit
 		for (int i = 0; i < Units.Count; i++) {
@@ -190,10 +195,7 @@ public partial class Commander : Node {
 
 	public static void SetFocusedUnit(int index, bool moveCamera = true)
 	{
-		if (index < 0 || index > Units.Count) {
-			Log.Err(() => $"Unit at index {index} does not exist. Cannot focus.");
-			return;
-		}
+		if (index < 0 || index >= Units.Count) return;
 
 		if (CameraMan.IsPathActive) CameraMan.FinishPathInstantly(skipFocus: true);
 		DeselectAllUnits();
