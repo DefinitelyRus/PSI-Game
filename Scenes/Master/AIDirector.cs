@@ -150,6 +150,9 @@ public partial class AIDirector : Node2D {
         );
 
         if (spawnPoint != null) {
+            float distanceToTargetUnit = spawnPoint.GlobalPosition.DistanceTo(playerUnits[targetUnit].GlobalPosition);
+            float targetingRadius = enemy.TargetingManager.TargetDetectionRadius;
+            if (distanceToTargetUnit <= targetingRadius) return false;
             CurrentLevel.SpawnCharacter(enemy, spawnPoint);
             Enemies.Add(enemy);
             return true;
