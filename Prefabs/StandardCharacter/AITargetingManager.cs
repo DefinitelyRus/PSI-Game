@@ -112,6 +112,11 @@ public partial class AITargetingManager : Node2D {
         bool fartherThanCurrent = distanceToNewTarget > distanceToCurrentTarget;
         bool isCurrentTarget = target == CurrentTarget;
 
+        // Check if there is an object in the line of sight between character and target
+        bool hasLineOfSight = CheckLineOfSight(target);
+        if (!hasLineOfSight) return false;
+        
+
         bool inRange = distanceToNewTarget <= TargetDetectionRadius;
         bool isAlive = target.IsAlive;
 
@@ -179,6 +184,32 @@ public partial class AITargetingManager : Node2D {
                 break;
         }
         return false;
+    }
+
+
+    private bool CheckLineOfSight(StandardCharacter target) {
+        if (!IsInstanceValid(target)) return false;
+        if (!IsInstanceValid(Character)) return false;
+        if (!IsInsideTree() || !target.IsInsideTree()) return false;
+
+        var world = GetWorld2D();
+        if (world == null) return false;
+        var spaceState = world.DirectSpaceState;
+        if (spaceState == null) return false;
+
+        Vector2 start = Character.GlobalPosition;
+        Vector2 end = target.GlobalPosition;
+
+        // Perform raycast to check for obstacles
+        PhysicsRayQueryParameters2D rayParams = PhysicsRayQueryParameters2D.Create(start, end);
+        rayParams.Exclude = [Character.GetRid(), target.GetRid()];
+        rayParams.CollideWithBodies = true;
+        rayParams.CollideWithAreas = false;
+        rayParams.CollisionMask = Character.CollisionMask;
+
+        // Check how many obstacles are in the way
+        var result = spaceState.IntersectRay(rayParams);
+        return result.Count == 0;
     }
 
 
@@ -275,7 +306,7 @@ public partial class AITargetingManager : Node2D {
 
     #region Godot Callbacks
 
-    public override void _Process(double delta) {
+    public override void _PhysicsProcess(double delta) {
         ScanForTargets(delta);
         UpdateAimDirection(delta);
         Attack();
