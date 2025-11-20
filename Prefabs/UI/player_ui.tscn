@@ -233,6 +233,7 @@ focus_mode = 0
 disabled = true
 
 [node name="Pop-Up" type="Control" parent="." node_paths=PackedStringArray("popUP_container", "header_text", "paragraph_text", "button_container", "button_row1", "row1_buttons", "button_row2", "row2_buttons", "button_row3", "row3_buttons")]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
