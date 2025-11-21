@@ -10,8 +10,7 @@ public partial class UIManager : CanvasLayer {
 	[Export] MarginContainer HUDNode = null!;
 	[Export] Control PopupNode = null!;
 	[Export] TextureRect Transition = null!;
-	[Export] Label CenterOverlayText = null!;
-	[Export] Label BottomOverlayText = null!;
+	[Export] Control OnScreenText = null!;
 
 	#endregion
 
@@ -33,8 +32,8 @@ public partial class UIManager : CanvasLayer {
 			return;
 		}
 
-		if (CenterOverlayText == null) {
-			Log.Err(() => "OverlayText is null in UIManager. Please assign it in the inspector.");
+		if (OnScreenText == null) {
+			Log.Err(() => "OnScreenText is null in UIManager. Please assign it in the inspector.");
 			return;
 		}
 
@@ -150,14 +149,12 @@ public partial class UIManager : CanvasLayer {
 	#region Overlay Text
 
 	public static void SetCenterOverlayText(string text, float duration = 2f) {
-		Instance.CenterOverlayText.CallDeferred("set_text", text);
-		Instance.CenterOverlayText.CallDeferred("set_duration", duration);
+		Instance.OnScreenText.CallDeferred("show_center_text", text, duration);
 	}
 
 	public static void SetBottomOverlayText(string text, float duration = 2f) {
-		Instance.BottomOverlayText.CallDeferred("set_text", text);
-		Instance.BottomOverlayText.CallDeferred("set_duration", duration);
-	}
+		Instance.OnScreenText.CallDeferred("show_subtitle", text, duration);
+    }
 
 	#endregion
 
