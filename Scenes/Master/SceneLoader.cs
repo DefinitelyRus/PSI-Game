@@ -133,7 +133,7 @@ public partial class SceneLoader : Node
         UIManager.SetHUDVisible(false);
         UIManager.StartTransition($"Loading {level.Name}...");
         AudioManager.FadeOutAudio();
-        await Instance.ToSignal(Instance.GetTree().CreateTimer(1.5f), "timeout");
+        await Instance.ToSignal(Instance.GetTree().CreateTimer(2f), "timeout");
 
 
         StandardCharacter[] units = [.. Commander.GetAllUnits()];

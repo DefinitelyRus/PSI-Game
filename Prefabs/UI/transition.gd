@@ -11,8 +11,8 @@ var _transition_elapsed: float = 0.0
 var _transition_duration: float = 0.0
 var _transition_active: bool = false
 var _transition_start: Vector2 = start_pos
+var _pending_text: String = ""
 
-# Time in seconds to complete the transition
 @export var transition_time: float = 3
 
 var reached_middle: bool = false
@@ -27,7 +27,7 @@ func start_transition(text: String = "") -> void:
 	_transition_elapsed = 0.0
 	_transition_duration = transition_time
 	_transition_active = true
-	if (text != ""): on_screen_text.show_center_text(text)
+	_pending_text = text
 	return
 	
 
@@ -39,6 +39,7 @@ func end_transition() -> void:
 	_transition_elapsed = 0.0
 	_transition_duration = transition_time
 	_transition_active = true
+	_pending_text = ""
 	return
 	
 
@@ -49,6 +50,9 @@ func reset() -> void:
 	_transition_active = false
 	_transition_elapsed = 0.0
 	_transition_duration = 0.0
+	_pending_text = ""
+	reached_middle = false
+	reached_end = false
 	return
 
 
@@ -75,5 +79,13 @@ func _process(delta):
 	if t >= 1.0:
 		position = target_pos
 		_transition_active = false
+		
+		if target_pos == middle_pos:
+			reached_middle = true
+			if _pending_text != "":
+				on_screen_text.show_center_text(_pending_text, 1.0)
+				_pending_text = ""
+		elif target_pos == end_pos:
+			reached_end = true
 	return
 	
