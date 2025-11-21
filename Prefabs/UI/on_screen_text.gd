@@ -17,24 +17,24 @@ func show_center_text(text: String, duration: float = 2.0) -> void:
     center_label.visible = true
 
     var rng: RandomNumberGenerator = RandomNumberGenerator.new()
-    var delay = 0
+    var glitch_delay = 0
 
     # Glitch effect
-    delay = rng.randf_range(0.005, 0.05)
-    duration -= delay
-    delay(delay)
+    glitch_delay = rng.randf_range(0.005, 0.05)
+    duration -= glitch_delay
+    delay(glitch_delay)
     center_label.visible = false
-    delay = rng.randf_range(0.005, 0.05)
-    duration -= delay
-    delay(delay)
+    glitch_delay = rng.randf_range(0.005, 0.05)
+    duration -= glitch_delay
+    delay(glitch_delay)
     center_label.visible = true
-    delay = rng.randf_range(0.005, 0.05)
-    duration -= delay
-    delay(delay)
+    glitch_delay = rng.randf_range(0.005, 0.05)
+    duration -= glitch_delay
+    delay(glitch_delay)
     center_label.visible = false
-    delay = rng.randf_range(0.005, 0.05)
-    duration -= delay
-    delay(delay)
+    glitch_delay = rng.randf_range(0.005, 0.05)
+    duration -= glitch_delay
+    delay(glitch_delay)
     center_label.visible = true
 
     delay(duration)
@@ -49,7 +49,36 @@ func delay(duration: float) -> void:
 
 
 func center_fade_out():
-    # Update fadeout until alpha reaches zero
     var alpha = 1
+    while alpha > 0:
+        var delta = get_process_delta_time()
+        alpha -= fade_duration * delta
+        center_label.modulate.a = alpha
+        await get_tree().create_timer(delta).timeout
+        pass
     
+    center_label.visible = false
+    return
+
+
+
+func show_subtitle(text: String, duration: float = 2.0) -> void:
+    subtitle.text = text
+    subtitle.visible = true
+
+    delay(duration)
+    call_thread_safe("subtitle_fade_out")
+    return
+
+
+func subtitle_fade_out():
+    var alpha = 1
+    while alpha > 0:
+        var delta = get_process_delta_time()
+        alpha -= fade_duration * delta
+        subtitle.modulate.a = alpha
+        await get_tree().create_timer(delta).timeout
+        pass
+    
+    subtitle.visible = false
     return
