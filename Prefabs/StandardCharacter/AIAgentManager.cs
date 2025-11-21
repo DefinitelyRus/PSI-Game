@@ -150,6 +150,8 @@ public partial class AIAgentManager : Node2D {
 	#region Navigation
 
 	public void GoTo(Vector2 target) {
+		if (!IsInstanceValid(this)) return;
+		if (!IsInstanceValid(Character)) return;
 		if (!Character.IsAlive) return;
 
 		NavAgent.TargetPosition = target;

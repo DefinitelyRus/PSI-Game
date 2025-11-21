@@ -207,13 +207,14 @@ public partial class AIDirector : Node2D {
 
     private static void SearchAndDestroy() {
         foreach (StandardCharacter enemy in Enemies) {
-            if (!enemy.IsAlive || !IsInstanceValid(enemy) || !IsInstanceValid(enemy.AIAgent)) continue;
+            if (!enemy.IsAlive || !IsInstanceValid(enemy)) continue;
 
             StandardCharacter? player = FindNearestPlayer(enemy.GlobalPosition);
             if (player == null) return;
 
             AIAgentManager agentManager = enemy.AIAgent;
             if (agentManager.HasDestination) continue;
+            if (!IsInstanceValid(agentManager)) continue;
 
 			void GoToPlayer() {
                 agentManager.GoTo(player.GlobalPosition);
