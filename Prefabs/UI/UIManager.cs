@@ -61,7 +61,7 @@ public partial class UIManager : CanvasLayer {
 
 	public static UIManager Instance { get; private set; } = null!;
 	private static MarginContainer HUD => Instance.HUDNode;
-	private static Control Popup => Instance.PopupNode;
+	public static Control Popup => Instance.PopupNode;
 
 	public static void EnableUI(bool enable) {
 		Instance.Visible = enable;
