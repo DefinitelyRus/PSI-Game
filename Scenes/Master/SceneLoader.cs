@@ -124,24 +124,7 @@ public partial class SceneLoader : Node
             return;
         }
 
-        UIManager.SetHUDVisible(false);
-        UIManager.StartTransition();
-        Level level = levelToLoad.Instantiate<Level>();
-        AudioManager.FadeOutAudio();
-        await Instance.ToSignal(Instance.GetTree().CreateTimer(1.5f), "timeout");
-
-
-        foreach (StandardCharacter unit in Commander.GetAllUnits()) {
-            level.SpawnUnit(unit);
-        }
-
-        UnloadLevel(false);
-        Instance.Theatre.AddChild(level);
-        Instance.LoadedScene = level;
-
-        await Instance.ToSignal(Instance.GetTree().CreateTimer(.5f), "timeout");
-        UIManager.SetHUDVisible(true);
-        UIManager.EndTransition();
+        LoadLevel(levelToLoad);
         return;
     }
 
@@ -177,8 +160,7 @@ public partial class SceneLoader : Node
 	public static void UnloadLevel(bool returnToMainMenu = true) {
         if (Instance.LoadedScene == null || Instance.Theatre.GetChildCount() == 0) return;
 
-        // AudioManager.StopMusic("BackgroundMusic");
-        // AudioManager.StopMusic("AmbientAudio");
+        AIDirector.ClearEnemies();
 
         Instance.Theatre.RemoveChild(Instance.LoadedScene);
         Instance.LoadedScene.QueueFree();

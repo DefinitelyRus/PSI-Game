@@ -31,8 +31,8 @@ func reset() -> void:
 	return
 
 func _ready():
-	target_pos = middle_pos
-	position = middle_pos
+	target_pos = start_pos
+	position = start_pos
 	return
 	
 

@@ -212,6 +212,8 @@ public partial class AIAgentManager : Node2D {
 		if (targetingManager == null) return false;
 
 		if (targetingManager.CurrentTarget != null) {
+			if (!IsInstanceValid(targetingManager.CurrentTarget)) return true;
+			
 			Vector2 targetPos = targetingManager.CurrentTarget.GlobalPosition;
 			float distanceToTarget = GlobalPosition.DistanceTo(targetPos);
 			bool isEnemy = Character.Tags.Contains("Enemy");

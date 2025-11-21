@@ -49,8 +49,7 @@ public partial class EntityManager : Node2D {
 
 	public static void RemoveCharacter(PhysicsBody2D entity)
     {
-        bool wasRemoved = Entities.Remove(entity);
-		if (!wasRemoved) Log.Warn($"Character {entity.Name} not found in `Entities`. Cannot remove.");
+        Entities.Remove(entity);
     }
 
 

@@ -161,6 +161,27 @@ public partial class AIDirector : Node2D {
         else return false;
     }
 
+
+    public static void ClearEnemies() {
+        foreach (StandardCharacter enemy in Enemies) {
+            if (IsInstanceValid(enemy)) enemy.QueueFree();
+            EntityManager.RemoveCharacter(enemy);
+        }
+
+        Enemies.Clear();
+    }
+
+
+    public static void PurgeDeadEnemies() {
+        List<StandardCharacter> deadEnemies = [.. Enemies.Where(e => !e.IsAlive)];
+
+        foreach (StandardCharacter enemy in deadEnemies) {
+            enemy.QueueFree();
+            EntityManager.RemoveCharacter(enemy);
+            Enemies.Remove(enemy);
+        }
+    }
+
     #endregion
 
     #region Navigation
@@ -186,7 +207,7 @@ public partial class AIDirector : Node2D {
 
     private static void SearchAndDestroy() {
         foreach (StandardCharacter enemy in Enemies) {
-            if (!enemy.IsAlive) continue;
+            if (!enemy.IsAlive || !IsInstanceValid(enemy) || !IsInstanceValid(enemy.AIAgent)) continue;
 
             StandardCharacter? player = FindNearestPlayer(enemy.GlobalPosition);
             if (player == null) return;

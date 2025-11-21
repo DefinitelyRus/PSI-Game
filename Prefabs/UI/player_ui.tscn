@@ -86,6 +86,7 @@ CenterOverlayText = NodePath("On-ScreenText/Center")
 BottomOverlayText = NodePath("On-ScreenText/Subtitle")
 
 [node name="HUD" type="MarginContainer" parent="." node_paths=PackedStringArray("health_bar", "power", "current_character", "inventory_slots", "hud_container", "char_info", "char_inventory", "char_preview")]
+visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0

@@ -167,12 +167,20 @@ public partial class AudioManager : Node2D {
 	}
 
 
+	public static void FadeInAudio() {
+        
+    }
+
+
 	/// <summary>
 	/// Fades out all currently playing audio streams.
 	/// </summary>
 	public static void FadeOutAudio() {
 		Instance._isFadingOut = true;
 	}
+
+
+	private static List<AudioStreamPlayer> StreamsToRemove { get; set; } = [];
 	
 
 	/// <summary>
@@ -182,16 +190,23 @@ public partial class AudioManager : Node2D {
 		if (!Instance._isFadingOut) return;
 
 		foreach (AudioStreamPlayer player in Instance.AudioStreams) {
-			player.VolumeLinear -= (float) (delta * Instance.FadeOutSpeed);
+			float decrement = (float) (Instance.FadeOutSpeed * delta);
+			player.VolumeLinear = (float) Math.Clamp(player.VolumeLinear - decrement, 0, 1);
 
 			if (player.VolumeLinear <= 0) {
 				player.VolumeLinear = 0;
 
 				player.Stop();
-				Instance.AudioStreams.Remove(player);
+				StreamsToRemove.Add(player);
 				player.QueueFree();
 			}
 		}
+
+		foreach (AudioStreamPlayer player in StreamsToRemove) {
+			Instance.AudioStreams.Remove(player);
+		}
+		
+		StreamsToRemove.Clear();
 
 		Instance._isFadingOut = Instance.AudioStreams.Count > 0;
 	}
