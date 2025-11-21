@@ -78,13 +78,12 @@ font_size = 48
 font = ExtResource("7_ck6j7")
 font_size = 32
 
-[node name="Player_UI" type="CanvasLayer" node_paths=PackedStringArray("HUDNode", "PopupNode", "Transition", "CenterOverlayText", "BottomOverlayText")]
+[node name="Player_UI" type="CanvasLayer" node_paths=PackedStringArray("HUDNode", "PopupNode", "Transition", "OnScreenText")]
 script = ExtResource("1_vpfb6")
 HUDNode = NodePath("HUD")
 PopupNode = NodePath("Pop-Up")
 Transition = NodePath("Transition")
-CenterOverlayText = NodePath("On-ScreenText/Center")
-BottomOverlayText = NodePath("On-ScreenText/Subtitle")
+OnScreenText = NodePath("On-ScreenText")
 
 [node name="HUD" type="MarginContainer" parent="." node_paths=PackedStringArray("health_bar", "power", "current_character", "inventory_slots", "hud_container", "char_info", "char_inventory", "char_preview")]
 visible = false
