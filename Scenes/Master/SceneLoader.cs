@@ -135,7 +135,6 @@ public partial class SceneLoader : Node
         AudioManager.FadeOutAudio();
         await Instance.ToSignal(Instance.GetTree().CreateTimer(2f), "timeout");
 
-
         StandardCharacter[] units = [.. Commander.GetAllUnits()];
 
         if (units.Length > 0) {
@@ -151,7 +150,7 @@ public partial class SceneLoader : Node
         Instance.LoadedScene = level;
 
         await Instance.ToSignal(Instance.GetTree().CreateTimer(.5f), "timeout");
-        UIManager.SetHUDVisible(true);
+        GameManager.GameEnded = false;
         UIManager.EndTransition();
         return;
 	}
