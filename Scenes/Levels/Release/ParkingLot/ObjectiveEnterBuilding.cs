@@ -15,6 +15,7 @@ public partial class ObjectiveEnterBuilding : StandardPanel {
                 CameraMan.SetTarget(objective);
             }
 
+            UIManager.SetBottomOverlayText("We need the keys from the car first.");
             return;
         }
 

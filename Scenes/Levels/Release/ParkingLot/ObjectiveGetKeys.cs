@@ -7,6 +7,8 @@ public partial class ObjectiveGetKeys : StandardPanel {
 
         Log.Me(() => $"{character.CharacterName} has obtained the parking lot keys!");
 
+        UIManager.SetBottomOverlayText("Got the keys! Let's head to the building.");
+
         // Disable panel after interaction
         IsEnabled = false;
         Activated = true;
