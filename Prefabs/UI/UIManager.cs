@@ -9,6 +9,8 @@ public partial class UIManager : CanvasLayer {
 
 	[Export] MarginContainer HUDNode = null!;
 	[Export] Control PopupNode = null!;
+	[Export] TextureRect Transition = null!;
+	[Export] Label OverlayText = null!;
 
 	#endregion
 
@@ -22,6 +24,16 @@ public partial class UIManager : CanvasLayer {
 
 		if (PopupNode == null) {
 			Log.Err(() => "PopupNode is null in UIManager. Please assign it in the inspector.");
+			return;
+		}
+
+		if (Transition == null) {
+			Log.Err(() => "Transition is null in UIManager. Please assign it in the inspector.");
+			return;
+		}
+
+		if (OverlayText == null) {
+			Log.Err(() => "OverlayText is null in UIManager. Please assign it in the inspector.");
 			return;
 		}
 
@@ -116,37 +128,27 @@ public partial class UIManager : CanvasLayer {
 		HUD.CallDeferred("set_item", icon, slotIndex);
 	}
 
-	public static void SetCharPreview(Sprite2D sprite) {
-		AtlasTexture? atlas = sprite.Texture as AtlasTexture;
-		Image? source = atlas?.Atlas.GetImage();
-		Rect2? region = atlas?.Region;
+	#endregion
 
-		if (atlas == null) {
-			Log.Me(() => "SetCharPreview: Sprite atlas is null. Cannot set character preview.");
-			return;
-		}
+	#region Transition
 
-		if (source == null) {
-			Log.Me(() => "SetCharPreview: Sprite atlas image is null. Cannot set character preview.");
-			return;
-		}
+	public static void StartTransition() {
+		Instance.Transition.CallDeferred("start_transition");
+    }
 
-		if (region == null) {
-			Log.Me(() => "SetCharPreview: Sprite atlas region is null. Cannot set character preview.");
-			return;
-		}
-
-		Rect2I regionI = new(
-			(int)region.Value.Position.X,
-			(int)region.Value.Position.Y,
-			(int)region.Value.Size.X,
-			(int)region.Value.Size.Y
-		);
-
-		Image image = source.GetRegion(regionI);
-		ImageTexture frameTexture = ImageTexture.CreateFromImage(image);
-		HUD.CallDeferred("set_char_preview", frameTexture);
+	public static void EndTransition() {
+		Instance.Transition.CallDeferred("end_transition");
 	}
+
+	public static void Reset() {
+		Instance.Transition.CallDeferred("reset");
+    }
+
+	#endregion
+
+	#region Overlay Text
+
+
 
 	#endregion
 
