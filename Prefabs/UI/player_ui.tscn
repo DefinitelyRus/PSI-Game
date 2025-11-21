@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://o52kke4dfdo0"]
+[gd_scene load_steps=23 format=3 uid="uid://o52kke4dfdo0"]
 
 [ext_resource type="Texture2D" uid="uid://kqo44exiy3bv" path="res://Sprites/UI/Modern_UI_Style_2_32x32.png" id="1_7a7a1"]
 [ext_resource type="Script" uid="uid://bdv1hbweo6wlo" path="res://Prefabs/UI/player_hud.gd" id="1_av0rp"]
@@ -7,6 +7,8 @@
 [ext_resource type="Script" uid="uid://0av647fe1ugh" path="res://Prefabs/UI/pop_up.gd" id="4_64sls"]
 [ext_resource type="Texture2D" uid="uid://c81w6xkq461rl" path="res://Sprites/UI/UI_HoloBook_Spritesheet01a.png" id="6_7rjoj"]
 [ext_resource type="FontFile" uid="uid://duqjr4hlekkbk" path="res://Font/Anxel.ttf" id="7_ck6j7"]
+[ext_resource type="Texture2D" uid="uid://bp7qd4q73av7e" path="res://Sprites/UI/Transition.png" id="8_lsyk6"]
+[ext_resource type="Script" uid="uid://cdv0dp7u5wtwa" path="res://Prefabs/UI/transition.gd" id="9_f5urv"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_lsael"]
 
@@ -66,10 +68,16 @@ region_rect = Rect2(162, 1875, 13, 11)
 texture = ExtResource("6_7rjoj")
 region_rect = Rect2(178, 1859, 13, 11)
 
-[node name="Player_UI" type="CanvasLayer" node_paths=PackedStringArray("HUDNode", "PopupNode")]
+[sub_resource type="LabelSettings" id="LabelSettings_f5urv"]
+font = ExtResource("7_ck6j7")
+font_size = 48
+
+[node name="Player_UI" type="CanvasLayer" node_paths=PackedStringArray("HUDNode", "PopupNode", "Transition", "OverlayText")]
 script = ExtResource("1_vpfb6")
 HUDNode = NodePath("HUD")
 PopupNode = NodePath("Pop-Up")
+Transition = NodePath("Transition")
+OverlayText = NodePath("On-screen Text")
 
 [node name="HUD" type="MarginContainer" parent="." node_paths=PackedStringArray("health_bar", "power", "current_character", "inventory_slots", "hud_container", "char_info", "char_inventory", "char_preview")]
 anchors_preset = 15
@@ -216,6 +224,7 @@ theme_override_styles/pressed = SubResource("StyleBoxTexture_64sls")
 theme_override_styles/hover = SubResource("StyleBoxTexture_64sls")
 
 [node name="Right-Info" type="VBoxContainer" parent="HUD"]
+visible = false
 layout_mode = 2
 mouse_filter = 2
 theme_override_constants/separation = 10
@@ -470,5 +479,29 @@ focus_mode = 0
 theme_override_styles/normal = SubResource("StyleBoxTexture_ck6j7")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_lsyk6")
 theme_override_styles/hover = SubResource("StyleBoxTexture_f5urv")
+
+[node name="Transition" type="TextureRect" parent="."]
+offset_left = -120.0
+offset_right = 840.0
+offset_bottom = 360.0
+texture = ExtResource("8_lsyk6")
+expand_mode = 5
+stretch_mode = 4
+script = ExtResource("9_f5urv")
+start_pos = Vector2(1280, 0)
+middle_pos = Vector2(-160, 0)
+end_pos = Vector2(-960, 0)
+
+[node name="On-screen Text" type="Label" parent="."]
+visible = false
+offset_left = 39.0
+offset_top = 189.0
+offset_right = 591.0
+offset_bottom = 309.0
+text = "Anong ginagawa ni diddy
+blud sa kalkyuleytor?"
+label_settings = SubResource("LabelSettings_f5urv")
+horizontal_alignment = 1
+vertical_alignment = 2
 
 [connection signal="pressed" from="Pop-Up/Content/ExitButton/Exit" to="Pop-Up" method="_on_exit_pressed"]
