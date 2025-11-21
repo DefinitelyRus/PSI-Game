@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://d31jg1ctihrkr"]
+
+[ext_resource type="PackedScene" uid="uid://bnslwo4ecgkcn" path="res://Prefabs/StandardProp/StandardProp.tscn" id="1_1a0v7"]
+[ext_resource type="Texture2D" uid="uid://b88vn7c70p7iq" path="res://Sprites/World Sprites/Level 3 - Datacenter/DataCenter.png" id="2_ff7gx"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1a0v7"]
+size = Vector2(32, 6.5)
+
+[node name="Terminal" instance=ExtResource("1_1a0v7")]
+PropName = "Terminal"
+PropID = "terminal"
+PropDescription = "A terminal"
+
+[node name="CollisionShape2D" parent="." index="0"]
+position = Vector2(0, 9)
+shape = SubResource("RectangleShape2D_1a0v7")
+
+[node name="Sprite2D" parent="." index="1"]
+position = Vector2(0, 9)
+texture = ExtResource("2_ff7gx")
+offset = Vector2(0, -9)
+region_rect = Rect2(32, 3, 32, 27)
+
+[node name="NavigationObstacle2D" parent="." index="2"]
+position = Vector2(0, 9)
+vertices = PackedVector2Array(-20, -11, 20, -11, 20, 7, -20, 7)

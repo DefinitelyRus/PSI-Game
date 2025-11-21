@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://d0uiktida6gnn"]
+
+[ext_resource type="PackedScene" uid="uid://bnslwo4ecgkcn" path="res://Prefabs/StandardProp/StandardProp.tscn" id="1_f05c4"]
+[ext_resource type="Texture2D" uid="uid://b88vn7c70p7iq" path="res://Sprites/World Sprites/Level 3 - Datacenter/DataCenter.png" id="2_82dmx"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f05c4"]
+size = Vector2(32, 34)
+
+[node name="Big Terminal" instance=ExtResource("1_f05c4")]
+PropName = "Big terminal"
+PropID = "big_terminal"
+PropDescription = "A big control terminal"
+
+[node name="CollisionShape2D" parent="." index="0"]
+shape = SubResource("RectangleShape2D_f05c4")
+
+[node name="Sprite2D" parent="." index="1"]
+position = Vector2(0, 8)
+texture = ExtResource("2_82dmx")
+offset = Vector2(0, -9)
+region_rect = Rect2(0, 48, 32, 53)

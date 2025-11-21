@@ -14,6 +14,7 @@
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ck6j7"]
 bg_color = Color(0.50534403, 0.5053441, 0.50534385, 1)
+expand_margin_top = 4.0
 expand_margin_bottom = 11.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lsael"]
@@ -40,33 +41,33 @@ texture_margin_left = 3.0
 texture_margin_top = 3.0
 texture_margin_right = 3.0
 texture_margin_bottom = 3.0
-region_rect = Rect2(352, 1664, 64, 13)
+region_rect = Rect2(96, 106, 64, 13)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_0i7dx"]
 texture = ExtResource("6_7rjoj")
 expand_margin_left = 2.0
 expand_margin_top = 2.0
 expand_margin_right = 2.0
-region_rect = Rect2(400, 1312, 96, 32)
+region_rect = Rect2(352, 3, 96, 30)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_uycg4"]
 texture = ExtResource("6_7rjoj")
 expand_margin_left = 2.0
 expand_margin_top = 2.0
 expand_margin_right = 2.0
-region_rect = Rect2(162, 1319, 92, 18)
+region_rect = Rect2(240, 3, 96, 32)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ck6j7"]
 texture = ExtResource("6_7rjoj")
-region_rect = Rect2(162, 1859, 13, 11)
+region_rect = Rect2(2, 131, 13, 11)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_lsyk6"]
 texture = ExtResource("6_7rjoj")
-region_rect = Rect2(162, 1875, 13, 11)
+region_rect = Rect2(34, 131, 13, 11)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_f5urv"]
 texture = ExtResource("6_7rjoj")
-region_rect = Rect2(178, 1859, 13, 11)
+region_rect = Rect2(18, 131, 13, 11)
 
 [sub_resource type="LabelSettings" id="LabelSettings_f5urv"]
 font = ExtResource("7_ck6j7")
@@ -92,7 +93,7 @@ theme_override_constants/margin_bottom = 50
 script = ExtResource("1_av0rp")
 health_bar = NodePath("Left-Info/Player_Info/BG/Info/HealthContainer/VBoxContainer/Health_bar")
 power = [NodePath("Left-Info/Player_Info/BG/Info/PowerContainer/HBoxContainer/Power1"), NodePath("Left-Info/Player_Info/BG/Info/PowerContainer/HBoxContainer/Power2")]
-current_character = NodePath("Right-Info/Preview")
+current_character = NodePath("Right-Info/Name")
 inventory_slots = [NodePath("Left-Info/Inventory/InvSlot1"), NodePath("Left-Info/Inventory/InvSlot2"), NodePath("Left-Info/Inventory/InvSlot3"), NodePath("Left-Info/Inventory/InvSlot4"), NodePath("Left-Info/Inventory/InvSlot5")]
 hud_container = NodePath(".")
 char_info = NodePath("Left-Info/Player_Info")
@@ -121,21 +122,21 @@ custom_minimum_size = Vector2(156, 49.3)
 layout_mode = 2
 size_flags_horizontal = 0
 texture = ExtResource("6_7rjoj")
-region_rect = Rect2(578, 483, 92, 29)
+region_rect = Rect2(4, 102, 73, 21)
 
 [node name="HealthContainer" type="MarginContainer" parent="HUD/Left-Info/Player_Info/BG/Info"]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
-theme_override_constants/margin_left = 7
-theme_override_constants/margin_top = 5
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_top = 8
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HUD/Left-Info/Player_Info/BG/Info/HealthContainer"]
 layout_mode = 2
 
 [node name="Health_bar" type="HSlider" parent="HUD/Left-Info/Player_Info/BG/Info/HealthContainer/VBoxContainer"]
 z_index = -1
-custom_minimum_size = Vector2(113, 0)
+custom_minimum_size = Vector2(142, 0)
 layout_mode = 2
 theme_override_icons/grabber = SubResource("CompressedTexture2D_lsael")
 theme_override_icons/grabber_highlight = SubResource("CompressedTexture2D_lsael")
@@ -150,14 +151,14 @@ scrollable = false
 layout_mode = 1
 offset_right = 45.0
 offset_bottom = 34.0
-theme_override_constants/margin_left = 1
-theme_override_constants/margin_top = 15
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_top = 25
 
 [node name="HBoxContainer" type="HBoxContainer" parent="HUD/Left-Info/Player_Info/BG/Info/PowerContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-theme_override_constants/separation = 0
+theme_override_constants/separation = 2
 
 [node name="Power1" type="Button" parent="HUD/Left-Info/Player_Info/BG/Info/PowerContainer/HBoxContainer"]
 custom_minimum_size = Vector2(20, 20)
@@ -226,6 +227,8 @@ theme_override_styles/hover = SubResource("StyleBoxTexture_64sls")
 [node name="Right-Info" type="VBoxContainer" parent="HUD"]
 visible = false
 layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
 mouse_filter = 2
 theme_override_constants/separation = 10
 
@@ -233,13 +236,13 @@ theme_override_constants/separation = 10
 layout_mode = 2
 size_flags_horizontal = 8
 
-[node name="Preview" type="Button" parent="HUD/Right-Info"]
-custom_minimum_size = Vector2(60, 60)
+[node name="Name" type="Label" parent="HUD/Right-Info"]
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 0
-focus_mode = 0
-disabled = true
+theme_override_fonts/font = ExtResource("7_ck6j7")
+theme_override_font_sizes/font_size = 24
+text = "Orra  Kale"
 
 [node name="Pop-Up" type="Control" parent="." node_paths=PackedStringArray("popUP_container", "header_text", "paragraph_text", "button_container", "button_row1", "row1_buttons", "button_row2", "row2_buttons", "button_row3", "row3_buttons")]
 visible = false
@@ -283,7 +286,7 @@ grow_vertical = 2
 custom_minimum_size = Vector2(290, 60)
 layout_mode = 2
 texture = ExtResource("6_7rjoj")
-region_rect = Rect2(304, 704, 218, 90)
+region_rect = Rect2(3, 3, 218, 90)
 
 [node name="TextsContainer" type="MarginContainer" parent="Pop-Up/Content"]
 layout_mode = 2
@@ -357,6 +360,7 @@ size_flags_horizontal = 4
 theme_override_constants/separation = 8
 
 [node name="R1B1" type="Button" parent="Pop-Up/Content/TextsContainer/Texts/ButtonContainer/Rows/Row1"]
+visible = false
 custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
 focus_mode = 0
@@ -366,6 +370,7 @@ theme_override_styles/normal = SubResource("StyleBoxTexture_0i7dx")
 theme_override_styles/hover = SubResource("StyleBoxTexture_uycg4")
 
 [node name="R1B2" type="Button" parent="Pop-Up/Content/TextsContainer/Texts/ButtonContainer/Rows/Row1"]
+visible = false
 custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
 focus_mode = 0
@@ -377,6 +382,7 @@ text = "
 "
 
 [node name="R1B3" type="Button" parent="Pop-Up/Content/TextsContainer/Texts/ButtonContainer/Rows/Row1"]
+visible = false
 custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
 focus_mode = 0
@@ -393,6 +399,7 @@ size_flags_horizontal = 4
 theme_override_constants/separation = 8
 
 [node name="R2B1" type="Button" parent="Pop-Up/Content/TextsContainer/Texts/ButtonContainer/Rows/Row2"]
+visible = false
 custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
 focus_mode = 0
@@ -404,6 +411,7 @@ text = "
 "
 
 [node name="R2B2" type="Button" parent="Pop-Up/Content/TextsContainer/Texts/ButtonContainer/Rows/Row2"]
+visible = false
 custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
 focus_mode = 0
@@ -415,6 +423,7 @@ text = "
 "
 
 [node name="R2B3" type="Button" parent="Pop-Up/Content/TextsContainer/Texts/ButtonContainer/Rows/Row2"]
+visible = false
 custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
 focus_mode = 0
@@ -431,6 +440,7 @@ size_flags_horizontal = 4
 theme_override_constants/separation = 8
 
 [node name="R3B1" type="Button" parent="Pop-Up/Content/TextsContainer/Texts/ButtonContainer/Rows/Row3"]
+visible = false
 custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
 focus_mode = 0
@@ -442,6 +452,7 @@ text = "
 "
 
 [node name="R3B2" type="Button" parent="Pop-Up/Content/TextsContainer/Texts/ButtonContainer/Rows/Row3"]
+visible = false
 custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
 focus_mode = 0
@@ -453,6 +464,7 @@ text = "
 "
 
 [node name="R3B3" type="Button" parent="Pop-Up/Content/TextsContainer/Texts/ButtonContainer/Rows/Row3"]
+visible = false
 custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
 focus_mode = 0

@@ -4,7 +4,7 @@ class_name PlayerUI
 @export_group("Player Info")
 @export var health_bar: HSlider
 @export var power: Array[Button] = []
-@export var current_character: Button
+@export var current_character: Label
 
 @export_group("Inventory")
 @export var inventory_slots: Array[Button] = []
@@ -65,11 +65,11 @@ func set_item(icon: Texture2D, target: int) -> void:
 	button.add_theme_stylebox_override("pressed", style)
 
 # ---------- CHARACTER PREVIEW ----------
-func set_char_preview(icon: Texture2D) -> void:
-	var style := StyleBoxTexture.new()
-	style.texture = icon
-
-	current_character.add_theme_stylebox_override("disabled", style)
+## Set the name of the currently active character
+func set_character_name(character: String) -> void:
+	match character:
+		"mira": current_character.text = "Mira Kale"
+		"orra": current_character.text = "Orra Kale"
 
 # ---------- GODOT CALLBACKS -----------
 func _ready() -> void:
@@ -89,5 +89,5 @@ func _ready() -> void:
 	#manage_slots(3)
 	#set_power(1, 2)
 	#
-	## TEST: Sets the char_preview icon upon load
-	#set_char_preview("char1")
+	## TEST: Sets the char name upon load
+	#set_character_name("mira")
