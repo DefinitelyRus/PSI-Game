@@ -116,9 +116,7 @@ public partial class SceneLoader : Node
         return retrievedLevel;
     }
 
-    public static void LoadLevel(uint levelIndex) {
-        UnloadLevel(false);
-
+    public static async void LoadLevel(uint levelIndex) {
         PackedScene? levelToLoad = GetLevel(levelIndex);
 
         if (levelToLoad == null) {
@@ -126,21 +124,34 @@ public partial class SceneLoader : Node
             return;
         }
 
+        UIManager.SetHUDVisible(false);
+        UIManager.StartTransition();
         Level level = levelToLoad.Instantiate<Level>();
+        AudioManager.FadeOutAudio();
+        await Instance.ToSignal(Instance.GetTree().CreateTimer(1.5f), "timeout");
+
 
         foreach (StandardCharacter unit in Commander.GetAllUnits()) {
             level.SpawnUnit(unit);
         }
 
-		Instance.Theatre.AddChild(level);
+        UnloadLevel(false);
+        Instance.Theatre.AddChild(level);
         Instance.LoadedScene = level;
-		return;
+
+        await Instance.ToSignal(Instance.GetTree().CreateTimer(.5f), "timeout");
+        UIManager.SetHUDVisible(true);
+        UIManager.EndTransition();
+        return;
     }
 
-    public static void LoadLevel(PackedScene levelScene) {
-        UnloadLevel(false);
-
+    public static async void LoadLevel(PackedScene levelScene) {
+        UIManager.SetHUDVisible(false);
+        UIManager.StartTransition();
         Level level = levelScene.Instantiate<Level>();
+        AudioManager.FadeOutAudio();
+        await Instance.ToSignal(Instance.GetTree().CreateTimer(1.5f), "timeout");
+
 
         StandardCharacter[] units = [.. Commander.GetAllUnits()];
 
@@ -152,22 +163,32 @@ public partial class SceneLoader : Node
 
         else Log.Err(() => "No units registered with Commander to spawn in the level.");
 
+        UnloadLevel(false);
         Instance.Theatre.AddChild(level);
         Instance.LoadedScene = level;
+
+        await Instance.ToSignal(Instance.GetTree().CreateTimer(.5f), "timeout");
+        UIManager.SetHUDVisible(true);
+        UIManager.EndTransition();
+        return;
 	}
 
 
 	public static void UnloadLevel(bool returnToMainMenu = true) {
         if (Instance.LoadedScene == null || Instance.Theatre.GetChildCount() == 0) return;
 
+        // AudioManager.StopMusic("BackgroundMusic");
+        // AudioManager.StopMusic("AmbientAudio");
+
         Instance.Theatre.RemoveChild(Instance.LoadedScene);
+        Instance.LoadedScene.QueueFree();
+        Instance.LoadedScene = null!;
 
         if (returnToMainMenu) Instance.Theatre.AddChild(Instance.MainMenu.Instantiate());
     }
 
-    public static void NextLevel() {
-        UnloadLevel(false);
 
+    public static void NextLevel() {
         if (Instance.LoadedScene is Level currentLevel) {
             uint nextLevelIndex = currentLevel.LevelIndex + 1;
             LoadLevel(nextLevelIndex);
