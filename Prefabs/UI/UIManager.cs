@@ -15,6 +15,16 @@ public partial class UIManager : CanvasLayer {
 	#region Godot Callbacks
 
 	public override void _EnterTree() {
+		if (HUDNode == null) {
+            Log.Err(() => "HUDNode is null in UIManager. Please assign it in the inspector.");
+			return;
+        }
+
+		if (PopupNode == null) {
+			Log.Err(() => "PopupNode is null in UIManager. Please assign it in the inspector.");
+			return;
+		}
+
 		Instance = this;
 	}
 
