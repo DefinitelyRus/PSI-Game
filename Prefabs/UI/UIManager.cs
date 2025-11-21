@@ -149,7 +149,15 @@ public partial class UIManager : CanvasLayer {
 
 	#region Overlay Text
 
+	public static void SetCenterOverlayText(string text, float duration = 2f) {
+		Instance.CenterOverlayText.CallDeferred("set_text", text);
+		Instance.CenterOverlayText.CallDeferred("set_duration", duration);
+	}
 
+	public static void SetBottomOverlayText(string text, float duration = 2f) {
+		Instance.BottomOverlayText.CallDeferred("set_text", text);
+		Instance.BottomOverlayText.CallDeferred("set_duration", duration);
+	}
 
 	#endregion
 
