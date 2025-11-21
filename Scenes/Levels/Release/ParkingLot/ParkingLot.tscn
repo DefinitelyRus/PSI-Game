@@ -5908,7 +5908,7 @@ vertices = PackedVector2Array(2294, 713, 1626, 713, 1626, 410, 2294, 410)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(1616, 400, 2304, 400, 2304, 723, 1616, 723)])
 
-[node name="Level" node_paths=PackedStringArray("CameraNodePaths") instance=ExtResource("1_okcn4")]
+[node name="Parking Lot" node_paths=PackedStringArray("CameraNodePaths") instance=ExtResource("1_okcn4")]
 CameraNodePaths = [NodePath("Props/Panels/Green Car3"), NodePath("Props/Panels/Entrance"), NodePath("Unit Spawns/U1")]
 BackgroundMusic = ExtResource("2_qwnr5")
 EnemyTypes = [ExtResource("2_ky56w"), ExtResource("5_gt7q3")]
