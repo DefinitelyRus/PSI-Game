@@ -10,7 +10,8 @@ public partial class UIManager : CanvasLayer {
 	[Export] MarginContainer HUDNode = null!;
 	[Export] Control PopupNode = null!;
 	[Export] TextureRect Transition = null!;
-	[Export] Label OverlayText = null!;
+	[Export] Label CenterOverlayText = null!;
+	[Export] Label BottomOverlayText = null!;
 
 	#endregion
 
@@ -32,7 +33,7 @@ public partial class UIManager : CanvasLayer {
 			return;
 		}
 
-		if (OverlayText == null) {
+		if (CenterOverlayText == null) {
 			Log.Err(() => "OverlayText is null in UIManager. Please assign it in the inspector.");
 			return;
 		}
