@@ -45,6 +45,7 @@ InitialUnits = [ExtResource("6_0hine"), ExtResource("7_4hy21")]
 
 [node name="AI Director" type="Node2D" parent="."]
 script = ExtResource("7_0hine")
+SpawnpointSelectionCount = 30
 
 [node name="Entity Manager" type="Node2D" parent="."]
 script = ExtResource("5_0hine")
