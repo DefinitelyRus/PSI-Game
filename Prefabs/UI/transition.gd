@@ -11,11 +11,13 @@ var target_pos: Vector2 = start_pos
 var reached_middle: bool = false
 var reached_end: bool = false
 
-func start_transition() -> void:
+
+func start_transition(text: String = "") -> void:
 	reached_middle = false
 	reached_end = false
 	position = start_pos
 	target_pos = middle_pos
+	if (text != ""): on_screen_text.show_center_text(text)
 	return
 	
 func end_transition() -> void:

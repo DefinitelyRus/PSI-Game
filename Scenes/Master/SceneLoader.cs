@@ -129,9 +129,9 @@ public partial class SceneLoader : Node
     }
 
     public static async void LoadLevel(PackedScene levelScene) {
-        UIManager.SetHUDVisible(false);
-        UIManager.StartTransition();
         Level level = levelScene.Instantiate<Level>();
+        UIManager.SetHUDVisible(false);
+        UIManager.StartTransition($"Loading {level.Name}...");
         AudioManager.FadeOutAudio();
         await Instance.ToSignal(Instance.GetTree().CreateTimer(1.5f), "timeout");
 

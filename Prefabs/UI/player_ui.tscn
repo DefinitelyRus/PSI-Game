@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://o52kke4dfdo0"]
+[gd_scene load_steps=25 format=3 uid="uid://o52kke4dfdo0"]
 
 [ext_resource type="Texture2D" uid="uid://kqo44exiy3bv" path="res://Sprites/UI/Modern_UI_Style_2_32x32.png" id="1_7a7a1"]
 [ext_resource type="Script" uid="uid://bdv1hbweo6wlo" path="res://Prefabs/UI/player_hud.gd" id="1_av0rp"]
@@ -9,6 +9,7 @@
 [ext_resource type="FontFile" uid="uid://duqjr4hlekkbk" path="res://Font/Anxel.ttf" id="7_ck6j7"]
 [ext_resource type="Texture2D" uid="uid://bp7qd4q73av7e" path="res://Sprites/UI/Transition.png" id="8_lsyk6"]
 [ext_resource type="Script" uid="uid://cdv0dp7u5wtwa" path="res://Prefabs/UI/transition.gd" id="9_f5urv"]
+[ext_resource type="Script" uid="uid://dr81xdqcutnel" path="res://Prefabs/UI/on_screen_text.gd" id="10_0i7dx"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_lsael"]
 
@@ -510,7 +511,7 @@ start_pos = Vector2(1280, 0)
 middle_pos = Vector2(-160, 0)
 end_pos = Vector2(-960, 0)
 
-[node name="On-ScreenText" type="MarginContainer" parent="."]
+[node name="On-ScreenText" type="MarginContainer" parent="." node_paths=PackedStringArray("center_label", "subtitle")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0

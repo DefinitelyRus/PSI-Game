@@ -133,8 +133,8 @@ public partial class UIManager : CanvasLayer {
 
 	#region Transition
 
-	public static void StartTransition() {
-		Instance.Transition.CallDeferred("start_transition");
+	public static void StartTransition(string text = "") {
+		Instance.Transition.CallDeferred("start_transition", text);
     }
 
 	public static void EndTransition() {
