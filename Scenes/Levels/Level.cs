@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection.Metadata.Ecma335;
+using System.Threading.Tasks;
 using Godot;
 namespace CommonScripts;
 
@@ -270,15 +271,15 @@ public partial class Level : Node2D {
 		Commander.PurgeDeadUnits();
 		Commander.DeselectAllUnits();
 
-		if (CameraNodePaths.Length != 0) CameraMan.SetCameraPath(CameraNodePaths);
-		else CameraMan.SetTarget(SpawnParent, true);
-
 		ReparentAllProps();
 
 		AIDirector.CurrentLevel = this;
 
-		if (BackgroundMusic != null) AudioManager.StreamAudio(BackgroundMusic);
-		if (AmbientAudio != null) AudioManager.StreamAudio(AmbientAudio);
+		if (BackgroundMusic != null) AudioManager.StreamAudio(BackgroundMusic, "BackgroundMusic");
+		if (AmbientAudio != null) AudioManager.StreamAudio(AmbientAudio, "AmbientAudio");
+
+		if (CameraNodePaths.Length != 0) CameraMan.SetCameraPath(CameraNodePaths);
+		else CameraMan.SetTarget(SpawnParent, true);
 	}
 	
 	#endregion
