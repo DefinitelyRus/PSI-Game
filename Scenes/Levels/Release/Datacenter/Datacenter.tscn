@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=4 uid="uid://d0ppjvnd47xrt"]
+[gd_scene load_steps=43 format=4 uid="uid://d0ppjvnd47xrt"]
 
 [ext_resource type="PackedScene" uid="uid://drho55fepd4p7" path="res://Scenes/Levels/StandardLevel.tscn" id="1_q5fsk"]
 [ext_resource type="Texture2D" uid="uid://b88vn7c70p7iq" path="res://Sprites/World Sprites/Level 3 - Datacenter/DataCenter.png" id="2_yj0oc"]
@@ -15,7 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://ckc51ku1pijwv" path="res://Prefabs/Props/Level 2/storage_rack_1.tscn" id="12_316aj"]
 [ext_resource type="PackedScene" uid="uid://42ed0vi8tau1" path="res://Prefabs/Props/Level 3/equipment_shelf.tscn" id="13_oywd5"]
 [ext_resource type="PackedScene" uid="uid://jpjwmrygggn6" path="res://Prefabs/Props/Level 2/chest_1.tscn" id="14_wkrc4"]
-[ext_resource type="PackedScene" path="res://Prefabs/Props/Level 2/power_box.tscn" id="15_vgf6r"]
+[ext_resource type="PackedScene" uid="uid://c3bc6dpnew5m2" path="res://Prefabs/Props/Level 2/power_box.tscn" id="15_vgf6r"]
 [ext_resource type="PackedScene" uid="uid://feiaaql0lfuh" path="res://Prefabs/Props/Level 3/guard_rail_side.tscn" id="16_ypkc1"]
 [ext_resource type="PackedScene" uid="uid://bpchf1dns2sq2" path="res://Prefabs/Props/Level 2/traffic_cone.tscn" id="17_cp170"]
 [ext_resource type="PackedScene" uid="uid://dvqyo20be6ci8" path="res://Prefabs/Props/Level 2/barrel_2.tscn" id="17_ibk3h"]
@@ -23,6 +23,7 @@
 [ext_resource type="PackedScene" uid="uid://c235rcgfeuptt" path="res://Prefabs/Props/Level 3/aircon.tscn" id="19_ala2c"]
 [ext_resource type="PackedScene" uid="uid://d31jg1ctihrkr" path="res://Prefabs/Props/Level 3/terminal.tscn" id="20_6l3iw"]
 [ext_resource type="PackedScene" uid="uid://d0uiktida6gnn" path="res://Prefabs/Props/Level 3/big_terminal.tscn" id="22_ns3nn"]
+[ext_resource type="Script" uid="uid://jn05kv8pms21" path="res://Scenes/Levels/Release/Datacenter/ObjectivePlantCharge.cs" id="24_foegm"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1crpb"]
 texture = ExtResource("2_yj0oc")
@@ -3005,11 +3006,24 @@ texture = ExtResource("2_yj0oc")
 sources/0 = SubResource("TileSetAtlasSource_ala2c")
 sources/1 = SubResource("TileSetAtlasSource_6l3iw")
 
-[node name="The Datacenter" instance=ExtResource("1_q5fsk")]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_foegm"]
+size = Vector2(95, 64)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q6bal"]
+size = Vector2(176, 40)
+
+[node name="The Datacenter" node_paths=PackedStringArray("CameraNodePaths") instance=ExtResource("1_q5fsk")]
+CameraNodePaths = [NodePath("Props/Objectives/Charge Area/CollisionShape2D"), NodePath("Props/Terminal/Big Terminal"), NodePath("Props/Terminal/Terminal6"), NodePath("Props/Objectives/Elevator Area/CollisionShape2D"), NodePath("Unit Spawns/U1")]
 LevelIndex = 3
 
 [node name="Unit Spawns" parent="." index="0"]
 position = Vector2(311, 610)
+
+[node name="U1" parent="Unit Spawns" index="0"]
+position = Vector2(-13, 5)
+
+[node name="U2" type="Node2D" parent="Unit Spawns" index="1"]
+position = Vector2(-39, 22)
 
 [node name="Enemy Spawns" parent="." index="1"]
 visible = false
@@ -3451,37 +3465,16 @@ position = Vector2(489, 173)
 [node name="Power Box" type="Node2D" parent="Props" index="7"]
 y_sort_enabled = true
 
-[node name="Power Box" parent="Props/Power Box" index="0" instance=ExtResource("15_vgf6r")]
-position = Vector2(409, 402)
-
-[node name="Power Box2" parent="Props/Power Box" index="1" instance=ExtResource("15_vgf6r")]
-position = Vector2(361, 402)
-
-[node name="Power Box3" parent="Props/Power Box" index="2" instance=ExtResource("15_vgf6r")]
-position = Vector2(313, 402)
-
-[node name="Power Box4" parent="Props/Power Box" index="3" instance=ExtResource("15_vgf6r")]
-position = Vector2(265, 402)
-
-[node name="Power Box5" parent="Props/Power Box" index="4" instance=ExtResource("15_vgf6r")]
-position = Vector2(406, 530)
-
-[node name="Power Box10" parent="Props/Power Box" index="5" instance=ExtResource("15_vgf6r")]
+[node name="Power Box10" parent="Props/Power Box" index="0" instance=ExtResource("15_vgf6r")]
 position = Vector2(936, 0)
 
-[node name="Power Box6" parent="Props/Power Box" index="6" instance=ExtResource("15_vgf6r")]
-position = Vector2(361, 530)
-
-[node name="Power Box11" parent="Props/Power Box" index="7" instance=ExtResource("15_vgf6r")]
-position = Vector2(314, 530)
-
-[node name="Power Box7" parent="Props/Power Box" index="8" instance=ExtResource("15_vgf6r")]
+[node name="Power Box7" parent="Props/Power Box" index="1" instance=ExtResource("15_vgf6r")]
 position = Vector2(1388, 610)
 
-[node name="Power Box8" parent="Props/Power Box" index="9" instance=ExtResource("15_vgf6r")]
+[node name="Power Box8" parent="Props/Power Box" index="2" instance=ExtResource("15_vgf6r")]
 position = Vector2(1434, 610)
 
-[node name="Power Box9" parent="Props/Power Box" index="10" instance=ExtResource("15_vgf6r")]
+[node name="Power Box9" parent="Props/Power Box" index="3" instance=ExtResource("15_vgf6r")]
 position = Vector2(1480, 610)
 
 [node name="Blockers" type="Node2D" parent="Props" index="8"]
@@ -3588,3 +3581,108 @@ position = Vector2(720, 47)
 
 [node name="Big Terminal2" parent="Props/Terminal" index="10" instance=ExtResource("22_ns3nn")]
 position = Vector2(720, 113)
+
+[node name="Objectives" type="Node2D" parent="Props" index="13"]
+y_sort_enabled = true
+
+[node name="Power Box" parent="Props/Objectives" index="0" node_paths=PackedStringArray("CameraNodes", "ActivationArea") instance=ExtResource("15_vgf6r")]
+position = Vector2(409, 402)
+script = ExtResource("24_foegm")
+MusicOnPlant = null
+CameraNodes = [NodePath("../../Terminal/Big Terminal"), NodePath("../Charge Area/CollisionShape2D")]
+ActivationArea = NodePath("../Charge Area")
+ActivationRadius = 32
+ActivationSound = null
+PanelType = 0
+ActivationMethod = 0
+Activated = false
+IsEnabled = true
+
+[node name="Power Box2" parent="Props/Objectives" index="1" node_paths=PackedStringArray("CameraNodes", "ActivationArea") instance=ExtResource("15_vgf6r")]
+position = Vector2(361, 402)
+script = ExtResource("24_foegm")
+MusicOnPlant = null
+CameraNodes = []
+ActivationArea = NodePath("../Charge Area")
+ActivationRadius = 32
+ActivationSound = null
+PanelType = 0
+ActivationMethod = 0
+Activated = false
+IsEnabled = true
+
+[node name="Power Box3" parent="Props/Objectives" index="2" node_paths=PackedStringArray("CameraNodes", "ActivationArea") instance=ExtResource("15_vgf6r")]
+position = Vector2(313, 402)
+script = ExtResource("24_foegm")
+MusicOnPlant = null
+CameraNodes = []
+ActivationArea = NodePath("../Charge Area")
+ActivationRadius = 32
+PanelType = 0
+ActivationMethod = 0
+Activated = false
+IsEnabled = true
+
+[node name="Power Box4" parent="Props/Objectives" index="3" node_paths=PackedStringArray("CameraNodes", "ActivationArea") instance=ExtResource("15_vgf6r")]
+position = Vector2(265, 402)
+script = ExtResource("24_foegm")
+MusicOnPlant = null
+CameraNodes = []
+ActivationArea = NodePath("../Charge Area")
+ActivationRadius = 32
+ActivationSound = null
+PanelType = 0
+ActivationMethod = 0
+Activated = false
+IsEnabled = true
+
+[node name="Power Box5" parent="Props/Objectives" index="4" node_paths=PackedStringArray("CameraNodes", "ActivationArea") instance=ExtResource("15_vgf6r")]
+position = Vector2(406, 530)
+script = ExtResource("24_foegm")
+MusicOnPlant = null
+CameraNodes = []
+ActivationArea = NodePath("../Charge Area")
+ActivationRadius = 32
+ActivationSound = null
+PanelType = 0
+ActivationMethod = 0
+Activated = false
+IsEnabled = true
+
+[node name="Power Box6" parent="Props/Objectives" index="5" node_paths=PackedStringArray("CameraNodes", "ActivationArea") instance=ExtResource("15_vgf6r")]
+position = Vector2(361, 530)
+script = ExtResource("24_foegm")
+MusicOnPlant = null
+CameraNodes = []
+ActivationArea = NodePath("../Charge Area")
+ActivationRadius = 32
+ActivationSound = null
+PanelType = 0
+ActivationMethod = 0
+Activated = false
+IsEnabled = true
+
+[node name="Power Box11" parent="Props/Objectives" index="6" node_paths=PackedStringArray("CameraNodes", "ActivationArea") instance=ExtResource("15_vgf6r")]
+position = Vector2(314, 530)
+script = ExtResource("24_foegm")
+MusicOnPlant = null
+CameraNodes = []
+ActivationArea = NodePath("../Charge Area")
+ActivationRadius = 32
+ActivationSound = null
+PanelType = 0
+ActivationMethod = 0
+Activated = false
+IsEnabled = true
+
+[node name="Charge Area" type="Area2D" parent="Props/Objectives" index="7"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Props/Objectives/Charge Area" index="0"]
+position = Vector2(335.5, 464)
+shape = SubResource("RectangleShape2D_foegm")
+
+[node name="Elevator Area" type="Area2D" parent="Props/Objectives" index="8"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Props/Objectives/Elevator Area" index="0"]
+position = Vector2(1688, 420)
+shape = SubResource("RectangleShape2D_q6bal")
