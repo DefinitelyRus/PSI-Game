@@ -5847,7 +5847,7 @@ sources/0 = SubResource("TileSetAtlasSource_0bmdw")
 size = Vector2(78, 28)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qwnr5"]
-size = Vector2(175, 53)
+size = Vector2(114, 71.75)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_iebel"]
 size = Vector2(12, 9)
@@ -6515,7 +6515,7 @@ position = Vector2(2192, 52)
 [node name="Panels" type="Node2D" parent="Props" index="6"]
 y_sort_enabled = true
 
-[node name="Green Car3" type="RigidBody2D" parent="Props/Panels" index="0" node_paths=PackedStringArray("ClickArea", "NavObstacle", "Sprite")]
+[node name="Green Car3" type="RigidBody2D" parent="Props/Panels" index="0" node_paths=PackedStringArray("ActivationArea", "NavObstacle", "Sprite")]
 y_sort_enabled = true
 position = Vector2(1170, 603)
 collision_layer = 5
@@ -6524,7 +6524,9 @@ gravity_scale = 0.0
 lock_rotation = true
 freeze = true
 script = ExtResource("28_wm3yn")
-ClickArea = NodePath("Click Area")
+ActivationArea = NodePath("Area2D")
+ActivationRadius = 64
+ActivationMethod = 1
 PropName = "Green Car"
 PropID = "green_car"
 PropDescription = "a green car"
@@ -6549,9 +6551,10 @@ vertices = PackedVector2Array(-43, -24, 43, -24, 43, 16, -43, 16)
 affect_navigation_mesh = true
 avoidance_layers = 4
 
-[node name="Click Area" type="Area2D" parent="Props/Panels/Green Car3" index="3"]
+[node name="Area2D" type="Area2D" parent="Props/Panels/Green Car3" index="3"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Props/Panels/Green Car3/Click Area" index="0"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Props/Panels/Green Car3/Area2D" index="0"]
+position = Vector2(0, 0.125)
 shape = SubResource("RectangleShape2D_qwnr5")
 
 [node name="Entrance" type="RigidBody2D" parent="Props/Panels" index="1" node_paths=PackedStringArray("ActivationArea", "NavObstacle", "Sprite")]
