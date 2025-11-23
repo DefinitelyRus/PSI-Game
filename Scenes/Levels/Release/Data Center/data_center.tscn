@@ -3005,7 +3005,8 @@ texture = ExtResource("2_yj0oc")
 sources/0 = SubResource("TileSetAtlasSource_ala2c")
 sources/1 = SubResource("TileSetAtlasSource_6l3iw")
 
-[node name="Level 4  -  The Datacenter" instance=ExtResource("1_q5fsk")]
+[node name="The Datacenter" instance=ExtResource("1_q5fsk")]
+LevelIndex = 3
 
 [node name="Unit Spawns" parent="." index="0"]
 position = Vector2(311, 610)
