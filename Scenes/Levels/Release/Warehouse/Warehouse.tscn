@@ -2538,7 +2538,7 @@ vertices = PackedVector2Array(3226.8516, 425, 3348.8203, 425, 3347.1719, 519.117
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 0, 3, 5), PackedInt32Array(6, 7, 8, 9), PackedInt32Array(6, 9, 10, 11), PackedInt32Array(12, 6, 11, 4), PackedInt32Array(12, 4, 5, 13)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(2017, 466, 3036, 462, 3038, 543, 3215, 544, 3217, 415, 3359, 415, 3357, 529, 3277, 530, 3276, 543, 3359, 543, 3359, 609, 3036, 609, 3040, 944, 2016, 943)])
 
-[node name="Level 3  -  The Warehouse" instance=ExtResource("1_lp5d7")]
+[node name="Powerhouse" instance=ExtResource("1_lp5d7")]
 BackgroundMusic = ExtResource("2_xpc51")
 LevelIndex = 2
 EnemyTypes = [ExtResource("3_tudj3")]

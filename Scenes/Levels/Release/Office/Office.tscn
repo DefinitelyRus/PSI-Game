@@ -7271,7 +7271,7 @@ vertices = PackedVector2Array(806, 154, 806, 342, 762, 342, 762, 198, 554, 154, 
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 0, 3, 5)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(544, 144, 816, 144, 816, 352, 752, 352, 752, 208, 544, 208)])
 
-[node name="Level 2  -  The Office" node_paths=PackedStringArray("CameraNodePaths") instance=ExtResource("1_oafpl")]
+[node name="Access" node_paths=PackedStringArray("CameraNodePaths") instance=ExtResource("1_oafpl")]
 CameraNodePaths = [NodePath("Props/Objectives/L Table5"), NodePath("Props/Objectives/L Table8"), NodePath("Props/Objectives/Elevator"), NodePath("Unit Spawns/U1")]
 BackgroundMusic = ExtResource("2_4n7bc")
 LevelIndex = 1
