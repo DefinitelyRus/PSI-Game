@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=4 uid="uid://d0ppjvnd47xrt"]
+[gd_scene load_steps=54 format=4 uid="uid://d0ppjvnd47xrt"]
 
 [ext_resource type="PackedScene" uid="uid://drho55fepd4p7" path="res://Scenes/Levels/StandardLevel.tscn" id="1_q5fsk"]
 [ext_resource type="Texture2D" uid="uid://b88vn7c70p7iq" path="res://Sprites/World Sprites/Level 3 - Datacenter/DataCenter.png" id="2_yj0oc"]
@@ -3005,6 +3005,76 @@ texture = ExtResource("2_yj0oc")
 sources/0 = SubResource("TileSetAtlasSource_ala2c")
 sources/1 = SubResource("TileSetAtlasSource_6l3iw")
 
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_icdwg"]
+vertices = PackedVector2Array(678, 106, 678, 134, 166, 134, 121.96875, 106, 121.03125, 373, 166, 330, 458, 373, 502, 330, 502, 661, 458, 634, 122, 661, 166, 634, 122, 433, 166, 433)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 3, 2, 5), PackedInt32Array(6, 4, 5, 7), PackedInt32Array(6, 7, 8, 9), PackedInt32Array(9, 8, 10, 11), PackedInt32Array(11, 10, 12, 13)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(112, 423, 176, 423, 176, 624, 448, 624, 448, 383, 111, 383, 112, 96, 688, 96, 688, 144, 176, 144, 176, 320, 512, 320, 512, 671, 112, 671)])
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_m8frw"]
+vertices = PackedVector2Array(422, 410, 422, 549, 186, 549, 202, 506, 186, 506, 202, 410)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(2, 4, 3), PackedInt32Array(0, 3, 5)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(176, 496, 176, 559, 432, 559, 432, 400, 192, 400, 192, 496)])
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_3142c"]
+vertices = PackedVector2Array(374, 186, 374, 293, 246, 293, 202, 186, 202, 310, 246, 310)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 3, 2, 5)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(192, 320, 192, 176, 384, 176, 384, 303, 256, 303, 256, 320)])
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_rvwxy"]
+vertices = PackedVector2Array(454, 186, 598, 186, 598, 310, 554, 293, 554, 310, 410, 293, 410, 154, 454, 154)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(2, 4, 3), PackedInt32Array(0, 3, 5, 6), PackedInt32Array(7, 0, 6)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(464, 144, 400, 144, 400, 303, 544, 303, 544, 320, 608, 320, 608, 176, 464, 176)])
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_gbiw6"]
+vertices = PackedVector2Array(678, 186, 1254, 186, 1254, 310, 634, 310, 634, 154, 678, 154)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(0, 3, 4, 5)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(688, 144, 624, 144, 624, 320, 1264, 320, 1264, 176, 688, 176)])
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_m5a7x"]
+vertices = PackedVector2Array(634, 353.5, 552, 357.4922, 552, 330, 1254, 330, 1254, 502, 634, 502)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2), PackedInt32Array(0, 2, 3, 4), PackedInt32Array(0, 4, 5)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(542, 320, 542, 368, 624, 364, 624, 512, 1264, 512, 1264, 320)])
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_6uv1i"]
+vertices = PackedVector2Array(950, 10, 950, 166, 906, 166, 906, 150, 714, 10, 714, 150)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 0, 3, 5)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(704, 0, 960, 0, 960, 176, 896, 176, 896, 160, 704, 160)])
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_vlulm"]
+vertices = PackedVector2Array(822, 554, 886, 554, 886, 714, 842, 662, 1190, 714, 1190, 742, 842, 742, 682, 662, 778, 554, 682, 554, 822, 522, 778, 522)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(2, 4, 5, 6), PackedInt32Array(2, 6, 3), PackedInt32Array(0, 3, 7, 8), PackedInt32Array(7, 9, 8), PackedInt32Array(10, 0, 8, 11)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(768, 512, 832, 512, 832, 544, 896, 544, 896, 704, 1200, 704, 1200, 752, 832, 752, 832, 672, 672, 672, 672, 544, 768, 544)])
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_047ad"]
+vertices = PackedVector2Array(998, 554, 1270, 554, 1270, 582, 1190, 582, 1190, 694, 1146, 694, 1146, 662, 954, 662, 954, 522, 998, 522)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(3, 4, 5, 6), PackedInt32Array(0, 3, 6, 7), PackedInt32Array(0, 7, 8, 9)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(944, 512, 1008, 512, 1008, 544, 1280, 544, 1280, 592, 1200, 592, 1200, 704, 1136, 704, 1136, 672, 944, 672)])
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_rvso8"]
+vertices = PackedVector2Array(1347, 401.5078, 1347.3828, 400.2578, 1372.1016, 410, 1347, 513.1797, 1290, 614, 1290, 512.1719, 1494, 614, 1494, 410, 1446, 410, 1402, 410, 1402, 378, 1446, 378)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 5, 3, 6), PackedInt32Array(7, 6, 3, 8), PackedInt32Array(9, 10, 11, 8), PackedInt32Array(9, 8, 3), PackedInt32Array(9, 3, 2)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(1504, 400, 1504, 624, 1280, 624, 1280, 502, 1337, 503, 1337, 400, 1341, 387, 1374, 400, 1392, 400, 1392, 368, 1456, 368, 1456, 400)])
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_88566"]
+vertices = PackedVector2Array(1782, 154, 1782, 198, 1574, 198, 1530, 154, 1530, 330, 1574, 358, 1558, 358, 1558, 374, 1542, 374, 1530, 358, 1542, 390, 1530, 390, 1290, 358, 1290, 330)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 3, 2, 5, 6), PackedInt32Array(4, 6, 7, 8, 9), PackedInt32Array(8, 10, 11, 9), PackedInt32Array(4, 9, 12, 13)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(1280, 320, 1520, 320, 1520, 144, 1792, 144, 1792, 208, 1584, 208, 1584, 368, 1568, 368, 1568, 384, 1552, 384, 1552, 400, 1520, 400, 1520, 368, 1280, 368)])
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_ihmhn"]
+vertices = PackedVector2Array(1446, 154, 1446, 278, 1334, 278, 1290, 154, 1290, 310, 1334, 310)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 3, 2, 5)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(1280, 144, 1456, 144, 1456, 288, 1344, 288, 1344, 320, 1280, 320)])
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_sibj2"]
+vertices = PackedVector2Array(1530, 565, 1530, 458, 1542, 458, 1542, 474, 1574, 474, 1574, 522.0469, 1846, 565, 1802, 520.9531, 1846, 330, 1802, 342, 1782, 330, 1610, 342, 1610, 218, 1782, 218)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(3, 4, 5, 0), PackedInt32Array(6, 0, 5, 7), PackedInt32Array(8, 6, 7, 9), PackedInt32Array(10, 8, 9, 11), PackedInt32Array(10, 11, 12, 13)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(1600, 208, 1792, 208, 1792, 320, 1856, 320, 1856, 575, 1520, 575, 1520, 432, 1536, 432, 1536, 448, 1552, 448, 1552, 464, 1567, 464, 1568, 448, 1584, 448, 1584, 512, 1792, 511, 1792, 352, 1600, 352)])
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_xxyxt"]
+vertices = PackedVector2Array(1766, 442, 1766, 484, 1686, 484, 1610, 442, 1686, 502, 1625.9766, 502, 1625.9375, 484, 1610, 484)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(2, 4, 5, 6), PackedInt32Array(3, 2, 6), PackedInt32Array(3, 6, 7)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(1600, 432, 1776, 432, 1776, 494, 1696, 494, 1696, 512, 1616, 512, 1615.958, 494.00003, 1600, 494)])
+
 [node name="Level 4  -  The Datacenter" instance=ExtResource("1_q5fsk")]
 
 [node name="Unit Spawns" parent="." index="0"]
@@ -3352,10 +3422,10 @@ position = Vector2(1406, 236)
 y_sort_enabled = true
 
 [node name="Boxes1" parent="Props/Boxes" index="0" instance=ExtResource("9_abqqn")]
-position = Vector2(134, 375)
+position = Vector2(134, 370)
 
 [node name="Boxes2" parent="Props/Boxes" index="1" instance=ExtResource("10_ecrq6")]
-position = Vector2(159, 394)
+position = Vector2(159, 390)
 
 [node name="Boxes4" parent="Props/Boxes" index="2" instance=ExtResource("10_ecrq6")]
 position = Vector2(211, 403)
@@ -3373,7 +3443,7 @@ position = Vector2(523, 344)
 position = Vector2(879, 553)
 
 [node name="Boxes8" parent="Props/Boxes" index="7" instance=ExtResource("10_ecrq6")]
-position = Vector2(1347, 599)
+position = Vector2(1344, 607)
 
 [node name="Boxes6" parent="Props/Boxes" index="8" instance=ExtResource("9_abqqn")]
 position = Vector2(518, 368)
@@ -3382,7 +3452,7 @@ position = Vector2(518, 368)
 position = Vector2(874, 582)
 
 [node name="Boxes7" parent="Props/Boxes" index="10" instance=ExtResource("9_abqqn")]
-position = Vector2(1307, 612)
+position = Vector2(1302, 612)
 
 [node name="Board" type="Node2D" parent="Props" index="5"]
 y_sort_enabled = true
@@ -3400,7 +3470,7 @@ position = Vector2(217, 176)
 position = Vector2(515, 239)
 
 [node name="Board4" parent="Props/Board" index="4" instance=ExtResource("11_ecrq6")]
-position = Vector2(543, 318)
+position = Vector2(532, 318)
 
 [node name="Board8" parent="Props/Board" index="5" instance=ExtResource("11_ecrq6")]
 position = Vector2(906, 23)
@@ -3409,10 +3479,10 @@ position = Vector2(906, 23)
 position = Vector2(846, 551)
 
 [node name="Board7" parent="Props/Board" index="7" instance=ExtResource("11_ecrq6")]
-position = Vector2(1306, 147)
+position = Vector2(1298, 139)
 
 [node name="Board6" parent="Props/Board" index="8" instance=ExtResource("11_ecrq6")]
-position = Vector2(1438, 313)
+position = Vector2(1448, 313)
 
 [node name="Storage" type="Node2D" parent="Props" index="6"]
 y_sort_enabled = true
@@ -3487,7 +3557,7 @@ position = Vector2(1480, 610)
 y_sort_enabled = true
 
 [node name="Guard Rail Side" parent="Props/Blockers" index="0" instance=ExtResource("16_ypkc1")]
-position = Vector2(520, 645)
+position = Vector2(524, 645)
 
 [node name="Guard Rail Side3" parent="Props/Blockers" index="1" instance=ExtResource("16_ypkc1")]
 position = Vector2(1275, 343)
@@ -3505,7 +3575,7 @@ position = Vector2(1289, 357)
 y_sort_enabled = true
 
 [node name="Barrel_2" parent="Props/Barrel" index="0" instance=ExtResource("17_ibk3h")]
-position = Vector2(511, 326)
+position = Vector2(501, 326)
 
 [node name="Barrel_3" parent="Props/Barrel" index="1" instance=ExtResource("17_ibk3h")]
 position = Vector2(786, 672)
@@ -3523,13 +3593,13 @@ position = Vector2(1350, 405)
 position = Vector2(1350, 405)
 
 [node name="Pipes4" parent="Props/AC Pipes" index="3" instance=ExtResource("18_7aj80")]
-position = Vector2(1350, 440)
+position = Vector2(1350, 439)
 
 [node name="Pipes5" parent="Props/AC Pipes" index="4" instance=ExtResource("18_7aj80")]
-position = Vector2(1350, 477)
+position = Vector2(1350, 474)
 
 [node name="Pipes6" parent="Props/AC Pipes" index="5" instance=ExtResource("18_7aj80")]
-position = Vector2(1350, 513)
+position = Vector2(1350, 508)
 
 [node name="AC" type="Node2D" parent="Props" index="11"]
 y_sort_enabled = true
@@ -3544,13 +3614,13 @@ position = Vector2(1297, 411)
 position = Vector2(1297, 411)
 
 [node name="Aircon4" parent="Props/AC" index="3" instance=ExtResource("19_ala2c")]
-position = Vector2(1297, 446)
+position = Vector2(1297, 445)
 
 [node name="Aircon5" parent="Props/AC" index="4" instance=ExtResource("19_ala2c")]
-position = Vector2(1297, 483)
+position = Vector2(1297, 480)
 
 [node name="Aircon6" parent="Props/AC" index="5" instance=ExtResource("19_ala2c")]
-position = Vector2(1297, 519)
+position = Vector2(1297, 514)
 
 [node name="Terminal" type="Node2D" parent="Props" index="12"]
 y_sort_enabled = true
@@ -3562,7 +3632,7 @@ position = Vector2(467, 317)
 position = Vector2(1054, 176)
 
 [node name="Terminal8" parent="Props/Terminal" index="2" instance=ExtResource("20_6l3iw")]
-position = Vector2(1401, 315)
+position = Vector2(1389, 315)
 
 [node name="Terminal7" parent="Props/Terminal" index="3" instance=ExtResource("20_6l3iw")]
 position = Vector2(1112, 706)
@@ -3587,3 +3657,45 @@ position = Vector2(720, 47)
 
 [node name="Big Terminal2" parent="Props/Terminal" index="10" instance=ExtResource("22_ns3nn")]
 position = Vector2(720, 113)
+
+[node name="Region 1" parent="Regions" index="0"]
+navigation_polygon = SubResource("NavigationPolygon_icdwg")
+
+[node name="Region 2" type="NavigationRegion2D" parent="Regions" index="1"]
+navigation_polygon = SubResource("NavigationPolygon_m8frw")
+
+[node name="Region 3" type="NavigationRegion2D" parent="Regions" index="2"]
+navigation_polygon = SubResource("NavigationPolygon_3142c")
+
+[node name="Region 4" type="NavigationRegion2D" parent="Regions" index="3"]
+navigation_polygon = SubResource("NavigationPolygon_rvwxy")
+
+[node name="Region 5" type="NavigationRegion2D" parent="Regions" index="4"]
+navigation_polygon = SubResource("NavigationPolygon_gbiw6")
+
+[node name="Region 6" type="NavigationRegion2D" parent="Regions" index="5"]
+navigation_polygon = SubResource("NavigationPolygon_m5a7x")
+
+[node name="Region 7" type="NavigationRegion2D" parent="Regions" index="6"]
+navigation_polygon = SubResource("NavigationPolygon_6uv1i")
+
+[node name="Region 8" type="NavigationRegion2D" parent="Regions" index="7"]
+navigation_polygon = SubResource("NavigationPolygon_vlulm")
+
+[node name="Region 9" type="NavigationRegion2D" parent="Regions" index="8"]
+navigation_polygon = SubResource("NavigationPolygon_047ad")
+
+[node name="Region 10" type="NavigationRegion2D" parent="Regions" index="9"]
+navigation_polygon = SubResource("NavigationPolygon_rvso8")
+
+[node name="Region 11" type="NavigationRegion2D" parent="Regions" index="10"]
+navigation_polygon = SubResource("NavigationPolygon_88566")
+
+[node name="Region 12" type="NavigationRegion2D" parent="Regions" index="11"]
+navigation_polygon = SubResource("NavigationPolygon_ihmhn")
+
+[node name="Region 13" type="NavigationRegion2D" parent="Regions" index="12"]
+navigation_polygon = SubResource("NavigationPolygon_sibj2")
+
+[node name="Region 14" type="NavigationRegion2D" parent="Regions" index="13"]
+navigation_polygon = SubResource("NavigationPolygon_xxyxt")
