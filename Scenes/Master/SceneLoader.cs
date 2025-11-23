@@ -139,6 +139,7 @@ public partial class SceneLoader : Node
 
         if (units.Length > 0) {
             foreach (StandardCharacter unit in units) {
+                unit.Heal(unit.CurrentMaxHealth);
                 level.SpawnUnit(unit);
             }
         }
