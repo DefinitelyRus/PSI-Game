@@ -1,4 +1,4 @@
-[gd_scene load_steps=61 format=4 uid="uid://2sdjs7gc04c5"]
+[gd_scene load_steps=64 format=4 uid="uid://2sdjs7gc04c5"]
 
 [ext_resource type="PackedScene" uid="uid://drho55fepd4p7" path="res://Scenes/Levels/StandardLevel.tscn" id="1_oafpl"]
 [ext_resource type="AudioStream" uid="uid://bro8ih20wrpc2" path="res://Audio/Music/L2 - Grand Project Extended.mp3" id="2_4n7bc"]
@@ -19,10 +19,12 @@
 [ext_resource type="PackedScene" uid="uid://dsp56htx850rs" path="res://Prefabs/Props/Level 1/reception.tscn" id="12_2knar"]
 [ext_resource type="PackedScene" uid="uid://bhcsyy3di16se" path="res://Prefabs/Props/Level 1/black_couch.tscn" id="13_giix2"]
 [ext_resource type="PackedScene" uid="uid://cplcmhj4beq2b" path="res://Prefabs/Props/Level 1/chair.tscn" id="14_ht7ph"]
-[ext_resource type="PackedScene" path="res://Prefabs/Props/elevator.tscn" id="14_x4gmr"]
+[ext_resource type="PackedScene" uid="uid://bh4ior7florkf" path="res://Prefabs/Props/elevator.tscn" id="14_x4gmr"]
 [ext_resource type="PackedScene" uid="uid://djr2h8w2v4ben" path="res://Prefabs/Props/Level 1/vending_machine.tscn" id="15_2ub8j"]
 [ext_resource type="PackedScene" uid="uid://coiu87ebqx5kb" path="res://Prefabs/Props/Level 1/vending_machine2.tscn" id="16_h7g2r"]
 [ext_resource type="PackedScene" uid="uid://bpledjlueicmm" path="res://Prefabs/Props/Level 1/water_dispenser.tscn" id="17_ad4xd"]
+[ext_resource type="Script" uid="uid://gscwvuwbcgd0" path="res://Scenes/Levels/Release/Office/ObjectiveGetKeycard.cs" id="23_yenp0"]
+[ext_resource type="Script" uid="uid://c0nutm0neoy24" path="res://Scenes/Levels/Release/Office/ObjectiveL2EnterElevator.cs" id="24_hxry2"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_kxu0x"]
 texture = ExtResource("2_knigi")
@@ -7154,6 +7156,9 @@ texture = ExtResource("3_x4gmr")
 sources/0 = SubResource("TileSetAtlasSource_o5jw1")
 sources/1 = SubResource("TileSetAtlasSource_m0sgc")
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_iebel"]
+size = Vector2(12, 9)
+
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_h466k"]
 vertices = PackedVector2Array(1028, 609, 1028, 652.97656, 484, 651.97656, 196, 609, 1224, 205, 824, 205, 824, 161, 1268, 161, 1268, 413, 1224, 369, 196, 413, 196, 369, 484, 717, 440, 717, 440, 652, 152, 652, 152, 145, 196, 145)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 5, 6, 7), PackedInt32Array(4, 7, 8, 9), PackedInt32Array(9, 8, 10, 11), PackedInt32Array(2, 12, 13, 14), PackedInt32Array(3, 2, 14, 15), PackedInt32Array(3, 15, 16, 10), PackedInt32Array(11, 10, 16), PackedInt32Array(17, 11, 16)])
@@ -7264,7 +7269,8 @@ vertices = PackedVector2Array(806, 154, 806, 342, 762, 342, 762, 198, 554, 154, 
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 0, 3, 5)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(544, 144, 816, 144, 816, 352, 752, 352, 752, 208, 544, 208)])
 
-[node name="Office" instance=ExtResource("1_oafpl")]
+[node name="Office" node_paths=PackedStringArray("CameraNodePaths") instance=ExtResource("1_oafpl")]
+CameraNodePaths = [NodePath("Props/Objectives/L Table5"), NodePath("Props/Objectives/L Table8"), NodePath("Props/Objectives/Elevator"), NodePath("Unit Spawns/U1")]
 BackgroundMusic = ExtResource("2_4n7bc")
 LevelIndex = 1
 EnemyTypes = [ExtResource("3_1wk65"), ExtResource("4_hxry2"), ExtResource("5_yenp0")]
@@ -7671,31 +7677,25 @@ position = Vector2(773, 531)
 [node name="L Table4" parent="Props/Cubicles_Tables" index="21" instance=ExtResource("7_tj6ml")]
 position = Vector2(1012, 451)
 
-[node name="L Table5" parent="Props/Cubicles_Tables" index="22" instance=ExtResource("7_tj6ml")]
-position = Vector2(1141, 573)
-
-[node name="L Table6" parent="Props/Cubicles_Tables" index="23" instance=ExtResource("7_tj6ml")]
+[node name="L Table6" parent="Props/Cubicles_Tables" index="22" instance=ExtResource("7_tj6ml")]
 position = Vector2(587, 244)
 
-[node name="L Table7" parent="Props/Cubicles_Tables" index="24" instance=ExtResource("7_tj6ml")]
+[node name="L Table7" parent="Props/Cubicles_Tables" index="23" instance=ExtResource("7_tj6ml")]
 position = Vector2(101, 451)
 
-[node name="L Table8" parent="Props/Cubicles_Tables" index="25" instance=ExtResource("7_tj6ml")]
-position = Vector2(101, 14)
-
-[node name="L Table 2" parent="Props/Cubicles_Tables" index="26" instance=ExtResource("8_knigi")]
+[node name="L Table 2" parent="Props/Cubicles_Tables" index="24" instance=ExtResource("8_knigi")]
 position = Vector2(931, 100)
 
-[node name="L Table 3" parent="Props/Cubicles_Tables" index="27" instance=ExtResource("8_knigi")]
+[node name="L Table 3" parent="Props/Cubicles_Tables" index="25" instance=ExtResource("8_knigi")]
 position = Vector2(931, 100)
 
-[node name="L Table 5" parent="Props/Cubicles_Tables" index="28" instance=ExtResource("8_knigi")]
+[node name="L Table 5" parent="Props/Cubicles_Tables" index="26" instance=ExtResource("8_knigi")]
 position = Vector2(947, 307)
 
-[node name="L Table 4" parent="Props/Cubicles_Tables" index="29" instance=ExtResource("8_knigi")]
+[node name="L Table 4" parent="Props/Cubicles_Tables" index="27" instance=ExtResource("8_knigi")]
 position = Vector2(323, 226)
 
-[node name="L Table 6" parent="Props/Cubicles_Tables" index="30" instance=ExtResource("8_knigi")]
+[node name="L Table 6" parent="Props/Cubicles_Tables" index="28" instance=ExtResource("8_knigi")]
 position = Vector2(238, 92)
 
 [node name="Bookshelves" type="Node2D" parent="Props" index="1"]
@@ -7941,12 +7941,6 @@ position = Vector2(470, 557)
 [node name="Reception2" parent="Props/Structures" index="1" instance=ExtResource("12_2knar")]
 position = Vector2(1241, 71)
 
-[node name="Elevator" parent="Props/Structures" index="2" instance=ExtResource("14_x4gmr")]
-position = Vector2(1180, -8)
-
-[node name="Elevator2" parent="Props/Structures" index="3" instance=ExtResource("14_x4gmr")]
-position = Vector2(1235, -8)
-
 [node name="Chairs" type="Node2D" parent="Props" index="6"]
 y_sort_enabled = true
 
@@ -8105,6 +8099,101 @@ position = Vector2(484, 100)
 
 [node name="Water Dispenser13" parent="Props/Dispenser" index="11" instance=ExtResource("17_ad4xd")]
 position = Vector2(119, 100)
+
+[node name="Objectives" type="Node2D" parent="Props" index="9"]
+
+[node name="L Table5" type="RigidBody2D" parent="Props/Objectives" index="0" node_paths=PackedStringArray("NavObstacle", "Sprite")]
+y_sort_enabled = true
+position = Vector2(1141, 573)
+collision_layer = 5
+collision_mask = 17
+gravity_scale = 0.0
+lock_rotation = true
+freeze = true
+script = ExtResource("23_yenp0")
+ActivationRadius = 48
+NavObstacle = NodePath("NavigationObstacle2D")
+Sprite = NodePath("Sprite2D")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Props/Objectives/L Table5" index="0"]
+visible = false
+position = Vector2(0, 2.75)
+shape = SubResource("RectangleShape2D_iebel")
+disabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Props/Objectives/L Table5" index="1"]
+y_sort_enabled = true
+position = Vector2(0, 3)
+texture = ExtResource("4_4n7bc")
+offset = Vector2(0, -3.245)
+region_enabled = true
+region_rect = Rect2(276, 340, 55, 39)
+
+[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="Props/Objectives/L Table5" index="2"]
+position = Vector2(0, 3)
+vertices = PackedVector2Array(-31, -24, -6, -24, -6, -16, 17, -16, 17, -8, 31, -8, 31, 19, -31, 19)
+affect_navigation_mesh = true
+avoidance_layers = 4
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Props/Objectives/L Table5" index="3"]
+position = Vector2(0, 3)
+polygon = PackedVector2Array(-27, 15, -27, -16, -10, -16, -10, -8, 13, -8, 13, 1, 27, 1, 27, 15)
+
+[node name="L Table8" type="RigidBody2D" parent="Props/Objectives" index="1" node_paths=PackedStringArray("NavObstacle", "Sprite")]
+y_sort_enabled = true
+position = Vector2(101, 14)
+collision_layer = 5
+collision_mask = 17
+gravity_scale = 0.0
+lock_rotation = true
+freeze = true
+script = ExtResource("23_yenp0")
+KeycardNumber = 2
+ActivationRadius = 48
+NavObstacle = NodePath("NavigationObstacle2D")
+Sprite = NodePath("Sprite2D")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Props/Objectives/L Table8" index="0"]
+visible = false
+position = Vector2(0, 2.75)
+shape = SubResource("RectangleShape2D_iebel")
+disabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Props/Objectives/L Table8" index="1"]
+y_sort_enabled = true
+position = Vector2(0, 3)
+texture = ExtResource("4_4n7bc")
+offset = Vector2(0, -3.245)
+region_enabled = true
+region_rect = Rect2(276, 340, 55, 39)
+
+[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="Props/Objectives/L Table8" index="2"]
+position = Vector2(0, 3)
+vertices = PackedVector2Array(-31, -24, -6, -24, -6, -16, 17, -16, 17, -8, 31, -8, 31, 19, -31, 19)
+affect_navigation_mesh = true
+avoidance_layers = 4
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Props/Objectives/L Table8" index="3"]
+position = Vector2(0, 3)
+polygon = PackedVector2Array(-27, 15, -27, -16, -10, -16, -10, -8, 13, -8, 13, 1, 27, 1, 27, 15)
+
+[node name="Elevator" parent="Props/Objectives" index="2" instance=ExtResource("14_x4gmr")]
+position = Vector2(1180, -8)
+script = ExtResource("24_hxry2")
+ActivationRadius = 48
+PanelType = 0
+ActivationMethod = 0
+Activated = false
+IsEnabled = true
+
+[node name="Elevator2" parent="Props/Objectives" index="3" instance=ExtResource("14_x4gmr")]
+position = Vector2(1235, -8)
+script = ExtResource("24_hxry2")
+ActivationRadius = 48
+PanelType = 0
+ActivationMethod = 0
+Activated = false
+IsEnabled = true
 
 [node name="Region 1" parent="Regions" index="0"]
 position = Vector2(2, -7)
