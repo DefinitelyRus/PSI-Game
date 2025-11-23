@@ -1,4 +1,3 @@
-using System.Runtime.CompilerServices;
 using Godot;
 namespace CommonScripts;
 
@@ -32,41 +31,23 @@ public partial class StandardPanel : StandardProp {
 		foreach (StandardCharacter character in Commander.GetAllUnits()) {
 			if (!character.IsAlive) continue;
 
-			bool isUnitActivating = ScanForUnit(character);
-			if (!isUnitActivating) continue;
+			float distance = character.GlobalPosition.DistanceTo(GlobalPosition);
+			bool withinRadius = distance <= ActivationRadius;
+			bool isCloser = closestCharacter == null || distance < closestCharacter.GlobalPosition.DistanceTo(GlobalPosition);
 
-			if (closestCharacter == null) {
+			if (withinRadius) {
+                if (!isCloser) continue;
+
 				closestCharacter = character;
-				continue;
-			}
-
-			// Check if this character is closer than the current closest
-			float currentClosestDistance = closestCharacter.GlobalPosition.DistanceTo(GlobalPosition);
-			float newDistance = character.GlobalPosition.DistanceTo(GlobalPosition);
-			if (newDistance < currentClosestDistance) closestCharacter = character;
+            }
 		}
+
+		Activated = false;
 
 		if (closestCharacter != null) {
 			Activated = true;
 			Interact(closestCharacter);
 		}
-	}
-
-
-	public bool ScanForUnit(StandardCharacter unit) {
-		switch (ActivationMethod) {
-			case ActivationMethods.Area:
-				if (ActivationArea.OverlapsBody(unit)) return true;
-				break;
-
-			case ActivationMethods.Radius:
-				float distance = unit.GlobalPosition.DistanceTo(GlobalPosition);
-				if (distance <= ActivationRadius) return true;
-
-				break;
-		}
-
-		return false;
 	}
 
 

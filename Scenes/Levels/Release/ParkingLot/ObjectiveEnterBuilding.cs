@@ -19,13 +19,6 @@ public partial class ObjectiveEnterBuilding : StandardPanel {
             return;
         }
 
-        foreach (StandardCharacter unit in Commander.GetAllUnits()) {
-            if (!unit.IsAlive) continue;
-
-            bool isAtLocation = ScanForUnit(unit);
-            if (!isAtLocation) return;
-        }
-
         GameManager.SetGameData("L1_EnteredBuilding", null, true);
 
         Log.Me(() => $"{character.CharacterName} has entered the building!");

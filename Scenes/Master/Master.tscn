@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://d3cvhjbvnx1a1"]
+[gd_scene load_steps=17 format=3 uid="uid://d3cvhjbvnx1a1"]
 
 [ext_resource type="Script" uid="uid://cdfonun0qopbr" path="res://Scenes/Master/Master.cs" id="1_o4rt4"]
 [ext_resource type="Script" uid="uid://bskjggdrqe3xx" path="res://Scenes/Master/SceneLoader.cs" id="2_7tgqy"]
@@ -16,7 +16,6 @@
 [ext_resource type="PackedScene" uid="uid://2sdjs7gc04c5" path="res://Scenes/Levels/Release/Office/Office.tscn" id="13_0hine"]
 [ext_resource type="PackedScene" uid="uid://o52kke4dfdo0" path="res://Prefabs/UI/player_ui.tscn" id="14_yfaob"]
 [ext_resource type="PackedScene" uid="uid://b2uvlodlqe2mk" path="res://Scenes/Levels/Release/Warehouse/Warehouse.tscn" id="15_xey05"]
-[ext_resource type="PackedScene" uid="uid://d0ppjvnd47xrt" path="res://Scenes/Levels/Release/Data Center/data_center.tscn" id="16_hw2j4"]
 
 [node name="Master" type="Node" node_paths=PackedStringArray("SceneLoader", "InputManager")]
 process_mode = 3
@@ -60,8 +59,8 @@ script = ExtResource("2_7tgqy")
 Master = NodePath("..")
 Theatre = NodePath("../Theatre")
 MainMenu = ExtResource("3_1t0lv")
-DevScene = ExtResource("15_xey05")
-Levels = [ExtResource("10_8ixx1"), ExtResource("13_0hine"), ExtResource("15_xey05"), ExtResource("16_hw2j4")]
+DevScene = ExtResource("13_0hine")
+Levels = [ExtResource("10_8ixx1"), ExtResource("13_0hine"), ExtResource("15_xey05")]
 LogReady = true
 
 [node name="Theatre" type="Node" parent="."]
