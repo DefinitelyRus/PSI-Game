@@ -8,7 +8,6 @@
 [ext_resource type="Texture2D" uid="uid://dboq7ap8y2i5r" path="res://Sprites/World Sprites/Level 1 - Office/Office_Props.png" id="4_4n7bc"]
 [ext_resource type="PackedScene" uid="uid://c6k63hyv33gxi" path="res://Prefabs/StandardCharacter/Enemies/Flakfly/Flakfly.tscn" id="4_hxry2"]
 [ext_resource type="PackedScene" uid="uid://brhhm6ehuvt0w" path="res://Prefabs/Props/Level 1/cubicle_group_l.tscn" id="5_4ilei"]
-[ext_resource type="PackedScene" uid="uid://3cxd35pr5lif" path="res://Prefabs/StandardCharacter/Enemies/Sentinel/Sentinel.tscn" id="5_yenp0"]
 [ext_resource type="PackedScene" uid="uid://cvffuc70sd7yo" path="res://Prefabs/Props/Level 1/cubicle_group_s.tscn" id="6_0jbu7"]
 [ext_resource type="PackedScene" uid="uid://dhwy6fp4vnljs" path="res://Prefabs/Props/Level 1/l_table.tscn" id="7_tj6ml"]
 [ext_resource type="PackedScene" uid="uid://bx6pp5taql4w8" path="res://Prefabs/Props/Level 1/l_table_2.tscn" id="8_knigi"]
@@ -7159,10 +7158,13 @@ sources/1 = SubResource("TileSetAtlasSource_m0sgc")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_iebel"]
 size = Vector2(12, 9)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o1pal"]
+size = Vector2(144, 39)
+
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_h466k"]
-vertices = PackedVector2Array(1028, 609, 1028, 652.97656, 484, 651.97656, 196, 609, 1224, 205, 824, 205, 824, 161, 1268, 161, 1268, 413, 1224, 369, 196, 413, 196, 369, 484, 717, 440, 717, 440, 652, 152, 652, 152, 145, 196, 145)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 5, 6, 7), PackedInt32Array(4, 7, 8, 9), PackedInt32Array(9, 8, 10, 11), PackedInt32Array(2, 12, 13, 14), PackedInt32Array(3, 2, 14, 15), PackedInt32Array(3, 15, 16, 10), PackedInt32Array(11, 10, 16), PackedInt32Array(17, 11, 16)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(494, 727, 430, 727, 430, 662, 142, 662, 142, 135, 206, 135, 206, 359, 1214, 359, 1214, 215, 814, 215, 814, 151, 1278, 151, 1278, 423, 206, 423, 206, 599, 1038, 599, 1038, 663, 494, 662)])
+vertices = PackedVector2Array(479.39844, 647.89844, 483.40625, 717, 440.59375, 717, 444.60156, 647.85156, 187.45313, 596.14844, 420, 593.1328, 420, 609, 152, 651.8594, 1224, 200.89844, 824, 204.89063, 824, 161, 1268, 161, 1268, 412.96094, 1224, 369, 192, 408.96094, 348, 369, 1028, 609, 1028, 652.89844, 192, 564.28906, 152, 145, 196, 145, 196, 369, 226, 369, 226, 348, 348, 348)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 5, 6, 7), PackedInt32Array(8, 9, 10, 11), PackedInt32Array(8, 11, 12, 13), PackedInt32Array(13, 12, 14, 15), PackedInt32Array(16, 17, 0, 6), PackedInt32Array(6, 0, 3), PackedInt32Array(6, 3, 7), PackedInt32Array(18, 4, 7, 19, 14), PackedInt32Array(14, 19, 20, 21), PackedInt32Array(22, 23, 24, 15), PackedInt32Array(22, 15, 14), PackedInt32Array(14, 21, 22)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(494, 727, 430, 727, 434, 658, 142, 662, 142, 135, 206, 135, 206, 359, 216, 359, 216, 338, 358, 338, 358, 359, 1214, 359, 1214, 211, 814, 215, 814, 151, 1278, 151, 1278, 423, 202, 419, 202, 565, 199, 586, 430, 583, 430, 599, 1038, 599, 1038, 663, 490, 658)])
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_oubl5"]
 vertices = PackedVector2Array(614, 582, 520, 582, 520, 442, 614, 442)
@@ -7255,9 +7257,9 @@ polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Arr
 outlines = Array[PackedVector2Array]([PackedVector2Array(544, 0, 637, 0, 637, 128, 608, 128, 608, 144, 544, 144)])
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_2v8nt"]
-vertices = PackedVector2Array(949.0781, 11, 949.9219, 120, 841, 120, 841, 55, 761, 11, 805, 55, 761, 135, 805, 135)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 0, 3, 5), PackedInt32Array(6, 4, 5, 7)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(959, 1, 751, 1, 751, 145, 815, 145, 815, 65, 831, 65, 831, 130, 960, 130)])
+vertices = PackedVector2Array(949.9219, 120, 841.59375, 120, 845.60156, 51, 949.0781, 11, 761, 11, 800.5078, 51, 761, 135, 804.5078, 135)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 3, 2, 5), PackedInt32Array(6, 4, 5, 7)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(959, 1, 751, 1, 751, 145, 815, 145, 811, 61, 835, 61, 831, 130, 960, 130)])
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_yra5r"]
 vertices = PackedVector2Array(1270, 10, 1270, 102, 1190, 102, 1146, 10, 1146, 134, 1190, 134)
@@ -7269,17 +7271,20 @@ vertices = PackedVector2Array(806, 154, 806, 342, 762, 342, 762, 198, 554, 154, 
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 0, 3, 5)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(544, 144, 816, 144, 816, 352, 752, 352, 752, 208, 544, 208)])
 
-[node name="Office" node_paths=PackedStringArray("CameraNodePaths") instance=ExtResource("1_oafpl")]
+[node name="Access" node_paths=PackedStringArray("CameraNodePaths") instance=ExtResource("1_oafpl")]
 CameraNodePaths = [NodePath("Props/Objectives/L Table5"), NodePath("Props/Objectives/L Table8"), NodePath("Props/Objectives/Elevator"), NodePath("Unit Spawns/U1")]
 BackgroundMusic = ExtResource("2_4n7bc")
 LevelIndex = 1
-EnemyTypes = [ExtResource("3_1wk65"), ExtResource("4_hxry2"), ExtResource("5_yenp0")]
+EnemyTypes = [ExtResource("3_1wk65"), ExtResource("4_hxry2")]
 
 [node name="Unit Spawns" parent="." index="0"]
 position = Vector2(463, 655)
 
+[node name="U1" parent="Unit Spawns" index="0"]
+position = Vector2(0, -3)
+
 [node name="U2" type="Node2D" parent="Unit Spawns" index="1"]
-position = Vector2(0, 24)
+position = Vector2(0, -30)
 
 [node name="E01" parent="Enemy Spawns" index="0"]
 position = Vector2(29, 31)
@@ -7333,7 +7338,7 @@ position = Vector2(781, 37)
 position = Vector2(827, 37)
 
 [node name="E18" type="Node2D" parent="Enemy Spawns" index="17"]
-position = Vector2(858, 97)
+position = Vector2(878, 77)
 
 [node name="E19" type="Node2D" parent="Enemy Spawns" index="18"]
 position = Vector2(783, 108)
@@ -8177,23 +8182,32 @@ avoidance_layers = 4
 position = Vector2(0, 3)
 polygon = PackedVector2Array(-27, 15, -27, -16, -10, -16, -10, -8, 13, -8, 13, 1, 27, 1, 27, 15)
 
-[node name="Elevator" parent="Props/Objectives" index="2" instance=ExtResource("14_x4gmr")]
+[node name="Elevator" parent="Props/Objectives" index="2" node_paths=PackedStringArray("ActivationArea") instance=ExtResource("14_x4gmr")]
 position = Vector2(1180, -8)
 script = ExtResource("24_hxry2")
-ActivationRadius = 48
+ActivationArea = NodePath("../Area2D")
+ActivationRadius = -1
 PanelType = 0
-ActivationMethod = 0
+ActivationMethod = 1
 Activated = false
 IsEnabled = true
 
 [node name="Elevator2" parent="Props/Objectives" index="3" instance=ExtResource("14_x4gmr")]
 position = Vector2(1235, -8)
 script = ExtResource("24_hxry2")
-ActivationRadius = 48
+ActivationRadius = -1
 PanelType = 0
 ActivationMethod = 0
 Activated = false
 IsEnabled = true
+
+[node name="Area2D" type="Area2D" parent="Props/Objectives" index="4"]
+position = Vector2(1180, -8)
+collision_mask = 48
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Props/Objectives/Area2D" index="0"]
+position = Vector2(28, 27.5)
+shape = SubResource("RectangleShape2D_o1pal")
 
 [node name="Region 1" parent="Regions" index="0"]
 position = Vector2(2, -7)
