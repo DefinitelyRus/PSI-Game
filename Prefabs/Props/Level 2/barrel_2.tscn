@@ -1,13 +1,24 @@
-[gd_scene load_steps=3 format=3 uid="uid://dvqyo20be6ci8"]
+[gd_scene load_steps=4 format=3 uid="uid://dvqyo20be6ci8"]
 
 [ext_resource type="PackedScene" uid="uid://bnslwo4ecgkcn" path="res://Prefabs/StandardProp/StandardProp.tscn" id="1_nfog1"]
 [ext_resource type="Texture2D" uid="uid://yik1c23xcmb4" path="res://Sprites/World Sprites/Level 2 - Warehouse/Warehouse-Asset.png" id="2_rh6lc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nfog1"]
+size = Vector2(26, 10)
 
 [node name="Barrel_2" instance=ExtResource("1_nfog1")]
 PropName = "Barrel 2"
 PropID = "barrel_2"
 PropDescription = "3 barrels"
 
+[node name="CollisionShape2D" parent="." index="0"]
+shape = SubResource("RectangleShape2D_nfog1")
+
 [node name="Sprite2D" parent="." index="1"]
+position = Vector2(0, 8)
 texture = ExtResource("2_rh6lc")
+offset = Vector2(0, -2)
 region_rect = Rect2(258, 113, 29, 32)
+
+[node name="NavigationObstacle2D" parent="." index="2"]
+vertices = PackedVector2Array(-17, -13, 17, -13, 17, 9, -17, 9)

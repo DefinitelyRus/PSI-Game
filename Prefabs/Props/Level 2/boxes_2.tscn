@@ -1,13 +1,24 @@
-[gd_scene load_steps=3 format=3 uid="uid://1vmb2o8h7qce"]
+[gd_scene load_steps=4 format=3 uid="uid://1vmb2o8h7qce"]
 
 [ext_resource type="PackedScene" uid="uid://bnslwo4ecgkcn" path="res://Prefabs/StandardProp/StandardProp.tscn" id="1_6q2hc"]
 [ext_resource type="Texture2D" uid="uid://yik1c23xcmb4" path="res://Sprites/World Sprites/Level 2 - Warehouse/Warehouse-Asset.png" id="2_sqvv3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6q2hc"]
+size = Vector2(29, 11)
 
 [node name="Boxes2" instance=ExtResource("1_6q2hc")]
 PropName = "Boxes2"
 PropID = "boxes_2"
 PropDescription = "Boxes stacked up together"
 
+[node name="CollisionShape2D" parent="." index="0"]
+shape = SubResource("RectangleShape2D_6q2hc")
+
 [node name="Sprite2D" parent="." index="1"]
+position = Vector2(0, 8)
 texture = ExtResource("2_sqvv3")
+offset = Vector2(0.5, -7)
 region_rect = Rect2(97, 112, 30, 32)
+
+[node name="NavigationObstacle2D" parent="." index="2"]
+vertices = PackedVector2Array(-19, -14, 19, -14, 19, 10, -19, 10)

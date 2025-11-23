@@ -1,13 +1,26 @@
-[gd_scene load_steps=3 format=3 uid="uid://djk0f17qgpb4e"]
+[gd_scene load_steps=4 format=3 uid="uid://djk0f17qgpb4e"]
 
 [ext_resource type="PackedScene" uid="uid://bnslwo4ecgkcn" path="res://Prefabs/StandardProp/StandardProp.tscn" id="1_yq87o"]
 [ext_resource type="Texture2D" uid="uid://yik1c23xcmb4" path="res://Sprites/World Sprites/Level 2 - Warehouse/Warehouse-Asset.png" id="2_kku8v"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yq87o"]
+size = Vector2(16, 8)
 
 [node name="Tires" instance=ExtResource("1_yq87o")]
 PropName = "tires"
 PropID = "tires"
 PropDescription = "a stack of tires"
 
+[node name="CollisionShape2D" parent="." index="0"]
+position = Vector2(0, 14)
+shape = SubResource("RectangleShape2D_yq87o")
+
 [node name="Sprite2D" parent="." index="1"]
+position = Vector2(0, 14)
 texture = ExtResource("2_kku8v")
+offset = Vector2(1, -14)
 region_rect = Rect2(376, 4, 20, 37)
+
+[node name="NavigationObstacle2D" parent="." index="2"]
+position = Vector2(0, 14)
+vertices = PackedVector2Array(-12, -12, 11, -12, 11, 8, -12, 8)

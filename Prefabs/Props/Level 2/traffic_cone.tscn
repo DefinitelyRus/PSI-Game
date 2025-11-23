@@ -1,13 +1,26 @@
-[gd_scene load_steps=3 format=3 uid="uid://bpchf1dns2sq2"]
+[gd_scene load_steps=4 format=3 uid="uid://bpchf1dns2sq2"]
 
 [ext_resource type="PackedScene" uid="uid://bnslwo4ecgkcn" path="res://Prefabs/StandardProp/StandardProp.tscn" id="1_wwoqv"]
 [ext_resource type="Texture2D" uid="uid://yik1c23xcmb4" path="res://Sprites/World Sprites/Level 2 - Warehouse/Warehouse-Asset.png" id="2_d21im"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wwoqv"]
+size = Vector2(13, 5)
 
 [node name="Traffic Cone" instance=ExtResource("1_wwoqv")]
 PropName = "Traffic Cone"
 PropID = "traffic_cone"
 PropDescription = "A traffic cone"
 
+[node name="CollisionShape2D" parent="." index="0"]
+position = Vector2(0, 5)
+shape = SubResource("RectangleShape2D_wwoqv")
+
 [node name="Sprite2D" parent="." index="1"]
+position = Vector2(0, 5)
 texture = ExtResource("2_d21im")
+offset = Vector2(0.5, -5)
 region_rect = Rect2(113, 207, 15, 17)
+
+[node name="NavigationObstacle2D" parent="." index="2"]
+position = Vector2(0, 5)
+vertices = PackedVector2Array(-10, -10, 10, -10, 10, 6, -10, 6)

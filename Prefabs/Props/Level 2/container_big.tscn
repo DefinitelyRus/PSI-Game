@@ -1,13 +1,24 @@
-[gd_scene load_steps=3 format=3 uid="uid://rsigg68skmvl"]
+[gd_scene load_steps=4 format=3 uid="uid://rsigg68skmvl"]
 
 [ext_resource type="PackedScene" uid="uid://bnslwo4ecgkcn" path="res://Prefabs/StandardProp/StandardProp.tscn" id="1_4d2e0"]
 [ext_resource type="Texture2D" uid="uid://yik1c23xcmb4" path="res://Sprites/World Sprites/Level 2 - Warehouse/Warehouse-Asset.png" id="2_rhthp"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4d2e0"]
+size = Vector2(32, 75)
 
 [node name="Container Big" instance=ExtResource("1_4d2e0")]
 PropName = "Container Big"
 PropID = "container_big"
 PropDescription = "A big shipping container"
 
+[node name="CollisionShape2D" parent="." index="0"]
+shape = SubResource("RectangleShape2D_4d2e0")
+
 [node name="Sprite2D" parent="." index="1"]
+position = Vector2(0, 8)
 texture = ExtResource("2_rhthp")
+offset = Vector2(4, -10)
 region_rect = Rect2(293, 128, 40, 95)
+
+[node name="NavigationObstacle2D" parent="." index="2"]
+vertices = PackedVector2Array(-20, -47, 20, -47, 20, 43, -20, 43)

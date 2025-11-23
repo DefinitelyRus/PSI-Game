@@ -1,13 +1,26 @@
-[gd_scene load_steps=3 format=3 uid="uid://c3bc6dpnew5m2"]
+[gd_scene load_steps=4 format=3 uid="uid://c3bc6dpnew5m2"]
 
 [ext_resource type="PackedScene" uid="uid://bnslwo4ecgkcn" path="res://Prefabs/StandardProp/StandardProp.tscn" id="1_okd7g"]
 [ext_resource type="Texture2D" uid="uid://yik1c23xcmb4" path="res://Sprites/World Sprites/Level 2 - Warehouse/Warehouse-Asset.png" id="2_h78pc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_okd7g"]
+size = Vector2(44, 19)
 
 [node name="Power Box" instance=ExtResource("1_okd7g")]
 PropName = "Power Box"
 PropID = "power_box"
 PropDescription = "A big power boxs"
 
+[node name="CollisionShape2D" parent="." index="0"]
+position = Vector2(0, 17)
+shape = SubResource("RectangleShape2D_okd7g")
+
 [node name="Sprite2D" parent="." index="1"]
+position = Vector2(0, 17)
 texture = ExtResource("2_h78pc")
+offset = Vector2(0, -18)
 region_rect = Rect2(226, 149, 44, 55)
+
+[node name="NavigationObstacle2D" parent="." index="2"]
+position = Vector2(0, 17)
+vertices = PackedVector2Array(-26, -18, 26, -18, 26, 14, -26, 14)

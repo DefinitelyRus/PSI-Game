@@ -1,13 +1,26 @@
-[gd_scene load_steps=3 format=3 uid="uid://jpjwmrygggn6"]
+[gd_scene load_steps=4 format=3 uid="uid://jpjwmrygggn6"]
 
 [ext_resource type="PackedScene" uid="uid://bnslwo4ecgkcn" path="res://Prefabs/StandardProp/StandardProp.tscn" id="1_0scvx"]
 [ext_resource type="Texture2D" uid="uid://yik1c23xcmb4" path="res://Sprites/World Sprites/Level 2 - Warehouse/Warehouse-Asset.png" id="2_gucg4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gucg4"]
+size = Vector2(42, 10)
 
 [node name="Chest1" instance=ExtResource("1_0scvx")]
 PropName = "Chest1"
 PropID = "chest_1"
 PropDescription = "An opened chest with supplies inside"
 
+[node name="CollisionShape2D" parent="." index="0"]
+position = Vector2(0, 10)
+shape = SubResource("RectangleShape2D_gucg4")
+
 [node name="Sprite2D" parent="." index="1"]
+position = Vector2(0, 10)
 texture = ExtResource("2_gucg4")
+offset = Vector2(0, -10)
 region_rect = Rect2(196, 33, 42, 29)
+
+[node name="NavigationObstacle2D" parent="." index="2"]
+position = Vector2(0, 10)
+vertices = PackedVector2Array(-25, -13, 25, -13, 25, 9, -25, 9)

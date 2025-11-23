@@ -1,13 +1,26 @@
-[gd_scene load_steps=3 format=3 uid="uid://ckc51ku1pijwv"]
+[gd_scene load_steps=4 format=3 uid="uid://ckc51ku1pijwv"]
 
 [ext_resource type="PackedScene" uid="uid://bnslwo4ecgkcn" path="res://Prefabs/StandardProp/StandardProp.tscn" id="1_xdo5m"]
 [ext_resource type="Texture2D" uid="uid://yik1c23xcmb4" path="res://Sprites/World Sprites/Level 2 - Warehouse/Warehouse-Asset.png" id="2_yu5s5"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xdo5m"]
+size = Vector2(96, 10)
 
 [node name="Storage Rack1" instance=ExtResource("1_xdo5m")]
 PropName = "Storage Rack1"
 PropID = "storage_rack1"
 PropDescription = "Storage rack with 1 empty shelf"
 
+[node name="CollisionShape2D" parent="." index="0"]
+position = Vector2(0, 10)
+shape = SubResource("RectangleShape2D_xdo5m")
+
 [node name="Sprite2D" parent="." index="1"]
+position = Vector2(0, 10)
 texture = ExtResource("2_yu5s5")
+offset = Vector2(0.5, -10)
 region_rect = Rect2(0, 32, 96, 30)
+
+[node name="NavigationObstacle2D" parent="." index="2"]
+position = Vector2(0, 10)
+vertices = PackedVector2Array(-52, -13, 52, -13, 52, 9, -52, 9)

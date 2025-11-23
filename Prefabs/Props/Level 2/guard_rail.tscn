@@ -1,13 +1,26 @@
-[gd_scene load_steps=3 format=3 uid="uid://bkid3cjd2lft2"]
+[gd_scene load_steps=4 format=3 uid="uid://bkid3cjd2lft2"]
 
 [ext_resource type="PackedScene" uid="uid://bnslwo4ecgkcn" path="res://Prefabs/StandardProp/StandardProp.tscn" id="1_jaydq"]
 [ext_resource type="Texture2D" uid="uid://yik1c23xcmb4" path="res://Sprites/World Sprites/Level 2 - Warehouse/Warehouse-Asset.png" id="2_lxoud"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jaydq"]
+size = Vector2(60, 6)
 
 [node name="Guard Rail" instance=ExtResource("1_jaydq")]
 PropName = "Guard Rail"
 PropID = "guard_rail"
 PropDescription = "A guard rail"
 
+[node name="CollisionShape2D" parent="." index="0"]
+position = Vector2(0, 7)
+shape = SubResource("RectangleShape2D_jaydq")
+
 [node name="Sprite2D" parent="." index="1"]
+position = Vector2(0, 7)
 texture = ExtResource("2_lxoud")
+offset = Vector2(0, -6)
 region_rect = Rect2(276, 65, 59, 19)
+
+[node name="NavigationObstacle2D" parent="." index="2"]
+position = Vector2(0, 7)
+vertices = PackedVector2Array(-34, -11, 34, -11, 34, 7, -34, 7)

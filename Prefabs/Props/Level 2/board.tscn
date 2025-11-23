@@ -1,13 +1,24 @@
-[gd_scene load_steps=3 format=3 uid="uid://bd85hatbqy62f"]
+[gd_scene load_steps=4 format=3 uid="uid://bd85hatbqy62f"]
 
 [ext_resource type="PackedScene" uid="uid://bnslwo4ecgkcn" path="res://Prefabs/StandardProp/StandardProp.tscn" id="1_3cd1p"]
 [ext_resource type="Texture2D" uid="uid://yik1c23xcmb4" path="res://Sprites/World Sprites/Level 2 - Warehouse/Warehouse-Asset.png" id="2_sc1sf"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3cd1p"]
+size = Vector2(32, 7)
 
 [node name="Board" instance=ExtResource("1_3cd1p")]
 PropName = "Board"
 PropID = "board"
 PropDescription = "A drawing board"
 
+[node name="CollisionShape2D" parent="." index="0"]
+shape = SubResource("RectangleShape2D_3cd1p")
+
 [node name="Sprite2D" parent="." index="1"]
+position = Vector2(0, 8)
 texture = ExtResource("2_sc1sf")
+offset = Vector2(0, -11)
 region_rect = Rect2(240, 33, 32, 29)
+
+[node name="NavigationObstacle2D" parent="." index="2"]
+vertices = PackedVector2Array(-20, -12, 20, -12, 20, 8, -20, 8)

@@ -1,13 +1,26 @@
-[gd_scene load_steps=3 format=3 uid="uid://bpsrekf2c0bia"]
+[gd_scene load_steps=4 format=3 uid="uid://bpsrekf2c0bia"]
 
 [ext_resource type="PackedScene" uid="uid://bnslwo4ecgkcn" path="res://Prefabs/StandardProp/StandardProp.tscn" id="1_0ehg3"]
 [ext_resource type="Texture2D" uid="uid://yik1c23xcmb4" path="res://Sprites/World Sprites/Level 2 - Warehouse/Warehouse-Asset.png" id="2_jvemy"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0ehg3"]
+size = Vector2(46, 20)
 
 [node name="Lift" instance=ExtResource("1_0ehg3")]
 PropName = "Lift"
 PropID = "lift"
 PropDescription = "A scissor lift"
 
+[node name="CollisionShape2D" parent="." index="0"]
+position = Vector2(0, 17)
+shape = SubResource("RectangleShape2D_0ehg3")
+
 [node name="Sprite2D" parent="." index="1"]
+position = Vector2(0, 17)
 texture = ExtResource("2_jvemy")
+offset = Vector2(0, -17)
 region_rect = Rect2(321, 4, 45, 54)
+
+[node name="NavigationObstacle2D" parent="." index="2"]
+position = Vector2(0, 17)
+vertices = PackedVector2Array(-27, -18, 27, -18, 27, 14, -27, 14)

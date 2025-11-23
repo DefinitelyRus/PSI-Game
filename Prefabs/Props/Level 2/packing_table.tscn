@@ -1,13 +1,24 @@
-[gd_scene load_steps=3 format=3 uid="uid://pg8f56uiiqf"]
+[gd_scene load_steps=4 format=3 uid="uid://pg8f56uiiqf"]
 
 [ext_resource type="PackedScene" uid="uid://bnslwo4ecgkcn" path="res://Prefabs/StandardProp/StandardProp.tscn" id="1_xkr7v"]
 [ext_resource type="Texture2D" uid="uid://yik1c23xcmb4" path="res://Sprites/World Sprites/Level 2 - Warehouse/Warehouse-Asset.png" id="2_0bfnw"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xkr7v"]
+size = Vector2(43, 16)
 
 [node name="Packing Table" instance=ExtResource("1_xkr7v")]
 PropName = "Package Table"
 PropID = "package_table"
 PropDescription = "a packaging table"
 
+[node name="CollisionShape2D" parent="." index="0"]
+shape = SubResource("RectangleShape2D_xkr7v")
+
 [node name="Sprite2D" parent="." index="1"]
+position = Vector2(0, 8)
 texture = ExtResource("2_0bfnw")
+offset = Vector2(0, -8)
 region_rect = Rect2(291, 94, 43, 31)
+
+[node name="NavigationObstacle2D" parent="." index="2"]
+vertices = PackedVector2Array(-26, -16, 26, -16, 26, 12, -26, 12)
