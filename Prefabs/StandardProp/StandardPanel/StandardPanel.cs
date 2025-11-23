@@ -6,6 +6,7 @@ public partial class StandardPanel : StandardProp {
 	[Export] public Area2D ClickArea = null!;
 	[Export] public Area2D ActivationArea = null!;
 	[Export] public int ActivationRadius = 32;
+	[Export] public AudioStream? ActivationSound = null;
 
 	public enum PanelTypes {
         Required,
