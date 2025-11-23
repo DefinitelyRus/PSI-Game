@@ -16,7 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://2sdjs7gc04c5" path="res://Scenes/Levels/Release/Office/Office.tscn" id="13_0hine"]
 [ext_resource type="PackedScene" uid="uid://o52kke4dfdo0" path="res://Prefabs/UI/player_ui.tscn" id="14_yfaob"]
 [ext_resource type="PackedScene" uid="uid://b2uvlodlqe2mk" path="res://Scenes/Levels/Release/Warehouse/Warehouse.tscn" id="15_xey05"]
-[ext_resource type="PackedScene" uid="uid://d0ppjvnd47xrt" path="res://Scenes/Levels/Release/Data Center/data_center.tscn" id="16_hw2j4"]
+[ext_resource type="PackedScene" uid="uid://d0ppjvnd47xrt" path="res://Scenes/Levels/Release/Datacenter/Datacenter.tscn" id="16_hw2j4"]
 
 [node name="Master" type="Node" node_paths=PackedStringArray("SceneLoader", "InputManager")]
 process_mode = 3
