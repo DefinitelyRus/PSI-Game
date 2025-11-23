@@ -1,3 +1,4 @@
+
 extends MarginContainer
 class_name OnScreenText
 
@@ -32,6 +33,16 @@ func show_center_text(text: String, duration: float = 2.0) -> void:
 		if remaining <= glitch_delay:
 			break
 		await get_tree().create_timer(glitch_delay).timeout
+		
+		# Play text tick sound
+		var master_node = get_tree().root.get_child(0)
+		if master_node:
+			var audio_manager: Node2D = master_node.get_node("Audio Manager")
+			if audio_manager:
+				audio_manager.call("StreamAudio", "text_tick", 1)
+				pass
+			pass
+
 		center_label.visible = !center_label.visible
 		remaining -= glitch_delay
 
@@ -64,6 +75,15 @@ func center_fade_out():
 
 
 func show_subtitle(text: String, duration: float = 2.0) -> void:
+	# Play text tick sound
+	var master_node = get_tree().root.get_child(0)
+	if master_node:
+		var audio_manager: Node2D = master_node.get_node("Audio Manager")
+		if audio_manager:
+			audio_manager.call("StreamAudio", "text_tick", 1)
+			pass
+		pass
+	
 	subtitle.text = text
 	subtitle.visible = true
 	subtitle.modulate.a = 1.0
