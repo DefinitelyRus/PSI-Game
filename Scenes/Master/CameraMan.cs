@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using Godot;
 namespace CommonScripts;
@@ -33,6 +34,10 @@ public partial class CameraMan : Node2D {
     [Export] public float NodePathStayTime = 1.0f;
 
     [Export] public bool SmoothFollow = true;
+
+    [Export] public float SetTargetSFXMinDistance = 800f;
+
+    [Export] public float SetTargetSFXMaxDistance = 3200f;
 
     [Signal] public delegate void TargetReachedEventHandler();
 
@@ -86,7 +91,7 @@ public partial class CameraMan : Node2D {
         FollowTarget(delta);
         ScanPathReached();
         ShakeDecay(delta);
-    UpdateLocks(delta);
+        UpdateLocks(delta);
     }
 
     #endregion
@@ -240,6 +245,17 @@ public partial class CameraMan : Node2D {
         bool snapToTarget = !Instance.SmoothFollow || instant;
 
         if (snapToTarget) Instance.GlobalPosition = Target.GlobalPosition;
+        else {
+            // Play the SFX if the target is far enough
+            float distance = Instance.GlobalPosition.DistanceTo(Target.GlobalPosition);
+            if (distance >= Instance.SetTargetSFXMinDistance) {
+                float minDistanceAdjusted = distance - Instance.SetTargetSFXMinDistance;
+                float maxDistanceAdjusted = Instance.SetTargetSFXMaxDistance - Instance.SetTargetSFXMinDistance;
+
+                float volumeScale = Math.Clamp(minDistanceAdjusted / maxDistanceAdjusted, 0f, 1f);
+                AudioManager.StreamAudio("camera_whoosh", volumeScale);
+            }
+        }
     }
 
 
