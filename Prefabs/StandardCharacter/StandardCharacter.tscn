@@ -1327,7 +1327,7 @@ libraries = {
 }
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
-path_desired_distance = 3.0
+path_desired_distance = 1.5
 path_max_distance = 150.0
 path_search_max_polygons = 256
 avoidance_enabled = true
