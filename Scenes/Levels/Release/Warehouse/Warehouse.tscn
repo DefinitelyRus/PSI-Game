@@ -3530,5 +3530,3 @@ navigation_polygon = SubResource("NavigationPolygon_lmlvu")
 [node name="Region 22" type="NavigationRegion2D" parent="Regions" index="21"]
 y_sort_enabled = true
 navigation_polygon = SubResource("NavigationPolygon_41anr")
-
-[node name="Node2D" type="Node2D" parent="Regions" index="22"]
