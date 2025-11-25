@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://o5hbwx5ij864"
+path="res://.godot/imported/Ambience Underground Power Station Loop.mp3-f7df1413cc3745dc8a783e3f9a090883.mp3str"
+
+[deps]
+
+source_file="res://Audio/SFX/Ambience Underground Power Station Loop.mp3"
+dest_files=["res://.godot/imported/Ambience Underground Power Station Loop.mp3-f7df1413cc3745dc8a783e3f9a090883.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://lj5ti28q2pel"
+path="res://.godot/imported/Uiglitch Error Tone 03.wav-199fac83afb0ac22ccd9084fb32cf544.sample"
+
+[deps]
+
+source_file="res://Audio/SFX/Uiglitch Error Tone 03.wav"
+dest_files=["res://.godot/imported/Uiglitch Error Tone 03.wav-199fac83afb0ac22ccd9084fb32cf544.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

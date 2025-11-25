@@ -1,6 +1,7 @@
-[gd_scene load_steps=71 format=4 uid="uid://d0ppjvnd47xrt"]
+[gd_scene load_steps=73 format=4 uid="uid://d0ppjvnd47xrt"]
 
 [ext_resource type="PackedScene" uid="uid://drho55fepd4p7" path="res://Scenes/Levels/StandardLevel.tscn" id="1_q5fsk"]
+[ext_resource type="AudioStream" uid="uid://o5hbwx5ij864" path="res://Audio/SFX/Ambience Underground Power Station Loop.mp3" id="2_1kqr7"]
 [ext_resource type="PackedScene" uid="uid://c1huap8uooafm" path="res://Prefabs/StandardCharacter/Enemies/Clone Cyborg/CloneCyborg.tscn" id="2_rkcg0"]
 [ext_resource type="Texture2D" uid="uid://b88vn7c70p7iq" path="res://Sprites/World Sprites/Level 3 - Datacenter/DataCenter.png" id="2_yj0oc"]
 [ext_resource type="PackedScene" uid="uid://bh4ior7florkf" path="res://Prefabs/Props/elevator.tscn" id="3_1crpb"]
@@ -34,6 +35,7 @@
 [ext_resource type="Script" uid="uid://b04u460pypivx" path="res://Scenes/Levels/Release/Datacenter/ObjectivePowerVirus.cs" id="26_krnw0"]
 [ext_resource type="Script" uid="uid://cfohlw0hf2c2o" path="res://Scenes/Levels/Release/Datacenter/ObjectiveHeatSabotage.cs" id="27_hldrp"]
 [ext_resource type="Script" uid="uid://c3cbxvpei4w1d" path="res://Scenes/Levels/Release/Datacenter/ObjectiveL4EnterElevator.cs" id="28_hldrp"]
+[ext_resource type="AudioStream" uid="uid://big5bdqxsfn4q" path="res://Audio/SFX/Beeptimer Anticipation Beeps 05.wav" id="34_y5rpv"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1crpb"]
 texture = ExtResource("2_yj0oc")
@@ -3123,6 +3125,7 @@ agent_radius = 8.0
 
 [node name="The Datacenter" node_paths=PackedStringArray("CameraNodePaths") instance=ExtResource("1_q5fsk")]
 CameraNodePaths = [NodePath("Props/Panels/Power Box3"), NodePath("Unit Spawns/U1")]
+AmbientAudio = ExtResource("2_1kqr7")
 EnemyStaticSpawningDelayMultiplier = 0.4
 EnemyCountLimit = 25
 LevelIndex = 3
@@ -3965,7 +3968,7 @@ shape = SubResource("RectangleShape2D_xayfp")
 position = Vector2(720, 47)
 script = ExtResource("26_krnw0")
 ActivationRadius = 48
-ActivationSound = null
+ActivationSound = ExtResource("34_y5rpv")
 PanelType = 0
 ActivationMethod = 0
 Activated = false
