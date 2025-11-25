@@ -1249,7 +1249,7 @@ _data = {
 &"walk_up_right": SubResource("Animation_33sgy")
 }
 
-[node name="Standard Character" type="CharacterBody2D" node_paths=PackedStringArray("Control", "AIAgent", "TargetingManager", "HitArea", "ClickArea", "AudioController", "AnimationPlayer")]
+[node name="Standard Character" type="CharacterBody2D" node_paths=PackedStringArray("Control", "AIAgent", "TargetingManager", "HitArea", "ClickArea", "AudioController", "Sprite", "AnimationPlayer")]
 process_mode = 1
 process_thread_group = 1
 process_thread_group_order = 0
@@ -1266,6 +1266,7 @@ TargetingManager = NodePath("AI Targeting Manager")
 HitArea = NodePath("Hit Area")
 ClickArea = NodePath("Click Area")
 AudioController = NodePath("Audio Controller")
+Sprite = NodePath("Sprite2D")
 AnimationPlayer = NodePath("AnimationPlayer")
 
 [node name="Control Surface" type="Node2D" parent="." node_paths=PackedStringArray("Character")]

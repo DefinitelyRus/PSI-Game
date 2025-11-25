@@ -1,3 +1,5 @@
+using System;
+using System.Linq;
 using Godot;
 namespace CommonScripts;
 
@@ -21,6 +23,15 @@ public partial class StandardEnemy : StandardCharacter {
         CameraMan.Shake(DeathCameraShakeIntensity, GlobalPosition);
 
 		base.Kill();
+	}
+
+	public override void _Process(double delta) {
+        // Flip sprite based on movement direction
+        if (Velocity.X != 0 && !Tags.Contains("Unit")) {
+            Sprite.FlipH = Velocity.X < 0;
+        }
+
+		base._Process(delta);
 	}
 
     #endregion
