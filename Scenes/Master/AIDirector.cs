@@ -58,13 +58,15 @@ public partial class AIDirector : Node2D {
 
     private static double _timeDelayRemaining = 0d;
 
+    public static bool AllowSpawning { get; set; }= true;
 
     public static void UpdateStaticSpawning(double delta) {
-
         if (_timeDelayRemaining > 0d) {
             _timeDelayRemaining -= delta;
             return;
         }
+
+        if (!AllowSpawning) return;
 
         if (CurrentLevel == null) return;
 
