@@ -179,6 +179,7 @@ DeathCameraShakeIntensity = 0.6
 CharacterName = "Tentacle Bot"
 CharacterID = "tentacle_bot"
 MaxHealth = 800.0
+MaxSpeed = 48.0
 Tags = PackedStringArray("Enemy")
 DespawnAfterAnimation = true
 Weapon = NodePath("Sentinel Gun")
@@ -233,5 +234,4 @@ parameters/conditions/is_idling = false
 parameters/conditions/is_walking = false
 
 [node name="NavigationAgent2D" parent="." index="11"]
-radius = 24.0
 avoidance_priority = 0.8
