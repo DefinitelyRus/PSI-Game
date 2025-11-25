@@ -477,6 +477,7 @@ script = ExtResource("2_rfyjh")
 StaticSpawnWeight = 5
 DelayAfterSpawn = 3.0
 DynamicSpawnCost = 0
+DeathCameraShakeIntensity = 0.6
 CharacterName = "Sentry"
 CharacterID = "sentry"
 MaxHealth = 1500.0

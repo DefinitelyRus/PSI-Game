@@ -168,6 +168,7 @@ script = ExtResource("2_4m76y")
 StaticSpawnWeight = 120
 DelayAfterSpawn = 1.0
 DynamicSpawnCost = 0
+DeathCameraShakeIntensity = 0.2
 CharacterName = "Flakfly"
 CharacterID = "flakfly"
 MaxSpeed = 32.0

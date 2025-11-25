@@ -63,6 +63,7 @@ public partial class CameraMan : Node2D {
     [Export] public float BaseShakeIntensity = 5.0f;
     [Export] public float ShakeDecayRate = 5.0f;
     [Export] public float MinShakeIntensity = 0.1f;
+    [Export] public float ShakeMaxRange = 200f;
 
 
     #endregion
@@ -349,10 +350,17 @@ public partial class CameraMan : Node2D {
     private static float CurrentShakeIntensity { get; set; }
 
 
-    public static void Shake(float intensityMultiplier = 1f) {
+    public static void Shake(float intensityMultiplier = 1f, Vector2? position = null) {
         if (intensityMultiplier <= 0f) return;
 
-        CurrentShakeIntensity = Instance.BaseShakeIntensity * intensityMultiplier;
+        float distanceFactor = 1f;
+        if (position != null) {
+            Vector2 cameraCenter = Instance.GlobalPosition;
+            float distance = cameraCenter.DistanceTo(position.Value);
+            distanceFactor = 1f - Math.Clamp(distance / Instance.ShakeMaxRange, 0f, 1f);
+        }
+
+        CurrentShakeIntensity = Instance.BaseShakeIntensity * intensityMultiplier * distanceFactor;
 
         // Initial shake offset
         float offsetX = (GD.Randf() * 2 - 1) * CurrentShakeIntensity;
@@ -376,7 +384,6 @@ public partial class CameraMan : Node2D {
             CurrentShakeIntensity = 0f;
             Instance.GlobalPosition -= ShakeOffset;
             ShakeOffset = Vector2.Zero;
-            Log.Me(() => "Camera shake ended.");
             return;
         }
 

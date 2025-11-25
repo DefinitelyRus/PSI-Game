@@ -171,6 +171,7 @@ script = ExtResource("2_je7xu")
 StaticSpawnWeight = 40
 DelayAfterSpawn = 2.0
 DynamicSpawnCost = 0
+DeathCameraShakeIntensity = 0.7
 CharacterName = "Drone"
 CharacterID = "drone"
 MaxHealth = 200.0

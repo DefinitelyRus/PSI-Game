@@ -166,9 +166,8 @@ public partial class StandardCharacter : CharacterBody2D {
 	/// </summary>
 	/// <param name="v">Do verbose logging? Use <c>v</c> to follow the same verbosity as the encapsulating function, if available.</param>
 	/// <param name="s">Stack depth. Use <c>0</c> if on a root function, or <c>s + 1</c> if <c>s</c> is available in the encapsulating function.</param>
-	public void Kill()
+	public virtual void Kill()
 	{
-
 		if (!IsAlive) return;
 
 		// Set health to 0
