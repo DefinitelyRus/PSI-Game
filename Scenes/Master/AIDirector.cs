@@ -83,6 +83,9 @@ public partial class AIDirector : Node2D {
         List<StandardCharacter> units = [.. aliveEnemies];
 
         int targetUnitIndex = rng.RandiRange(0, units.Count - 1);
+
+        if (targetUnitIndex < 0 || targetUnitIndex >= units.Count) return;
+
         StandardCharacter targetUnit = units[targetUnitIndex];
         if (!IsInstanceValid(targetUnit)) return;
         Vector2 targetUnitPosition = targetUnit.GlobalPosition;
