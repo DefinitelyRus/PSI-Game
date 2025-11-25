@@ -3094,14 +3094,14 @@ outlines = Array[PackedVector2Array]([PackedVector2Array(1280, 143, 1456, 144, 1
 agent_radius = 8.0
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_sgsq1"]
-vertices = PackedVector2Array(1482, 410, 1482, 392, 1486, 392, 1486, 410, 1494, 410, 1494, 626, 1290, 626, 1446.2031, 410, 1290, 410, 1349, 410, 1349, 397, 1352, 397, 1352, 410, 1402, 410, 1402, 385, 1445.3438, 385)
+vertices = PackedVector2Array(1482, 410, 1482, 392, 1486, 392, 1486, 410, 1494, 410, 1494, 626, 1290, 626, 1444.1328, 410, 1290, 410, 1349, 410, 1349, 397, 1352, 397, 1352, 410, 1402.8672, 410, 1405.8672, 385, 1441.1328, 385)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(3, 4, 5, 6), PackedInt32Array(0, 3, 6), PackedInt32Array(7, 0, 6), PackedInt32Array(6, 8, 9), PackedInt32Array(9, 10, 11, 12), PackedInt32Array(13, 14, 15, 7), PackedInt32Array(13, 7, 6), PackedInt32Array(12, 13, 6), PackedInt32Array(12, 6, 9)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(1280, 400, 1339, 400, 1339, 387, 1362, 387, 1362, 400, 1392, 400, 1392, 375, 1455, 375, 1455.8593, 400.00006, 1472, 400, 1472, 382, 1496, 382, 1496, 400, 1504, 400, 1504, 636, 1280, 636)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(1280, 400, 1339, 400, 1339, 387, 1362, 387, 1362, 400, 1394, 400, 1397, 375, 1450, 375, 1453, 400, 1472, 400, 1472, 382, 1496, 382, 1496, 400, 1504, 400, 1504, 636, 1280, 636)])
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_p4r81"]
-vertices = PackedVector2Array(1528, 206, 1576, 206, 1576, 360, 1560, 360, 1528, 328, 1560, 376, 1544, 376, 1528, 375, 1544, 392, 1528, 392, 1288, 375, 1288, 328)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3, 4), PackedInt32Array(4, 3, 5, 6, 7), PackedInt32Array(6, 8, 9, 7), PackedInt32Array(4, 7, 10, 11)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(1280, 320, 1520, 320, 1520, 198, 1584, 198, 1584, 368, 1568, 368, 1568, 384, 1552, 384, 1552, 400, 1520, 400, 1520, 383, 1280, 383)])
+vertices = PackedVector2Array(1531.2031, 331.10156, 1528.2031, 206, 1576, 206, 1576, 360, 1560, 360, 1528, 375, 1288, 375, 1288, 328.09375, 1560, 376, 1544, 376, 1528, 392, 1544, 392)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3, 4), PackedInt32Array(5, 6, 7, 0, 4), PackedInt32Array(5, 4, 8, 9), PackedInt32Array(10, 5, 9, 11)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(1280, 320, 1523, 323, 1520, 198, 1584, 198, 1584, 368, 1568, 368, 1568, 384, 1552, 384, 1552, 400, 1520, 400, 1520, 383, 1280, 383)])
 agent_radius = 8.0
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_8giai"]
@@ -3123,6 +3123,8 @@ agent_radius = 8.0
 
 [node name="The Datacenter" node_paths=PackedStringArray("CameraNodePaths") instance=ExtResource("1_q5fsk")]
 CameraNodePaths = [NodePath("Props/Panels/Power Box3"), NodePath("Unit Spawns/U1")]
+EnemyStaticSpawningDelayMultiplier = 0.4
+EnemyCountLimit = 25
 LevelIndex = 3
 EnemyTypes = [ExtResource("2_rkcg0"), ExtResource("3_ggy7f"), ExtResource("4_1kqr7"), ExtResource("5_y5rpv"), ExtResource("6_tbigm"), ExtResource("7_vq2t3")]
 
@@ -3934,12 +3936,14 @@ position = Vector2(720, 113)
 [node name="Panels" type="Node2D" parent="Props" index="13"]
 y_sort_enabled = true
 
-[node name="Power Box3" parent="Props/Panels" index="0" node_paths=PackedStringArray("CameraNodes", "Nav", "ActivationArea") instance=ExtResource("15_vgf6r")]
+[node name="Power Box3" parent="Props/Panels" index="0" node_paths=PackedStringArray("CameraNodes", "Nav", "ElevatorObjective", "ActivationArea") instance=ExtResource("15_vgf6r")]
 position = Vector2(313, 402)
 script = ExtResource("24_q6bal")
 MusicOnPlant = ExtResource("25_yux1p")
 CameraNodes = [NodePath("../Big Terminal"), NodePath("../Terminal6"), NodePath("../Elevator3"), NodePath(".")]
 Nav = NodePath("../../../Regions/Region 3")
+ElevatorObjective = NodePath("../Elevator3")
+ExplosionShakeIntensity = 10.0
 ActivationArea = NodePath("../Charge Area")
 ActivationRadius = 32
 ActivationSound = null
@@ -3979,10 +3983,11 @@ Activated = false
 IsEnabled = true
 HighlightSpeed = 0.5
 
-[node name="Elevator3" parent="Props/Panels" index="4" node_paths=PackedStringArray("ActivationArea") instance=ExtResource("3_1crpb")]
+[node name="Elevator3" parent="Props/Panels" index="4" node_paths=PackedStringArray("ChargeObjective", "ActivationArea") instance=ExtResource("3_1crpb")]
 position = Vector2(1653, 422)
 script = ExtResource("28_hldrp")
 PromptDelay = 10.0
+ChargeObjective = NodePath("../Power Box3")
 ActivationArea = NodePath("../Elevator Area")
 ActivationRadius = 32
 ActivationSound = null
