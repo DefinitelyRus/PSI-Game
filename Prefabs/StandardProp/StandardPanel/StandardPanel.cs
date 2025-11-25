@@ -71,7 +71,7 @@ public partial class StandardPanel : StandardProp {
 	}
 
 
-	private double _highlightSpeed = 0.5d;
+	[Export] private double HighlightSpeed = 0.5d;
 	private double _highlightAmount = 1d;
 	private int _highlightDirection = -1;
 
@@ -93,7 +93,7 @@ public partial class StandardPanel : StandardProp {
 		}
 
 		// Update highlight amount
-		_highlightAmount += delta * _highlightSpeed * _highlightDirection;
+		_highlightAmount += delta * HighlightSpeed * _highlightDirection;
 
 		// Reverse direction at bounds
 		if (_highlightAmount >= 1d) {
