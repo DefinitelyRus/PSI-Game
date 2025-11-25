@@ -22,7 +22,7 @@ public partial class GameManager : Node2D {
     }
 
 	public override void _Process(double delta) {
-		CallDeferred(nameof(CheckLoseConditions));
+		CallDeferred(nameof(CheckLoseConditions), false);
 	}
 
     #endregion
