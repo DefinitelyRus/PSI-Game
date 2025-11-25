@@ -187,7 +187,7 @@ public partial class Level : Node2D {
 
 	#region Navigation
 
-	private void ReparentAllProps() {
+	private async Task ReparentAllProps() {
 		IEnumerable<NavigationRegion2D> regions = RegionsParent.GetChildren().OfType<NavigationRegion2D>();
 		IEnumerable<Node2D> categories = PropsParent.GetChildren().OfType<Node2D>();
 		IEnumerable<StandardProp> props = [];
@@ -225,7 +225,10 @@ public partial class Level : Node2D {
 				continue;
 			}
 
+			if (region.IsBaking()) await ToSignal(region, NavigationRegion2D.SignalName.NavigationPolygonChanged);
+			
 			region.BakeNavigationPolygon(true);
+			await ToSignal(region, NavigationRegion2D.SignalName.NavigationPolygonChanged);
 		}
 	}
 
@@ -269,11 +272,11 @@ public partial class Level : Node2D {
 	}
 
 
-	public override void _Ready() {
+	public override async void _Ready() {
 		Commander.PurgeDeadUnits();
 		Commander.DeselectAllUnits();
 
-		ReparentAllProps();
+		await ReparentAllProps();
 
 		AIDirector.CurrentLevel = this;
 
