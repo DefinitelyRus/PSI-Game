@@ -6,7 +6,7 @@ public partial class ObjectiveL4EnterElevator : StandardPanel {
     [Export] public float PromptDelay = 10f;
     private float _promptTimer = 0f;
 
-    public override void Interact(StandardCharacter character) {
+    public override async void Interact(StandardCharacter character) {
         // Check if the charge has been planted
         Variant? chargePlantedData = GameManager.GetGameData($"L4_ChargePlanted", null);
         bool isChargePlanted = chargePlantedData != null && chargePlantedData!.Value.AsBool();
@@ -45,14 +45,17 @@ public partial class ObjectiveL4EnterElevator : StandardPanel {
             if (!isAtLocation) return;
         }
         
-        GameManager.SetGameData("L3_EnteredElevator", null, true);
+        GameManager.SetGameData("L4_EnteredElevator", null, true);
         Log.Me(() => $"All units have entered the elevator!");
 
         // Disable panel after interaction
         IsEnabled = false;
         Activated = true;
 
-        SceneLoader.NextLevel(); // TODO: Win
+        UIManager.StartTransition("Mission Complete");
+        await ToSignal(GetTree().CreateTimer(5.0f), "timeout");
+        SceneLoader.UnloadLevel(true);
+        UIManager.EndTransition();
     }
 
 	public override void _Process(double delta) {
