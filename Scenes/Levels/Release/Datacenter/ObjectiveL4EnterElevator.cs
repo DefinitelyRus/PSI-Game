@@ -4,6 +4,7 @@ namespace Game;
 
 public partial class ObjectiveL4EnterElevator : StandardPanel {
     [Export] public float PromptDelay = 10f;
+    [Export] public ObjectivePlantCharge? ChargeObjective = null;
     private float _promptTimer = 0f;
 
     public override async void Interact(StandardCharacter character) {
@@ -37,6 +38,19 @@ public partial class ObjectiveL4EnterElevator : StandardPanel {
             return;
         }
 
+        // Check if the time has more than 10 seconds left.
+        if (ChargeObjective != null) {
+            if (ChargeObjective.TimeLeft > 10.0) {
+                if (_promptTimer <= 0f) {
+                    UIManager.SetBottomOverlayText("The elevator's coming down...", 2.2f);
+                    Log.Me(() => $"{character.CharacterName} tried to access the elevator but there is still time left on the charge.");
+                    _promptTimer = PromptDelay;
+                }
+                
+                return;
+            }
+        }
+
         // Check if all alive units are at the elevator
         foreach (StandardCharacter unit in Commander.GetAllUnits()) {
             if (!unit.IsAlive) continue;
@@ -53,6 +67,7 @@ public partial class ObjectiveL4EnterElevator : StandardPanel {
         Activated = true;
 
         UIManager.StartTransition("Mission Complete");
+        UIManager.SetHUDVisible(false);
         await ToSignal(GetTree().CreateTimer(5.0f), "timeout");
         SceneLoader.UnloadLevel(true);
         UIManager.EndTransition();

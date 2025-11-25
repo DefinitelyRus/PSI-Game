@@ -8,6 +8,9 @@ public partial class ObjectivePlantCharge : StandardPanel {
     [Export] public AudioStream? MusicOnPlant = null;
     [Export] public Node2D[] CameraNodes = [];
     [Export] public NavigationRegion2D? Nav = null;
+    [Export] public ObjectiveL4EnterElevator? ElevatorObjective = null;
+    [Export] public float ExplosionShakeIntensity = 10f;
+    public double TimeLeft { get; set; } = 0;
 
     public override async void Interact(StandardCharacter character) {
         Variant? alreadyActivated = GameManager.GetGameData("L4_ChargePlanted", null);
@@ -22,8 +25,6 @@ public partial class ObjectivePlantCharge : StandardPanel {
         Activated = true;
         InputManager.AllowOverride = false;
         UIManager.SetHUDVisible(false);
-        AIDirector.AllowSpawning = true;
-        if (Nav != null) Nav.Enabled = true;
 
         await ToSignal(GetTree().CreateTimer(1.5f), "timeout");
 
@@ -47,21 +48,38 @@ public partial class ObjectivePlantCharge : StandardPanel {
         if (MusicOnPlant != null) AudioManager.StreamAudio(MusicOnPlant);
         GameManager.SetGameData("L4_ChargePlanted", null, true);
         InputManager.AllowOverride = true;
+        AIDirector.AllowSpawning = true;
+        if (Nav != null) Nav.Enabled = true;
 
+        TimeLeft = 221.5;
         await ToSignal(GetTree().CreateTimer(221.5 - 60f), "timeout");
-        UIManager.SetBottomOverlayText($"60 seconds until detonation!", 5f);
 
-        await ToSignal(GetTree().CreateTimer(60f), "timeout");
+        UIManager.SetBottomOverlayText($"60 seconds until detonation!", 5f);
+        await ToSignal(GetTree().CreateTimer(40f), "timeout");
+
+        UIManager.SetBottomOverlayText($"The elevator's open!", 5f);
+        ElevatorObjective?.GetChild<AnimationPlayer>(3).Play("Door Open");
+
+        await ToSignal(GetTree().CreateTimer(20f), "timeout");
         Variant? missionSuccess = GameManager.GetGameData("L4_EnteredElevator", null);
         if (missionSuccess == null) {
             Log.Me(() => "Mission failed: Charge detonated before escape.");
-            GameManager.CheckLoseConditions(true);
+            CameraMan.Shake(ExplosionShakeIntensity);
+
+            foreach (StandardCharacter unit in Commander.GetAllUnits()) {
+                if (unit.IsAlive) {
+                    unit.Kill();
+                }
+            }
         }
     }
 
     public override void _Process(double delta) {
         ScanForPlayer();
         HighlightPanel(delta);
+
+        TimeLeft -= delta;
+        if (TimeLeft < 0) TimeLeft = 0;
     }
 
 	public override void _Ready() {
