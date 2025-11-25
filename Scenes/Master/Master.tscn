@@ -1,12 +1,14 @@
-[gd_scene load_steps=18 format=3 uid="uid://d3cvhjbvnx1a1"]
+[gd_scene load_steps=20 format=3 uid="uid://d3cvhjbvnx1a1"]
 
 [ext_resource type="Script" uid="uid://cdfonun0qopbr" path="res://Scenes/Master/Master.cs" id="1_o4rt4"]
 [ext_resource type="Script" uid="uid://bskjggdrqe3xx" path="res://Scenes/Master/SceneLoader.cs" id="2_7tgqy"]
 [ext_resource type="Script" uid="uid://voqaa4hgrhdv" path="res://Scenes/Master/AudioManager.cs" id="2_m6dx2"]
 [ext_resource type="PackedScene" uid="uid://rbirnmt14654" path="res://Scenes/Main Menu/MainMenu.tscn" id="3_1t0lv"]
+[ext_resource type="AudioStream" uid="uid://cif116g6ouqny" path="res://Audio/SFX/Minimalist3.wav" id="3_4qjrx"]
 [ext_resource type="Script" uid="uid://coj1ftn5dishm" path="res://Scenes/Master/Commander.cs" id="3_8ixx1"]
 [ext_resource type="Script" uid="uid://bw8770jogthra" path="res://Scenes/Master/CameraMan.cs" id="3_iwwxa"]
 [ext_resource type="Script" uid="uid://d03x1tcc0l2p3" path="res://Scenes/Master/GameManager.cs" id="4_iwwxa"]
+[ext_resource type="AudioStream" uid="uid://qvabsno0y5eu" path="res://Audio/SFX/whoosh.mp3" id="4_xd8m4"]
 [ext_resource type="Script" uid="uid://ccfcn78cg1s2f" path="res://Scenes/Master/EntityManager.cs" id="5_0hine"]
 [ext_resource type="Script" uid="uid://b3xb0rhvopx03" path="res://Scenes/Master/InputManager.cs" id="5_qemos"]
 [ext_resource type="PackedScene" uid="uid://b6yrlsn2k0uvf" path="res://Prefabs/StandardCharacter/Units/Mira Kale/Mira Kale.tscn" id="6_0hine"]
@@ -16,7 +18,7 @@
 [ext_resource type="PackedScene" uid="uid://2sdjs7gc04c5" path="res://Scenes/Levels/Release/Office/Office.tscn" id="13_0hine"]
 [ext_resource type="PackedScene" uid="uid://o52kke4dfdo0" path="res://Prefabs/UI/player_ui.tscn" id="14_yfaob"]
 [ext_resource type="PackedScene" uid="uid://b2uvlodlqe2mk" path="res://Scenes/Levels/Release/Warehouse/Warehouse.tscn" id="15_xey05"]
-[ext_resource type="PackedScene" uid="uid://d0ppjvnd47xrt" path="res://Scenes/Levels/Release/Data Center/data_center.tscn" id="16_hw2j4"]
+[ext_resource type="PackedScene" uid="uid://d0ppjvnd47xrt" path="res://Scenes/Levels/Release/Datacenter/Datacenter.tscn" id="16_hw2j4"]
 
 [node name="Master" type="Node" node_paths=PackedStringArray("SceneLoader", "InputManager")]
 process_mode = 3
@@ -30,6 +32,10 @@ InputManager = NodePath("Input Manager")
 
 [node name="Audio Manager" type="Node2D" parent="."]
 script = ExtResource("2_m6dx2")
+SFXLibrary = Dictionary[String, AudioStream]({
+"camera_whoosh": ExtResource("4_xd8m4"),
+"text_tick": ExtResource("3_4qjrx")
+})
 
 [node name="Camera Man" type="Camera2D" parent="."]
 process_thread_group = 1
@@ -60,7 +66,6 @@ script = ExtResource("2_7tgqy")
 Master = NodePath("..")
 Theatre = NodePath("../Theatre")
 MainMenu = ExtResource("3_1t0lv")
-DevScene = ExtResource("15_xey05")
 Levels = [ExtResource("10_8ixx1"), ExtResource("13_0hine"), ExtResource("15_xey05"), ExtResource("16_hw2j4")]
 LogReady = true
 

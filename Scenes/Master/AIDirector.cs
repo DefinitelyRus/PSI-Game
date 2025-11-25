@@ -58,13 +58,15 @@ public partial class AIDirector : Node2D {
 
     private static double _timeDelayRemaining = 0d;
 
+    public static bool AllowSpawning { get; set; }= true;
 
     public static void UpdateStaticSpawning(double delta) {
-
         if (_timeDelayRemaining > 0d) {
             _timeDelayRemaining -= delta;
             return;
         }
+
+        if (!AllowSpawning) return;
 
         if (CurrentLevel == null) return;
 
@@ -73,11 +75,20 @@ public partial class AIDirector : Node2D {
             return;
         }
 
+        // Get all alive enemies
+        List<StandardCharacter> aliveEnemies = [.. Commander.GetAllUnits().Where(unit => unit.IsAlive)];
+        if (aliveEnemies.Count >= CurrentLevel.EnemyCountLimit) return;
+
         RandomNumberGenerator rng = new();
-        List<StandardCharacter> units = [.. Commander.GetAllUnits()];
+        List<StandardCharacter> units = [.. aliveEnemies];
 
         int targetUnitIndex = rng.RandiRange(0, units.Count - 1);
-        Vector2 targetUnitPosition = units[targetUnitIndex].GlobalPosition;
+
+        if (targetUnitIndex < 0 || targetUnitIndex >= units.Count) return;
+
+        StandardCharacter targetUnit = units[targetUnitIndex];
+        if (!IsInstanceValid(targetUnit)) return;
+        Vector2 targetUnitPosition = targetUnit.GlobalPosition;
 
         List<StandardEnemy> enemySelection = [];
         int totalWeight = 0;
@@ -111,7 +122,7 @@ public partial class AIDirector : Node2D {
                     return;
                 }
 
-                _timeDelayRemaining = enemy.DelayAfterSpawn;
+                _timeDelayRemaining = enemy.DelayAfterSpawn * CurrentLevel.EnemyStaticSpawningDelayMultiplier;
                 return;
             }
         }
@@ -211,6 +222,7 @@ public partial class AIDirector : Node2D {
 
             StandardCharacter? player = FindNearestPlayer(enemy.GlobalPosition);
             if (player == null) return;
+            if (!IsInstanceValid(player)) return;
 
             AIAgentManager agentManager = enemy.AIAgent;
             if (agentManager.HasDestination) continue;

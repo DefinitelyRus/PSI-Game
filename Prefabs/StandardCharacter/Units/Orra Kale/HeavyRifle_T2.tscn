@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://6d0rolhpfjkv"]
+
+[ext_resource type="PackedScene" uid="uid://dx7iwt4dptbck" path="res://Prefabs/StandardWeapon/StandardProjectileWeapon/StandardProjectileWeapon.tscn" id="1_t2r5g"]
+
+[node name="Heavy Rifle" instance=ExtResource("1_t2r5g")]
+AttackCameraShakeIntensity = 0.5
+BaseDamage = 250.0
+BaseRange = 960.0
+BaseAttackSpeed = 0.3
+SpeedType = 1
+AttackOriginDistance = 16.0

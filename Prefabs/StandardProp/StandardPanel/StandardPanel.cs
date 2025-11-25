@@ -6,6 +6,7 @@ public partial class StandardPanel : StandardProp {
 	[Export] public Area2D ClickArea = null!;
 	[Export] public Area2D ActivationArea = null!;
 	[Export] public int ActivationRadius = 32;
+	[Export] public AudioStream? ActivationSound = null;
 
 	public enum PanelTypes {
         Required,
@@ -70,7 +71,7 @@ public partial class StandardPanel : StandardProp {
 	}
 
 
-	private double _highlightSpeed = 0.5d;
+	[Export] private double HighlightSpeed = 0.5d;
 	private double _highlightAmount = 1d;
 	private int _highlightDirection = -1;
 
@@ -92,7 +93,7 @@ public partial class StandardPanel : StandardProp {
 		}
 
 		// Update highlight amount
-		_highlightAmount += delta * _highlightSpeed * _highlightDirection;
+		_highlightAmount += delta * HighlightSpeed * _highlightDirection;
 
 		// Reverse direction at bounds
 		if (_highlightAmount >= 1d) {

@@ -7,3 +7,4 @@ BaseDamage = 150.0
 BaseRange = 960.0
 BaseAttackSpeed = 0.3
 SpeedType = 1
+AttackOriginDistance = 16.0

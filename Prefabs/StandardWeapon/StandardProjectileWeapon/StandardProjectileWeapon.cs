@@ -7,6 +7,7 @@ public partial class StandardProjectileWeapon : StandardWeapon
 
 	[ExportGroup("Nodes & Components")]
 	[Export] public PackedScene Projectile { get; private set; } = null!;
+	[Export] public float AttackCameraShakeIntensity = 0.3f;
 
 	#endregion
 
@@ -27,6 +28,8 @@ public partial class StandardProjectileWeapon : StandardWeapon
 			Log.Warn(() => $"{WeaponOwner.InstanceID} is not valid. Cannot assign as projectile owner.");
 			return;
 		}
+
+		CameraMan.Shake(AttackCameraShakeIntensity, GlobalPosition);
 
 		StandardProjectile projectileInstance = Projectile.Instantiate<StandardProjectile>();
 		projectileInstance.GlobalPosition = GlobalPosition + AttackOrigin;

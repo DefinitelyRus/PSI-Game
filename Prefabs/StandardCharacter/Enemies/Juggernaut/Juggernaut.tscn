@@ -174,9 +174,10 @@ graph_offset = Vector2(-42, -53)
 
 [node name="Juggernaut" node_paths=PackedStringArray("Weapon", "AnimationTree") instance=ExtResource("1_y36br")]
 script = ExtResource("2_f6w81")
-StaticSpawnWeight = 1
+StaticSpawnWeight = 5
 DelayAfterSpawn = 30.0
 DynamicSpawnCost = 0
+DeathCameraShakeIntensity = 2.0
 CharacterName = "Juggernaut"
 CharacterID = "juggernaut"
 MaxHealth = 4500.0

@@ -7,6 +7,8 @@
 size = Vector2(33, 45)
 
 [node name="beige_container_up" instance=ExtResource("1_jnojc")]
+PropName = "Beige Container"
+PropID = "beige_container"
 
 [node name="CollisionShape2D" parent="." index="0"]
 shape = SubResource("RectangleShape2D_jnojc")

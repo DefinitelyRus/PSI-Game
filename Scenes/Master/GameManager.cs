@@ -22,7 +22,7 @@ public partial class GameManager : Node2D {
     }
 
 	public override void _Process(double delta) {
-		CallDeferred(nameof(CheckLoseConditions));
+		CallDeferred(nameof(CheckLoseConditions), false);
 	}
 
     #endregion
@@ -123,22 +123,19 @@ public partial class GameManager : Node2D {
 
     public static bool GameEnded { get; set; } = false;
 
-    public static async void CheckLoseConditions() {
+    public static async void CheckLoseConditions(bool loseOverride = false) {
         if (GameEnded) return;
 
         // Lose if both units are dead.
-        if (!Commander.GetAllUnits().Where(u => u.IsAlive).Any()) {
+        bool allDead = !Commander.GetAllUnits().Where(u => u.IsAlive).Any();
+        if (allDead || loseOverride) {
             GameEnded = true;
 
             UIManager.StartTransition("Mission Failed");
 
-            void TryAgain() {
+			static void TryAgain() {
                 Commander.Initialize();
                 SceneLoader.LoadLevel(0);
-            }
-
-            void ExitToMainMenu() {
-                SceneLoader.UnloadLevel(true);
             }
 
             await Instance.ToSignal(Instance.GetTree().CreateTimer(4.0), "timeout");

@@ -130,29 +130,31 @@ public partial class Level : Node2D {
 
 		#endregion
 
-		// Sort by distance to the given position
-		float distance(Node2D spawn) => spawn.GlobalPosition.DistanceTo(position);
-		List<Node2D> sortedSpawns = [.. EnemySpawns.OrderBy(distance)];
+		// Helpers for distance and filtering
+		float DistanceToTarget(Node2D spawn) => spawn.GlobalPosition.DistanceTo(position);
+		List<StandardCharacter> aliveUnits = [.. Commander.GetAllUnits().Where(u => u.IsAlive)];
 
-		// Remove spawns outside the radius
-		bool inRadius(Node2D spawn) => distance(spawn) <= radius;
-		List<Node2D> spawnsInRange = [.. sortedSpawns.Where(inRadius)];
+		bool WithinRadius(Node2D spawn) => DistanceToTarget(spawn) <= radius;
+		bool OutsideAnyUnitFiringRange(Node2D spawn)
+			=> !aliveUnits.Any(unit => spawn.GlobalPosition.DistanceTo(unit.GlobalPosition) < unit.TargetingManager.TargetDetectionRadius);
 
-		if (spawnsInRange.Count == 0) {
+		List<Node2D> candidates = [.. EnemySpawns
+			.OrderBy(DistanceToTarget)
+			.Where(WithinRadius)
+			.Where(OutsideAnyUnitFiringRange)
+		];
+
+		if (candidates.Count == 0) {
 			Log.Warn(() => $"No spawn points found within radius {radius} of position {position}.", true, true);
 			return null;
 		}
 
 		// Optionally remove spawns currently in camera view
 		if (avoidCamera) {
-			foreach (Node2D spawn in spawnsInRange.ToList()) {
-				if (CameraMan.IsPointVisible(spawn.GlobalPosition)) {
-					spawnsInRange.Remove(spawn);
-				}
-			}
+			candidates = [.. candidates.Where(spawn => !CameraMan.IsPointVisible(spawn.GlobalPosition))];
 		}
 
-		Node2D? chosenSpawn = spawnsInRange.Count > index ? spawnsInRange[index] : null;
+		Node2D? chosenSpawn = candidates.Count > index ? candidates[index] : null;
 
 		if (chosenSpawn == null) return null;
 
@@ -185,7 +187,7 @@ public partial class Level : Node2D {
 
 	#region Navigation
 
-	private void ReparentAllProps() {
+	private async Task ReparentAllProps() {
 		IEnumerable<NavigationRegion2D> regions = RegionsParent.GetChildren().OfType<NavigationRegion2D>();
 		IEnumerable<Node2D> categories = PropsParent.GetChildren().OfType<Node2D>();
 		IEnumerable<StandardProp> props = [];
@@ -223,7 +225,10 @@ public partial class Level : Node2D {
 				continue;
 			}
 
+			if (region.IsBaking()) await ToSignal(region, NavigationRegion2D.SignalName.NavigationPolygonChanged);
+			
 			region.BakeNavigationPolygon(true);
+			await ToSignal(region, NavigationRegion2D.SignalName.NavigationPolygonChanged);
 		}
 	}
 
@@ -267,16 +272,16 @@ public partial class Level : Node2D {
 	}
 
 
-	public override void _Ready() {
+	public override async void _Ready() {
 		Commander.PurgeDeadUnits();
 		Commander.DeselectAllUnits();
 
-		ReparentAllProps();
+		await ReparentAllProps();
 
 		AIDirector.CurrentLevel = this;
 
-		if (BackgroundMusic != null) AudioManager.StreamAudio(BackgroundMusic, "BackgroundMusic");
-		if (AmbientAudio != null) AudioManager.StreamAudio(AmbientAudio, "AmbientAudio");
+		if (BackgroundMusic != null) AudioManager.StreamAudio(BackgroundMusic, "BackgroundMusic", 0.8f);
+		if (AmbientAudio != null) AudioManager.StreamAudio(AmbientAudio, "AmbientAudio", 0.2f);
 
 		if (CameraNodePaths.Length != 0) CameraMan.SetCameraPath(CameraNodePaths);
 		else CameraMan.SetTarget(SpawnParent, true);

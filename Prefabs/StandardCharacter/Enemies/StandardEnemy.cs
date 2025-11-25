@@ -1,3 +1,5 @@
+using System;
+using System.Linq;
 using Godot;
 namespace CommonScripts;
 
@@ -13,6 +15,24 @@ public partial class StandardEnemy : StandardCharacter {
 
     [ExportSubgroup("Dynamic Spawning")]
     [Export] public int DynamicSpawnCost = 0;
+
+    [ExportGroup("Camera Shake")]
+    [Export] public float DeathCameraShakeIntensity = 0.7f;
+
+	public override void Kill() {
+        CameraMan.Shake(DeathCameraShakeIntensity, GlobalPosition);
+
+		base.Kill();
+	}
+
+	public override void _Process(double delta) {
+        // Flip sprite based on movement direction
+        if (Velocity.X != 0 && !Tags.Contains("Unit")) {
+            Sprite.FlipH = Velocity.X < 0;
+        }
+
+		base._Process(delta);
+	}
 
     #endregion
 }

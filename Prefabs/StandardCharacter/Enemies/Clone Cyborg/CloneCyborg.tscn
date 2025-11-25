@@ -173,6 +173,7 @@ script = ExtResource("2_7st76")
 StaticSpawnWeight = 40
 DelayAfterSpawn = 5.0
 DynamicSpawnCost = 0
+DeathCameraShakeIntensity = 0.4
 CharacterName = "Clone Cyborg"
 CharacterID = "clone_cyborg"
 MaxHealth = 400.0

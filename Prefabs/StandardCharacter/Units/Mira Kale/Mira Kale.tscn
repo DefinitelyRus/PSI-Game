@@ -287,4 +287,4 @@ parameters/Idle/blend_position = Vector2(0.0010354519, -1.0086957)
 parameters/Walk/blend_position = Vector2(1.0002195, 0.62464285)
 
 [node name="NavigationAgent2D" parent="." index="12"]
-debug_enabled = true
+avoidance_priority = 0.2

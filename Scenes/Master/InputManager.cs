@@ -62,6 +62,8 @@ public partial class InputManager : Node2D {
 	public const string RightClick = "mouse_action_2";
 	public const string StopAction = "stop_action";
 
+	public static bool AllowOverride { get; set; } = true;
+
 
 	private void ReceiveCameraInputs(InputEvent input) {
         if (input is not InputEventMouseMotion) return;
@@ -88,6 +90,8 @@ public partial class InputManager : Node2D {
 
 		// Only allow focusing on units while controls are locked
 		if (CameraMan.IsControlsLocked) {
+			if (!AllowOverride) return;
+
 			if (ctrlPressed && Input.IsActionJustPressed("select_unit_1")) Commander.SetFocusedUnit(0, true);
 			if (ctrlPressed && Input.IsActionJustPressed("select_unit_2")) Commander.SetFocusedUnit(1, true);
 			Commander.PrimeDrop = false;

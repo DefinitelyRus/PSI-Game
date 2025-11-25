@@ -1,22 +1,20 @@
-[gd_scene load_steps=6 format=3 uid="uid://rbirnmt14654"]
+[gd_scene load_steps=7 format=3 uid="uid://rbirnmt14654"]
 
-[ext_resource type="Texture2D" uid="uid://kqo44exiy3bv" path="res://Sprites/UI/Modern_UI_Style_2_32x32.png" id="1_03b3j"]
 [ext_resource type="Script" uid="uid://r5ugbhejqnt7" path="res://Scenes/Main Menu/MainMenu.gd" id="1_roy3c"]
+[ext_resource type="FontFile" uid="uid://duqjr4hlekkbk" path="res://Font/Anxel.ttf" id="2_rgre6"]
+[ext_resource type="Texture2D" uid="uid://c81w6xkq461rl" path="res://Sprites/UI/UI_HoloBook_Spritesheet01a.png" id="3_rgre6"]
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_03b3j"]
-texture = ExtResource("1_03b3j")
-expand_margin_bottom = 7.0
-region_rect = Rect2(1346, 684, 60, 32)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_nkda2"]
-texture = ExtResource("1_03b3j")
-expand_margin_bottom = 7.0
-region_rect = Rect2(1410, 688, 60, 28)
+[sub_resource type="LabelSettings" id="LabelSettings_7x5ku"]
+font = ExtResource("2_rgre6")
+font_size = 48
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_roy3c"]
-texture = ExtResource("1_03b3j")
-expand_margin_bottom = 7.0
-region_rect = Rect2(1282, 684, 60, 32)
+texture = ExtResource("3_rgre6")
+region_rect = Rect2(352, 3, 96, 30)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_nkda2"]
+texture = ExtResource("3_rgre6")
+region_rect = Rect2(240, 3, 96, 32)
 
 [node name="map_0" type="CanvasLayer"]
 script = ExtResource("1_roy3c")
@@ -38,8 +36,8 @@ theme_override_constants/separation = 50
 [node name="Title" type="Label" parent="Container/Title"]
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_font_sizes/font_size = 40
 text = "Project Sentient Island"
+label_settings = SubResource("LabelSettings_7x5ku")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Container/Title"]
 layout_mode = 2
@@ -51,21 +49,25 @@ theme_override_constants/separation = 20
 custom_minimum_size = Vector2(140, 40)
 layout_mode = 2
 focus_mode = 0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_styles/hover = SubResource("StyleBoxTexture_03b3j")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_nkda2")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_rgre6")
+theme_override_font_sizes/font_size = 24
 theme_override_styles/normal = SubResource("StyleBoxTexture_roy3c")
-text = "Play"
+theme_override_styles/pressed = SubResource("StyleBoxTexture_nkda2")
+theme_override_styles/hover = SubResource("StyleBoxTexture_nkda2")
+text = "PLAY"
 
 [node name="Exit" type="Button" parent="Container/Title/VBoxContainer"]
 custom_minimum_size = Vector2(140, 40)
 layout_mode = 2
 focus_mode = 0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_styles/hover = SubResource("StyleBoxTexture_03b3j")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_nkda2")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_rgre6")
+theme_override_font_sizes/font_size = 24
 theme_override_styles/normal = SubResource("StyleBoxTexture_roy3c")
-text = "Exit"
+theme_override_styles/pressed = SubResource("StyleBoxTexture_nkda2")
+theme_override_styles/hover = SubResource("StyleBoxTexture_nkda2")
+text = "EXIT"
 
 [node name="separator" type="Control" parent="Container/Title/VBoxContainer"]
 custom_minimum_size = Vector2(0, 50)

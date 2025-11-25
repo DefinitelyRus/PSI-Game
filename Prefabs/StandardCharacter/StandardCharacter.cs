@@ -166,9 +166,8 @@ public partial class StandardCharacter : CharacterBody2D {
 	/// </summary>
 	/// <param name="v">Do verbose logging? Use <c>v</c> to follow the same verbosity as the encapsulating function, if available.</param>
 	/// <param name="s">Stack depth. Use <c>0</c> if on a root function, or <c>s + 1</c> if <c>s</c> is available in the encapsulating function.</param>
-	public void Kill()
+	public virtual void Kill()
 	{
-
 		if (!IsAlive) return;
 
 		// Set health to 0
@@ -370,6 +369,7 @@ public partial class StandardCharacter : CharacterBody2D {
 	[Export] public Area2D HitArea = null!;
 	[Export] public Area2D ClickArea = null!;
 	[Export] public AudioController AudioController = null!;
+	[Export] public Sprite2D Sprite = null!;
 	[Export] public AnimationPlayer AnimationPlayer = null!;
 	[Export] public AnimationTree AnimationTree = null!;
 	public AnimationNodeStateMachinePlayback AnimationState => (AnimationNodeStateMachinePlayback) AnimationTree.Get("parameters/playback");
@@ -559,6 +559,8 @@ public partial class StandardCharacter : CharacterBody2D {
 		if (HitArea == null && !AllowNoHitArea) Log.Warn("HitArea is not assigned. This character will have buggy hit behavior.");
 
 		if (ClickArea == null && !AllowNoClickArea) Log.Warn("ClickArea is not assigned. This character will not receive on-click inputs.");
+
+		if (Sprite == null) Log.Err("Sprite is not assigned. This character will not be visible.");
 
 		if (AnimationPlayer == null && !AllowNoAnimationPlayer) Log.Warn("AnimationPlayer is not assigned. This character will not be animated.");
 

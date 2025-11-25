@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using Godot;
 namespace CommonScripts;
@@ -34,6 +35,10 @@ public partial class CameraMan : Node2D {
 
     [Export] public bool SmoothFollow = true;
 
+    [Export] public float SetTargetSFXMinDistance = 800f;
+
+    [Export] public float SetTargetSFXMaxDistance = 3200f;
+
     [Signal] public delegate void TargetReachedEventHandler();
 
     #endregion
@@ -58,6 +63,7 @@ public partial class CameraMan : Node2D {
     [Export] public float BaseShakeIntensity = 5.0f;
     [Export] public float ShakeDecayRate = 5.0f;
     [Export] public float MinShakeIntensity = 0.1f;
+    [Export] public float ShakeMaxRange = 200f;
 
 
     #endregion
@@ -86,7 +92,7 @@ public partial class CameraMan : Node2D {
         FollowTarget(delta);
         ScanPathReached();
         ShakeDecay(delta);
-    UpdateLocks(delta);
+        UpdateLocks(delta);
     }
 
     #endregion
@@ -240,6 +246,17 @@ public partial class CameraMan : Node2D {
         bool snapToTarget = !Instance.SmoothFollow || instant;
 
         if (snapToTarget) Instance.GlobalPosition = Target.GlobalPosition;
+        else {
+            // Play the SFX if the target is far enough
+            float distance = Instance.GlobalPosition.DistanceTo(Target.GlobalPosition);
+            if (distance >= Instance.SetTargetSFXMinDistance) {
+                float minDistanceAdjusted = distance - Instance.SetTargetSFXMinDistance;
+                float maxDistanceAdjusted = Instance.SetTargetSFXMaxDistance - Instance.SetTargetSFXMinDistance;
+
+                float volumeScale = Math.Clamp(minDistanceAdjusted / maxDistanceAdjusted, 0f, 1f);
+                AudioManager.StreamAudio("camera_whoosh", volumeScale);
+            }
+        }
     }
 
 
@@ -333,10 +350,17 @@ public partial class CameraMan : Node2D {
     private static float CurrentShakeIntensity { get; set; }
 
 
-    public static void Shake(float intensityMultiplier = 1f) {
+    public static void Shake(float intensityMultiplier = 1f, Vector2? position = null) {
         if (intensityMultiplier <= 0f) return;
 
-        CurrentShakeIntensity = Instance.BaseShakeIntensity * intensityMultiplier;
+        float distanceFactor = 1f;
+        if (position != null) {
+            Vector2 cameraCenter = Instance.GlobalPosition;
+            float distance = cameraCenter.DistanceTo(position.Value);
+            distanceFactor = 1f - Math.Clamp(distance / Instance.ShakeMaxRange, 0f, 1f);
+        }
+
+        CurrentShakeIntensity = Instance.BaseShakeIntensity * intensityMultiplier * distanceFactor;
 
         // Initial shake offset
         float offsetX = (GD.Randf() * 2 - 1) * CurrentShakeIntensity;
@@ -360,7 +384,6 @@ public partial class CameraMan : Node2D {
             CurrentShakeIntensity = 0f;
             Instance.GlobalPosition -= ShakeOffset;
             ShakeOffset = Vector2.Zero;
-            Log.Me(() => "Camera shake ended.");
             return;
         }
 
