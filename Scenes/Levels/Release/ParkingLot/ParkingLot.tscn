@@ -5853,59 +5853,68 @@ size = Vector2(114, 71.75)
 size = Vector2(12, 9)
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_r1bgn"]
-vertices = PackedVector2Array(310, 326, 10.0390625, 326, 10.9609375, 106, 310, 106)
+vertices = PackedVector2Array(322, 338, 8.03125, 338, 8.96875, 104, 322, 104)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(1, 96, 0, 336, 320, 336, 320, 96)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(1, 96, 0, 346, 330, 346, 330, 96)])
+agent_radius = 8.0
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_0bmdw"]
-vertices = PackedVector2Array(739, 202, 774, 202, 774, 326, 330, 326, 330, 106, 739, 106)
+vertices = PackedVector2Array(739, 202, 774, 202, 774, 336, 330, 336, 330, 106, 739, 106)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(0, 3, 4, 5)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(320, 96, 320, 336, 784, 336, 784, 192, 749, 192, 749, 96)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(320, 96, 320, 346, 784, 346, 784, 192, 749, 192, 749, 96)])
+agent_radius = 8.0
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_ky56w"]
 vertices = PackedVector2Array(2317, 390, 3, 390, 3, 346, 2317, 346)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(-7, 336, 2327, 336, 2327, 400, -7, 400)])
+agent_radius = 8.0
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_l0dwa"]
-vertices = PackedVector2Array(837, 713, 122.96875, 713, 122.03125, 410, 837, 410)
+vertices = PackedVector2Array(848, 713.97656, 122.96875, 713.0078, 122.03125, 400, 848, 400)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(112, 400, 847, 400, 847, 723, 113, 723)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(112, 390, 858, 390, 858, 724, 113, 723)])
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_gt7q3"]
-vertices = PackedVector2Array(1286, 713, 858, 713, 858, 410, 1286, 410)
+vertices = PackedVector2Array(1285.9688, 713, 858, 713, 858, 400, 1285.0313, 400)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(848, 400, 1296, 400, 1296, 723, 848, 723)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(848, 390, 1295, 390, 1296, 723, 848, 723)])
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_ywmet"]
-vertices = PackedVector2Array(1506.9766, 713, 1306, 713.9531, 1306, 570, 1562, 570, 1606, 713, 1606, 410, 1562, 410)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 0, 3), PackedInt32Array(5, 4, 3, 6)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(1296, 560, 1552, 560, 1552, 400, 1616, 400, 1616, 723, 1507, 723, 1296, 724)])
+vertices = PackedVector2Array(1506.9297, 715, 1294, 715.96094, 1294, 568, 1560, 568, 1618, 714.0625, 1618, 398, 1560, 398)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3, 4), PackedInt32Array(5, 4, 3, 6)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(1286, 560, 1552, 560, 1552, 390, 1626, 390, 1626, 722, 1507, 723, 1286, 724)])
+agent_radius = 8.0
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_8xng2"]
-vertices = PackedVector2Array(1078, 106, 1078, 326, 794, 326, 794, 182, 759, 106, 759, 182)
+vertices = PackedVector2Array(1078, 106, 1078, 336, 784, 336, 784, 192, 749, 106, 749, 192)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 0, 3, 5)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(749, 96, 749, 192, 784, 192, 784, 336, 1088, 336, 1088, 96)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(739, 96, 739, 202, 774, 202, 774, 346, 1088, 346, 1088, 96)])
+agent_radius = 8.0
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_jmgfv"]
-vertices = PackedVector2Array(1612, 326, 1110, 326, 1110, 106, 1612, 106)
+vertices = PackedVector2Array(1612, 336, 1110, 336, 1110, 106, 1612, 106)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(1100, 96, 1622, 96, 1622, 336, 1100, 336)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(1100, 96, 1622, 96, 1622, 346, 1100, 346)])
+agent_radius = 8.0
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_wm3yn"]
-vertices = PackedVector2Array(1971, 326, 1642, 326, 1642, 90, 1971, 90)
+vertices = PackedVector2Array(1981, 336, 1642, 336, 1642, 90, 1981, 90)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(1632, 80, 1981, 80, 1981, 336, 1632, 336)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(1632, 80, 1991, 80, 1991, 346, 1632, 346)])
+agent_radius = 8.0
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_bwdm5"]
-vertices = PackedVector2Array(2310, 325.02344, 1991, 325.96875, 1991, 90, 2186, 90, 2198, 90, 2310, 90, 2198, 46, 2186, 46)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 5, 0), PackedInt32Array(4, 0, 3), PackedInt32Array(6, 4, 3, 7)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(1981, 80, 2176, 80, 2176, 36, 2208, 36, 2208, 80, 2320, 80, 2320, 335, 1981, 336)])
+vertices = PackedVector2Array(2198, 90, 2310, 90, 2310, 336, 1991, 336, 1991, 90, 2186, 90, 2198, 46, 2186, 46)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(3, 4, 5), PackedInt32Array(0, 3, 5), PackedInt32Array(6, 0, 5, 7)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(1981, 80, 2176, 80, 2176, 36, 2208, 36, 2208, 80, 2320, 80, 2320, 346, 1981, 346)])
+agent_radius = 8.0
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_qwnr5"]
-vertices = PackedVector2Array(2294, 713, 1626, 713, 1626, 410, 2294, 410)
+vertices = PackedVector2Array(2294, 713, 1626, 713, 1626, 400, 2294, 400)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(1616, 400, 2304, 400, 2304, 723, 1616, 723)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(1616, 390, 2304, 390, 2304, 723, 1616, 723)])
+agent_radius = 8.0
 
 [node name="Infiltration" node_paths=PackedStringArray("CameraNodePaths") instance=ExtResource("1_okcn4")]
 CameraNodePaths = [NodePath("Props/Panels/Green Car3"), NodePath("Props/Panels/Entrance"), NodePath("Unit Spawns/U1")]
@@ -6602,568 +6611,52 @@ shape = SubResource("RectangleShape2D_qwnr5")
 [node name="Region 1" parent="Regions" index="0"]
 navigation_polygon = SubResource("NavigationPolygon_r1bgn")
 
-[node name="R1-R2" type="Node2D" parent="Regions/Region 1" index="0"]
-
-[node name="R1-R2-1" type="NavigationLink2D" parent="Regions/Region 1/R1-R2" index="0"]
-position = Vector2(297, 231)
-end_position = Vector2(43, 0)
-
-[node name="R1-R2-2" type="NavigationLink2D" parent="Regions/Region 1/R1-R2" index="1"]
-position = Vector2(298, 312)
-end_position = Vector2(43, 0)
-
-[node name="R1-R2-3" type="NavigationLink2D" parent="Regions/Region 1/R1-R2" index="2"]
-position = Vector2(300, 143)
-end_position = Vector2(43, 0)
-
-[node name="R1-R3" type="Node2D" parent="Regions/Region 1" index="1"]
-
-[node name="R1-R3-1" type="NavigationLink2D" parent="Regions/Region 1/R1-R3" index="0"]
-position = Vector2(57, 323)
-end_position = Vector2(0, 29)
-
-[node name="R1-R3-2" type="NavigationLink2D" parent="Regions/Region 1/R1-R3" index="1"]
-position = Vector2(144, 321)
-end_position = Vector2(0, 29)
-
-[node name="R1-R3-3" type="NavigationLink2D" parent="Regions/Region 1/R1-R3" index="2"]
-position = Vector2(231, 321)
-end_position = Vector2(0, 29)
-
-[node name="R1-R3-4" type="NavigationLink2D" parent="Regions/Region 1/R1-R3" index="3"]
-position = Vector2(294, 322)
-end_position = Vector2(0, 29)
-
-[node name="R1-R3-5" type="NavigationLink2D" parent="Regions/Region 1/R1-R3" index="4"]
-position = Vector2(103, 323)
-end_position = Vector2(0, 29)
-
-[node name="R1-R3-6" type="NavigationLink2D" parent="Regions/Region 1/R1-R3" index="5"]
-position = Vector2(188, 322)
-end_position = Vector2(0, 29)
-
 [node name="Region 2" type="NavigationRegion2D" parent="Regions" index="1"]
 y_sort_enabled = true
 navigation_polygon = SubResource("NavigationPolygon_0bmdw")
-
-[node name="R2-R3" type="Node2D" parent="Regions/Region 2" index="0"]
-
-[node name="R2-R3-1" type="NavigationLink2D" parent="Regions/Region 2/R2-R3" index="0"]
-position = Vector2(336, 321)
-end_position = Vector2(0, 29)
-
-[node name="R2-R3-2" type="NavigationLink2D" parent="Regions/Region 2/R2-R3" index="1"]
-position = Vector2(453, 320)
-end_position = Vector2(0, 29)
-
-[node name="R2-R3-3" type="NavigationLink2D" parent="Regions/Region 2/R2-R3" index="2"]
-position = Vector2(650, 322)
-end_position = Vector2(0, 29)
-
-[node name="R2-R3-4" type="NavigationLink2D" parent="Regions/Region 2/R2-R3" index="3"]
-position = Vector2(752, 321)
-end_position = Vector2(0, 29)
-
-[node name="R2-R3-5" type="NavigationLink2D" parent="Regions/Region 2/R2-R3" index="4"]
-position = Vector2(769, 321)
-end_position = Vector2(14, 28)
-
-[node name="R2-R3-6" type="NavigationLink2D" parent="Regions/Region 2/R2-R3" index="5"]
-position = Vector2(698, 323)
-end_position = Vector2(0, 29)
-
-[node name="R2-R3-7" type="NavigationLink2D" parent="Regions/Region 2/R2-R3" index="6"]
-position = Vector2(598, 320)
-end_position = Vector2(0, 29)
-
-[node name="R2-R3-8" type="NavigationLink2D" parent="Regions/Region 2/R2-R3" index="7"]
-position = Vector2(503, 321)
-end_position = Vector2(0, 29)
-
-[node name="R2-R3-9" type="NavigationLink2D" parent="Regions/Region 2/R2-R3" index="8"]
-position = Vector2(369, 322)
-end_position = Vector2(0, 29)
-
-[node name="R2-R7" type="Node2D" parent="Regions/Region 2" index="1"]
-
-[node name="R2-R7-1" type="NavigationLink2D" parent="Regions/Region 2/R2-R7" index="0"]
-position = Vector2(734, 119)
-end_position = Vector2(36, 0)
-
-[node name="R2-R7-2" type="NavigationLink2D" parent="Regions/Region 2/R2-R7" index="1"]
-position = Vector2(734, 157)
-end_position = Vector2(34, -23)
-
-[node name="R2-R7-3" type="NavigationLink2D" parent="Regions/Region 2/R2-R7" index="2"]
-position = Vector2(767, 210)
-end_position = Vector2(33, -22)
-
-[node name="R2-R7-4" type="NavigationLink2D" parent="Regions/Region 2/R2-R7" index="3"]
-position = Vector2(767, 210)
-end_position = Vector2(36, 0)
-
-[node name="R2-R7-5" type="NavigationLink2D" parent="Regions/Region 2/R2-R7" index="4"]
-position = Vector2(767, 249)
-end_position = Vector2(36, 0)
-
-[node name="R2-R7-6" type="NavigationLink2D" parent="Regions/Region 2/R2-R7" index="5"]
-position = Vector2(766, 296)
-end_position = Vector2(36, 0)
-
-[node name="R2-R7-7" type="NavigationLink2D" parent="Regions/Region 2/R2-R7" index="6"]
-position = Vector2(766, 319)
-end_position = Vector2(36, 0)
+enter_cost = 1.0
 
 [node name="Region 3" type="NavigationRegion2D" parent="Regions" index="2"]
 y_sort_enabled = true
 navigation_polygon = SubResource("NavigationPolygon_ky56w")
-
-[node name="R3-R4" type="Node2D" parent="Regions/Region 3" index="0"]
-
-[node name="R3-R4-1" type="NavigationLink2D" parent="Regions/Region 3/R3-R4" index="0"]
-position = Vector2(132, 384)
-end_position = Vector2(0, 30)
-
-[node name="R3-R4-2" type="NavigationLink2D" parent="Regions/Region 3/R3-R4" index="1"]
-position = Vector2(161, 385)
-end_position = Vector2(0, 30)
-
-[node name="R3-R4-3" type="NavigationLink2D" parent="Regions/Region 3/R3-R4" index="2"]
-position = Vector2(248, 384)
-end_position = Vector2(0, 30)
-
-[node name="R3-R4-4" type="NavigationLink2D" parent="Regions/Region 3/R3-R4" index="3"]
-position = Vector2(297, 385)
-end_position = Vector2(0, 30)
-
-[node name="R3-R4-5" type="NavigationLink2D" parent="Regions/Region 3/R3-R4" index="4"]
-position = Vector2(390, 386)
-end_position = Vector2(0, 30)
-
-[node name="R3-R4-6" type="NavigationLink2D" parent="Regions/Region 3/R3-R4" index="5"]
-position = Vector2(536, 386)
-end_position = Vector2(0, 30)
-
-[node name="R3-R4-7" type="NavigationLink2D" parent="Regions/Region 3/R3-R4" index="6"]
-position = Vector2(440, 385)
-end_position = Vector2(0, 30)
-
-[node name="R3-R4-8" type="NavigationLink2D" parent="Regions/Region 3/R3-R4" index="7"]
-position = Vector2(488, 386)
-end_position = Vector2(0, 30)
-
-[node name="R3-R4-9" type="NavigationLink2D" parent="Regions/Region 3/R3-R4" index="8"]
-position = Vector2(633, 386)
-end_position = Vector2(0, 30)
-
-[node name="R3-R4-10" type="NavigationLink2D" parent="Regions/Region 3/R3-R4" index="9"]
-position = Vector2(728, 386)
-end_position = Vector2(0, 30)
-
-[node name="R3-R4-11" type="NavigationLink2D" parent="Regions/Region 3/R3-R4" index="10"]
-position = Vector2(824, 386)
-end_position = Vector2(0, 30)
-
-[node name="R3-R4-12" type="NavigationLink2D" parent="Regions/Region 3/R3-R4" index="11"]
-position = Vector2(777, 386)
-end_position = Vector2(0, 30)
-
-[node name="R3-R5" type="Node2D" parent="Regions/Region 3" index="1"]
-
-[node name="R3-R5-1" type="NavigationLink2D" parent="Regions/Region 3/R3-R5" index="0"]
-position = Vector2(919, 386)
-end_position = Vector2(0, 30)
-
-[node name="R3-R5-2" type="NavigationLink2D" parent="Regions/Region 3/R3-R5" index="1"]
-position = Vector2(976, 387)
-end_position = Vector2(0, 30)
-
-[node name="R3-R5-3" type="NavigationLink2D" parent="Regions/Region 3/R3-R5" index="2"]
-position = Vector2(1043, 384)
-end_position = Vector2(0, 30)
-
-[node name="R3-R5-4" type="NavigationLink2D" parent="Regions/Region 3/R3-R5" index="3"]
-position = Vector2(1118, 384)
-end_position = Vector2(0, 30)
-
-[node name="R3-R5-5" type="NavigationLink2D" parent="Regions/Region 3/R3-R5" index="4"]
-position = Vector2(1215, 385)
-end_position = Vector2(0, 30)
-
-[node name="R3-R5-6" type="NavigationLink2D" parent="Regions/Region 3/R3-R5" index="5"]
-position = Vector2(1278, 384)
-end_position = Vector2(0, 30)
-
-[node name="R3-R6" type="Node2D" parent="Regions/Region 3" index="2"]
-
-[node name="R3-R6-1" type="NavigationLink2D" parent="Regions/Region 3/R3-R6" index="0"]
-position = Vector2(1571, 385)
-end_position = Vector2(0, 30)
-
-[node name="R3-R6-2" type="NavigationLink2D" parent="Regions/Region 3/R3-R6" index="1"]
-position = Vector2(1597, 385)
-end_position = Vector2(0, 30)
-
-[node name="R3-R7" type="Node2D" parent="Regions/Region 3" index="3"]
-
-[node name="R3-R7-1" type="NavigationLink2D" parent="Regions/Region 3/R3-R7" index="0"]
-position = Vector2(783, 349)
-end_position = Vector2(16, -29)
-
-[node name="R3-R7-2" type="NavigationLink2D" parent="Regions/Region 3/R3-R7" index="1"]
-position = Vector2(802, 352)
-end_position = Vector2(0, -32)
-
-[node name="R3-R7-3" type="NavigationLink2D" parent="Regions/Region 3/R3-R7" index="2"]
-position = Vector2(826, 351)
-end_position = Vector2(0, -32)
-
-[node name="R3-R7-4" type="NavigationLink2D" parent="Regions/Region 3/R3-R7" index="3"]
-position = Vector2(871, 350)
-end_position = Vector2(0, -32)
-
-[node name="R3-R7-5" type="NavigationLink2D" parent="Regions/Region 3/R3-R7" index="4"]
-position = Vector2(905, 351)
-end_position = Vector2(0, -32)
-
-[node name="R3-R7-6" type="NavigationLink2D" parent="Regions/Region 3/R3-R7" index="5"]
-position = Vector2(943, 351)
-end_position = Vector2(0, -32)
-
-[node name="R3-R7-7" type="NavigationLink2D" parent="Regions/Region 3/R3-R7" index="6"]
-position = Vector2(978, 351)
-end_position = Vector2(0, -32)
-
-[node name="R3-R7-8" type="NavigationLink2D" parent="Regions/Region 3/R3-R7" index="7"]
-position = Vector2(1009, 351)
-end_position = Vector2(0, -32)
-
-[node name="R3-R7-9" type="NavigationLink2D" parent="Regions/Region 3/R3-R7" index="8"]
-position = Vector2(1040, 352)
-end_position = Vector2(0, -32)
-
-[node name="R3-R7-10" type="NavigationLink2D" parent="Regions/Region 3/R3-R7" index="9"]
-position = Vector2(1073, 353)
-end_position = Vector2(0, -32)
-
-[node name="R3-R8" type="Node2D" parent="Regions/Region 3" index="4"]
-
-[node name="R3-R8-1" type="NavigationLink2D" parent="Regions/Region 3/R3-R8" index="0"]
-position = Vector2(1122, 352)
-end_position = Vector2(-1, -32)
-
-[node name="R3-R8-2" type="NavigationLink2D" parent="Regions/Region 3/R3-R8" index="1"]
-position = Vector2(1153, 352)
-end_position = Vector2(0, -32)
-
-[node name="R3-R8-3" type="NavigationLink2D" parent="Regions/Region 3/R3-R8" index="2"]
-position = Vector2(1185, 351)
-end_position = Vector2(0, -32)
-
-[node name="R3-R8-4" type="NavigationLink2D" parent="Regions/Region 3/R3-R8" index="3"]
-position = Vector2(1221, 350)
-end_position = Vector2(0, -32)
-
-[node name="R3-R8-5" type="NavigationLink2D" parent="Regions/Region 3/R3-R8" index="4"]
-position = Vector2(1249, 352)
-end_position = Vector2(0, -32)
-
-[node name="R3-R8-6" type="NavigationLink2D" parent="Regions/Region 3/R3-R8" index="5"]
-position = Vector2(1280, 351)
-end_position = Vector2(0, -32)
-
-[node name="R3-R8-7" type="NavigationLink2D" parent="Regions/Region 3/R3-R8" index="6"]
-position = Vector2(1313, 352)
-end_position = Vector2(0, -32)
-
-[node name="R3-R8-8" type="NavigationLink2D" parent="Regions/Region 3/R3-R8" index="7"]
-position = Vector2(1345, 352)
-end_position = Vector2(0, -32)
-
-[node name="R3-R8-9" type="NavigationLink2D" parent="Regions/Region 3/R3-R8" index="8"]
-position = Vector2(1378, 352)
-end_position = Vector2(0, -32)
-
-[node name="R3-R8-10" type="NavigationLink2D" parent="Regions/Region 3/R3-R8" index="9"]
-position = Vector2(1409, 352)
-end_position = Vector2(0, -32)
-
-[node name="R3-R8-11" type="NavigationLink2D" parent="Regions/Region 3/R3-R8" index="10"]
-position = Vector2(1442, 352)
-end_position = Vector2(0, -32)
-
-[node name="R3-R8-12" type="NavigationLink2D" parent="Regions/Region 3/R3-R8" index="11"]
-position = Vector2(1475, 351)
-end_position = Vector2(0, -32)
-
-[node name="R3-R8-13" type="NavigationLink2D" parent="Regions/Region 3/R3-R8" index="12"]
-position = Vector2(1504, 351)
-end_position = Vector2(0, -32)
-
-[node name="R3-R8-14" type="NavigationLink2D" parent="Regions/Region 3/R3-R8" index="13"]
-position = Vector2(1533, 351)
-end_position = Vector2(0, -32)
-
-[node name="R3-R8-15" type="NavigationLink2D" parent="Regions/Region 3/R3-R8" index="14"]
-position = Vector2(1567, 351)
-end_position = Vector2(0, -32)
-
-[node name="R3-R8-16" type="NavigationLink2D" parent="Regions/Region 3/R3-R8" index="15"]
-position = Vector2(1602, 351)
-end_position = Vector2(0, -32)
-
-[node name="R3-R9" type="Node2D" parent="Regions/Region 3" index="5"]
-
-[node name="R3-R9-1" type="NavigationLink2D" parent="Regions/Region 3/R3-R9" index="0"]
-position = Vector2(1650, 351)
-end_position = Vector2(0, -32)
-
-[node name="R3-R9-2" type="NavigationLink2D" parent="Regions/Region 3/R3-R9" index="1"]
-position = Vector2(1675, 351)
-end_position = Vector2(0, -32)
-
-[node name="R3-R9-3" type="NavigationLink2D" parent="Regions/Region 3/R3-R9" index="2"]
-position = Vector2(1701, 351)
-end_position = Vector2(0, -32)
-
-[node name="R3-R9-4" type="NavigationLink2D" parent="Regions/Region 3/R3-R9" index="3"]
-position = Vector2(1727, 351)
-end_position = Vector2(0, -32)
-
-[node name="R3-R9-5" type="NavigationLink2D" parent="Regions/Region 3/R3-R9" index="4"]
-position = Vector2(1754, 351)
-end_position = Vector2(0, -32)
-
-[node name="R3-R9-6" type="NavigationLink2D" parent="Regions/Region 3/R3-R9" index="5"]
-position = Vector2(1874, 351)
-end_position = Vector2(0, -32)
-
-[node name="R3-R9-7" type="NavigationLink2D" parent="Regions/Region 3/R3-R9" index="6"]
-position = Vector2(1899, 351)
-end_position = Vector2(0, -32)
-
-[node name="R3-R9-8" type="NavigationLink2D" parent="Regions/Region 3/R3-R9" index="7"]
-position = Vector2(1933, 351)
-end_position = Vector2(0, -32)
-
-[node name="R3-R9-9" type="NavigationLink2D" parent="Regions/Region 3/R3-R9" index="8"]
-position = Vector2(1961, 351)
-end_position = Vector2(0, -32)
-
-[node name="R3-R10" type="Node2D" parent="Regions/Region 3" index="6"]
-
-[node name="R3-R10-1" type="NavigationLink2D" parent="Regions/Region 3/R3-R10" index="0"]
-position = Vector2(1997, 351)
-end_position = Vector2(0, -32)
-
-[node name="R3-R10-2" type="NavigationLink2D" parent="Regions/Region 3/R3-R10" index="1"]
-position = Vector2(2098, 351)
-end_position = Vector2(0, -32)
-
-[node name="R3-R10-3" type="NavigationLink2D" parent="Regions/Region 3/R3-R10" index="2"]
-position = Vector2(2128, 351)
-end_position = Vector2(0, -32)
-
-[node name="R3-R10-4" type="NavigationLink2D" parent="Regions/Region 3/R3-R10" index="3"]
-position = Vector2(2160, 351)
-end_position = Vector2(0, -32)
-
-[node name="R3-R10-5" type="NavigationLink2D" parent="Regions/Region 3/R3-R10" index="4"]
-position = Vector2(2191, 351)
-end_position = Vector2(0, -32)
-
-[node name="R3-R10-6" type="NavigationLink2D" parent="Regions/Region 3/R3-R10" index="5"]
-position = Vector2(2230, 351)
-end_position = Vector2(0, -32)
-
-[node name="R3-R10-7" type="NavigationLink2D" parent="Regions/Region 3/R3-R10" index="6"]
-position = Vector2(2265, 351)
-end_position = Vector2(0, -32)
-
-[node name="R3-R10-8" type="NavigationLink2D" parent="Regions/Region 3/R3-R10" index="7"]
-position = Vector2(2302, 351)
-end_position = Vector2(0, -32)
-
-[node name="R3-R11" type="Node2D" parent="Regions/Region 3" index="7"]
-
-[node name="R3-R11-1" type="NavigationLink2D" parent="Regions/Region 3/R3-R11" index="0"]
-position = Vector2(1683, 416)
-end_position = Vector2(0, -32)
-
-[node name="R3-R11-2" type="NavigationLink2D" parent="Regions/Region 3/R3-R11" index="1"]
-position = Vector2(1717, 416)
-end_position = Vector2(0, -32)
-
-[node name="R3-R11-3" type="NavigationLink2D" parent="Regions/Region 3/R3-R11" index="2"]
-position = Vector2(1757, 416)
-end_position = Vector2(0, -32)
-
-[node name="R3-R11-4" type="NavigationLink2D" parent="Regions/Region 3/R3-R11" index="3"]
-position = Vector2(1793, 416)
-end_position = Vector2(0, -32)
-
-[node name="R3-R11-5" type="NavigationLink2D" parent="Regions/Region 3/R3-R11" index="4"]
-position = Vector2(1866, 416)
-end_position = Vector2(0, -32)
-
-[node name="R3-R11-6" type="NavigationLink2D" parent="Regions/Region 3/R3-R11" index="5"]
-position = Vector2(1903, 416)
-end_position = Vector2(0, -32)
-
-[node name="R3-R11-7" type="NavigationLink2D" parent="Regions/Region 3/R3-R11" index="6"]
-position = Vector2(1943, 416)
-end_position = Vector2(0, -32)
-
-[node name="R3-R11-8" type="NavigationLink2D" parent="Regions/Region 3/R3-R11" index="7"]
-position = Vector2(2008, 416)
-end_position = Vector2(0, -32)
-
-[node name="R3-R11-9" type="NavigationLink2D" parent="Regions/Region 3/R3-R11" index="8"]
-position = Vector2(2040, 416)
-end_position = Vector2(0, -32)
-
-[node name="R3-R11-10" type="NavigationLink2D" parent="Regions/Region 3/R3-R11" index="9"]
-position = Vector2(2074, 416)
-end_position = Vector2(0, -32)
-
-[node name="R3-R11-11" type="NavigationLink2D" parent="Regions/Region 3/R3-R11" index="10"]
-position = Vector2(2114, 416)
-end_position = Vector2(0, -32)
-
-[node name="R3-R11-12" type="NavigationLink2D" parent="Regions/Region 3/R3-R11" index="11"]
-position = Vector2(2152, 416)
-end_position = Vector2(0, -32)
-
-[node name="R3-R11-13" type="NavigationLink2D" parent="Regions/Region 3/R3-R11" index="12"]
-position = Vector2(2241, 416)
-end_position = Vector2(0, -32)
-
-[node name="R3-R11-14" type="NavigationLink2D" parent="Regions/Region 3/R3-R11" index="13"]
-position = Vector2(2268, 416)
-end_position = Vector2(0, -32)
-
-[node name="R3-R11-15" type="NavigationLink2D" parent="Regions/Region 3/R3-R11" index="14"]
-position = Vector2(2291, 416)
-end_position = Vector2(0, -32)
+enter_cost = 1.0
 
 [node name="Region 4" type="NavigationRegion2D" parent="Regions" index="3"]
 y_sort_enabled = true
 navigation_polygon = SubResource("NavigationPolygon_l0dwa")
-
-[node name="R4-R5" type="Node2D" parent="Regions/Region 4" index="0"]
-
-[node name="R4-R5-1" type="NavigationLink2D" parent="Regions/Region 4/R4-R5" index="0"]
-position = Vector2(829, 459)
-end_position = Vector2(36, 0)
-
-[node name="R4-R5-2" type="NavigationLink2D" parent="Regions/Region 4/R4-R5" index="1"]
-position = Vector2(829, 499)
-end_position = Vector2(36, 0)
-
-[node name="R4-R5-3" type="NavigationLink2D" parent="Regions/Region 4/R4-R5" index="2"]
-position = Vector2(829, 547)
-end_position = Vector2(37, 0)
-
-[node name="R4-R5-4" type="NavigationLink2D" parent="Regions/Region 4/R4-R5" index="3"]
-position = Vector2(829, 599)
-end_position = Vector2(36, 0)
-
-[node name="R4-R5-5" type="NavigationLink2D" parent="Regions/Region 4/R4-R5" index="4"]
-position = Vector2(826, 647)
-end_position = Vector2(36, 0)
-
-[node name="R4-R5-6" type="NavigationLink2D" parent="Regions/Region 4/R4-R5" index="5"]
-position = Vector2(831, 697)
-end_position = Vector2(36, 0)
+enter_cost = 1.0
 
 [node name="Region 5" type="NavigationRegion2D" parent="Regions" index="4"]
 y_sort_enabled = true
 navigation_polygon = SubResource("NavigationPolygon_gt7q3")
-
-[node name="R5-R6" type="Node2D" parent="Regions/Region 5" index="0"]
-
-[node name="R5-R6-1" type="NavigationLink2D" parent="Regions/Region 5/R5-R6" index="0"]
-position = Vector2(1278, 580)
-end_position = Vector2(36, 0)
-
-[node name="R5-R6-2" type="NavigationLink2D" parent="Regions/Region 5/R5-R6" index="1"]
-position = Vector2(1278, 605)
-end_position = Vector2(36, 0)
-
-[node name="R5-R6-3" type="NavigationLink2D" parent="Regions/Region 5/R5-R6" index="2"]
-position = Vector2(1278, 656)
-end_position = Vector2(37, 0)
-
-[node name="R5-R6-4" type="NavigationLink2D" parent="Regions/Region 5/R5-R6" index="3"]
-position = Vector2(1278, 683)
-end_position = Vector2(36, 0)
-
-[node name="R5-R6-5" type="NavigationLink2D" parent="Regions/Region 5/R5-R6" index="4"]
-position = Vector2(1277, 709)
-end_position = Vector2(36, 0)
+enter_cost = 1.0
 
 [node name="Region 6" type="NavigationRegion2D" parent="Regions" index="5"]
 y_sort_enabled = true
 navigation_polygon = SubResource("NavigationPolygon_ywmet")
-
-[node name="R6-R11" type="Node2D" parent="Regions/Region 6" index="0"]
-
-[node name="R6-R11-1" type="NavigationLink2D" parent="Regions/Region 6/R6-R11" index="0"]
-position = Vector2(1603, 493)
-end_position = Vector2(36, 0)
-
-[node name="R6-R11-2" type="NavigationLink2D" parent="Regions/Region 6/R6-R11" index="1"]
-position = Vector2(1603, 516)
-end_position = Vector2(36, 0)
-
-[node name="R6-R11-3" type="NavigationLink2D" parent="Regions/Region 6/R6-R11" index="2"]
-position = Vector2(1603, 540)
-end_position = Vector2(36, 0)
-
-[node name="R6-R11-4" type="NavigationLink2D" parent="Regions/Region 6/R6-R11" index="3"]
-position = Vector2(1603, 565)
-end_position = Vector2(36, 0)
-
-[node name="R6-R11-5" type="NavigationLink2D" parent="Regions/Region 6/R6-R11" index="4"]
-position = Vector2(1603, 589)
-end_position = Vector2(36, 0)
-
-[node name="R6-R11-6" type="NavigationLink2D" parent="Regions/Region 6/R6-R11" index="5"]
-position = Vector2(1603, 614)
-end_position = Vector2(36, 0)
-
-[node name="R6-R11-7" type="NavigationLink2D" parent="Regions/Region 6/R6-R11" index="6"]
-position = Vector2(1603, 638)
-end_position = Vector2(36, 0)
-
-[node name="R6-R11-8" type="NavigationLink2D" parent="Regions/Region 6/R6-R11" index="7"]
-position = Vector2(1603, 664)
-end_position = Vector2(36, 0)
-
-[node name="R6-R11-9" type="NavigationLink2D" parent="Regions/Region 6/R6-R11" index="8"]
-position = Vector2(1603, 690)
-end_position = Vector2(27, 0)
-
-[node name="R6-R11-10" type="NavigationLink2D" parent="Regions/Region 6/R6-R11" index="9"]
-position = Vector2(1603, 709)
-end_position = Vector2(36, 0)
+enter_cost = 1.0
 
 [node name="Region 7" type="NavigationRegion2D" parent="Regions" index="6"]
 y_sort_enabled = true
 navigation_polygon = SubResource("NavigationPolygon_8xng2")
+enter_cost = 1.0
 
 [node name="Region 8" type="NavigationRegion2D" parent="Regions" index="7"]
 y_sort_enabled = true
 navigation_polygon = SubResource("NavigationPolygon_jmgfv")
+enter_cost = 1.0
 
 [node name="Region 9" type="NavigationRegion2D" parent="Regions" index="8"]
 y_sort_enabled = true
 navigation_polygon = SubResource("NavigationPolygon_wm3yn")
+enter_cost = 1.0
 
 [node name="Region 10" type="NavigationRegion2D" parent="Regions" index="9"]
 y_sort_enabled = true
 navigation_polygon = SubResource("NavigationPolygon_bwdm5")
+enter_cost = 1.0
 
 [node name="Region 11" type="NavigationRegion2D" parent="Regions" index="10"]
 y_sort_enabled = true
 navigation_polygon = SubResource("NavigationPolygon_qwnr5")
+enter_cost = 1.0
