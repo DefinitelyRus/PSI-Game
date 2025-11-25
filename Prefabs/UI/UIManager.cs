@@ -48,11 +48,6 @@ public partial class UIManager : CanvasLayer {
 		SetItemIcon(4, null!);
 	}
 
-
-	public override void _Process(double delta) {
-		Commander.SingleUnitControl();
-	}
-
 	#endregion
 
 	#endregion
