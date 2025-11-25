@@ -1,4 +1,4 @@
-[gd_scene load_steps=64 format=4 uid="uid://b2uvlodlqe2mk"]
+[gd_scene load_steps=66 format=4 uid="uid://b2uvlodlqe2mk"]
 
 [ext_resource type="PackedScene" uid="uid://drho55fepd4p7" path="res://Scenes/Levels/StandardLevel.tscn" id="1_lp5d7"]
 [ext_resource type="AudioStream" uid="uid://dyq0i47c3g1tj" path="res://Audio/Music/L3 - Tunetank Extended.mp3" id="2_7e5pe"]
@@ -2524,16 +2524,26 @@ polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3, 4), PackedInt32
 outlines = Array[PackedVector2Array]([PackedVector2Array(1280, 174, 1189, 174, 1189, 308, 1194, 308, 1194, 331, 1186, 331, 1186, 381, 1167, 381, 1167, 640, 1202, 640, 1202, 585, 1246, 585, 1246, 556, 1280, 556)])
 agent_radius = 8.0
 
-[sub_resource type="NavigationPolygon" id="NavigationPolygon_7e5pe"]
-vertices = PackedVector2Array(1910.1172, 195, 1909.9609, 184, 1992, 184, 1944, 233, 1544.9922, 233, 1545.0781, 224, 1851.1172, 195, 1433, 584, 1752, 584, 1752, 600, 1385, 633, 1798, 600, 1798, 584, 2019, 584, 2019, 633, 1385, 367, 1433, 440, 1433.2031, 367, 1433.4297, 376, 1992, 440, 1944, 376, 1433, 224, 1433, 247, 1385, 247, 1385, 231, 1281, 231, 1281, 184, 1850.9531, 184)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(0, 3, 4, 5, 6), PackedInt32Array(7, 8, 9, 10), PackedInt32Array(11, 12, 13, 14), PackedInt32Array(11, 14, 10, 9), PackedInt32Array(7, 10, 15, 16), PackedInt32Array(16, 15, 17, 18), PackedInt32Array(19, 16, 18, 20), PackedInt32Array(2, 19, 20, 3), PackedInt32Array(21, 22, 23, 24), PackedInt32Array(24, 25, 26, 21), PackedInt32Array(26, 27, 6, 5, 21)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(1273, 176, 1858.8276, 176, 1859, 187, 1902, 187, 1901.8428, 176, 2000, 176, 2000, 448, 1441, 448, 1441, 576, 1760, 576, 1760, 592, 1790, 592, 1790, 576, 2027, 576, 2027, 641, 1377, 641, 1377, 359, 1441, 359, 1441.2281, 367.99997, 1936, 368, 1936, 241, 1536.9105, 241, 1537, 232, 1441, 232, 1441, 255, 1377, 255, 1377, 239, 1273, 239)])
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_yqwfl"]
+vertices = PackedVector2Array(1916, 202, 1916, 186, 1991, 186, 1947, 231, 1991, 368, 1947, 368, 1291, 231, 1842, 202, 1291, 186, 1842, 186)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(2, 4, 5, 3), PackedInt32Array(0, 3, 6, 7), PackedInt32Array(7, 6, 8, 9)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(1281, 176, 1852, 176, 1852, 192, 1906, 192, 1906, 176, 2001, 176, 2001, 378, 1937, 378, 1937, 241, 1281, 241)])
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_jmp7n"]
+vertices = PackedVector2Array(1384, 376, 1686.1172, 376, 1685.8984, 394, 1384, 438.0078, 1992, 438.97656, 1765, 394, 1992, 376, 1765, 376)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 3, 2, 5), PackedInt32Array(6, 4, 5, 7)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(2000, 368, 2000, 447, 1376, 446, 1376, 368, 1694.215, 368, 1694, 386, 1757, 386, 1757, 368)])
 agent_radius = 8.0
 
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_q6s0i"]
+vertices = PackedVector2Array(1430, 585, 1454, 585, 1454, 601, 1386, 631, 1535, 601, 1535, 585, 1762.3281, 585, 1783.8594, 586, 2014, 586, 2014, 631, 1386, 446, 1430, 446, 1774.0625, 576.2031)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 5, 6), PackedInt32Array(7, 8, 9, 3), PackedInt32Array(3, 10, 11, 0), PackedInt32Array(6, 12, 7), PackedInt32Array(6, 7, 3, 4), PackedInt32Array(2, 4, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(2024, 576, 2024, 641, 1376, 641, 1376, 436, 1440, 436, 1440, 575, 1464, 575, 1464, 591, 1525, 591, 1525, 575, 1759, 575, 1775, 563, 1788, 576)])
+
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_rmgfj"]
-vertices = PackedVector2Array(1830, 74, 1830, 151, 1750, 151, 1706, 74, 1706, 174, 1750, 174)
+vertices = PackedVector2Array(1830, 74, 1830, 151, 1750, 151, 1706, 74, 1706, 176, 1750, 176)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 3, 2, 5)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(1696, 184, 1760, 184, 1760, 161, 1840, 161, 1840, 64, 1696, 64)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(1696, 186, 1760, 186, 1760, 161, 1840, 161, 1840, 64, 1696, 64)])
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_3x67x"]
 vertices = PackedVector2Array(312, 280, 479, 280, 479, 312, 232, 312, 232, 496, 184, 496, 184, 280, 264, 280, 312, 190, 264, 190)
@@ -2554,21 +2564,21 @@ outlines = Array[PackedVector2Array]([PackedVector2Array(2016, 827, 2143, 826, 2
 agent_radius = 8.0
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_tudj3"]
-vertices = PackedVector2Array(1628.2578, 256.2422, 1672, 260.28906, 1672, 368, 1544, 368, 1617.6016, 264, 1592, 264, 1544, 241, 1592, 241)
+vertices = PackedVector2Array(1628.2578, 256.2422, 1672, 260.28906, 1672, 370, 1544, 370, 1617.6016, 264, 1592, 264, 1544, 239, 1592, 239)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3, 4), PackedInt32Array(5, 4, 3), PackedInt32Array(5, 3, 6, 7)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(1536, 233, 1600, 233, 1600, 256, 1615, 256, 1626, 248, 1680, 253, 1680, 376, 1536, 376)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(1536, 231, 1600, 231, 1600, 256, 1615, 256, 1626, 248, 1680, 253, 1680, 378, 1536, 378)])
 agent_radius = 8.0
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_sijfo"]
-vertices = PackedVector2Array(1784, 277, 1912.8984, 277, 1912.0938, 345, 1832, 345, 1784, 368, 1832, 368)
+vertices = PackedVector2Array(1784, 277, 1912.8984, 277, 1912.0938, 345, 1832, 345, 1784, 370, 1832, 370)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 0, 3, 5)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(1776, 269, 1921, 269, 1920, 353, 1840, 353, 1840, 376, 1776, 376)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(1776, 269, 1921, 269, 1920, 353, 1840, 353, 1840, 378, 1776, 378)])
 agent_radius = 8.0
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_xpc51"]
-vertices = PackedVector2Array(1832, 472.3125, 1912, 469.29688, 1912, 576, 1784, 576, 1784, 448, 1832, 448)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(0, 3, 4, 5)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(1840, 440, 1776, 440, 1776, 584, 1920, 584, 1920, 461, 1840, 464)])
+vertices = PackedVector2Array(1867.1875, 469.02344, 1912, 471.5625, 1912, 578, 1784, 578, 1832, 472.9375, 1784, 445, 1832, 445)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3, 4), PackedInt32Array(4, 3, 5, 6)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(1840, 437, 1776, 437, 1776, 586, 1920, 586, 1920, 464, 1867, 461, 1840, 464)])
 agent_radius = 8.0
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_fvui3"]
@@ -3642,7 +3652,6 @@ y_sort_enabled = true
 position = Vector2(3251, 404)
 script = ExtResource("25_ln4q1")
 RequiredPowerBoxes = 3
-PromptDelay = 10.0
 ActivationArea = NodePath("../Area2D")
 ActivationRadius = 32
 ActivationSound = null
@@ -3657,7 +3666,6 @@ PropID = "elevator"
 position = Vector2(3327, 404)
 script = ExtResource("25_ln4q1")
 RequiredPowerBoxes = 3
-PromptDelay = 10.0
 ActivationArea = NodePath("../Area2D")
 ActivationRadius = 32
 ActivationSound = null
@@ -3710,57 +3718,65 @@ navigation_polygon = SubResource("NavigationPolygon_x34xi")
 [node name="Region 9" type="NavigationRegion2D" parent="Regions" index="8"]
 y_sort_enabled = true
 position = Vector2(-1, 0)
-navigation_polygon = SubResource("NavigationPolygon_7e5pe")
+navigation_polygon = SubResource("NavigationPolygon_yqwfl")
 
 [node name="Region 10" type="NavigationRegion2D" parent="Regions" index="9"]
 y_sort_enabled = true
-navigation_polygon = SubResource("NavigationPolygon_rmgfj")
+navigation_polygon = SubResource("NavigationPolygon_jmp7n")
 
 [node name="Region 11" type="NavigationRegion2D" parent="Regions" index="10"]
+y_sort_enabled = true
+navigation_polygon = SubResource("NavigationPolygon_q6s0i")
+
+[node name="Region 12" type="NavigationRegion2D" parent="Regions" index="11"]
+y_sort_enabled = true
+navigation_polygon = SubResource("NavigationPolygon_rmgfj")
+
+[node name="Region 13" type="NavigationRegion2D" parent="Regions" index="12"]
 y_sort_enabled = true
 navigation_polygon = SubResource("NavigationPolygon_3x67x")
 enter_cost = 1.0
 
-[node name="Region 12" type="NavigationRegion2D" parent="Regions" index="11"]
+[node name="Region 14" type="NavigationRegion2D" parent="Regions" index="13"]
 y_sort_enabled = true
 navigation_polygon = SubResource("NavigationPolygon_30gt2")
 enter_cost = 1.0
 
-[node name="Region 13" type="NavigationRegion2D" parent="Regions" index="12"]
-navigation_polygon = SubResource("NavigationPolygon_khl8a")
-
-[node name="Region 14" type="NavigationRegion2D" parent="Regions" index="13"]
-y_sort_enabled = true
-navigation_polygon = SubResource("NavigationPolygon_tudj3")
-
 [node name="Region 15" type="NavigationRegion2D" parent="Regions" index="14"]
-y_sort_enabled = true
-navigation_polygon = SubResource("NavigationPolygon_sijfo")
+navigation_polygon = SubResource("NavigationPolygon_khl8a")
 
 [node name="Region 16" type="NavigationRegion2D" parent="Regions" index="15"]
 y_sort_enabled = true
-navigation_polygon = SubResource("NavigationPolygon_xpc51")
+navigation_polygon = SubResource("NavigationPolygon_tudj3")
 
 [node name="Region 17" type="NavigationRegion2D" parent="Regions" index="16"]
 y_sort_enabled = true
-navigation_polygon = SubResource("NavigationPolygon_fvui3")
+navigation_polygon = SubResource("NavigationPolygon_sijfo")
 
 [node name="Region 18" type="NavigationRegion2D" parent="Regions" index="17"]
 y_sort_enabled = true
-navigation_polygon = SubResource("NavigationPolygon_dns1u")
+navigation_polygon = SubResource("NavigationPolygon_xpc51")
 
 [node name="Region 19" type="NavigationRegion2D" parent="Regions" index="18"]
 y_sort_enabled = true
-navigation_polygon = SubResource("NavigationPolygon_h0ldu")
+navigation_polygon = SubResource("NavigationPolygon_fvui3")
 
 [node name="Region 20" type="NavigationRegion2D" parent="Regions" index="19"]
 y_sort_enabled = true
-navigation_polygon = SubResource("NavigationPolygon_gj1ou")
+navigation_polygon = SubResource("NavigationPolygon_dns1u")
 
 [node name="Region 21" type="NavigationRegion2D" parent="Regions" index="20"]
 y_sort_enabled = true
-navigation_polygon = SubResource("NavigationPolygon_lmlvu")
+navigation_polygon = SubResource("NavigationPolygon_h0ldu")
 
 [node name="Region 22" type="NavigationRegion2D" parent="Regions" index="21"]
+y_sort_enabled = true
+navigation_polygon = SubResource("NavigationPolygon_gj1ou")
+
+[node name="Region 23" type="NavigationRegion2D" parent="Regions" index="22"]
+y_sort_enabled = true
+navigation_polygon = SubResource("NavigationPolygon_lmlvu")
+
+[node name="Region 24" type="NavigationRegion2D" parent="Regions" index="23"]
 y_sort_enabled = true
 navigation_polygon = SubResource("NavigationPolygon_41anr")
