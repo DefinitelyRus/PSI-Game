@@ -1338,4 +1338,4 @@ time_horizon_obstacles = 0.5
 max_speed = 1000.0
 avoidance_layers = 16
 avoidance_mask = 28
-avoidance_priority = 0.2
+avoidance_priority = 0.5
