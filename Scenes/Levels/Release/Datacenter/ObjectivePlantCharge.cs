@@ -47,6 +47,16 @@ public partial class ObjectivePlantCharge : StandardPanel {
         if (MusicOnPlant != null) AudioManager.StreamAudio(MusicOnPlant);
         GameManager.SetGameData("L4_ChargePlanted", null, true);
         InputManager.AllowOverride = true;
+
+        await ToSignal(GetTree().CreateTimer(221.5 - 60f), "timeout");
+        UIManager.SetBottomOverlayText($"60 seconds until detonation!", 5f);
+
+        await ToSignal(GetTree().CreateTimer(60f), "timeout");
+        Variant? missionSuccess = GameManager.GetGameData("L4_EnteredElevator", null);
+        if (missionSuccess == null) {
+            Log.Me(() => "Mission failed: Charge detonated before escape.");
+            GameManager.CheckLoseConditions(true);
+        }
     }
 
     public override void _Process(double delta) {
