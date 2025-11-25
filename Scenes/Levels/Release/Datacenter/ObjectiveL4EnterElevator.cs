@@ -66,6 +66,7 @@ public partial class ObjectiveL4EnterElevator : StandardPanel {
         IsEnabled = false;
         Activated = true;
 
+        AudioManager.StopMusic("AmbientAudio");
         UIManager.StartTransition("Mission Complete");
         UIManager.SetHUDVisible(false);
         await ToSignal(GetTree().CreateTimer(5.0f), "timeout");
