@@ -17,6 +17,8 @@ public partial class SingleMaxPowerUp : UpgradeItem {
         int currentPower = OwnerCharacter.UpgradeManager.CurrentPower;
         int maxPower = OwnerCharacter.UpgradeManager.CurrentMaxPower;
         UIManager.SetPower(currentPower, maxPower);
+
+        UIManager.SetBottomOverlayText("Power Capacity Increased!", 2.0f);
         return null;
     }
 }
