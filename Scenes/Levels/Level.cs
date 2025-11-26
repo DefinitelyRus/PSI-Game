@@ -24,8 +24,6 @@ public partial class Level : Node2D {
 	#region Properties
 
 	[ExportGroup("Properties")]
-	[Export] public float EnemyStaticSpawningDelayMultiplier = 1f;
-	[Export] public uint EnemyCountLimit = 50;
 	[Export] public uint LevelIndex = 0;
 	private int CurrentSpawnIndex = 0;
 	[Export] public double LevelTimeLimit = 600;
@@ -82,6 +80,8 @@ public partial class Level : Node2D {
 
 	[ExportGroup("Enemy Spawning")]
 	[Export] public PackedScene[] EnemyTypes = [];
+	[Export] public float EnemyStaticSpawningDelayMultiplier = 1f;
+	[Export] public uint EnemyCountLimit = 50;
 
 
 	public void SpawnCharacter(StandardCharacter character, Vector2 position) {
