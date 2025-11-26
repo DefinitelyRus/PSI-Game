@@ -259,8 +259,8 @@ public partial class UpgradeManager : Node {
         }
         _poweredItems.Clear();
         CurrentPower = 0;
-    UIManager.SetPower(CurrentPower, CurrentMaxPower);
-    RefreshInventoryUI();
+        UIManager.SetPower(CurrentPower, CurrentMaxPower);
+        RefreshInventoryUI();
     }
 
 
@@ -273,44 +273,43 @@ public partial class UpgradeManager : Node {
         }
     }
 
-
-    public void OnCharacterChanged() {
-        // Update references or perform actions needed when the character changes
-    }
-
     #region Inventory UI
 
     private Texture2D? GetItemTexture(UpgradeItem item) {
         if (item == null) return null;
+
         // Try to find a Sprite2D within item for texture extraction
         Sprite2D? sprite = item.GetChildren().OfType<Sprite2D>().FirstOrDefault();
         if (sprite == null || sprite.Texture == null) return null;
+
         if (sprite.RegionEnabled) {
             AtlasTexture atlas = new() { Atlas = sprite.Texture, Region = sprite.RegionRect };
             return atlas;
         }
+
         return sprite.Texture;
     }
 
     public void RefreshInventoryUI() {
-        // Update slot count (open slots is CurrentMaxSlots - Items.Count)
         UIManager.SetOpenSlots(CurrentMaxSlots);
-        // Fill each slot with item or null
+
         for (int i = 0; i < CurrentMaxSlots; i++) {
             if (i < Items.Count) {
                 UpgradeItem item = Items[i];
                 Texture2D? texture = GetItemTexture(item);
+
                 if (texture != null) UIManager.SetItemIcon(i, texture);
-                else UIManager.SetItemIcon(i, (Texture2D)null!); // clear if no texture
+                else UIManager.SetItemIcon(i, (Texture2D) null!);
+
                 float alpha = IsPowered(item) ? 1f : UIManager.Instance.UnpoweredAlpha;
                 UIManager.SetItemAlpha(i, alpha);
             }
+
             else {
                 UIManager.SetItemIcon(i, (Texture2D)null!);
                 UIManager.SetItemAlpha(i, 1f);
             }
         }
-        // Optionally highlight powered items by re-setting icon (could extend UI for highlight later)
     }
 
     #endregion
