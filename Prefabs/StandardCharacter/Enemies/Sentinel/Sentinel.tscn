@@ -172,8 +172,8 @@ graph_offset = Vector2(29, -3)
 
 [node name="Sentinel" node_paths=PackedStringArray("Weapon", "AnimationTree") instance=ExtResource("1_1ia5b")]
 script = ExtResource("2_5kolp")
-StaticSpawnWeight = 20
-DelayAfterSpawn = 5.0
+StaticSpawnWeight = 5
+DelayAfterSpawn = 10.0
 DynamicSpawnCost = 0
 DeathCameraShakeIntensity = 0.6
 CharacterName = "Tentacle Bot"
