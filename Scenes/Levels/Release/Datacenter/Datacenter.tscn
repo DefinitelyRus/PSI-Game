@@ -4081,9 +4081,6 @@ HighlightSpeed = 0.5
 
 [node name="Node2D" type="Node2D" parent="Props/Optional Panels/Cubicle Group L4" index="3"]
 
-[node name="Regions" parent="." index="5"]
-visible = false
-
 [node name="Region 0" type="NavigationRegion2D" parent="Regions" index="0"]
 y_sort_enabled = true
 navigation_polygon = SubResource("NavigationPolygon_m8frw")
