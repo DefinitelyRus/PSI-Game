@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using Game;
 using Godot;
 namespace CommonScripts;
 
@@ -21,6 +22,16 @@ public partial class StandardEnemy : StandardCharacter {
 
 	public override void Kill() {
         CameraMan.Shake(DeathCameraShakeIntensity, GlobalPosition);
+
+        // 1% chance to drop random item on death
+        int randomValue = new RandomNumberGenerator().RandiRange(1, 100);
+        if (randomValue <= 100) {
+            UpgradeItem? item = GameManager.GetRandomDropItem(GlobalPosition);
+            item?.SpawnInWorld();
+
+            if (item == null) Log.Me(() => $"Enemy {Name} failed to drop a random item on death.");
+            else Log.Me(() => $"Enemy {Name} dropped item {item.Name} on death at position {GlobalPosition}.");
+        }
 
 		base.Kill();
 	}
