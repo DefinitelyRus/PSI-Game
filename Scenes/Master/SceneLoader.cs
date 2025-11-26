@@ -175,6 +175,9 @@ public partial class SceneLoader : Node
             uint nextLevelIndex = currentLevel.LevelIndex + 1;
             LoadLevel(nextLevelIndex);
         }
+
+        // Freeze game timer
+        GameManager.TimeRemaining = double.MaxValue;
     }
 
     #endregion
