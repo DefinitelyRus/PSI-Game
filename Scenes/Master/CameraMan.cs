@@ -192,7 +192,6 @@ public partial class CameraMan : Node2D {
         ControlsLocked = false;
         DamageLocked = true;
         DamageUnlockTimer = 5f;
-
         Commander.SetFocusedUnit(0, true);
 
         // Show HUD again
@@ -200,6 +199,13 @@ public partial class CameraMan : Node2D {
         UIManager.SetHUDVisible(true, 0);
         UIManager.SetHUDVisible(true, 1);
         UIManager.SetHUDVisible(true, 2);
+
+        // Start level timer
+        Node? levelNode = SceneLoader.Instance.LoadedScene;
+        if (levelNode == null) return;
+        if (levelNode is not Level level) return;
+        GameManager.Timer = level.LevelTimeLimit;
+        GameManager.TimeRemaining = level.LevelTimeLimit;
     }
 
 
