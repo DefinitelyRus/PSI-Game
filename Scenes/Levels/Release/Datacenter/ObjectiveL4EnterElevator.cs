@@ -70,8 +70,10 @@ public partial class ObjectiveL4EnterElevator : StandardPanel {
         UIManager.StartTransition("Mission Complete");
         UIManager.SetHUDVisible(false);
         await ToSignal(GetTree().CreateTimer(5.0f), "timeout");
-        SceneLoader.UnloadLevel(true);
-        UIManager.EndTransition();
+
+        //TODO: Go to main menu
+        Commander.Initialize();
+        SceneLoader.LoadLevel(0);
     }
 
 	public override void _Process(double delta) {
