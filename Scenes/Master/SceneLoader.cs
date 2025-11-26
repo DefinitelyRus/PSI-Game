@@ -116,7 +116,7 @@ public partial class SceneLoader : Node
         return retrievedLevel;
     }
 
-    public static async void LoadLevel(uint levelIndex) {
+    public static void LoadLevel(uint levelIndex) {
         PackedScene? levelToLoad = GetLevel(levelIndex);
 
         if (levelToLoad == null) {
