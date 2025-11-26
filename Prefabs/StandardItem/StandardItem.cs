@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Godot;
+using Game;
 namespace CommonScripts;
 
 /// <summary>
@@ -107,6 +108,20 @@ public partial class StandardItem : RigidBody2D
 		Inventory,
 		Equipped
 	}
+
+	public void SetEntityType(EntityTypes newType) {
+		EntityType = newType;
+
+		switch (newType) {
+            case EntityTypes.World:
+				SpawnInWorld();
+				break;
+			case EntityTypes.Inventory:
+				HideInWorld();
+				break;
+		}
+	}
+
 
 	/// <summary>
 	/// A list of <see cref="StatModifier"/> objects that are applied onto the item's stats. <br/><br/>
@@ -451,6 +466,7 @@ public partial class StandardItem : RigidBody2D
 	[Export] public Sprite2D? Sprite = null;
 	[Export] public CollisionShape2D Collider = null!;
 	[Export] public Area2D ClickArea = null!;
+	[Export] public Area2D PickupArea = null!;
 
 	#endregion
 
@@ -601,13 +617,18 @@ public partial class StandardItem : RigidBody2D
 	#region Common Methods
 
 	public void SpawnInWorld() {
-		// Gives the item an in-world representation. (not just a conceptual inventory item)
-
 		if (Sprite != null) Sprite.Visible = true;
 
-		Collider.Disabled = false;
-		CollisionShape2D areaCollider = ClickArea.GetChild<CollisionShape2D>(0);
-		areaCollider.Disabled = false;
+		CollisionShape2D pickupCollider = PickupArea.GetChild<CollisionShape2D>(0);
+		pickupCollider.Disabled = false;
+	}
+
+
+	public void HideInWorld() {
+		if (Sprite != null) Sprite.Visible = false;
+
+		CollisionShape2D pickupCollider = PickupArea.GetChild<CollisionShape2D>(0);
+		pickupCollider.Disabled = true;
 	}
 
 	/// <summary>
@@ -853,6 +874,8 @@ public partial class StandardItem : RigidBody2D
 
 		if (Sprite == null && !AllowNoSprite) Log.Warn(() => "`Sprite` should not be null. Please set a sprite in the inspector.", LogReady);
 
+		if (PickupArea == null) Log.Err(() => "`PickupArea` must not be null. Please set a PickupArea in the inspector.", LogReady);
+
 		if (string.IsNullOrEmpty(InstanceID)) {
 			if (!AutoAssignInstanceID) Log.Warn(() => "`InstanceID` is not set. Generating a new one...", LogReady);
 			GenerateInstanceID();
@@ -867,7 +890,36 @@ public partial class StandardItem : RigidBody2D
 		Log.Me(() => $"Changing node name to \"{InstanceID}\"...", LogReady);
 		Name = InstanceID;
 
+		if (PickupArea != null)
+		{
+			PickupArea.BodyEntered += OnPickupAreaBodyEntered;
+		}
+
 		Log.Me(() => "Done!", LogReady);
+	}
+
+	private void OnPickupAreaBodyEntered(Godot.Node body)
+	{
+		Log.Me(() => "Pickup area body entered.", LogReady);
+
+		// Ignore if the body is not a character
+
+		if (body is not StandardCharacter character) return;
+		if (!character.Tags.Contains("Unit")) return;
+
+		if (this is UpgradeItem)
+		{
+			UpgradeItem? thisAsUpgrade = this as UpgradeItem;
+			PickUp();
+			HideInWorld();
+			character.AddItemToInventory(thisAsUpgrade!);
+			thisAsUpgrade!.SetOwner(character);
+		}
+		else
+		{
+			Use();
+			QueueFree();
+		}
 	}
 
 	#endregion
