@@ -157,13 +157,17 @@ public partial class Commander : Node {
 
 		// Update inventory UI
 		UpgradeManager upMan = unit.UpgradeManager;
-		StandardItem[] items = [.. upMan.Items];
+		UpgradeItem[] items = [.. upMan.Items];
+		int[] poweredItems = [.. upMan.GetPoweredItems()];
 		for (int i = 0; i < upMan.CurrentMaxSlots; i++) {
-			StandardItem? item = i < items.Length ? items[i] : null;
+			UpgradeItem? item = i < items.Length ? items[i] : null;
             Sprite2D? itemIcon = item?.Sprite;
 			itemIcon ??= null;
 
             UIManager.SetItemIcon(i, itemIcon);
+
+			if (item == null) continue;
+			UIManager.SetItemAlpha(i, poweredItems.Contains(i) ? 1.0f : 0.5f);
         }
 	}
 
@@ -236,13 +240,15 @@ public partial class Commander : Node {
 	public static void SelectItem(int itemIndex) {
 		if (GetSelectedUnitCount() != 1) return;
 		StandardCharacter unit = GetSelectedUnits().First();
+		UpgradeManager upMan = unit.UpgradeManager;
 
-		if (itemIndex < 0 || itemIndex >= unit.Inventory.Count) {
-			Log.Me(() => $"Item index {itemIndex} is out of range (0 to {unit.Inventory.Count - 1}).", Instance.LogInput);
+		if (itemIndex < 0 || itemIndex >= upMan.Items.Count) {
+			Log.Me(() => $"Item index {itemIndex} is out of range (0 to {upMan.Items.Count - 1}).", Instance.LogInput);
 			return;
 		}
-		
-		if (PrimeDrop) unit.RemoveItemFromInventory(itemIndex, true, out var _);
+
+		UpgradeItem item = upMan.Items[itemIndex];
+		if (PrimeDrop) upMan.RemoveItem(item);
 		else unit.ToggleEquipItem(itemIndex);
 	}
 
