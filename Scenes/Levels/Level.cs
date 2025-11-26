@@ -118,6 +118,8 @@ public partial class Level : Node2D {
 			return null;
 		}
 
+		if (!IsInstanceValid(EnemySpawnParent)) return null;
+
 		Node2D[] EnemySpawns = [.. EnemySpawnParent.GetChildren(true).OfType<Node2D>()];
 		if (EnemySpawns.Length == 0) {
 			Log.Err("No spawn points defined for this level. Canceling.");
