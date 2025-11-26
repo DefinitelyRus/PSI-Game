@@ -3,11 +3,9 @@
 [ext_resource type="Script" uid="uid://crlrdfr3rj3g2" path="res://Prefabs/StandardItem/Upgrades/UpgradeItem.cs" id="2_funua"]
 [ext_resource type="AudioStream" uid="uid://idwdl3hewxyb" path="res://Prefabs/StandardItem/Item Activate - Hologram Menu Open 2.wav" id="2_qi0bt"]
 [ext_resource type="AudioStream" uid="uid://c7ush2yorcpl1" path="res://Prefabs/StandardItem/Item Deactivate - Holographic Interaction 32.wav" id="3_icjgm"]
+[ext_resource type="Texture2D" uid="uid://bfnnm6r5rxoq7" path="res://Sprites/Icons/16x16.png" id="4_icjgm"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8ro5o"]
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_gqebq"]
-load_path = "res://.godot/imported/Modern_UI_Style_2_32x32.png-2751482943a7deb6d83927ac236e2e3f.ctex"
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_qi0bt"]
 
@@ -35,7 +33,7 @@ shape = SubResource("CircleShape2D_8ro5o")
 disabled = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = SubResource("CompressedTexture2D_gqebq")
+texture = ExtResource("4_icjgm")
 region_enabled = true
 region_rect = Rect2(0, 0, 16, 16)
 
