@@ -36,7 +36,7 @@ public partial class UpgradeManager : Node {
     public int GetPoweredItemCount() {
         int count = 0;
 
-        foreach (StandardItem item in Items) {
+        foreach (UpgradeItem item in Items) {
             if (item.IsEquipped) {
                 count++;
             }
@@ -56,7 +56,7 @@ public partial class UpgradeManager : Node {
     public void SetItemPower(int index, bool powered) {
         if (index < 0 || index >= Items.Count) return;
 
-        StandardItem item = Items[index];
+        UpgradeItem item = Items[index];
 
         if (powered) {
             if (CurrentPower >= CurrentMaxPower) {
@@ -65,7 +65,7 @@ public partial class UpgradeManager : Node {
             }
 
             if (!item.IsEquipped) {
-                item.Equip();
+                item.PowerOn();
                 CurrentPower++;
                 AudioManager.StreamAudio("power_item");
             }
@@ -73,7 +73,7 @@ public partial class UpgradeManager : Node {
         
         else {
             if (item.IsEquipped) {
-                item.Unequip();
+                item.PowerOff();
                 CurrentPower = Mathf.Max(CurrentPower - 1, 0);
                 AudioManager.StreamAudio("unpower_item");
             }
@@ -91,7 +91,7 @@ public partial class UpgradeManager : Node {
     public bool IsScanReady => _scanTimer <= 0d;
     [Export] public int MaxSlots { get; private set; } = 5;
     public int CurrentMaxSlots { get; private set; } = 2;
-    public List<StandardItem> Items { get; private set; } = [];
+    public List<UpgradeItem> Items { get; private set; } = [];
 
 
     public void ScanAndPickup(double delta) {
@@ -112,7 +112,7 @@ public partial class UpgradeManager : Node {
             if (children.Contains(body)) continue;
 
             // Ignore non-items
-            if (body is not StandardItem item) continue;
+            if (body is not UpgradeItem item) continue;
 
             // Ignore non-world items
             if (item.EntityType != StandardItem.EntityTypes.World) continue;
@@ -123,7 +123,7 @@ public partial class UpgradeManager : Node {
     }
 
 
-    public void Pickup(StandardItem item) {
+    public void Pickup(UpgradeItem item) {
         item.PickUp();
 
         // Do not add if the item is single-use.
@@ -131,7 +131,7 @@ public partial class UpgradeManager : Node {
     }
 
 
-    public void AddItem(StandardItem item) {
+    public void AddItem(UpgradeItem item) {
         if (Items.Count >= CurrentMaxSlots) {
             AudioManager.StreamAudio("error");
             return;
