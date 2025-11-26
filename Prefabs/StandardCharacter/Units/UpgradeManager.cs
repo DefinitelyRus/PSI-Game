@@ -110,8 +110,10 @@ public partial class UpgradeManager : Node {
     public void ScanAndPickup() {
         if (!IsScanReady) return;
         if (Character == null) return;
+
         bool isUnit = Character.Tags != null && Character.Tags.Contains("Unit");
         if (!isUnit) return;
+
         _scanTimer = ScanInterval;
 
         foreach (PhysicsBody2D body in EntityManager.Entities) {
@@ -134,25 +136,33 @@ public partial class UpgradeManager : Node {
             List<Node2D> children = [.. Character.GetChildren(true).OfType<Node2D>()];
             if (children.Contains(body)) continue;
 
-            // Skip non-StandardItem bodies
-            if (body is not StandardItem standardItem) continue;
+            // Skip non-UpgradeItem bodies
+            if (body is not UpgradeItem item) continue;
 
             // Process only world items
-            if (standardItem.EntityType != StandardItem.EntityTypes.World) continue;
+            if (item.EntityType != StandardItem.EntityTypes.World) continue;
 
-            //Skip if inventory is full
-            if (Items.Count >= CurrentMaxSlots) continue;
+            // Automatically use single-use items
+            if (item.Tags.Contains("SingleUse")) {
+                Log.Me(() => $"Picked up and used single-use item {item.ItemID}.");
 
-            // Pickup powerable items
-            if (standardItem is UpgradeItem upgrade) {
-                if (Items.Contains(upgrade)) continue;
-                Pickup(upgrade);
+                item.SetOwner(Character);
+                item.Use();
+                item.QueueFree();
+
+                continue;
             }
-            
-            // Use single-use items immediately
+
+            // Pickup reusable items
             else {
-                standardItem.Use();
-                standardItem.QueueFree();
+                //Skip if inventory is full
+                if (Items.Count >= CurrentMaxSlots) continue;
+
+                Log.Me(() => $"Picked up item {item.ItemID}.");
+                if (Items.Contains(item)) continue;
+
+                item.SetOwner(Character);
+                Pickup(item);
             }
 
             break;
