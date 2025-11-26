@@ -30,6 +30,13 @@ public partial class Commander : Node {
 		Initialize();
 	}
 
+	public override void _Process(double delta) {
+		if (GetSelectedUnits().Count() == 1) {
+			StandardCharacter character = GetSelectedUnits().First();
+			UIManager.SetHealth(character.Health, character.CurrentMaxHealth);
+		}
+	}
+
 	#endregion
 
 	#endregion
