@@ -9,7 +9,7 @@ public partial class GameManager : Node2D {
     #region Instance Members
 
     // Timer but easily accessible from GDscript
-    public double GlobalTimer => Timer;
+    public double Timer => TimeRemaining;
 
     #region Godot Callbacks
 
@@ -125,8 +125,6 @@ public partial class GameManager : Node2D {
 
     public static bool GameEnded { get; set; } = false;
 
-    public static double Timer { get; set; } = 0.0;
-
     public static double TimeRemaining { get; set; } = double.MaxValue;
 
     public static bool ManualTimerCheck { get; set; } = false;
@@ -141,7 +139,9 @@ public partial class GameManager : Node2D {
         // Lose if time is up.
         bool timesUp = false;
         TimeRemaining -= Instance.GetProcessDeltaTime();
-        if (level.LevelTimeLimit > 0) timesUp = TimeRemaining <= 0 && !ManualTimerCheck;
+        if (level.LevelTimeLimit > 0) {
+            timesUp = TimeRemaining <= 0 && !ManualTimerCheck;
+        }
 
         if (TimeRemaining % 10 <= 0.01 && TimeRemaining < 14400) Log.Me(() => $"Time Remaining: {TimeRemaining:F2}s");
 
@@ -150,14 +150,22 @@ public partial class GameManager : Node2D {
 
         if (allDead || timesUp || loseOverride) {
             GameEnded = true;
+            TimeRemaining = double.MaxValue;
 
             UIManager.StartTransition("Mission Failed");
+
+            if (timesUp) {
+                foreach (StandardCharacter unit in Commander.GetAllUnits().Where(u => u.IsAlive)) {
+                    unit.Kill();
+                }
+            }
 
             await Instance.ToSignal(Instance.GetTree().CreateTimer(4.0), "timeout");
 
             //TODO: Go to main menu
             Commander.Initialize();
             SceneLoader.LoadLevel(0);
+
             return;
         }
     }
@@ -185,17 +193,23 @@ public partial class GameManager : Node2D {
 
         int randomValue = new RandomNumberGenerator().RandiRange(1, totalWeight);
         int cumulativeWeight = 0;
+        UpgradeItem? toReturn = null;
         foreach (UpgradeItem item in sortedItems) {
             cumulativeWeight += item.ChanceWeight;
 
             // Select item if randomValue is within weight range
             if (randomValue <= cumulativeWeight) {
                 if (position != null) item.GlobalPosition = position.Value;
-                return item;
+                toReturn = item;
+                break;
             }
         }
 
-        return null;
+        foreach (UpgradeItem item in sortedItems) {
+            if (item != toReturn) item.QueueFree();
+        }
+
+        return toReturn;
     }
 
     #endregion
