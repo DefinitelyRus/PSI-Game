@@ -902,23 +902,24 @@ public partial class StandardItem : RigidBody2D
 	{
 		Log.Me(() => "Pickup area body entered.", LogReady);
 
-		// Ignore if the body is not a character
-
 		if (body is not StandardCharacter character) return;
 		if (!character.Tags.Contains("Unit")) return;
 
-		if (this is UpgradeItem)
-		{
-			UpgradeItem? thisAsUpgrade = this as UpgradeItem;
-			PickUp();
+		if (this is UpgradeItem thisAsUpgrade) {
+			thisAsUpgrade.SetOwner(character);
 			HideInWorld();
-			character.AddItemToInventory(thisAsUpgrade!);
-			thisAsUpgrade!.SetOwner(character);
-		}
-		else
-		{
-			Use();
-			QueueFree();
+
+			if (Tags.Contains("Disposable")) {
+				Use();
+				QueueFree();
+				return;
+			}
+
+			else {
+				PickUp();
+				character.AddItemToInventory(thisAsUpgrade);
+			}
+
 		}
 	}
 
