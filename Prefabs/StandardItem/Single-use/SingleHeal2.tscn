@@ -6,12 +6,13 @@
 
 [node name="Heal 2" instance=ExtResource("1_8vwdn")]
 script = ExtResource("2_8ysvd")
-HealAmount = 300.0
+HealAmount = 100.0
 Value = 1.5
 SFX = null
-ChanceWeight = 50
+ChanceWeight = 25
 ItemName = "Heal 2"
 ItemID = "heal_2"
+Tags = PackedStringArray("SingleUse")
 
 [node name="Sprite2D" parent="." index="1"]
 texture = ExtResource("3_8ysvd")

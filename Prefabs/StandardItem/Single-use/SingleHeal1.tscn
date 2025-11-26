@@ -6,12 +6,13 @@
 
 [node name="Heal 1" instance=ExtResource("1_yggo2")]
 script = ExtResource("2_xmjie")
-HealAmount = 100.0
+HealAmount = 20.0
 Value = 1.5
-SFX = null
-ChanceWeight = 200
+SFX = Dictionary[String, AudioStream]({})
+ChanceWeight = 500
 ItemName = "Heal 1"
 ItemID = "heal_1"
+Tags = PackedStringArray("SingleUse")
 
 [node name="Sprite2D" parent="." index="1"]
 texture = ExtResource("3_xmjie")

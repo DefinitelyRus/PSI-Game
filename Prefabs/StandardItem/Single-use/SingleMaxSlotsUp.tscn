@@ -6,3 +6,4 @@
 ChanceWeight = 50
 ItemName = "Max Slots Up"
 ItemID = "max_slots_up"
+Tags = PackedStringArray("SingleUse")
