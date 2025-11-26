@@ -296,7 +296,7 @@ public partial class StandardCharacter : CharacterBody2D {
 		}
 
 		removedItem = Inventory[index];
-		if (spawnInWorld) removedItem.SpawnInWorld();
+		if (spawnInWorld) removedItem.Drop();
 		Inventory.RemoveAt(index);
 
 		return true;
@@ -313,7 +313,7 @@ public partial class StandardCharacter : CharacterBody2D {
 			bool shouldPowerOn = !upgrade.IsEquipped;
 			UpgradeManager.SetItemPower(index, shouldPowerOn);
 		}
-		
+
 		else {
 			if (item.IsEquipped) item.Unequip();
 			else item.Equip();
