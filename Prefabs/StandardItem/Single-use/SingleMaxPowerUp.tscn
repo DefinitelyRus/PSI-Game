@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://buip808ynwsfl"]
+
+[ext_resource type="PackedScene" uid="uid://cgwbyxdsmb6ty" path="res://Prefabs/StandardItem/Upgrades/UpgradeItem.tscn" id="1_xuw60"]
+[ext_resource type="Texture2D" uid="uid://kqo44exiy3bv" path="res://Sprites/UI/Modern_UI_Style_2_32x32.png" id="2_3rnt2"]
+[ext_resource type="Script" uid="uid://bk22sly8dhp0w" path="res://Prefabs/StandardItem/Single-use/SingleMaxPowerUp.cs" id="2_s4kfk"]
+
+[node name="Max Power Up" instance=ExtResource("1_xuw60")]
+y_sort_enabled = true
+script = ExtResource("2_s4kfk")
+Value = 0.0
+ChanceWeight = 10
+ItemName = "Max Power Up"
+ItemID = "max_power_up"
+Tags = PackedStringArray("SingleUse")
+
+[node name="Sprite2D" parent="." index="1"]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_3rnt2")
+region_rect = Rect2(320, 320, 32, 32)

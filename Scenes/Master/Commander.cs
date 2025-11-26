@@ -1,3 +1,4 @@
+using Game;
 using Godot;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,6 +29,13 @@ public partial class Commander : Node {
 
 		Instance = this;
 		Initialize();
+	}
+
+	public override void _Process(double delta) {
+		if (GetSelectedUnits().Count() == 1) {
+			StandardCharacter character = GetSelectedUnits().First();
+			UIManager.SetHealth(character.Health, character.CurrentMaxHealth);
+		}
 	}
 
 	#endregion
@@ -146,7 +154,22 @@ public partial class Commander : Node {
 
 		UIManager.SetHUDVisible(true, 0);
 		UIManager.SetHealth(unit.Health, unit.CurrentMaxHealth);
-    }
+
+		// Update inventory UI
+		UpgradeManager upMan = unit.UpgradeManager;
+		UpgradeItem[] items = [.. upMan.Items];
+		int[] poweredItems = [.. upMan.GetPoweredItems()];
+		for (int i = 0; i < upMan.CurrentMaxSlots; i++) {
+			UpgradeItem? item = i < items.Length ? items[i] : null;
+            Sprite2D? itemIcon = item?.Sprite;
+			itemIcon ??= null;
+
+            UIManager.SetItemIcon(i, itemIcon);
+
+			if (item == null) continue;
+			UIManager.SetItemAlpha(i, poweredItems.Contains(i) ? 1.0f : 0.5f);
+        }
+	}
 
 
 	public static void SelectAllUnits()
@@ -215,18 +238,18 @@ public partial class Commander : Node {
 
 
 	public static void SelectItem(int itemIndex) {
-		if (FocusedUnit == null) {
-			Log.Me(() => "No focused unit set.", Instance.LogInput);
+		if (GetSelectedUnitCount() != 1) return;
+		StandardCharacter unit = GetSelectedUnits().First();
+		UpgradeManager upMan = unit.UpgradeManager;
+
+		if (itemIndex < 0 || itemIndex >= upMan.Items.Count) {
+			Log.Me(() => $"Item index {itemIndex} is out of range (0 to {upMan.Items.Count - 1}).", Instance.LogInput);
 			return;
 		}
 
-		if (itemIndex < 0 || itemIndex >= FocusedUnit.Inventory.Count) {
-			Log.Me(() => $"Item index {itemIndex} is out of range (0 to {FocusedUnit.Inventory.Count - 1}).", Instance.LogInput);
-			return;
-		}
-
-		if (PrimeDrop) FocusedUnit.RemoveItemFromInventory(itemIndex, true, out var _);
-		else FocusedUnit.ToggleEquipItem(itemIndex);
+		UpgradeItem item = upMan.Items[itemIndex];
+		if (PrimeDrop) upMan.RemoveItem(item);
+		else unit.ToggleEquipItem(itemIndex);
 	}
 
 

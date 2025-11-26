@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Threading.Channels;
 using Godot;
 namespace CommonScripts;
 
@@ -10,12 +9,12 @@ public partial class AudioManager : Node2D {
 
 	#region Volumes
 
-	[Export] public float UniversalVolume = 1.0f;
+	[Export] public float UniversalVolume = 0.4f;
 
-	[Export] public float SFXVolume = 1.0f;
+	[Export] public float SFXVolume = 0.7f;
 
-	[Export] public float MusicVolume = 1.0f;
-	[Export] public float AmbientVolume = 1.0f;
+	[Export] public float MusicVolume = 0.3f;
+	[Export] public float AmbientVolume = 0.8f;
 	[Export] public float FadeOutSpeed = 1.0f;
 	private bool _isFadingOut = false;
 

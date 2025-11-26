@@ -5919,7 +5919,10 @@ agent_radius = 8.0
 [node name="Infiltration" node_paths=PackedStringArray("CameraNodePaths") instance=ExtResource("1_okcn4")]
 CameraNodePaths = [NodePath("Props/Panels/Green Car3"), NodePath("Props/Panels/Entrance"), NodePath("Unit Spawns/U1")]
 BackgroundMusic = ExtResource("2_qwnr5")
+LevelTimeLimit = 180.0
 EnemyTypes = [ExtResource("5_gt7q3")]
+EnemyStaticSpawningDelayMultiplier = 5.0
+EnemyCountLimit = 15
 metadata/_edit_horizontal_guides_ = [16.0]
 
 [node name="U2" type="Node2D" parent="Unit Spawns" index="1"]
@@ -6536,6 +6539,7 @@ script = ExtResource("28_wm3yn")
 ActivationArea = NodePath("Area2D")
 ActivationRadius = 64
 ActivationMethod = 1
+HighlightSpeed = 1.0
 PropName = "Green Car"
 PropID = "green_car"
 PropDescription = "a green car"
@@ -6578,6 +6582,7 @@ freeze = true
 script = ExtResource("31_qwnr5")
 ActivationArea = NodePath("Area2D")
 ActivationMethod = 1
+HighlightSpeed = 1.0
 PropName = "Entrance"
 PropID = "entrance"
 NavObstacle = NodePath("NavigationObstacle2D")

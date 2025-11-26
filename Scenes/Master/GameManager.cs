@@ -1,13 +1,15 @@
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using Game;
 using Godot;
-using Godot.Collections;
 namespace CommonScripts;
 
 public partial class GameManager : Node2D {
 
     #region Instance Members
+
+    // Timer but easily accessible from GDscript
+    public double Timer => TimeRemaining;
 
     #region Godot Callbacks
 
@@ -123,42 +125,91 @@ public partial class GameManager : Node2D {
 
     public static bool GameEnded { get; set; } = false;
 
+    public static double TimeRemaining { get; set; } = double.MaxValue;
+
+    public static bool ManualTimerCheck { get; set; } = false;
+
     public static async void CheckLoseConditions(bool loseOverride = false) {
         if (GameEnded) return;
 
-        // Lose if both units are dead.
-        bool allDead = !Commander.GetAllUnits().Where(u => u.IsAlive).Any();
-        if (allDead || loseOverride) {
+        Node? levelNode = SceneLoader.Instance.LoadedScene;
+        if (levelNode == null) return;
+		if (levelNode is not Level level) return;
+
+        // Lose if time is up.
+        bool timesUp = false;
+        TimeRemaining -= Instance.GetProcessDeltaTime();
+        if (level.LevelTimeLimit > 0) {
+            timesUp = TimeRemaining <= 0 && !ManualTimerCheck;
+        }
+
+        if (TimeRemaining % 10 <= 0.01 && TimeRemaining < 14400) Log.Me(() => $"Time Remaining: {TimeRemaining:F2}s");
+
+		// Lose if both units are dead.
+		bool allDead = !Commander.GetAllUnits().Where(u => u.IsAlive).Any();
+
+        if (allDead || timesUp || loseOverride) {
             GameEnded = true;
+            TimeRemaining = double.MaxValue;
 
             UIManager.StartTransition("Mission Failed");
 
-			static void TryAgain() {
-                Commander.Initialize();
-                SceneLoader.LoadLevel(0);
+            if (timesUp) {
+                foreach (StandardCharacter unit in Commander.GetAllUnits().Where(u => u.IsAlive)) {
+                    unit.Kill();
+                }
             }
 
             await Instance.ToSignal(Instance.GetTree().CreateTimer(4.0), "timeout");
 
-            //TEMP
-            TryAgain();
+            //TODO: Go to main menu
+            Commander.Initialize();
+            SceneLoader.LoadLevel(0);
+
             return;
-
-            //TODO: Fix popup UI
-            // UIManager.SetPopupText("Mission Failed", "Try again?");
-            // UIManager.SetPopupVisible(true);
-            // UIManager.SetButtonEnabled(1, 1, true);
-            // UIManager.SetButtonText(1, 1, "Restart");
-            // UIManager.SetButtonEnabled(2, 1, true);
-            // UIManager.SetButtonText(2, 1, "Main Menu");
-
-            // // Connect to button signals
-            // Control popup = UIManager.Popup;
-            // Button retryButton = popup.Get("row1_buttons").AsGodotArray<Button>()[1];
-            // Button mainMenuButton = popup.Get("row2_buttons").AsGodotArray<Button>()[1];
-            // retryButton.Pressed += TryAgain;
-            // mainMenuButton.Pressed += ExitToMainMenu;
         }
+    }
+
+    #endregion
+
+    #region Random Drops
+
+    [Export] public PackedScene[] RandomDropItems = [];
+
+    public static UpgradeItem? GetRandomDropItem(Vector2? position = null) {
+        if (Instance.RandomDropItems.Length == 0) {
+            Log.Warn(() => "No random drop items defined in GameManager.", true, true);
+            return null;
+        }
+
+        // Get random item based on weight
+        int totalWeight = 0;
+        List<UpgradeItem> sortedItems = [.. Instance.RandomDropItems
+            .Select(scene => scene.Instantiate<UpgradeItem>())
+            .OrderBy(item => item.ChanceWeight)
+        ];
+
+        foreach (UpgradeItem item in sortedItems) totalWeight += item.ChanceWeight;
+
+        int randomValue = new RandomNumberGenerator().RandiRange(1, totalWeight);
+        int cumulativeWeight = 0;
+        UpgradeItem? toReturn = null;
+        foreach (UpgradeItem item in sortedItems) {
+            cumulativeWeight += item.ChanceWeight;
+
+            // Select item if randomValue is within weight range
+            if (randomValue <= cumulativeWeight) {
+                if (position != null) item.GlobalPosition = position.Value;
+                toReturn = item;
+                break;
+            }
+        }
+
+        foreach (UpgradeItem item in sortedItems) {
+            if (item != toReturn) item.QueueFree();
+        }
+
+        return toReturn;
     }
 
     #endregion

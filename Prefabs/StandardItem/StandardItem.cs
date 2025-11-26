@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Godot;
+using Game;
 namespace CommonScripts;
 
 /// <summary>
@@ -106,7 +107,7 @@ public partial class StandardItem : RigidBody2D
 		World,
 		Inventory,
 		Equipped
-	}
+	};
 
 	/// <summary>
 	/// A list of <see cref="StatModifier"/> objects that are applied onto the item's stats. <br/><br/>
@@ -451,6 +452,7 @@ public partial class StandardItem : RigidBody2D
 	[Export] public Sprite2D? Sprite = null;
 	[Export] public CollisionShape2D Collider = null!;
 	[Export] public Area2D ClickArea = null!;
+	[Export] public Area2D PickupArea = null!;
 
 	#endregion
 
@@ -601,13 +603,20 @@ public partial class StandardItem : RigidBody2D
 	#region Common Methods
 
 	public void SpawnInWorld() {
-		// Gives the item an in-world representation. (not just a conceptual inventory item)
-
 		if (Sprite != null) Sprite.Visible = true;
 
-		Collider.Disabled = false;
-		CollisionShape2D areaCollider = ClickArea.GetChild<CollisionShape2D>(0);
-		areaCollider.Disabled = false;
+		CollisionShape2D pickupCollider = PickupArea.GetChild<CollisionShape2D>(0);
+		pickupCollider.Disabled = false;
+		EntityType = EntityTypes.World;
+	}
+
+
+	public void HideInWorld() {
+		if (Sprite != null) Sprite.Visible = false;
+
+		CollisionShape2D pickupCollider = PickupArea.GetChild<CollisionShape2D>(0);
+		pickupCollider.Disabled = true;
+		EntityType = EntityTypes.Inventory;
 	}
 
 	/// <summary>
@@ -768,6 +777,7 @@ public partial class StandardItem : RigidBody2D
 	/// <param name="s">Stack depth. Use <c>0</c> if on a root function, or <c>s + 1</c> if <c>s</c> is available in the encapsulating function.</param>
 	public virtual Variant? PickUp() {
 		AudioManager.StreamAudio("item_pickup");
+		HideInWorld();
 		return null;
 	}
 
@@ -853,6 +863,8 @@ public partial class StandardItem : RigidBody2D
 
 		if (Sprite == null && !AllowNoSprite) Log.Warn(() => "`Sprite` should not be null. Please set a sprite in the inspector.", LogReady);
 
+		if (PickupArea == null) Log.Err(() => "`PickupArea` must not be null. Please set a PickupArea in the inspector.", LogReady);
+
 		if (string.IsNullOrEmpty(InstanceID)) {
 			if (!AutoAssignInstanceID) Log.Warn(() => "`InstanceID` is not set. Generating a new one...", LogReady);
 			GenerateInstanceID();
@@ -867,6 +879,8 @@ public partial class StandardItem : RigidBody2D
 		Log.Me(() => $"Changing node name to \"{InstanceID}\"...", LogReady);
 		Name = InstanceID;
 
+		EntityManager.AddCharacter(this);
+		
 		Log.Me(() => "Done!", LogReady);
 	}
 

@@ -64,6 +64,15 @@ func set_item(icon: Texture2D, target: int) -> void:
 	button.add_theme_stylebox_override("hover", style)
 	button.add_theme_stylebox_override("pressed", style)
 
+## Set item alpha to a specific hotbar slot
+func set_item_alpha(target: int, alpha: float) -> void:
+	if target < 0 or target >= inventory_slots.size():
+		push_warning("Invalid slot index: %d" % target)
+		return
+	
+	var button := inventory_slots[target]
+	button.modulate.a = alpha
+
 # ---------- CHARACTER PREVIEW ----------
 ## Set the name of the currently active character
 func set_character_name(character: String) -> void:

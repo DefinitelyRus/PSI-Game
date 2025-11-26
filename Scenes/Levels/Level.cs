@@ -24,10 +24,9 @@ public partial class Level : Node2D {
 	#region Properties
 
 	[ExportGroup("Properties")]
-	[Export] public float EnemyStaticSpawningDelayMultiplier = 1f;
-	[Export] public uint EnemyCountLimit = 50;
 	[Export] public uint LevelIndex = 0;
 	private int CurrentSpawnIndex = 0;
+	[Export] public double LevelTimeLimit = 600;
 
 	#endregion
 
@@ -81,6 +80,8 @@ public partial class Level : Node2D {
 
 	[ExportGroup("Enemy Spawning")]
 	[Export] public PackedScene[] EnemyTypes = [];
+	[Export] public float EnemyStaticSpawningDelayMultiplier = 1f;
+	[Export] public uint EnemyCountLimit = 50;
 
 
 	public void SpawnCharacter(StandardCharacter character, Vector2 position) {
@@ -116,6 +117,8 @@ public partial class Level : Node2D {
 			Log.Err(() => $"FindNearbySpawnPoint: Radius {radius} must be greater than zero. Canceling.");
 			return null;
 		}
+
+		if (!IsInstanceValid(EnemySpawnParent)) return null;
 
 		Node2D[] EnemySpawns = [.. EnemySpawnParent.GetChildren(true).OfType<Node2D>()];
 		if (EnemySpawns.Length == 0) {
@@ -280,11 +283,13 @@ public partial class Level : Node2D {
 
 		AIDirector.CurrentLevel = this;
 
-		if (BackgroundMusic != null) AudioManager.StreamAudio(BackgroundMusic, "BackgroundMusic", 0.8f);
+		if (BackgroundMusic != null) AudioManager.StreamAudio(BackgroundMusic, "BackgroundMusic");
 		if (AmbientAudio != null) AudioManager.StreamAudio(AmbientAudio, "AmbientAudio", 0.2f);
 
 		if (CameraNodePaths.Length != 0) CameraMan.SetCameraPath(CameraNodePaths);
 		else CameraMan.SetTarget(SpawnParent, true);
+
+		GameManager.ManualTimerCheck = false;
 	}
 	
 	#endregion

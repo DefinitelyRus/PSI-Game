@@ -1,4 +1,5 @@
 using Godot;
+using Game;
 namespace CommonScripts;
 
 public partial class UIManager : CanvasLayer {
@@ -11,6 +12,7 @@ public partial class UIManager : CanvasLayer {
 	[Export] Control PopupNode = null!;
 	[Export] TextureRect Transition = null!;
 	[Export] Control OnScreenText = null!;
+	[Export] public float UnpoweredAlpha { get; private set; } = 0.5f;
 
 	#endregion
 
@@ -41,11 +43,11 @@ public partial class UIManager : CanvasLayer {
 	}
 
 	public override void _Ready() {
-		SetItemIcon(0, null!);
-		SetItemIcon(1, null!);
-		SetItemIcon(2, null!);
-		SetItemIcon(3, null!);
-		SetItemIcon(4, null!);
+		SetItemIcon(0, (Texture2D)null!);
+		SetItemIcon(1, (Texture2D)null!);
+		SetItemIcon(2, (Texture2D)null!);
+		SetItemIcon(3, (Texture2D)null!);
+		SetItemIcon(4, (Texture2D)null!);
 	}
 
 	#endregion
@@ -60,6 +62,9 @@ public partial class UIManager : CanvasLayer {
 
 	public static void EnableUI(bool enable) {
 		Instance.Visible = enable;
+		if (enable && UpgradeManager.Instance != null) {
+			UpgradeManager.Instance.RefreshInventoryUI();
+		}
 	}
 
 	#region Popup
@@ -121,6 +126,30 @@ public partial class UIManager : CanvasLayer {
 
 	public static void SetItemIcon(int slotIndex, Texture2D icon) {
 		HUD.CallDeferred("set_item", icon, slotIndex);
+	}
+
+	public static void SetItemIcon(int slotIndex, Sprite2D? icon) {
+		if (icon == null) {
+			HUD.CallDeferred("set_item", new(), slotIndex);
+			return;
+		}
+
+		Texture2D? texture;
+		if (icon.RegionEnabled) {
+			AtlasTexture atlasTexture = new() {
+				Atlas = icon.Texture,
+				Region = icon.RegionRect
+			};
+			texture = atlasTexture;
+		}
+		
+		else texture = icon.Texture;
+
+		HUD.CallDeferred("set_item", texture, slotIndex);
+	}
+
+	public static void SetItemAlpha(int slotIndex, float alpha) {
+		HUD.CallDeferred("set_item_alpha", slotIndex, alpha);
 	}
 
 	#endregion

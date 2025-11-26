@@ -2,14 +2,9 @@ using CommonScripts;
 using Godot;
 namespace Game;
 
-public partial class SingleHeal : StandardItem {
+public partial class SingleHeal : UpgradeItem {
 
     [Export] public float HealAmount { get; private set; } = 25f;
-    [Export] public StandardCharacter? OwnerCharacter { get; private set; } = null;
-
-    public void SetOwner(StandardCharacter owner) {
-        OwnerCharacter = owner;
-    }
 
     public override Variant? Use() {
         if (OwnerCharacter == null) {

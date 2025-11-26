@@ -13,7 +13,9 @@ public partial class UpgradeItem : StandardItem {
 
     public StandardCharacter? OwnerCharacter { get; private set; } = null;
 
-    public void SetOwner(StandardCharacter owner) {
+    [Export] public int ChanceWeight { get; private set; } = 1;
+
+    public void SetOwner(StandardCharacter? owner) {
         OwnerCharacter = owner;
     }
 

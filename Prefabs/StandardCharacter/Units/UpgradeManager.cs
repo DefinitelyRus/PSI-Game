@@ -6,14 +6,20 @@ namespace Game;
 
 public partial class UpgradeManager : Node {
 
+    #region Static
+    public static UpgradeManager Instance { get; private set; } = null!;
+    #endregion
+
     #region Properties
 
     #region Power
 
     [ExportGroup("Power Management")]
     [Export] public int MaxPower { get; private set; } = 2;
-    public int CurrentMaxPower { get; private set; } = 1;
-    public int CurrentPower { get; private set; } = 0;
+    public int CurrentMaxPower { get; set; } = 1;
+    public int CurrentPower { get; set; } = 0;
+    // Tracks powered items separately from any item equip state.
+    private readonly HashSet<UpgradeItem> _poweredItems = new();
 
     [Export] public float PowerOnCooldown { get; private set; } = 0.5f;
     private double _cooldownTimer = 0d;
@@ -22,61 +28,67 @@ public partial class UpgradeManager : Node {
 
     public int[] GetPoweredItems() {
         List<int> indices = [];
-
         for (int i = 0; i < Items.Count; i++) {
-            if (Items[i].IsEquipped) {
-                indices.Add(i);
-            }
+            if (_poweredItems.Contains(Items[i])) indices.Add(i);
         }
-
         return [.. indices];
     }
 
 
     public int GetPoweredItemCount() {
-        int count = 0;
-
-        foreach (StandardItem item in Items) {
-            if (item.IsEquipped) {
-                count++;
-            }
-        }
-
-        return count;
+    return _poweredItems.Count;
     }
 
 
     public bool IsItemPowered(int index) {
         if (index < 0 || index >= Items.Count) return false;
-
-        return Items[index].IsEquipped;
+        return _poweredItems.Contains(Items[index]);
     }
+
+    public bool IsPowered(UpgradeItem item) => item != null && _poweredItems.Contains(item);
+    public bool IsPoweredIndex(int index) => index >= 0 && index < Items.Count && _poweredItems.Contains(Items[index]);
 
 
     public void SetItemPower(int index, bool powered) {
         if (index < 0 || index >= Items.Count) return;
 
-        StandardItem item = Items[index];
+        UpgradeItem item = Items[index];
 
         if (powered) {
+            // Toggle: if already powered, power off
+            if (_poweredItems.Contains(item)) {
+                item.PowerOff();
+                _poweredItems.Remove(item);
+                CurrentPower = Mathf.Max(CurrentPower - 1, 0);
+                AudioManager.StreamAudio("unpower_item");
+                UIManager.SetPower(CurrentPower, CurrentMaxPower);
+                RefreshInventoryUI();
+                return;
+            }
+
+            // Capacity check before powering on
             if (CurrentPower >= CurrentMaxPower) {
                 AudioManager.StreamAudio("error");
                 return;
             }
 
-            if (!item.IsEquipped) {
-                item.Equip();
-                CurrentPower++;
-                AudioManager.StreamAudio("power_item");
-            }
+            item.PowerOn();
+            _poweredItems.Add(item);
+            CurrentPower++;
+            AudioManager.StreamAudio("power_item");
+            UIManager.SetPower(CurrentPower, CurrentMaxPower);
+            RefreshInventoryUI();
+            return;
         }
-        
-        else {
-            if (item.IsEquipped) {
-                item.Unequip();
-                CurrentPower = Mathf.Max(CurrentPower - 1, 0);
-                AudioManager.StreamAudio("unpower_item");
-            }
+
+        // Explicit off request
+        if (_poweredItems.Contains(item)) {
+            item.PowerOff();
+            _poweredItems.Remove(item);
+            CurrentPower = Mathf.Max(CurrentPower - 1, 0);
+            AudioManager.StreamAudio("unpower_item");
+            UIManager.SetPower(CurrentPower, CurrentMaxPower);
+            RefreshInventoryUI();
         }
     }
 
@@ -89,99 +101,225 @@ public partial class UpgradeManager : Node {
     [Export] public float ScanInterval { get; private set; } = 0.5f;
     private double _scanTimer = 0d;
     public bool IsScanReady => _scanTimer <= 0d;
-    [Export] public int MaxSlots { get; private set; } = 5;
-    public int CurrentMaxSlots { get; private set; } = 2;
-    public List<StandardItem> Items { get; private set; } = [];
+    [Export] public int MaxSlots { get; private set; } = 3;
+    public int CurrentMaxSlots { get; set; } = 1;
+    public List<UpgradeItem> Items { get; private set; } = [];
+    [Export] public float DropDistance { get; private set; } = 32f;
 
 
-    public void ScanAndPickup(double delta) {
+    public void ScanAndPickup() {
         if (!IsScanReady) return;
+        if (Character == null) return;
+
+        bool isUnit = Character.Tags != null && Character.Tags.Contains("Unit");
+        if (!isUnit) return;
+
         _scanTimer = ScanInterval;
 
         foreach (PhysicsBody2D body in EntityManager.Entities) {
+            // Skip invalid bodies
+            if (body == null || !IsInstanceValid(body)) continue;
+            if (body.IsQueuedForDeletion()) continue;
 
-            // Ignore out of range
-            float distance = Character.GlobalPosition.DistanceTo(body.GlobalPosition);
+            // Get body position safely
+            Vector2 bodyPos;
+            try { bodyPos = body.GlobalPosition; } catch { continue; }
+
+            // Skip bodies outside pickup radius
+            float distance = Character.GlobalPosition.DistanceTo(bodyPos);
             if (distance > PickupRadius) continue;
 
-            // Ignore self
+            // Skip self
             if (body == Character) continue;
 
-            // Ignore own children
+            // Skip this character's children
             List<Node2D> children = [.. Character.GetChildren(true).OfType<Node2D>()];
             if (children.Contains(body)) continue;
 
-            // Ignore non-items
-            if (body is not StandardItem item) continue;
+            // Skip non-UpgradeItem bodies
+            if (body is not UpgradeItem item) continue;
 
-            // Ignore non-world items
+            // Process only world items
             if (item.EntityType != StandardItem.EntityTypes.World) continue;
 
-            Pickup(item);
+            // Automatically use single-use items
+            if (item.Tags.Contains("SingleUse")) {
+                Log.Me(() => $"Picked up and used single-use item {item.ItemID}.");
+
+                item.SetOwner(Character);
+                item.Use();
+                item.QueueFree();
+
+                continue;
+            }
+
+            // Pickup reusable items
+            else {
+                //Skip if inventory is full
+                if (Items.Count >= CurrentMaxSlots) continue;
+
+                Log.Me(() => $"Picked up item {item.ItemID}.");
+                if (Items.Contains(item)) continue;
+
+                item.SetOwner(Character);
+                Pickup(item);
+            }
+
             break;
         }
     }
 
 
-    public void Pickup(StandardItem item) {
+    public void Pickup(UpgradeItem item) {
+        if (item == null) return;
+        item.EntityType = StandardItem.EntityTypes.Inventory;
         item.PickUp();
-
-        // Do not add if the item is single-use.
-        if (item.UseCount == 0) AddItem(item);
+        AddItem(item);
     }
 
-
-    public void AddItem(StandardItem item) {
+    public void AddItem(UpgradeItem item) {
+        if (item == null) return;
         if (Items.Count >= CurrentMaxSlots) {
             AudioManager.StreamAudio("error");
             return;
         }
 
+        item.SetOwner(Character);
+        item.Reparent(Character);
         Items.Add(item);
+        RefreshInventoryUI();
     }
 
 
-    public void RemoveItem(int index) {
-        if (index < 0 || index >= Items.Count) return;
-
-        StandardItem item = Items[index];
-
-        if (item.IsEquipped) {
+    public async void RemoveItem(UpgradeItem item) {
+        if (item == null) return;
+        if (_poweredItems.Contains(item)) {
+            item.PowerOff();
+            _poweredItems.Remove(item);
             CurrentPower = Mathf.Max(CurrentPower - 1, 0);
-            item.Unequip();
+            AudioManager.StreamAudio("unpower_item");
         }
 
-        item.Drop();
-        Items.RemoveAt(index);
+        Vector2 dropVector = Character.Control.FacingDirection * DropDistance;
+        Vector2 offset = dropVector.Normalized() * 32f;
+
+        // Do not drop if there is anything blocking the drop position
+        Vector2 dropPosition = Character.GlobalPosition + dropVector;
+        PhysicsRayQueryParameters2D rayParams = PhysicsRayQueryParameters2D.Create(Character.GlobalPosition, dropPosition);
+        rayParams.Exclude = [Character.GetRid()];
+
+        //Wait for physics process notification
+        await ToSignal(GetTree(), "physics_frame");
+
+        // Get space state and perform raycast
+        PhysicsDirectSpaceState2D spaceState = GetViewport().World2D.DirectSpaceState;
+        var result = spaceState.IntersectRay(rayParams);
+        if (result.Count > 0) {
+            AudioManager.StreamAudio("error");
+            return;
+        }
+
+        Items.Remove(item);
+        item.SetOwner(null);
+        item.Reparent(SceneLoader.Instance.LoadedScene!);
+        item.SpawnInWorld();
+
+        // Move item 32 pixels in front of where the character is facing
+        item.GlobalPosition = Character.GlobalPosition + offset;
+
+        RefreshInventoryUI();
     }
 
     #endregion
 
-    #endregion
-    
-    #region Nodes & Components
+    #region Character
 
-    [ExportGroup("Nodes & Components")]
+    [ExportGroup("Character")]
     [Export] public StandardCharacter Character { get; set; } = null!;
 
-	#endregion
+    #endregion
 
-	#region Godot Callbacks
+    #endregion
 
-	public override void _Process(double delta) {
-        // Cooldown Timer
+    public override void _Ready() {
+        _cooldownTimer = 0d;
+        _scanTimer = 0d;
+    }
+
+    public override void _EnterTree() {
+        Instance = this;
+    }
+
+    public override void _Process(double delta) {
         if (IsOnCooldown) {
             _cooldownTimer -= delta;
             if (_cooldownTimer < 0d) _cooldownTimer = 0d;
         }
-
-        // Scan Timer
         if (!IsScanReady) {
             _scanTimer -= delta;
             if (_scanTimer < 0d) _scanTimer = 0d;
         }
+        ScanAndPickup();
+    }
 
-        ScanAndPickup(delta);
+
+    public void PowerOffAll() {
+        foreach (UpgradeItem item in _poweredItems) {
+            item.PowerOff();
+        }
+        _poweredItems.Clear();
+        CurrentPower = 0;
+        UIManager.SetPower(CurrentPower, CurrentMaxPower);
+        RefreshInventoryUI();
+    }
+
+
+    public void OnItemUsed(UpgradeItem item) {
+        if (item == null) return;
+
+        // Immediately remove the item if it's used up
+        if (item.UseCount == 0) {
+            RemoveItem(item);
+        }
+    }
+
+    #region Inventory UI
+
+    private Texture2D? GetItemTexture(UpgradeItem item) {
+        if (item == null) return null;
+
+        // Try to find a Sprite2D within item for texture extraction
+        Sprite2D? sprite = item.GetChildren().OfType<Sprite2D>().FirstOrDefault();
+        if (sprite == null || sprite.Texture == null) return null;
+
+        if (sprite.RegionEnabled) {
+            AtlasTexture atlas = new() { Atlas = sprite.Texture, Region = sprite.RegionRect };
+            return atlas;
+        }
+
+        return sprite.Texture;
+    }
+
+    public void RefreshInventoryUI() {
+        UIManager.SetOpenSlots(CurrentMaxSlots);
+
+        for (int i = 0; i < CurrentMaxSlots; i++) {
+            if (i < Items.Count) {
+                UpgradeItem item = Items[i];
+                Texture2D? texture = GetItemTexture(item);
+
+                if (texture != null) UIManager.SetItemIcon(i, texture);
+                else UIManager.SetItemIcon(i, (Texture2D) null!);
+
+                float alpha = IsPowered(item) ? 1f : UIManager.Instance.UnpoweredAlpha;
+                UIManager.SetItemAlpha(i, alpha);
+            }
+
+            else {
+                UIManager.SetItemIcon(i, (Texture2D)null!);
+                UIManager.SetItemAlpha(i, 1f);
+            }
+        }
     }
 
     #endregion

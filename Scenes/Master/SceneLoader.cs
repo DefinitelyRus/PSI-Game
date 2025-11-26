@@ -116,7 +116,7 @@ public partial class SceneLoader : Node
         return retrievedLevel;
     }
 
-    public static async void LoadLevel(uint levelIndex) {
+    public static void LoadLevel(uint levelIndex) {
         PackedScene? levelToLoad = GetLevel(levelIndex);
 
         if (levelToLoad == null) {
@@ -175,6 +175,9 @@ public partial class SceneLoader : Node
             uint nextLevelIndex = currentLevel.LevelIndex + 1;
             LoadLevel(nextLevelIndex);
         }
+
+        // Freeze game timer
+        GameManager.TimeRemaining = double.MaxValue;
     }
 
     #endregion

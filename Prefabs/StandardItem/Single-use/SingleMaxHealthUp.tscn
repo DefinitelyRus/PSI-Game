@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://b3x18kjwlbo8o"]
+
+[ext_resource type="PackedScene" uid="uid://cgwbyxdsmb6ty" path="res://Prefabs/StandardItem/Upgrades/UpgradeItem.tscn" id="1_l2vdo"]
+[ext_resource type="Script" uid="uid://cbbtkj6h7u6fj" path="res://Prefabs/StandardItem/Single-use/SingleMaxHealthUp.cs" id="2_kvq4o"]
+
+[node name="Max Health Up" instance=ExtResource("1_l2vdo")]
+script = ExtResource("2_kvq4o")
+IncreaseAmount = 100.0
+ChanceWeight = 25
+ItemName = "Max Health Up"
+ItemID = "max_health_up"
+Tags = PackedStringArray("SingleUse")
+IsUsable = false
+DeleteOnEmpty = true
+RemoveQuantityOnBreak = true
+MaxQuantity = 99
+BaseCooldownTime = 0.0
+LogReady = true
+
+[node name="Sprite2D" parent="." index="1"]
+region_rect = Rect2(16, 1040, 16, 16)
