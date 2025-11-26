@@ -21,16 +21,24 @@ public partial class StandardEnemy : StandardCharacter {
     [Export] public float DeathCameraShakeIntensity = 0.7f;
 
 	public override void Kill() {
+        if (!IsAlive) return;
+
         CameraMan.Shake(DeathCameraShakeIntensity, GlobalPosition);
 
-        // 1% chance to drop random item on death
+        // 5% chance to drop random item on death
         int randomValue = new RandomNumberGenerator().RandiRange(1, 100);
-        if (randomValue <= 100) {
+        if (randomValue <= 5) {
             UpgradeItem? item = GameManager.GetRandomDropItem(GlobalPosition);
-            item?.SpawnInWorld();
 
-            if (item == null) Log.Me(() => $"Enemy {Name} failed to drop a random item on death.");
-            else Log.Me(() => $"Enemy {Name} dropped item {item.Name} on death at position {GlobalPosition}.");
+            if (item == null) {
+                Log.Me(() => $"Enemy {InstanceID} failed to drop a random item on death.");
+                return;
+            }
+
+            Node level = SceneLoader.Instance.LoadedScene;
+            level.AddChild(item);
+            EntityManager.AddCharacter(item!);
+            item?.SpawnInWorld();
         }
 
 		base.Kill();
