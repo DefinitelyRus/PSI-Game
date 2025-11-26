@@ -308,9 +308,16 @@ public partial class StandardCharacter : CharacterBody2D {
 			return;
 		}
 
-		StandardItem item = Inventory[index];
-		if (item.IsEquipped) item.Unequip();
-		else item.Equip();
+		var item = Inventory[index];
+		if (item is UpgradeItem upgrade) {
+			bool shouldPowerOn = !upgrade.IsEquipped;
+			UpgradeManager.SetItemPower(index, shouldPowerOn);
+		}
+		
+		else {
+			if (item.IsEquipped) item.Unequip();
+			else item.Equip();
+		}
 	}
 
 	#endregion
