@@ -1215,9 +1215,8 @@ UpgradeManager = NodePath("Upgrade Manager")
 Weapon = NodePath("Heavy Rifle 1")
 AnimationTree = NodePath("AnimationTree")
 
-[node name="Upgrade Manager" type="Node" parent="." index="1" node_paths=PackedStringArray("Character")]
+[node name="Upgrade Manager" type="Node" parent="." index="1"]
 script = ExtResource("2_ovcvx")
-Character = NodePath("..")
 
 [node name="Heavy Rifle 1" parent="." index="2" instance=ExtResource("2_07s0f")]
 BaseDamage = 50.0
