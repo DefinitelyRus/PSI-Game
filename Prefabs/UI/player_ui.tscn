@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://o52kke4dfdo0"]
+[gd_scene load_steps=38 format=3 uid="uid://o52kke4dfdo0"]
 
 [ext_resource type="Texture2D" uid="uid://kqo44exiy3bv" path="res://Sprites/UI/Modern_UI_Style_2_32x32.png" id="1_7a7a1"]
 [ext_resource type="Script" uid="uid://bdv1hbweo6wlo" path="res://Prefabs/UI/player_hud.gd" id="1_av0rp"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://bp7qd4q73av7e" path="res://Sprites/UI/Transition.png" id="8_lsyk6"]
 [ext_resource type="Script" uid="uid://cdv0dp7u5wtwa" path="res://Prefabs/UI/transition.gd" id="9_f5urv"]
 [ext_resource type="Script" uid="uid://dr81xdqcutnel" path="res://Prefabs/UI/on_screen_text.gd" id="10_0i7dx"]
+[ext_resource type="Script" uid="uid://dn8v6kws28uv5" path="res://Prefabs/UI/controls_panel.gd" id="11_uycg4"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_lsael"]
 
@@ -77,6 +78,87 @@ font_size = 48
 [sub_resource type="LabelSettings" id="LabelSettings_f5urv"]
 font = ExtResource("7_ck6j7")
 font_size = 32
+
+[sub_resource type="LabelSettings" id="LabelSettings_uycg4"]
+font = ExtResource("7_ck6j7")
+font_size = 32
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_wnd18"]
+texture = ExtResource("6_7rjoj")
+texture_margin_left = 2.0
+texture_margin_top = 2.0
+texture_margin_right = 2.0
+texture_margin_bottom = 2.0
+region_rect = Rect2(4, 160, 384, 24)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5w5d2"]
+texture = ExtResource("6_7rjoj")
+texture_margin_left = 2.0
+texture_margin_top = 2.0
+texture_margin_right = 2.0
+texture_margin_bottom = 2.0
+region_rect = Rect2(4, 256, 384, 24)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_kld5w"]
+texture = ExtResource("6_7rjoj")
+texture_margin_left = 2.0
+texture_margin_top = 2.0
+texture_margin_right = 2.0
+texture_margin_bottom = 2.0
+region_rect = Rect2(4, 352, 384, 24)
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_uycg4"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_oh086"]
+font = ExtResource("7_ck6j7")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_htyr3"]
+texture = ExtResource("6_7rjoj")
+texture_margin_left = 2.0
+texture_margin_top = 2.0
+texture_margin_right = 2.0
+texture_margin_bottom = 2.0
+region_rect = Rect2(4, 192, 384, 24)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_y0qck"]
+texture = ExtResource("6_7rjoj")
+texture_margin_left = 2.0
+texture_margin_top = 2.0
+texture_margin_right = 2.0
+texture_margin_bottom = 2.0
+region_rect = Rect2(4, 288, 384, 24)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vq6ry"]
+texture = ExtResource("6_7rjoj")
+texture_margin_left = 2.0
+texture_margin_top = 2.0
+texture_margin_right = 2.0
+texture_margin_bottom = 2.0
+region_rect = Rect2(4, 384, 384, 24)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rqlod"]
+texture = ExtResource("6_7rjoj")
+texture_margin_left = 2.0
+texture_margin_top = 2.0
+texture_margin_right = 2.0
+texture_margin_bottom = 2.0
+region_rect = Rect2(4, 224, 384, 24)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_3mbnn"]
+texture = ExtResource("6_7rjoj")
+texture_margin_left = 2.0
+texture_margin_top = 2.0
+texture_margin_right = 2.0
+texture_margin_bottom = 2.0
+region_rect = Rect2(4, 320, 384, 24)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_gil55"]
+texture = ExtResource("6_7rjoj")
+texture_margin_left = 2.0
+texture_margin_top = 2.0
+texture_margin_right = 2.0
+texture_margin_bottom = 2.0
+region_rect = Rect2(4, 416, 384, 24)
 
 [node name="Player_UI" type="CanvasLayer" node_paths=PackedStringArray("HUDNode", "PopupNode", "Transition", "OnScreenText")]
 script = ExtResource("1_vpfb6")
@@ -541,4 +623,261 @@ label_settings = SubResource("LabelSettings_f5urv")
 horizontal_alignment = 1
 vertical_alignment = 2
 
+[node name="ControlsPanel" type="MarginContainer" parent="." node_paths=PackedStringArray("camera_controls_button", "camera_controls_panel", "character_movement_button", "characters_controls_panel", "item_controls_button", "item_controls_panel")]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -80.0
+offset_top = -40.0
+offset_right = 80.0
+offset_bottom = 40.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("11_uycg4")
+camera_controls_button = NodePath("TextsContainer/Content/HBoxContainer/Camera")
+camera_controls_panel = NodePath("TextsContainer/Content/HBoxContainer/CameraControls")
+character_movement_button = NodePath("TextsContainer/Content/HBoxContainer/CharMovement")
+characters_controls_panel = NodePath("TextsContainer/Content/HBoxContainer/CharacterControls")
+item_controls_button = NodePath("TextsContainer/Content/HBoxContainer/Items")
+item_controls_panel = NodePath("TextsContainer/Content/HBoxContainer/ItemControls")
+
+[node name="Controls" type="NinePatchRect" parent="ControlsPanel"]
+custom_minimum_size = Vector2(436, 200)
+layout_mode = 2
+texture = ExtResource("6_7rjoj")
+region_rect = Rect2(3, 3, 218, 90)
+
+[node name="TextsContainer" type="MarginContainer" parent="ControlsPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 15
+
+[node name="Content" type="VBoxContainer" parent="ControlsPanel/TextsContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Label" type="Label" parent="ControlsPanel/TextsContainer/Content"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Controls"
+label_settings = SubResource("LabelSettings_uycg4")
+
+[node name="Control" type="Control" parent="ControlsPanel/TextsContainer/Content"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+
+[node name="HBoxContainer" type="VBoxContainer" parent="ControlsPanel/TextsContainer/Content"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="Camera" type="Button" parent="ControlsPanel/TextsContainer/Content/HBoxContainer"]
+custom_minimum_size = Vector2(384, 30)
+layout_mode = 2
+size_flags_horizontal = 4
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxTexture_wnd18")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_5w5d2")
+theme_override_styles/hover = SubResource("StyleBoxTexture_kld5w")
+toggle_mode = true
+button_group = SubResource("ButtonGroup_uycg4")
+
+[node name="CameraControls" type="MarginContainer" parent="ControlsPanel/TextsContainer/Content/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 35
+theme_override_constants/margin_right = 35
+
+[node name="Control" type="VBoxContainer" parent="ControlsPanel/TextsContainer/Content/HBoxContainer/CameraControls"]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="Label" type="Label" parent="ControlsPanel/TextsContainer/Content/HBoxContainer/CameraControls/Control"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Move  camera"
+label_settings = SubResource("LabelSettings_oh086")
+
+[node name="Label2" type="Label" parent="ControlsPanel/TextsContainer/Content/HBoxContainer/CameraControls/Control"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Focus  camera"
+label_settings = SubResource("LabelSettings_oh086")
+
+[node name="Keys" type="VBoxContainer" parent="ControlsPanel/TextsContainer/Content/HBoxContainer/CameraControls"]
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="Label" type="Label" parent="ControlsPanel/TextsContainer/Content/HBoxContainer/CameraControls/Keys"]
+layout_mode = 2
+size_flags_horizontal = 8
+text = "W,  A,  S,  D"
+label_settings = SubResource("LabelSettings_oh086")
+
+[node name="Label2" type="Label" parent="ControlsPanel/TextsContainer/Content/HBoxContainer/CameraControls/Keys"]
+layout_mode = 2
+size_flags_horizontal = 8
+text = "SHIFT + F1, F2"
+label_settings = SubResource("LabelSettings_oh086")
+
+[node name="CharMovement" type="Button" parent="ControlsPanel/TextsContainer/Content/HBoxContainer"]
+custom_minimum_size = Vector2(384, 30)
+layout_mode = 2
+size_flags_horizontal = 4
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxTexture_htyr3")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_y0qck")
+theme_override_styles/hover = SubResource("StyleBoxTexture_vq6ry")
+toggle_mode = true
+button_group = SubResource("ButtonGroup_uycg4")
+
+[node name="CharacterControls" type="MarginContainer" parent="ControlsPanel/TextsContainer/Content/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 35
+theme_override_constants/margin_right = 35
+
+[node name="Control" type="VBoxContainer" parent="ControlsPanel/TextsContainer/Content/HBoxContainer/CharacterControls"]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="Label" type="Label" parent="ControlsPanel/TextsContainer/Content/HBoxContainer/CharacterControls/Control"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Select  character"
+label_settings = SubResource("LabelSettings_oh086")
+
+[node name="Label2" type="Label" parent="ControlsPanel/TextsContainer/Content/HBoxContainer/CharacterControls/Control"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Deseclect  character"
+label_settings = SubResource("LabelSettings_oh086")
+
+[node name="Label3" type="Label" parent="ControlsPanel/TextsContainer/Content/HBoxContainer/CharacterControls/Control"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Command  stop"
+label_settings = SubResource("LabelSettings_oh086")
+
+[node name="Label4" type="Label" parent="ControlsPanel/TextsContainer/Content/HBoxContainer/CharacterControls/Control"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Move  and  search"
+label_settings = SubResource("LabelSettings_oh086")
+
+[node name="Label5" type="Label" parent="ControlsPanel/TextsContainer/Content/HBoxContainer/CharacterControls/Control"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Move  and  target"
+label_settings = SubResource("LabelSettings_oh086")
+
+[node name="Keys" type="VBoxContainer" parent="ControlsPanel/TextsContainer/Content/HBoxContainer/CharacterControls"]
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="Label" type="Label" parent="ControlsPanel/TextsContainer/Content/HBoxContainer/CharacterControls/Keys"]
+layout_mode = 2
+size_flags_horizontal = 8
+text = "F1, F2"
+label_settings = SubResource("LabelSettings_oh086")
+
+[node name="Label2" type="Label" parent="ControlsPanel/TextsContainer/Content/HBoxContainer/CharacterControls/Keys"]
+layout_mode = 2
+size_flags_horizontal = 8
+text = "ESC"
+label_settings = SubResource("LabelSettings_oh086")
+
+[node name="Label3" type="Label" parent="ControlsPanel/TextsContainer/Content/HBoxContainer/CharacterControls/Keys"]
+layout_mode = 2
+size_flags_horizontal = 8
+text = "SPACE"
+label_settings = SubResource("LabelSettings_oh086")
+
+[node name="Label4" type="Label" parent="ControlsPanel/TextsContainer/Content/HBoxContainer/CharacterControls/Keys"]
+layout_mode = 2
+size_flags_horizontal = 8
+text = "LMB"
+label_settings = SubResource("LabelSettings_oh086")
+
+[node name="Label5" type="Label" parent="ControlsPanel/TextsContainer/Content/HBoxContainer/CharacterControls/Keys"]
+layout_mode = 2
+size_flags_horizontal = 8
+text = "RMB"
+label_settings = SubResource("LabelSettings_oh086")
+
+[node name="Items" type="Button" parent="ControlsPanel/TextsContainer/Content/HBoxContainer"]
+custom_minimum_size = Vector2(384, 30)
+layout_mode = 2
+size_flags_horizontal = 4
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxTexture_rqlod")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_3mbnn")
+theme_override_styles/hover = SubResource("StyleBoxTexture_gil55")
+toggle_mode = true
+button_group = SubResource("ButtonGroup_uycg4")
+
+[node name="ItemControls" type="MarginContainer" parent="ControlsPanel/TextsContainer/Content/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 35
+theme_override_constants/margin_right = 35
+
+[node name="Control" type="VBoxContainer" parent="ControlsPanel/TextsContainer/Content/HBoxContainer/ItemControls"]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="Label" type="Label" parent="ControlsPanel/TextsContainer/Content/HBoxContainer/ItemControls/Control"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Set   item  power "
+label_settings = SubResource("LabelSettings_oh086")
+
+[node name="Label2" type="Label" parent="ControlsPanel/TextsContainer/Content/HBoxContainer/ItemControls/Control"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Drop  item"
+label_settings = SubResource("LabelSettings_oh086")
+
+[node name="Keys" type="VBoxContainer" parent="ControlsPanel/TextsContainer/Content/HBoxContainer/ItemControls"]
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="Label" type="Label" parent="ControlsPanel/TextsContainer/Content/HBoxContainer/ItemControls/Keys"]
+layout_mode = 2
+size_flags_horizontal = 8
+text = "1 - 5"
+label_settings = SubResource("LabelSettings_oh086")
+
+[node name="Label2" type="Label" parent="ControlsPanel/TextsContainer/Content/HBoxContainer/ItemControls/Keys"]
+layout_mode = 2
+size_flags_horizontal = 8
+text = "SHIFT + 1 - 5"
+label_settings = SubResource("LabelSettings_oh086")
+
+[node name="Control2" type="Control" parent="ControlsPanel/TextsContainer/Content"]
+custom_minimum_size = Vector2(0, 15)
+layout_mode = 2
+
+[node name="ExitButton" type="MarginContainer" parent="ControlsPanel"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+theme_override_constants/margin_top = -7
+theme_override_constants/margin_right = -7
+
+[node name="Exit" type="Button" parent="ControlsPanel/ExitButton"]
+custom_minimum_size = Vector2(25, 23)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxTexture_ck6j7")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_lsyk6")
+theme_override_styles/hover = SubResource("StyleBoxTexture_f5urv")
+
 [connection signal="pressed" from="Pop-Up/Content/ExitButton/Exit" to="Pop-Up" method="_on_exit_pressed"]
+[connection signal="pressed" from="ControlsPanel/TextsContainer/Content/HBoxContainer/Camera" to="ControlsPanel" method="_on_camera_pressed"]
+[connection signal="pressed" from="ControlsPanel/TextsContainer/Content/HBoxContainer/CharMovement" to="ControlsPanel" method="_on_char_movement_pressed"]
+[connection signal="pressed" from="ControlsPanel/TextsContainer/Content/HBoxContainer/Items" to="ControlsPanel" method="_on_items_pressed"]
+[connection signal="pressed" from="ControlsPanel/ExitButton/Exit" to="ControlsPanel" method="_on_exit_pressed"]
