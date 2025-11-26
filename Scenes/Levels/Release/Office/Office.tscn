@@ -1,4 +1,4 @@
-[gd_scene load_steps=64 format=4 uid="uid://2sdjs7gc04c5"]
+[gd_scene load_steps=67 format=4 uid="uid://2sdjs7gc04c5"]
 
 [ext_resource type="PackedScene" uid="uid://drho55fepd4p7" path="res://Scenes/Levels/StandardLevel.tscn" id="1_oafpl"]
 [ext_resource type="AudioStream" uid="uid://bro8ih20wrpc2" path="res://Audio/Music/L2 - Grand Project Extended.mp3" id="2_4n7bc"]
@@ -24,6 +24,8 @@
 [ext_resource type="PackedScene" uid="uid://bpledjlueicmm" path="res://Prefabs/Props/Level 1/water_dispenser.tscn" id="17_ad4xd"]
 [ext_resource type="Script" uid="uid://gscwvuwbcgd0" path="res://Scenes/Levels/Release/Office/ObjectiveGetKeycard.cs" id="23_yenp0"]
 [ext_resource type="Script" uid="uid://c0nutm0neoy24" path="res://Scenes/Levels/Release/Office/ObjectiveL2EnterElevator.cs" id="24_hxry2"]
+[ext_resource type="Script" uid="uid://doqtcmwm6fviw" path="res://Prefabs/StandardProp/StandardPanel/OptionalPanel.cs" id="25_43s4o"]
+[ext_resource type="PackedScene" uid="uid://cmpa77mm5ct43" path="res://Prefabs/StandardItem/Upgrades/Armored/Armored1.tscn" id="26_o1pal"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_kxu0x"]
 texture = ExtResource("2_knigi")
@@ -7161,6 +7163,9 @@ size = Vector2(12, 9)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o1pal"]
 size = Vector2(144, 39)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rp3pd"]
+size = Vector2(74, 32)
+
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_h466k"]
 vertices = PackedVector2Array(479.39844, 647.89844, 483.40625, 717, 440.59375, 717, 444.60156, 647.85156, 187.45313, 596.14844, 420, 593.1328, 420, 609, 152, 651.8594, 1224, 200.89844, 824, 204.89063, 824, 161, 1268, 161, 1268, 412.96094, 1224, 369, 192, 408.96094, 348, 369, 1028, 609, 1028, 652.89844, 192, 564.28906, 152, 145, 196, 145, 196, 369, 226, 369, 226, 348, 348, 348)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 5, 6, 7), PackedInt32Array(8, 9, 10, 11), PackedInt32Array(8, 11, 12, 13), PackedInt32Array(13, 12, 14, 15), PackedInt32Array(16, 17, 0, 6), PackedInt32Array(6, 0, 3), PackedInt32Array(6, 3, 7), PackedInt32Array(18, 4, 7, 19, 14), PackedInt32Array(14, 19, 20, 21), PackedInt32Array(22, 23, 24, 15), PackedInt32Array(22, 15, 14), PackedInt32Array(14, 21, 22)])
@@ -7272,7 +7277,7 @@ polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Arr
 outlines = Array[PackedVector2Array]([PackedVector2Array(544, 144, 816, 144, 816, 352, 752, 352, 752, 208, 544, 208)])
 
 [node name="Access" node_paths=PackedStringArray("CameraNodePaths") instance=ExtResource("1_oafpl")]
-CameraNodePaths = [NodePath("Props/Objectives/L Table5"), NodePath("Props/Objectives/L Table8"), NodePath("Props/Objectives/Elevator"), NodePath("Unit Spawns/U1")]
+CameraNodePaths = [NodePath("Props/Required Panels/L Table5"), NodePath("Props/Required Panels/L Table8"), NodePath("Props/Required Panels/Elevator"), NodePath("Unit Spawns/U1")]
 BackgroundMusic = ExtResource("2_4n7bc")
 LevelIndex = 1
 EnemyTypes = [ExtResource("3_1wk65"), ExtResource("4_hxry2")]
@@ -7940,10 +7945,7 @@ position = Vector2(223, -3)
 [node name="Structures" type="Node2D" parent="Props" index="5"]
 y_sort_enabled = true
 
-[node name="Reception" parent="Props/Structures" index="0" instance=ExtResource("12_2knar")]
-position = Vector2(470, 557)
-
-[node name="Reception2" parent="Props/Structures" index="1" instance=ExtResource("12_2knar")]
+[node name="Reception2" parent="Props/Structures" index="0" instance=ExtResource("12_2knar")]
 position = Vector2(1241, 71)
 
 [node name="Chairs" type="Node2D" parent="Props" index="6"]
@@ -8105,9 +8107,9 @@ position = Vector2(484, 100)
 [node name="Water Dispenser13" parent="Props/Dispenser" index="11" instance=ExtResource("17_ad4xd")]
 position = Vector2(119, 100)
 
-[node name="Objectives" type="Node2D" parent="Props" index="9"]
+[node name="Required Panels" type="Node2D" parent="Props" index="9"]
 
-[node name="L Table5" type="RigidBody2D" parent="Props/Objectives" index="0" node_paths=PackedStringArray("NavObstacle", "Sprite")]
+[node name="L Table5" type="RigidBody2D" parent="Props/Required Panels" index="0" node_paths=PackedStringArray("NavObstacle", "Sprite")]
 y_sort_enabled = true
 position = Vector2(1141, 573)
 collision_layer = 5
@@ -8120,13 +8122,13 @@ ActivationRadius = 48
 NavObstacle = NodePath("NavigationObstacle2D")
 Sprite = NodePath("Sprite2D")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Props/Objectives/L Table5" index="0"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Props/Required Panels/L Table5" index="0"]
 visible = false
 position = Vector2(0, 2.75)
 shape = SubResource("RectangleShape2D_iebel")
 disabled = true
 
-[node name="Sprite2D" type="Sprite2D" parent="Props/Objectives/L Table5" index="1"]
+[node name="Sprite2D" type="Sprite2D" parent="Props/Required Panels/L Table5" index="1"]
 y_sort_enabled = true
 position = Vector2(0, 3)
 texture = ExtResource("4_4n7bc")
@@ -8134,17 +8136,17 @@ offset = Vector2(0, -3.245)
 region_enabled = true
 region_rect = Rect2(276, 340, 55, 39)
 
-[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="Props/Objectives/L Table5" index="2"]
+[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="Props/Required Panels/L Table5" index="2"]
 position = Vector2(0, 3)
 vertices = PackedVector2Array(-31, -24, -6, -24, -6, -16, 17, -16, 17, -8, 31, -8, 31, 19, -31, 19)
 affect_navigation_mesh = true
 avoidance_layers = 4
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Props/Objectives/L Table5" index="3"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Props/Required Panels/L Table5" index="3"]
 position = Vector2(0, 3)
 polygon = PackedVector2Array(-27, 15, -27, -16, -10, -16, -10, -8, 13, -8, 13, 1, 27, 1, 27, 15)
 
-[node name="L Table8" type="RigidBody2D" parent="Props/Objectives" index="1" node_paths=PackedStringArray("NavObstacle", "Sprite")]
+[node name="L Table8" type="RigidBody2D" parent="Props/Required Panels" index="1" node_paths=PackedStringArray("NavObstacle", "Sprite")]
 y_sort_enabled = true
 position = Vector2(101, 14)
 collision_layer = 5
@@ -8158,13 +8160,13 @@ ActivationRadius = 48
 NavObstacle = NodePath("NavigationObstacle2D")
 Sprite = NodePath("Sprite2D")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Props/Objectives/L Table8" index="0"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Props/Required Panels/L Table8" index="0"]
 visible = false
 position = Vector2(0, 2.75)
 shape = SubResource("RectangleShape2D_iebel")
 disabled = true
 
-[node name="Sprite2D" type="Sprite2D" parent="Props/Objectives/L Table8" index="1"]
+[node name="Sprite2D" type="Sprite2D" parent="Props/Required Panels/L Table8" index="1"]
 y_sort_enabled = true
 position = Vector2(0, 3)
 texture = ExtResource("4_4n7bc")
@@ -8172,42 +8174,73 @@ offset = Vector2(0, -3.245)
 region_enabled = true
 region_rect = Rect2(276, 340, 55, 39)
 
-[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="Props/Objectives/L Table8" index="2"]
+[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="Props/Required Panels/L Table8" index="2"]
 position = Vector2(0, 3)
 vertices = PackedVector2Array(-31, -24, -6, -24, -6, -16, 17, -16, 17, -8, 31, -8, 31, 19, -31, 19)
 affect_navigation_mesh = true
 avoidance_layers = 4
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Props/Objectives/L Table8" index="3"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Props/Required Panels/L Table8" index="3"]
 position = Vector2(0, 3)
 polygon = PackedVector2Array(-27, 15, -27, -16, -10, -16, -10, -8, 13, -8, 13, 1, 27, 1, 27, 15)
 
-[node name="Elevator" parent="Props/Objectives" index="2" node_paths=PackedStringArray("ActivationArea") instance=ExtResource("14_x4gmr")]
+[node name="Elevator" parent="Props/Required Panels" index="2" node_paths=PackedStringArray("ActivationArea") instance=ExtResource("14_x4gmr")]
 position = Vector2(1180, -8)
 script = ExtResource("24_hxry2")
 ActivationArea = NodePath("../Area2D")
 ActivationRadius = -1
+ActivationSound = null
 PanelType = 0
 ActivationMethod = 1
 Activated = false
 IsEnabled = true
+HighlightSpeed = 0.5
 
-[node name="Elevator2" parent="Props/Objectives" index="3" instance=ExtResource("14_x4gmr")]
+[node name="Elevator2" parent="Props/Required Panels" index="3" instance=ExtResource("14_x4gmr")]
 position = Vector2(1235, -8)
 script = ExtResource("24_hxry2")
 ActivationRadius = -1
+ActivationSound = null
 PanelType = 0
 ActivationMethod = 0
 Activated = false
 IsEnabled = true
+HighlightSpeed = 0.5
 
-[node name="Area2D" type="Area2D" parent="Props/Objectives" index="4"]
+[node name="Area2D" type="Area2D" parent="Props/Required Panels" index="4"]
 position = Vector2(1180, -8)
 collision_mask = 48
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Props/Objectives/Area2D" index="0"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Props/Required Panels/Area2D" index="0"]
 position = Vector2(28, 27.5)
 shape = SubResource("RectangleShape2D_o1pal")
+
+[node name="Optional Panels" type="Node2D" parent="Props" index="10"]
+
+[node name="Reception" parent="Props/Optional Panels" index="0" node_paths=PackedStringArray("ItemSpawnPoint", "ActivationArea") instance=ExtResource("12_2knar")]
+position = Vector2(470, 557)
+script = ExtResource("25_43s4o")
+ItemSpawnPoint = NodePath("Spawn")
+ItemPacked = ExtResource("26_o1pal")
+ActivationArea = NodePath("Area2D")
+ActivationRadius = 32
+ActivationSound = null
+PanelType = 1
+ActivationMethod = 1
+Activated = false
+IsEnabled = true
+HighlightSpeed = 0.5
+
+[node name="Spawn" type="Node2D" parent="Props/Optional Panels/Reception" index="3"]
+position = Vector2(61, 10)
+
+[node name="Area2D" type="Area2D" parent="Props/Optional Panels/Reception" index="4"]
+position = Vector2(-27, 43)
+collision_mask = 48
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Props/Optional Panels/Reception/Area2D" index="0"]
+position = Vector2(27, 6)
+shape = SubResource("RectangleShape2D_rp3pd")
 
 [node name="Region 1" parent="Regions" index="0"]
 position = Vector2(2, -7)
