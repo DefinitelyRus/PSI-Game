@@ -225,7 +225,7 @@ public partial class UpgradeManager : Node {
     #region Character
 
     [ExportGroup("Character")]
-    public StandardCharacter Character { get; set; } = null!;
+    [Export] public StandardCharacter Character { get; set; } = null!;
 
     #endregion
 
