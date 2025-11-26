@@ -312,7 +312,7 @@ public partial class StandardProjectile : RigidBody2D
 
 		if (ForceType == ForceTypes.Impulse) ApplyImpulseForce();
 
-		WeaponOwner?.AudioController.PlayAudio("attack_1");
+		WeaponOwner?.AudioController.PlayAudio("attack_1", 0.8f);
 
 		Log.Me(() => "Done!", LogReady);
 		
