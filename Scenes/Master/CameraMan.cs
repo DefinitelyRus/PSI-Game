@@ -204,7 +204,6 @@ public partial class CameraMan : Node2D {
         Node? levelNode = SceneLoader.Instance.LoadedScene;
         if (levelNode == null) return;
         if (levelNode is not Level level) return;
-        GameManager.Timer = level.LevelTimeLimit;
         GameManager.TimeRemaining = level.LevelTimeLimit;
     }
 
@@ -278,6 +277,8 @@ public partial class CameraMan : Node2D {
             Instance.GlobalPosition = Target.GlobalPosition;
             return;
         }
+
+        if (!IsInstanceValid(Target)) return;
 
         // Calculate distance to target
         Vector2 distanceVector = Instance.GlobalPosition - Target.GlobalPosition;
