@@ -164,8 +164,7 @@ public partial class UpgradeManager : Node {
         if (item == null) return;
         item.EntityType = StandardItem.EntityTypes.Inventory;
         item.PickUp();
-        Character.AddItemToInventory(item);
-        if (item.UseCount == 0) AddItem(item);
+        AddItem(item);
     }
 
     public void AddItem(UpgradeItem item) {
@@ -176,6 +175,7 @@ public partial class UpgradeManager : Node {
         }
 
         item.SetOwner(Character);
+        item.Reparent(Character);
         Items.Add(item);
         RefreshInventoryUI();
     }
@@ -210,6 +210,8 @@ public partial class UpgradeManager : Node {
         }
 
         Items.Remove(item);
+        item.SetOwner(null);
+        item.Reparent(SceneLoader.Instance.LoadedScene!);
         item.SpawnInWorld();
 
         // Move item 32 pixels in front of where the character is facing
