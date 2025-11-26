@@ -8,6 +8,7 @@
 y_sort_enabled = true
 script = ExtResource("2_s4kfk")
 Value = 0.0
+ChanceWeight = 10
 ItemName = "Max Power Up"
 ItemID = "max_power_up"
 Tags = PackedStringArray("SingleUse")
