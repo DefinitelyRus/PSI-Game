@@ -104,6 +104,7 @@ public partial class UpgradeManager : Node {
     [Export] public int MaxSlots { get; private set; } = 5;
     public int CurrentMaxSlots { get; set; } = 1;
     public List<UpgradeItem> Items { get; private set; } = [];
+    [Export] public float DropDistance { get; private set; } = 32f;
 
 
     public void ScanAndPickup() {
@@ -114,24 +115,46 @@ public partial class UpgradeManager : Node {
         _scanTimer = ScanInterval;
 
         foreach (PhysicsBody2D body in EntityManager.Entities) {
+            // Skip invalid bodies
             if (body == null || !IsInstanceValid(body)) continue;
             if (body.IsQueuedForDeletion()) continue;
+
+            // Get body position safely
             Vector2 bodyPos;
             try { bodyPos = body.GlobalPosition; } catch { continue; }
+
+            // Skip bodies outside pickup radius
             float distance = Character.GlobalPosition.DistanceTo(bodyPos);
             if (distance > PickupRadius) continue;
+
+            // Skip self
             if (body == Character) continue;
+
+            // Skip this character's children
             List<Node2D> children = [.. Character.GetChildren(true).OfType<Node2D>()];
             if (children.Contains(body)) continue;
+
+            // Skip non-StandardItem bodies
             if (body is not StandardItem standardItem) continue;
+
+            // Process only world items
             if (standardItem.EntityType != StandardItem.EntityTypes.World) continue;
+
+            //Skip if inventory is full
+            if (Items.Count >= CurrentMaxSlots) continue;
+
+            // Pickup powerable items
             if (standardItem is UpgradeItem upgrade) {
                 if (Items.Contains(upgrade)) continue;
                 Pickup(upgrade);
-            } else {
+            }
+            
+            // Use single-use items immediately
+            else {
                 standardItem.Use();
                 standardItem.QueueFree();
             }
+
             break;
         }
     }
@@ -154,11 +177,11 @@ public partial class UpgradeManager : Node {
 
         item.SetOwner(Character);
         Items.Add(item);
-    RefreshInventoryUI();
+        RefreshInventoryUI();
     }
 
 
-    public void RemoveItem(UpgradeItem item) {
+    public async void RemoveItem(UpgradeItem item) {
         if (item == null) return;
         if (_poweredItems.Contains(item)) {
             item.PowerOff();
@@ -166,10 +189,33 @@ public partial class UpgradeManager : Node {
             CurrentPower = Mathf.Max(CurrentPower - 1, 0);
             AudioManager.StreamAudio("unpower_item");
         }
+
+        Vector2 dropVector = Character.Control.FacingDirection * DropDistance;
+        Vector2 offset = dropVector.Normalized() * 32f;
+
+        // Do not drop if there is anything blocking the drop position
+        Vector2 dropPosition = Character.GlobalPosition + dropVector;
+        PhysicsRayQueryParameters2D rayParams = PhysicsRayQueryParameters2D.Create(Character.GlobalPosition, dropPosition);
+        rayParams.Exclude = [Character.GetRid()];
+
+        //Wait for physics process notification
+        await ToSignal(GetTree(), "physics_frame");
+
+        // Get space state and perform raycast
+        PhysicsDirectSpaceState2D spaceState = GetViewport().World2D.DirectSpaceState;
+        var result = spaceState.IntersectRay(rayParams);
+        if (result.Count > 0) {
+            AudioManager.StreamAudio("error");
+            return;
+        }
+
         Items.Remove(item);
         item.SpawnInWorld();
-        item.SetOwner(null);
-    RefreshInventoryUI();
+
+        // Move item 32 pixels in front of where the character is facing
+        item.GlobalPosition = Character.GlobalPosition + offset;
+
+        RefreshInventoryUI();
     }
 
     #endregion
