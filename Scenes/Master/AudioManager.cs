@@ -10,9 +10,9 @@ public partial class AudioManager : Node2D {
 
 	#region Volumes
 
-	[Export] public float UniversalVolume = 1.0f;
+	[Export] public float UniversalVolume = 0.6f;
 
-	[Export] public float SFXVolume = 1.0f;
+	[Export] public float SFXVolume = 0.8f;
 
 	[Export] public float MusicVolume = 1.0f;
 	[Export] public float AmbientVolume = 1.0f;
