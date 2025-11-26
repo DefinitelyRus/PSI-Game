@@ -2530,9 +2530,9 @@ outlines = Array[PackedVector2Array]([PackedVector2Array(1280, 174, 1189, 174, 1
 agent_radius = 8.0
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_jmp7n"]
-vertices = PackedVector2Array(1451.3438, 395, 1450.5469, 376, 1696, 376, 1696, 387, 1496.6094, 439, 1469.0078, 437.9922, 1439.9531, 439, 1383.1172, 439, 1383.8828, 387, 1405, 395, 1754, 387, 1754, 376, 1992, 376, 1992, 439, 1405, 387)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3, 4, 5), PackedInt32Array(6, 7, 8, 9), PackedInt32Array(10, 11, 12, 13), PackedInt32Array(10, 13, 4, 3), PackedInt32Array(0, 5, 6, 9), PackedInt32Array(9, 8, 14)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(2000, 368, 2000, 447, 1496.5907, 447.0001, 1469, 446, 1440.2378, 447.00006, 1375, 447, 1376, 379, 1413, 379, 1413, 387, 1443, 387, 1442.207, 368, 1704, 368, 1704, 379, 1746, 379, 1746, 368)])
+vertices = PackedVector2Array(1754, 376, 1992, 376, 1992, 438.53125, 1831.7109, 429.52344, 1754, 387, 1832.0313, 439, 1784.0078, 439, 1784.4063, 430.7578, 1451.3438, 395, 1696, 387, 1497.1094, 438.96875, 1433.7578, 428.71875, 1450.5469, 376, 1696, 376, 1405, 395, 1432.8828, 439, 1383.1172, 439, 1383.8828, 387, 1405, 387)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3, 4), PackedInt32Array(5, 6, 7, 3), PackedInt32Array(4, 3, 7), PackedInt32Array(8, 9, 4, 7, 10, 11), PackedInt32Array(8, 12, 13, 9), PackedInt32Array(14, 8, 11), PackedInt32Array(11, 15, 16, 17, 14), PackedInt32Array(14, 17, 18)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(2000, 368, 2000, 447, 1840, 438, 1840.294, 447.0001, 1775.6119, 447.00006, 1776, 439, 1496.5907, 447.0001, 1441, 438, 1440.2378, 447.00006, 1375, 447, 1376, 379, 1413, 379, 1413, 387, 1443, 387, 1442.207, 368, 1704, 368, 1704, 379, 1746, 379, 1746, 368)])
 agent_radius = 8.0
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_q6s0i"]
@@ -2541,9 +2541,9 @@ polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3, 4), PackedInt32
 outlines = Array[PackedVector2Array]([PackedVector2Array(2024, 576, 2024, 632, 1521, 641, 1488, 640, 1456, 641, 1376, 641, 1376, 436, 1440, 436, 1440, 576, 1472, 576, 1472, 586, 1514, 586, 1514, 576, 1759, 576, 1775, 563, 1788, 576)])
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_rmgfj"]
-vertices = PackedVector2Array(1830, 74, 1830, 151, 1750, 151, 1706, 74, 1706, 176, 1750, 176)
+vertices = PackedVector2Array(1830, 74, 1830, 150.21875, 1750, 144.21875, 1706, 74, 1706, 176, 1750, 176)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 3, 2, 5)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(1696, 186, 1760, 186, 1760, 161, 1840, 161, 1840, 64, 1696, 64)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(1696, 186, 1760, 186, 1760, 155, 1840, 161, 1840, 64, 1696, 64)])
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_3x67x"]
 vertices = PackedVector2Array(312, 280, 479, 280, 479, 312, 232, 312, 232, 496, 184, 496, 184, 280, 264, 280, 312, 190, 264, 190)
@@ -2576,9 +2576,9 @@ outlines = Array[PackedVector2Array]([PackedVector2Array(1776, 269, 1921, 269, 1
 agent_radius = 8.0
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_yqwfl"]
-vertices = PackedVector2Array(1916, 202, 1947, 231, 1447.1484, 231, 1447.3672, 225, 1842, 202, 1916, 186, 1991, 186, 1991, 368, 1947, 368, 1283, 225, 1283, 186, 1842, 186)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3, 4), PackedInt32Array(0, 5, 6, 1), PackedInt32Array(6, 7, 8, 1), PackedInt32Array(3, 9, 10, 11, 4)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(1273, 176, 1852, 176, 1852, 192, 1906, 192, 1906, 176, 2001, 176, 2001, 378, 1937, 378, 1937, 241, 1436.7847, 241, 1437, 235, 1273, 235)])
+vertices = PackedVector2Array(1547, 218.96094, 1283, 219.96094, 1283, 186, 1849, 186, 1849, 197, 1911, 197, 1911, 186, 1991, 186, 1947, 223, 1991, 368, 1947, 368, 1591, 223, 1547, 235, 1591, 235)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3, 4), PackedInt32Array(5, 6, 7, 8), PackedInt32Array(7, 9, 10, 8), PackedInt32Array(4, 5, 8, 11, 0), PackedInt32Array(12, 0, 11, 13)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(1273, 176, 1859, 176, 1859, 187, 1901, 187, 1901, 176, 2001, 176, 2001, 378, 1937, 378, 1937, 233, 1601, 233, 1601, 245, 1537, 245, 1537, 229, 1273, 230)])
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_xpc51"]
 vertices = PackedVector2Array(1867.1875, 469.02344, 1912, 471.5625, 1912, 578, 1784, 578, 1832, 472.9375, 1784, 445, 1832, 445)
@@ -2599,9 +2599,9 @@ outlines = Array[PackedVector2Array]([PackedVector2Array(2435, 839, 2419, 756, 2
 agent_radius = 8.0
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_h0ldu"]
-vertices = PackedVector2Array(2469.5938, 438, 2470.5938, 463, 2426, 463, 2426, 346, 2630, 346, 2630, 438)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(0, 3, 4, 5)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(2416, 336, 2640, 336, 2640, 448, 2480, 448, 2481, 473, 2416, 473)])
+vertices = PackedVector2Array(2470, 431, 2470, 463.84375, 2426, 463.14844, 2426, 346, 2489, 346, 2489, 365, 2630, 431, 2630, 365)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(0, 3, 4, 5), PackedInt32Array(6, 0, 5, 7)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(2416, 336, 2499, 336, 2499, 355, 2640, 355, 2640, 441, 2480, 441, 2480, 474, 2416, 473)])
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_gj1ou"]
 vertices = PackedVector2Array(2565.1016, 640.4531, 2769, 638, 2784.8906, 638, 2784.0938, 694.47656, 2746.0781, 702.4922, 2560.5469, 719, 2542.0781, 590.9531, 2448, 591.90625, 2448, 472, 2474, 489, 2503.2031, 510.89844, 2550.0469, 870, 2549.0469, 719, 2744.9531, 788.75, 2748.7813, 570, 2769, 570, 2783.1406, 820, 2789, 820, 2789, 936, 2471, 936, 2471, 870, 2474, 472, 2532.6094, 512.03125, 2733.3984, 547.52344, 2595.9219, 532, 2651.6406, 532, 2575.5, 503.8125, 2715.3203, 521.7031, 2733.3984, 547.5078)
@@ -2616,9 +2616,9 @@ outlines = Array[PackedVector2Array]([PackedVector2Array(2789, 942, 2789, 812, 2
 agent_radius = 8.0
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_41anr"]
-vertices = PackedVector2Array(3352, 424, 3352, 518, 3272, 518, 3224, 424, 3224, 552, 3272, 552, 3258.3906, 594, 3246.8594, 592.9531, 3352, 552, 3352, 594, 3238.4922, 594, 3170.5, 594, 3156.1328, 552, 3148, 552, 3162.4922, 595, 3147.5078, 595, 3139.5, 594, 3038, 594, 3038, 552, 3156.039, 533, 3148, 533)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 3, 2, 5, 6, 7), PackedInt32Array(5, 8, 9, 6), PackedInt32Array(4, 7, 10, 11, 12), PackedInt32Array(13, 12, 11, 14, 15, 16), PackedInt32Array(16, 17, 18, 13), PackedInt32Array(19, 12, 13, 20)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(3216, 544, 3216, 416, 3360, 416, 3360, 526, 3280, 526, 3280, 544, 3360, 544, 3360, 602, 3258, 602, 3247, 601, 3239, 602, 3171, 602, 3163, 603, 3147, 603, 3139, 602, 3030, 602, 3030, 544, 3140, 544, 3140, 525, 3164, 525, 3164.0957, 543.99994)])
+vertices = PackedVector2Array(3352, 424, 3352, 518, 3272, 518, 3224, 424, 3224, 552, 3272, 552, 3258.3906, 594, 3246.8594, 592.9531, 3352, 552, 3352, 594, 3156.1328, 552, 3238.5469, 593.9922, 3172.3984, 593, 3159.3125, 592, 3146.5, 592, 3148, 552, 3138.7969, 592.96094, 3040, 585.5703, 3040, 552, 3156.039, 533, 3148, 533)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 3, 2, 5, 6, 7), PackedInt32Array(5, 8, 9, 6), PackedInt32Array(10, 4, 7, 11, 12, 13), PackedInt32Array(10, 13, 14, 15), PackedInt32Array(16, 17, 18, 15, 14), PackedInt32Array(19, 10, 15, 20)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(3216, 544, 3216, 416, 3360, 416, 3360, 526, 3280, 526, 3280, 544, 3360, 544, 3360, 602, 3258, 602, 3247, 601, 3239, 602, 3172, 601, 3159, 600, 3147, 600, 3139, 601, 3032, 593, 3032, 544, 3140, 544, 3140, 525, 3164, 525, 3164.0957, 543.99994)])
 agent_radius = 8.0
 
 [node name="Warehouse" node_paths=PackedStringArray("CameraNodePaths") instance=ExtResource("1_lp5d7")]
@@ -3698,7 +3698,7 @@ PanelType = 0
 ActivationMethod = 1
 Activated = false
 IsEnabled = true
-HighlightSpeed = 0.5
+HighlightSpeed = 1.0
 
 [node name="Power Box2" parent="Props/Panel Power Station 1" index="1" node_paths=PackedStringArray("ActivationArea") instance=ExtResource("21_p23l5")]
 position = Vector2(327, 348)
@@ -3711,7 +3711,7 @@ PanelType = 0
 ActivationMethod = 1
 Activated = false
 IsEnabled = true
-HighlightSpeed = 0.5
+HighlightSpeed = 1.0
 
 [node name="Power Box3" parent="Props/Panel Power Station 1" index="2" node_paths=PackedStringArray("ActivationArea") instance=ExtResource("21_p23l5")]
 position = Vector2(373, 348)
@@ -3724,7 +3724,7 @@ PanelType = 0
 ActivationMethod = 1
 Activated = false
 IsEnabled = true
-HighlightSpeed = 0.5
+HighlightSpeed = 1.0
 
 [node name="Power Box4" parent="Props/Panel Power Station 1" index="3" node_paths=PackedStringArray("ActivationArea") instance=ExtResource("21_p23l5")]
 position = Vector2(280, 419)
@@ -3737,7 +3737,7 @@ PanelType = 0
 ActivationMethod = 1
 Activated = false
 IsEnabled = true
-HighlightSpeed = 0.5
+HighlightSpeed = 1.0
 
 [node name="Power Box5" parent="Props/Panel Power Station 1" index="4" node_paths=PackedStringArray("ActivationArea") instance=ExtResource("21_p23l5")]
 position = Vector2(327, 419)
@@ -3750,7 +3750,7 @@ PanelType = 0
 ActivationMethod = 1
 Activated = false
 IsEnabled = true
-HighlightSpeed = 0.5
+HighlightSpeed = 1.0
 
 [node name="Power Box6" parent="Props/Panel Power Station 1" index="5" node_paths=PackedStringArray("ActivationArea") instance=ExtResource("21_p23l5")]
 position = Vector2(373, 419)
@@ -3763,7 +3763,7 @@ PanelType = 0
 ActivationMethod = 1
 Activated = false
 IsEnabled = true
-HighlightSpeed = 0.5
+HighlightSpeed = 1.0
 
 [node name="Area2D" type="Area2D" parent="Props/Panel Power Station 1" index="6"]
 position = Vector2(256, 375)
@@ -3787,7 +3787,7 @@ PanelType = 0
 ActivationMethod = 1
 Activated = false
 IsEnabled = true
-HighlightSpeed = 0.5
+HighlightSpeed = 1.0
 
 [node name="Power Box8" parent="Props/Panel Power Station 2" index="1" node_paths=PackedStringArray("ActivationArea") instance=ExtResource("21_p23l5")]
 position = Vector2(1849, 250)
@@ -3800,7 +3800,7 @@ PanelType = 0
 ActivationMethod = 1
 Activated = false
 IsEnabled = true
-HighlightSpeed = 0.5
+HighlightSpeed = 1.0
 
 [node name="Power Box9" parent="Props/Panel Power Station 2" index="2" node_paths=PackedStringArray("ActivationArea") instance=ExtResource("21_p23l5")]
 position = Vector2(1801, 250)
@@ -3813,7 +3813,7 @@ PanelType = 0
 ActivationMethod = 1
 Activated = false
 IsEnabled = true
-HighlightSpeed = 0.5
+HighlightSpeed = 1.0
 
 [node name="Power Box10" parent="Props/Panel Power Station 2" index="3" node_paths=PackedStringArray("ActivationArea") instance=ExtResource("21_p23l5")]
 position = Vector2(1897, 339)
@@ -3826,7 +3826,7 @@ PanelType = 0
 ActivationMethod = 1
 Activated = false
 IsEnabled = true
-HighlightSpeed = 0.5
+HighlightSpeed = 1.0
 
 [node name="Area2D" type="Area2D" parent="Props/Panel Power Station 2" index="4"]
 position = Vector2(1779, 277)
@@ -3850,7 +3850,7 @@ PanelType = 0
 ActivationMethod = 1
 Activated = false
 IsEnabled = true
-HighlightSpeed = 0.5
+HighlightSpeed = 1.0
 
 [node name="Power Box12" parent="Props/Panel Power Station 3" index="1" node_paths=PackedStringArray("ActivationArea") instance=ExtResource("21_p23l5")]
 position = Vector2(2568, 330)
@@ -3863,7 +3863,7 @@ PanelType = 0
 ActivationMethod = 1
 Activated = false
 IsEnabled = true
-HighlightSpeed = 0.5
+HighlightSpeed = 1.0
 
 [node name="Power Box13" parent="Props/Panel Power Station 3" index="2" node_paths=PackedStringArray("ActivationArea") instance=ExtResource("21_p23l5")]
 position = Vector2(2521, 330)
@@ -3876,7 +3876,7 @@ PanelType = 0
 ActivationMethod = 1
 Activated = false
 IsEnabled = true
-HighlightSpeed = 0.5
+HighlightSpeed = 1.0
 
 [node name="Power Box14" parent="Props/Panel Power Station 3" index="3" node_paths=PackedStringArray("ActivationArea") instance=ExtResource("21_p23l5")]
 position = Vector2(2616, 419)
@@ -3889,7 +3889,7 @@ PanelType = 0
 ActivationMethod = 1
 Activated = false
 IsEnabled = true
-HighlightSpeed = 0.5
+HighlightSpeed = 1.0
 
 [node name="Power Box15" parent="Props/Panel Power Station 3" index="4" node_paths=PackedStringArray("ActivationArea") instance=ExtResource("21_p23l5")]
 position = Vector2(2568, 419)
@@ -3902,7 +3902,7 @@ PanelType = 0
 ActivationMethod = 1
 Activated = false
 IsEnabled = true
-HighlightSpeed = 0.5
+HighlightSpeed = 1.0
 
 [node name="Power Box16" parent="Props/Panel Power Station 3" index="5" node_paths=PackedStringArray("ActivationArea") instance=ExtResource("21_p23l5")]
 position = Vector2(2521, 419)
@@ -3915,7 +3915,7 @@ PanelType = 0
 ActivationMethod = 1
 Activated = false
 IsEnabled = true
-HighlightSpeed = 0.5
+HighlightSpeed = 1.0
 
 [node name="Area2D" type="Area2D" parent="Props/Panel Power Station 3" index="6"]
 position = Vector2(2499, 357)
@@ -3940,7 +3940,7 @@ PanelType = 0
 ActivationMethod = 1
 Activated = false
 IsEnabled = true
-HighlightSpeed = 0.5
+HighlightSpeed = 1.0
 PropName = "Elevator"
 PropID = "elevator"
 
@@ -3956,7 +3956,7 @@ PanelType = 0
 ActivationMethod = 1
 Activated = false
 IsEnabled = true
-HighlightSpeed = 0.5
+HighlightSpeed = 1.0
 PropName = "Elevator"
 PropID = "elevator"
 

@@ -7166,9 +7166,9 @@ size = Vector2(12, 9)
 size = Vector2(144, 39)
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_h466k"]
-vertices = PackedVector2Array(479.39844, 647.89844, 483.40625, 717, 440.59375, 717, 444.57813, 648.2969, 867.6094, 401.71094, 867.96875, 411.46875, 824.0078, 411.29688, 824.25, 401.8828, 187.45313, 596.14844, 420, 593.1328, 420, 609, 399.15625, 647, 152, 646.03125, 1224, 200.89844, 824, 204.89063, 824, 161, 1268, 161, 1268, 412.71094, 1224, 369, 750.5781, 369, 725.8906, 403, 733.46094, 371.02344, 348, 369, 656.6094, 369, 635.8828, 404.03906, 192, 409.10938, 1028, 609, 1028, 652.89844, 192, 564.28906, 152, 145, 196, 145, 196, 369, 226, 369, 226, 348, 348, 348)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 5, 6, 7), PackedInt32Array(8, 9, 10, 11, 12), PackedInt32Array(13, 14, 15, 16), PackedInt32Array(13, 16, 17, 18), PackedInt32Array(18, 17, 4, 19), PackedInt32Array(19, 4, 7), PackedInt32Array(19, 7, 20, 21), PackedInt32Array(22, 23, 21, 20, 24, 25), PackedInt32Array(26, 27, 0, 10), PackedInt32Array(10, 0, 3, 11), PackedInt32Array(28, 8, 12, 29, 25), PackedInt32Array(25, 29, 30, 31), PackedInt32Array(32, 33, 34, 22), PackedInt32Array(32, 22, 25), PackedInt32Array(25, 31, 32)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(494, 727, 430, 727, 434, 658, 399, 657, 142, 656, 142, 135, 206, 135, 206, 359, 216, 359, 216, 338, 358, 338, 358, 359, 656.8706, 358.99994, 733, 361, 750, 359, 1214, 359, 1214, 211, 814, 215, 814, 151, 1278, 151, 1278, 423, 878, 412, 878.35046, 421.5144, 813.7682, 421.2743, 814, 412, 726, 413, 636.0005, 414.03595, 202, 419, 202, 565, 199, 586, 430, 583, 430, 599, 1038, 599, 1038, 663, 490, 658)])
+vertices = PackedVector2Array(479.39844, 647.89844, 483.40625, 717, 440.59375, 717, 444.57813, 648.2969, 867.6094, 401.71094, 867.96875, 411.46875, 824.0078, 411.29688, 824.25, 401.8828, 1224, 197.82031, 824, 204.82031, 824, 161, 1268, 161, 1268, 412.71094, 1224, 369, 750.5781, 369, 725.8906, 403, 733.46094, 371.02344, 348, 369, 656.6094, 369, 635.8828, 404.03906, 192, 405.02344, 187.45313, 596.14844, 420, 593.1328, 420, 609, 399.15625, 647, 152, 646.03125, 1028, 609, 1028, 652.89844, 192, 564.28906, 152, 145, 196, 145, 196, 369, 226, 369, 226, 348, 348, 348)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 5, 6, 7), PackedInt32Array(8, 9, 10, 11), PackedInt32Array(8, 11, 12, 13), PackedInt32Array(13, 12, 4, 14), PackedInt32Array(14, 4, 7), PackedInt32Array(14, 7, 15, 16), PackedInt32Array(17, 18, 16, 15, 19, 20), PackedInt32Array(21, 22, 23, 24, 25), PackedInt32Array(26, 27, 0, 23), PackedInt32Array(23, 0, 3, 24), PackedInt32Array(28, 21, 25, 29, 20), PackedInt32Array(20, 29, 30, 31), PackedInt32Array(32, 33, 34, 17), PackedInt32Array(32, 17, 20), PackedInt32Array(20, 31, 32)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(494, 727, 430, 727, 434, 658, 399, 657, 142, 656, 142, 135, 206, 135, 206, 359, 216, 359, 216, 338, 358, 338, 358, 359, 656.8706, 358.99994, 733, 361, 750, 359, 1214, 359, 1214, 208, 814, 215, 814, 151, 1278, 151, 1278, 423, 878, 412, 878.35046, 421.5144, 813.7682, 421.2743, 814, 412, 726, 413, 636.0005, 414.03595, 202, 415, 202, 565, 199, 586, 430, 583, 430, 599, 1038, 599, 1038, 663, 490, 658)])
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_oubl5"]
 vertices = PackedVector2Array(614, 582, 520, 582, 520, 442, 614, 442)
@@ -8113,6 +8113,7 @@ lock_rotation = true
 freeze = true
 script = ExtResource("23_yenp0")
 ActivationRadius = 48
+HighlightSpeed = 1.0
 NavObstacle = NodePath("NavigationObstacle2D")
 Sprite = NodePath("Sprite2D")
 
@@ -8151,6 +8152,7 @@ freeze = true
 script = ExtResource("23_yenp0")
 KeycardNumber = 2
 ActivationRadius = 48
+HighlightSpeed = 1.0
 NavObstacle = NodePath("NavigationObstacle2D")
 Sprite = NodePath("Sprite2D")
 
@@ -8188,7 +8190,7 @@ PanelType = 0
 ActivationMethod = 1
 Activated = false
 IsEnabled = true
-HighlightSpeed = 0.5
+HighlightSpeed = 1.0
 
 [node name="Elevator2" parent="Props/Required Panels" index="3" instance=ExtResource("14_x4gmr")]
 position = Vector2(1235, -8)
@@ -8199,7 +8201,7 @@ PanelType = 0
 ActivationMethod = 0
 Activated = false
 IsEnabled = true
-HighlightSpeed = 0.5
+HighlightSpeed = 1.0
 
 [node name="Area2D" type="Area2D" parent="Props/Required Panels" index="4"]
 position = Vector2(1180, -8)
@@ -8212,12 +8214,11 @@ shape = SubResource("RectangleShape2D_o1pal")
 [node name="Optional Panels" type="Node2D" parent="Props" index="10"]
 y_sort_enabled = true
 
-[node name="Reception" parent="Props/Optional Panels" index="0" node_paths=PackedStringArray("ItemSpawnPoint", "ActivationArea") instance=ExtResource("12_2knar")]
+[node name="Reception" parent="Props/Optional Panels" index="0" node_paths=PackedStringArray("ItemSpawnPoint") instance=ExtResource("12_2knar")]
 position = Vector2(470, 557)
 script = ExtResource("25_43s4o")
 ItemSpawnPoint = NodePath("Spawn")
 ItemPacked = ExtResource("26_o1pal")
-ActivationArea = NodePath("")
 ActivationRadius = 64
 ActivationSound = null
 PanelType = 1
@@ -8250,7 +8251,7 @@ position = Vector2(1012, 451)
 script = ExtResource("25_43s4o")
 ItemSpawnPoint = NodePath("Spawn")
 ItemPacked = ExtResource("27_o1pal")
-ActivationRadius = 40
+ActivationRadius = 48
 ActivationSound = null
 PanelType = 0
 ActivationMethod = 0
