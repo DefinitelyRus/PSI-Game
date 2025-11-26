@@ -11,6 +11,7 @@ public partial class UIManager : CanvasLayer {
 	[Export] Control PopupNode = null!;
 	[Export] TextureRect Transition = null!;
 	[Export] Control OnScreenText = null!;
+	[Export] public float UnpoweredAlpha { get; private set; } = 0.5f;
 
 	#endregion
 
@@ -121,6 +122,10 @@ public partial class UIManager : CanvasLayer {
 
 	public static void SetItemIcon(int slotIndex, Texture2D icon) {
 		HUD.CallDeferred("set_item", icon, slotIndex);
+	}
+
+	public static void SetItemAlpha(int slotIndex, float alpha) {
+		HUD.CallDeferred("set_item_alpha", slotIndex, alpha);
 	}
 
 	#endregion
