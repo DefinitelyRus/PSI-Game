@@ -286,6 +286,8 @@ public partial class Level : Node2D {
 
 		if (CameraNodePaths.Length != 0) CameraMan.SetCameraPath(CameraNodePaths);
 		else CameraMan.SetTarget(SpawnParent, true);
+
+		GameManager.ManualTimerCheck = false;
 	}
 	
 	#endregion
