@@ -14,6 +14,7 @@ public partial class Armored : UpgradeItem {
         OriginalValue = character.CurrentMaxHealth;
 
         character.CurrentMaxHealth = (int) (character.CurrentMaxHealth * Value);
+        character.Health *= Value;
         base.PowerOn();
         return;
     }
@@ -27,6 +28,8 @@ public partial class Armored : UpgradeItem {
         }
 
         character.CurrentMaxHealth = (int) OriginalValue;
+        character.Health /= Value;
+
         base.PowerOff();
         return;
     }
