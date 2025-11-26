@@ -7280,6 +7280,7 @@ CameraNodePaths = [NodePath("Props/Required Panels/L Table5"), NodePath("Props/R
 BackgroundMusic = ExtResource("2_4n7bc")
 EnemyCountLimit = 15
 LevelIndex = 1
+LevelTimeLimit = 300.0
 EnemyTypes = [ExtResource("3_1wk65"), ExtResource("4_hxry2")]
 
 [node name="Unit Spawns" parent="." index="0"]

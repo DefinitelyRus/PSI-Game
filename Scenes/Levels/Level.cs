@@ -28,6 +28,7 @@ public partial class Level : Node2D {
 	[Export] public uint EnemyCountLimit = 50;
 	[Export] public uint LevelIndex = 0;
 	private int CurrentSpawnIndex = 0;
+	[Export] public double LevelTimeLimit = 600;
 
 	#endregion
 
