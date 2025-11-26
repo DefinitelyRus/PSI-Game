@@ -10,7 +10,7 @@ public partial class StandardPanel : StandardProp {
 
 	public enum PanelTypes {
         Required,
-		Optional
+		SingleUse
     }
 
 	public enum ActivationMethods {
