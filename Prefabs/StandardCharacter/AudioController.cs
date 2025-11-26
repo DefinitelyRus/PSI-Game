@@ -9,22 +9,9 @@ public partial class AudioController : Node2D {
     public void PlayAudio(string clipName, float volume = 1.0f) {
         bool hasClip = AudioClips.TryGetValue(clipName, out AudioStream? value);
 
-        if (hasClip) {
-            AudioStreamPlayer2D audioPlayer = new() {
-                Stream = value,
-                Autoplay = false,
-                VolumeLinear = volume
-            };
-
-            AddChild(audioPlayer);
-            
-            audioPlayer.Play();
-            audioPlayer.Connect("finished", Callable.From(audioPlayer.QueueFree));
-        }
+        if (hasClip) AudioManager.StreamAudio2D(value!, GlobalPosition, AudioManager.AudioChannels.SFX, volume);
         
-        else {
-            Log.Err(() => $"Audio clip '{clipName}' not found in AudioClips dictionary.");
-        }
+        else Log.Err(() => $"Audio clip '{clipName}' not found in AudioClips dictionary.");
     }
 
 }
