@@ -2624,9 +2624,10 @@ agent_radius = 8.0
 [node name="Warehouse" node_paths=PackedStringArray("CameraNodePaths") instance=ExtResource("1_lp5d7")]
 CameraNodePaths = [NodePath("Props/Panel Power Station 1/Area2D/CollisionShape2D"), NodePath("Props/Panel Power Station 2/Area2D/CollisionShape2D"), NodePath("Props/Panel Power Station 3/Area2D/CollisionShape2D"), NodePath("Props/Panel Elevators/Area2D/CollisionShape2D"), NodePath("Unit Spawns/U1")]
 BackgroundMusic = ExtResource("2_7e5pe")
-EnemyStaticSpawningDelayMultiplier = 0.7
 LevelIndex = 2
+LevelTimeLimit = 480.0
 EnemyTypes = [ExtResource("2_hi47n"), ExtResource("4_xpc51"), ExtResource("5_cq3cu"), ExtResource("6_d2dtn")]
+EnemyStaticSpawningDelayMultiplier = 0.5
 
 [node name="Unit Spawns" parent="." index="0"]
 position = Vector2(89, 14)
