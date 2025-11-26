@@ -50,7 +50,9 @@ public partial class ObjectivePlantCharge : StandardPanel {
         InputManager.AllowOverride = true;
         AIDirector.AllowSpawning = true;
         if (Nav != null) Nav.Enabled = true;
-
+        
+        GameManager.TimeRemaining = 221.5;
+        GameManager.ManualTimerCheck = true;
         TimeLeft = 221.5;
         await ToSignal(GetTree().CreateTimer(221.5 - 60f), "timeout");
 
