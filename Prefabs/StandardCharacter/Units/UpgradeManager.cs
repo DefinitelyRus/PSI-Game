@@ -54,8 +54,6 @@ public partial class UpgradeManager : Node {
 
         UpgradeItem item = Items[index];
 
-        Log.Me(() => $"Setting power for item at index {index} to {powered}.", true, true);
-
         if (powered) {
             // Toggle: if already powered, power off
             if (_poweredItems.Contains(item)) {

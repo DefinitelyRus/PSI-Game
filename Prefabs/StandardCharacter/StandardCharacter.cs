@@ -303,21 +303,21 @@ public partial class StandardCharacter : CharacterBody2D {
 	}
 
 	public void ToggleEquipItem(int index) {
-		if (index < 0 || index >= Inventory.Count) {
-			Log.Err($"Index {index} is out of bounds for inventory of size {Inventory.Count}.");
+		StandardItem[] inventory = [.. UpgradeManager.Items];
+		if (index < 0 || index >= inventory.Length) {
+			Log.Err($"Index {index} is out of bounds for inventory of size {inventory.Length}.");
 			return;
 		}
 
-		var item = Inventory[index];
+		var item = inventory[index];
 		if (item is UpgradeItem upgrade) {
 			bool shouldPowerOn = !upgrade.IsEquipped;
 			UpgradeManager.SetItemPower(index, shouldPowerOn);
 		}
 
 		else {
-			if (item.IsEquipped) item.Unequip();
-			else item.Equip();
-		}
+            Log.Warn(() => $"Item at index {index} is not an UpgradeItem. Cannot toggle power on.");
+        }
 	}
 
 	#endregion

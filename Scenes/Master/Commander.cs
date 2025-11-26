@@ -1,3 +1,4 @@
+using Game;
 using Godot;
 using System.Collections.Generic;
 using System.Linq;
@@ -153,7 +154,18 @@ public partial class Commander : Node {
 
 		UIManager.SetHUDVisible(true, 0);
 		UIManager.SetHealth(unit.Health, unit.CurrentMaxHealth);
-    }
+
+		// Update inventory UI
+		UpgradeManager upMan = unit.UpgradeManager;
+		StandardItem[] items = [.. upMan.Items];
+		for (int i = 0; i < upMan.CurrentMaxSlots; i++) {
+			StandardItem? item = i < items.Length ? items[i] : null;
+            Sprite2D? itemIcon = item?.Sprite;
+			itemIcon ??= null;
+
+            UIManager.SetItemIcon(i, itemIcon);
+        }
+	}
 
 
 	public static void SelectAllUnits()
@@ -222,18 +234,16 @@ public partial class Commander : Node {
 
 
 	public static void SelectItem(int itemIndex) {
-		if (FocusedUnit == null) {
-			Log.Me(() => "No focused unit set.", Instance.LogInput);
+		if (GetSelectedUnitCount() != 1) return;
+		StandardCharacter unit = GetSelectedUnits().First();
+
+		if (itemIndex < 0 || itemIndex >= unit.Inventory.Count) {
+			Log.Me(() => $"Item index {itemIndex} is out of range (0 to {unit.Inventory.Count - 1}).", Instance.LogInput);
 			return;
 		}
-
-		if (itemIndex < 0 || itemIndex >= FocusedUnit.Inventory.Count) {
-			Log.Me(() => $"Item index {itemIndex} is out of range (0 to {FocusedUnit.Inventory.Count - 1}).", Instance.LogInput);
-			return;
-		}
-
-		if (PrimeDrop) FocusedUnit.RemoveItemFromInventory(itemIndex, true, out var _);
-		else FocusedUnit.ToggleEquipItem(itemIndex);
+		
+		if (PrimeDrop) unit.RemoveItemFromInventory(itemIndex, true, out var _);
+		else unit.ToggleEquipItem(itemIndex);
 	}
 
 

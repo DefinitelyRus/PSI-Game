@@ -128,13 +128,18 @@ public partial class UIManager : CanvasLayer {
 		HUD.CallDeferred("set_item", icon, slotIndex);
 	}
 
-	public static void SetItemIcon(int slotIndex, Sprite2D icon) {
-		// Extract the texture from the Sprite2D with respect to its region settings
-		Texture2D? texture = null;
+	public static void SetItemIcon(int slotIndex, Sprite2D? icon) {
+		if (icon == null) {
+			HUD.CallDeferred("set_item", new(), slotIndex);
+			return;
+		}
+
+		Texture2D? texture;
 		if (icon.RegionEnabled) {
-			AtlasTexture atlasTexture = new AtlasTexture();
-			atlasTexture.Atlas = icon.Texture;
-			atlasTexture.Region = icon.RegionRect;
+			AtlasTexture atlasTexture = new() {
+				Atlas = icon.Texture,
+				Region = icon.RegionRect
+			};
 			texture = atlasTexture;
 		}
 		
