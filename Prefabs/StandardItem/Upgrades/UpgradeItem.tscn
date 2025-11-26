@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://cgwbyxdsmb6ty"]
+[gd_scene load_steps=7 format=3 uid="uid://cgwbyxdsmb6ty"]
 
 [ext_resource type="Script" uid="uid://crlrdfr3rj3g2" path="res://Prefabs/StandardItem/Upgrades/UpgradeItem.cs" id="2_funua"]
 [ext_resource type="AudioStream" uid="uid://idwdl3hewxyb" path="res://Prefabs/StandardItem/Item Activate - Hologram Menu Open 2.wav" id="2_qi0bt"]
@@ -9,7 +9,9 @@
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_gqebq"]
 load_path = "res://.godot/imported/Modern_UI_Style_2_32x32.png-2751482943a7deb6d83927ac236e2e3f.ctex"
 
-[node name="Upgrade Item" type="RigidBody2D" node_paths=PackedStringArray("Sprite")]
+[sub_resource type="CircleShape2D" id="CircleShape2D_qi0bt"]
+
+[node name="Upgrade Item" type="RigidBody2D" node_paths=PackedStringArray("Sprite", "Collider", "PickupArea")]
 gravity_scale = 0.0
 script = ExtResource("2_funua")
 SFX = Dictionary[String, AudioStream]({
@@ -24,12 +26,21 @@ RemoveQuantityOnBreak = false
 MaxQuantity = 1
 BaseCooldownTime = 5.0
 Sprite = NodePath("Sprite2D")
+Collider = NodePath("CollisionShape2D")
+PickupArea = NodePath("Area2D")
 LogReady = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_8ro5o")
+disabled = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = SubResource("CompressedTexture2D_gqebq")
 region_enabled = true
 region_rect = Rect2(0, 0, 16, 16)
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_mask = 48
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_qi0bt")
