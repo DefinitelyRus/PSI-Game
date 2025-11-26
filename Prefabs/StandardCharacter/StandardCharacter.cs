@@ -179,7 +179,7 @@ public partial class StandardCharacter : CharacterBody2D {
 
 		#region AVFX
 
-		AudioController.PlayAudio("death");
+		AudioController.PlayAudio("death", 0.7f);
 
 		if (useAnimation) {
 			AnimationTree!.Set("parameters/Death/blend_position", new Vector2(LastMovementDirection.X, -LastMovementDirection.Y));
