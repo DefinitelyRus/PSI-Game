@@ -25,9 +25,9 @@ public partial class StandardEnemy : StandardCharacter {
 
         CameraMan.Shake(DeathCameraShakeIntensity, GlobalPosition);
 
-        // 5% chance to drop random item on death
+        // 10% chance to drop random item on death
         int randomValue = new RandomNumberGenerator().RandiRange(1, 100);
-        if (randomValue <= 5) {
+        if (randomValue <= 10) {
             UpgradeItem? item = GameManager.GetRandomDropItem(GlobalPosition);
 
             if (item == null) {
