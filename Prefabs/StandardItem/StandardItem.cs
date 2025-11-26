@@ -107,21 +107,7 @@ public partial class StandardItem : RigidBody2D
 		World,
 		Inventory,
 		Equipped
-	}
-
-	public void SetEntityType(EntityTypes newType) {
-		EntityType = newType;
-
-		switch (newType) {
-            case EntityTypes.World:
-				SpawnInWorld();
-				break;
-			case EntityTypes.Inventory:
-				HideInWorld();
-				break;
-		}
-	}
-
+	};
 
 	/// <summary>
 	/// A list of <see cref="StatModifier"/> objects that are applied onto the item's stats. <br/><br/>
@@ -621,6 +607,7 @@ public partial class StandardItem : RigidBody2D
 
 		CollisionShape2D pickupCollider = PickupArea.GetChild<CollisionShape2D>(0);
 		pickupCollider.Disabled = false;
+		EntityType = EntityTypes.World;
 	}
 
 
@@ -629,6 +616,7 @@ public partial class StandardItem : RigidBody2D
 
 		CollisionShape2D pickupCollider = PickupArea.GetChild<CollisionShape2D>(0);
 		pickupCollider.Disabled = true;
+		EntityType = EntityTypes.Inventory;
 	}
 
 	/// <summary>
@@ -789,6 +777,7 @@ public partial class StandardItem : RigidBody2D
 	/// <param name="s">Stack depth. Use <c>0</c> if on a root function, or <c>s + 1</c> if <c>s</c> is available in the encapsulating function.</param>
 	public virtual Variant? PickUp() {
 		AudioManager.StreamAudio("item_pickup");
+		HideInWorld();
 		return null;
 	}
 
@@ -890,37 +879,9 @@ public partial class StandardItem : RigidBody2D
 		Log.Me(() => $"Changing node name to \"{InstanceID}\"...", LogReady);
 		Name = InstanceID;
 
-		if (PickupArea != null)
-		{
-			PickupArea.BodyEntered += OnPickupAreaBodyEntered;
-		}
-
+		EntityManager.AddCharacter(this);
+		
 		Log.Me(() => "Done!", LogReady);
-	}
-
-	private void OnPickupAreaBodyEntered(Godot.Node body)
-	{
-		Log.Me(() => "Pickup area body entered.", LogReady);
-
-		if (body is not StandardCharacter character) return;
-		if (!character.Tags.Contains("Unit")) return;
-
-		if (this is UpgradeItem thisAsUpgrade) {
-			thisAsUpgrade.SetOwner(character);
-			HideInWorld();
-
-			if (Tags.Contains("Disposable")) {
-				Use();
-				QueueFree();
-				return;
-			}
-
-			else {
-				PickUp();
-				character.AddItemToInventory(thisAsUpgrade);
-			}
-
-		}
 	}
 
 	#endregion
