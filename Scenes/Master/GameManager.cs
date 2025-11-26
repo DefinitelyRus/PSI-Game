@@ -1,4 +1,7 @@
+using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
+using Game;
 using Godot;
 namespace CommonScripts;
 
@@ -127,6 +130,8 @@ public partial class GameManager : Node2D {
 
     public static double TimeRemaining { get; set; } = double.MaxValue;
 
+    public static bool ManualTimerCheck { get; set; } = false;
+
     public static async void CheckLoseConditions(bool loseOverride = false) {
         if (GameEnded) return;
 
@@ -137,7 +142,7 @@ public partial class GameManager : Node2D {
         // Lose if time is up.
         bool timesUp = false;
         TimeRemaining -= Instance.GetProcessDeltaTime();
-        if (level.LevelTimeLimit > 0) timesUp = TimeRemaining <= 0;
+        if (level.LevelTimeLimit > 0) timesUp = TimeRemaining <= 0 && !ManualTimerCheck;
 
         if (TimeRemaining % 10 <= 0.01 && TimeRemaining < 14400) Log.Me(() => $"Time Remaining: {TimeRemaining:F2}s");
 
@@ -156,6 +161,42 @@ public partial class GameManager : Node2D {
             SceneLoader.LoadLevel(0);
             return;
         }
+    }
+
+    #endregion
+
+    #region Random Drops
+
+    [Export] public PackedScene[] RandomDropItems = [];
+
+    public static UpgradeItem? GetRandomDropItem(Vector2? position = null) {
+        if (Instance.RandomDropItems.Length == 0) {
+            Log.Warn(() => "No random drop items defined in GameManager.", true, true);
+            return null;
+        }
+
+        // Get random item based on weight
+        int totalWeight = 0;
+        List<UpgradeItem> sortedItems = [.. Instance.RandomDropItems
+            .Select(scene => scene.Instantiate<UpgradeItem>())
+            .OrderBy(item => item.ChanceWeight)
+        ];
+
+        foreach (UpgradeItem item in sortedItems) totalWeight += item.ChanceWeight;
+
+        int randomValue = new RandomNumberGenerator().RandiRange(1, totalWeight);
+        int cumulativeWeight = 0;
+        foreach (UpgradeItem item in sortedItems) {
+            cumulativeWeight += item.ChanceWeight;
+
+            // Select item if randomValue is within weight range
+            if (randomValue <= cumulativeWeight) {
+                if (position != null) item.GlobalPosition = position.Value;
+                return item;
+            }
+        }
+
+        return null;
     }
 
     #endregion
