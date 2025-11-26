@@ -13,7 +13,7 @@ public partial class UpgradeItem : StandardItem {
 
     public StandardCharacter? OwnerCharacter { get; private set; } = null;
 
-    public void SetOwner(StandardCharacter owner) {
+    public void SetOwner(StandardCharacter? owner) {
         OwnerCharacter = owner;
     }
 
