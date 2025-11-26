@@ -9,6 +9,7 @@ script = ExtResource("2_xmjie")
 HealAmount = 100.0
 Value = 1.5
 SFX = null
+ChanceWeight = 200
 ItemName = "Heal 1"
 ItemID = "heal_1"
 

@@ -5,7 +5,8 @@
 
 [node name="Max Health Up" instance=ExtResource("1_l2vdo")]
 script = ExtResource("2_kvq4o")
-IncreaseAmount = 150.0
+IncreaseAmount = 100.0
+ChanceWeight = 30
 ItemName = "Max Health Up"
 ItemID = "max_health_up"
 IsUsable = false

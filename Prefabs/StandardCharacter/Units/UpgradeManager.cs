@@ -101,7 +101,7 @@ public partial class UpgradeManager : Node {
     [Export] public float ScanInterval { get; private set; } = 0.5f;
     private double _scanTimer = 0d;
     public bool IsScanReady => _scanTimer <= 0d;
-    [Export] public int MaxSlots { get; private set; } = 5;
+    [Export] public int MaxSlots { get; private set; } = 3;
     public int CurrentMaxSlots { get; set; } = 1;
     public List<UpgradeItem> Items { get; private set; } = [];
     [Export] public float DropDistance { get; private set; } = 32f;

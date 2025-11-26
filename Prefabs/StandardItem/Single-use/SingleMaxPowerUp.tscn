@@ -5,7 +5,9 @@
 [ext_resource type="Script" uid="uid://bk22sly8dhp0w" path="res://Prefabs/StandardItem/Single-use/SingleMaxPowerUp.cs" id="2_s4kfk"]
 
 [node name="Max Power Up" instance=ExtResource("1_xuw60")]
+y_sort_enabled = true
 script = ExtResource("2_s4kfk")
+ChanceWeight = 10
 ItemName = "Max Power Up"
 ItemID = "max_power_up"
 

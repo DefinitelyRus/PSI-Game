@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://bfs7tl0xkmubg"]
+
+[ext_resource type="PackedScene" uid="uid://cgwbyxdsmb6ty" path="res://Prefabs/StandardItem/Upgrades/UpgradeItem.tscn" id="1_u4t0c"]
+
+[node name="Max Slots Up" instance=ExtResource("1_u4t0c")]
+ChanceWeight = 50
+ItemName = "Max Slots Up"
+ItemID = "max_slots_up"
