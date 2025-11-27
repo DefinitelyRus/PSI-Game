@@ -33,6 +33,14 @@ public partial class InputManager : Node2D {
 		if (Mode == InputModes.RTS) {
 			CallDeferred(nameof(ReceiveRTSInputs));
 		}
+
+		if (Input.IsActionJustReleased(ExitGame)) _exitHoldTimer = 0f;
+		if (Input.IsActionPressed(ExitGame)) {
+			_exitHoldTimer += (float)delta;
+			if (_exitHoldTimer >= 2f) {
+				GetTree().Quit();
+			}
+		}
 	}
 
 	public override void _Input(InputEvent @event) {
@@ -61,6 +69,10 @@ public partial class InputManager : Node2D {
 	public const string LeftClick = "mouse_action_1";
 	public const string RightClick = "mouse_action_2";
 	public const string StopAction = "stop_action";
+	public const string DebugNextLevel = "debug_next_level";
+	public const string DebugPrevLevel = "debug_prev_level";
+	public const string DebugEndGame = "debug_end_game";
+	public const string ExitGame = "exit_game";
 
 	public static bool AllowOverride { get; set; } = true;
 
@@ -125,7 +137,23 @@ public partial class InputManager : Node2D {
 		if (Input.IsActionJustPressed("item_3")) Commander.SelectItem(2);
 		if (Input.IsActionJustPressed("item_4")) Commander.SelectItem(3);
 		if (Input.IsActionJustPressed("item_5")) Commander.SelectItem(4);
+
+		if (Input.IsActionJustPressed(DebugNextLevel)) SceneLoader.NextLevel();
+		if (Input.IsActionJustPressed(DebugPrevLevel)) SceneLoader.PreviousLevel();
+		if (Input.IsActionJustPressed(DebugEndGame)) TriggerDebugEndGame();
 	}
+
+	private async void TriggerDebugEndGame() {
+		AudioManager.StopMusic("AmbientAudio");
+		UIManager.StartTransition("Mission Complete");
+		UIManager.SetHUDVisible(false);
+		if (SceneLoader.Instance.LoadedScene is Level lvl) DataManager.RecordLevelCompletion(lvl);
+		await ToSignal(GetTree().CreateTimer(5.0f), "timeout");
+		Commander.Initialize();
+		SceneLoader.LoadLevel(0);
+	}
+
+	private float _exitHoldTimer = 0f;
 	
 	#endregion
 
