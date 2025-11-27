@@ -12,13 +12,15 @@ public partial class SingleMaxSlotsUp : UpgradeItem {
 
         OwnerCharacter.UpgradeManager.CurrentMaxSlots += 1;
         AudioManager.StreamAudio("max_slots_up", 0.8f);
-        UIManager.SetOpenSlots(OwnerCharacter.UpgradeManager.CurrentMaxSlots);
+        if (UIManager.SelectedCharacter == OwnerCharacter)
+            UIManager.SetOpenSlots(OwnerCharacter.UpgradeManager.CurrentMaxSlots);
 
         if (OwnerCharacter.UpgradeManager.CurrentMaxSlots > OwnerCharacter.UpgradeManager.MaxSlots) {
             OwnerCharacter.UpgradeManager.CurrentMaxSlots = OwnerCharacter.UpgradeManager.MaxSlots;
         }
 
-        UIManager.SetBottomOverlayText("Inventory Slot Increased!", 2.0f);
+        if (UIManager.SelectedCharacter == OwnerCharacter)
+            UIManager.SetBottomOverlayText("Inventory Slot Increased!", 2.0f);
         return null;
     }
 }

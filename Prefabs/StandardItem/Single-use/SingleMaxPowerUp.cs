@@ -21,9 +21,11 @@ public partial class SingleMaxPowerUp : UpgradeItem {
         OwnerCharacter.UpgradeManager.CurrentMaxPower = newMax;
     }
 
-    UIManager.SetPower(newMax - currentPowered, newMax); // show available vs max
+    if (UIManager.SelectedCharacter == OwnerCharacter)
+        UIManager.SetPower(newMax - currentPowered, newMax); // show available vs max
 
-        UIManager.SetBottomOverlayText("Power Capacity Increased!", 2.0f);
+        if (UIManager.SelectedCharacter == OwnerCharacter)
+            UIManager.SetBottomOverlayText("Power Capacity Increased!", 2.0f);
         return null;
     }
 }
