@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using Game;
 using Godot;
 namespace CommonScripts;
 
@@ -312,10 +313,11 @@ public partial class StandardProjectile : RigidBody2D
 
 		if (ForceType == ForceTypes.Impulse) ApplyImpulseForce();
 
-		WeaponOwner?.AudioController.PlayAudio("attack_1");
+		if (WeaponOwner == null) return;
+
+		WeaponOwner.AudioController.PlayAudio("attack_1", 1.0f);
 
 		Log.Me(() => "Done!", LogReady);
-		
 	}
 
 	public override void _Process(double delta) {
