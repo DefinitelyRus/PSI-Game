@@ -195,6 +195,20 @@ public partial class UIManager : CanvasLayer {
 		Instance.OnScreenText.CallDeferred("set_timer_color", color);
 	}
 
+	public static void SpawnIndicator(StandardCharacter owner, Vector2 position) {
+		MovementMarker indicator = Commander.Instance.IndicatorNodeScene.Instantiate<MovementMarker>();
+		if (SceneLoader.Instance.LoadedScene is Level currentLevel) {
+			indicator.OwnerCharacter = owner;
+			currentLevel.AddChild(indicator);
+			indicator.GlobalPosition = position;
+		}
+
+		else {
+			Log.Warn("Cannot add indicator node to current scene. Scene is not a Level.", true, true);
+			indicator.QueueFree();
+		}
+	}
+
 	#endregion
 
 	#region Transition
