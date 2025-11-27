@@ -266,9 +266,9 @@ public partial class AIDirector : Node2D {
         float range = RangeRatio;
 
         float veryLowPace = 0.3f;
-        float cruisingMin = 0.95f;
-        float cruisingMax = 1.15f;
-        float mediumPace = 1.2f;
+        float cruisingMin = 1.1f;
+        float cruisingMax = 1.4f;
+        float mediumPace = 1.4f;
         float veryHighPace = 1.7f;
         float veryHighRange = 1.5f;
 
