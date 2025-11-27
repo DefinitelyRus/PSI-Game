@@ -180,6 +180,16 @@ public partial class SceneLoader : Node
         GameManager.TimeRemaining = double.MaxValue;
     }
 
+    public static void PreviousLevel() {
+        if (Instance.LoadedScene is Level currentLevel) {
+            if (currentLevel.LevelIndex == 0) return;
+            uint prevLevelIndex = currentLevel.LevelIndex - 1;
+            LoadLevel(prevLevelIndex);
+        }
+
+        GameManager.TimeRemaining = double.MaxValue;
+    }
+
     #endregion
 
     #endregion
