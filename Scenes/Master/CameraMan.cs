@@ -244,8 +244,6 @@ public partial class CameraMan : Node2D {
 
 
     public static void SetTarget(Node2D target, bool instant = false) {
-        Log.Me(() => $"Setting camera target to {target.Name}.");
-
         Target = target;
 
         bool snapToTarget = !Instance.SmoothFollow || instant;
