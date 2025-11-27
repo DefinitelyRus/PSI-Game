@@ -6,7 +6,7 @@
 
 [node name="Heal 2" instance=ExtResource("1_8vwdn")]
 script = ExtResource("2_8ysvd")
-HealAmount = 100.0
+HealAmount = 500.0
 Value = 1.5
 SFX = null
 ChanceWeight = 25

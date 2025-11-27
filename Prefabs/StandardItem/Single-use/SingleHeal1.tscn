@@ -6,7 +6,7 @@
 
 [node name="Heal 1" instance=ExtResource("1_yggo2")]
 script = ExtResource("2_xmjie")
-HealAmount = 20.0
+HealAmount = 100.0
 Value = 1.5
 SFX = Dictionary[String, AudioStream]({})
 ChanceWeight = 100
