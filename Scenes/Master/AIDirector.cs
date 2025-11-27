@@ -29,6 +29,8 @@ public partial class AIDirector : Node2D {
     }
 
     public override void _Process(double delta) {
+    if (CurrentLevel != null) LevelElapsedTime += (float)delta;
+    UpdatePerformanceMetrics(delta);
         switch (Mode) {
             case SpawnMode.Static:
                 CallDeferred(nameof(UpdateStaticSpawning), delta);
@@ -275,6 +277,13 @@ public partial class AIDirector : Node2D {
     private static bool _isWaveActive;
     public static float EnemyOverflowThreshold { get; set; } = 0.25f;
     private static bool _hasStartedAtLeastOneWave; // tracks if initial wave has fired
+    /// <summary>
+    /// Caps how much the budget can increase per wave (0.0–1.0). Default 0.25 means max +25% increase per wave.
+    /// Decreases are uncapped.
+    /// </summary>
+    public static float PerWaveMaxIncrease { get; set; } = 0.25f;
+    // Tracks the most recently computed/used budget to apply the per-wave increase cap.
+    private static int _lastWaveBudgetComputed;
 
     private static float GetCurrentEnemyTokenValue() {
         float total = 0f;
@@ -305,6 +314,7 @@ public partial class AIDirector : Node2D {
     if (!_hasStartedAtLeastOneWave) _hasStartedAtLeastOneWave = true;
 
         Log.Me(() => "Starting new wave.");
+        Log.Me(() => $"Wave metrics: Health={HealthRatio:F2}, Pace={PaceRatio:F2}, Range={RangeRatio:F2}, Optional={OptionalRatio:F2}. Budget={_tokensLeftThisWave}");
     }
 
     private static void EndWave() {
@@ -346,7 +356,16 @@ public partial class AIDirector : Node2D {
 
             // Countdown
             _waveCooldownTimer -= delta;
+            // Before starting a wave, re-check enemy overflow threshold to enforce lock
             if (_waveCooldownTimer <= 0f) {
+                float currentTokens2 = GetCurrentEnemyTokenValue();
+                float nextBudget2 = ComputeNextWaveBudgetPreview();
+                float threshold2 = Mathf.Clamp(EnemyOverflowThreshold, 0f, 1f);
+                if (nextBudget2 > 0f && currentTokens2 >= nextBudget2 * threshold2) {
+                    // Reset cooldown to a small delay to re-evaluate soon rather than insta-starting
+                    _waveCooldownTimer = Mathf.Max(1f, TimeUntilNextWave * 0.25f);
+                    return;
+                }
                 StartWave();
             }
         }
@@ -365,13 +384,13 @@ public partial class AIDirector : Node2D {
 
 
     // Budget
-    public static float MinBudget { get; set; } = 25f;
-    public static float MaxBudget { get; set; } = 500f;
+    public static int MinBudget { get; set; } = 25;
+    public static int MaxBudget { get; set; } = 500;
     public static double SpendCooldown { get; set; } = 0.5f;
     private static double _spendTimer;
-    private static float _tokensLeftThisWave;
+    private static int _tokensLeftThisWave;
     private static void RecalculateBudget() {
-        float scaled = CurrentLevel.BaseBudget;
+    float scaled = CurrentLevel.BaseBudget;
 
         // Clamp difficulty multiplier
         float difficulty = Mathf.Clamp(
@@ -379,12 +398,22 @@ public partial class AIDirector : Node2D {
             0.5f, 2f
         );
 
-        _tokensLeftThisWave = Mathf.Clamp(scaled * difficulty, MinBudget, MaxBudget);
+        int computed = Mathf.RoundToInt(Mathf.Clamp(scaled * difficulty, MinBudget, MaxBudget));
+
+        // Apply per-wave max increase cap relative to last budget if a prior wave exists
+        if (_hasStartedAtLeastOneWave && _lastWaveBudgetComputed > 0) {
+            int maxIncrease = Mathf.RoundToInt(_lastWaveBudgetComputed * Mathf.Clamp(PerWaveMaxIncrease, 0f, 1f));
+            int cappedUpper = _lastWaveBudgetComputed + maxIncrease;
+            if (computed > cappedUpper) computed = cappedUpper;
+        }
+
+        _tokensLeftThisWave = computed;
+        _lastWaveBudgetComputed = computed;
     }
 
 
     private static void SpendBudget(float delta) {
-        if (_tokensLeftThisWave <= 0f) return;
+        if (_tokensLeftThisWave <= 0) return;
 
         if (_spendTimer > 0d) {
             _spendTimer -= delta;
@@ -398,6 +427,7 @@ public partial class AIDirector : Node2D {
             _spendTimer = SpendCooldown;
             return;
         }
+
         StandardEnemy? chosen = ChooseSpawnType();
         if (chosen == null) {
             Log.Warn(() => "No enemy type chosen for dynamic spawning.");
@@ -405,13 +435,12 @@ public partial class AIDirector : Node2D {
             return;
         }
 
-        float cost = chosen.DynamicSpawnCost;
+        int cost = Mathf.RoundToInt(chosen.DynamicSpawnCost);
         bool wasSpawned = SpawnEnemy(chosen);
         bool hasBudget = cost <= _tokensLeftThisWave;
 
         // Not enough budget: try cheaper enemy
         if (!hasBudget) {
-            Log.Me(() => $"Insufficient budget for enemy cost {cost}. Remaining {_tokensLeftThisWave}.");
 
             chosen.QueueFree();
 
@@ -422,7 +451,6 @@ public partial class AIDirector : Node2D {
                 if (enemy == null) continue;
                 if (enemy.DynamicSpawnCost >= cost) continue;
 
-                Log.Me(() => $"Found cheaper enemy with cost {enemy.DynamicSpawnCost}. Trying to spawn it instead.");
                 bool cheaperSpawned = SpawnEnemy(enemy);
 
                 if (!cheaperSpawned) {
@@ -430,19 +458,18 @@ public partial class AIDirector : Node2D {
                     continue;
                 }
 
-                _tokensLeftThisWave -= enemy.DynamicSpawnCost;
+                _tokensLeftThisWave -= Mathf.RoundToInt(enemy.DynamicSpawnCost);
                 _spendTimer = SpendCooldown;
                 return;
             }
 
-            if (!wasSpawned) Log.Me(() => "Failed to spawn chosen enemy (placement near player invalid). Retrying later.");
             return;
         }
 
         // Failed to spawn: free and try again later
         if (!wasSpawned) chosen.QueueFree();
 
-        _tokensLeftThisWave -= cost;
+    _tokensLeftThisWave -= cost;
         _spendTimer = SpendCooldown;
     }
 
@@ -463,13 +490,20 @@ public partial class AIDirector : Node2D {
     /// Updated over time.
     /// </summary>
     public static float PaceRatio { get; set; } = 1f;
+    public static float LevelElapsedTime { get; set; } = 0f;
+    public static int RequiredObjectivesTotal { get; set; } = 0;
+    public static int RequiredObjectivesCompleted { get; set; } = 0;
+    public static void SetRequiredObjectives(int totalIncludingCompletionObjective, int completedEligibleObjectives) {
+        RequiredObjectivesTotal = Mathf.Max(0, totalIncludingCompletionObjective);
+        RequiredObjectivesCompleted = Mathf.Max(0, completedEligibleObjectives);
+    }
 
     /// <summary>
     /// % of kills done at long range
     /// <br/><br/>
     /// Updated over time.
     /// </summary>
-    public static float RangeRatio { get; set; } = 0f;
+    public static float RangeRatio { get; set; } = 1f;
 
     /// <summary>
     /// completed_optional / total_optional
@@ -477,6 +511,106 @@ public partial class AIDirector : Node2D {
     /// Updated at the end of each level.
     /// </summary>
     public static float OptionalRatio { get; set; } = 0f;
+    // Optional objective tracking (dynamic). These allow OptionalRatio to update smoothly over time rather than only at level end.
+    public static int OptionalObjectivesTotal { get; set; } = 0;
+    public static int OptionalObjectivesCompleted { get; set; } = 0;
+
+    public static float HealthRatingFixedPoint { get; set; } = 1200f; // 2.0 rating at this average HP
+    public static float RangeRatingFixedPoint { get; set; } = 360f;   // 2.0 rating at this average distance
+    private static float _killDistanceAccum;
+    private static int _killDistanceSamples;
+    public static void RegisterKillDistance(float distance) {
+        if (distance < 0f) return;
+        _killDistanceAccum += distance;
+        _killDistanceSamples++;
+    if (_killDistanceSamples == 1) Log.Me(() => $"First kill distance sample registered (distance={distance:F1}). Range metric will begin updating.");
+    }
+
+    public static void ResetMetrics() {
+        HealthRatio = 1f;
+        PaceRatio = 1f;
+        RangeRatio = 1f;
+        OptionalRatio = 0f;
+        LevelElapsedTime = 0f;
+        _killDistanceAccum = 0f;
+        _killDistanceSamples = 0;
+        RequiredObjectivesTotal = 0;
+        RequiredObjectivesCompleted = 0;
+    OptionalObjectivesTotal = 0;
+    OptionalObjectivesCompleted = 0;
+    }
+
+    private static void UpdatePerformanceMetrics(double delta) {
+        List<StandardCharacter> units = [.. Commander.GetAllUnits().Where(u => u.IsAlive)];
+        if (units.Count == 0) return;
+
+        // Health rating: use average absolute health, map such that HealthRatingFixedPoint = 2.0 rating
+        float sumHealth = 0f;
+        foreach (StandardCharacter u in units) sumHealth += u.Health;
+        float avgHealth = sumHealth / units.Count;
+        float healthDenom = Mathf.Max(1f, HealthRatingFixedPoint);
+        float targetHealth = (avgHealth / healthDenom) * 2f; // 2.0 at fixed point
+        HealthRatio = Mathf.Lerp(HealthRatio, targetHealth, (float)delta * 2f);
+    float levelTimeLimit = CurrentLevel != null ? (float)CurrentLevel.LevelTimeLimit : 1f;
+    float elapsed = Mathf.Clamp(LevelElapsedTime, 0f, levelTimeLimit);
+        int eligibleObjectivesTotal = Mathf.Max(0, RequiredObjectivesTotal - 1);
+        int eligibleObjectivesCompleted = Mathf.Clamp(RequiredObjectivesCompleted, 0, eligibleObjectivesTotal);
+        float completionRatio = eligibleObjectivesTotal > 0 ? (float)eligibleObjectivesCompleted / eligibleObjectivesTotal : 0f;
+        float timePercent = levelTimeLimit > 0f ? elapsed / levelTimeLimit : 0f;
+        float fastGate = 0.3f;
+        float slowGate = 0.7f;
+        float targetPace = 0f;
+        if (completionRatio >= 1f) {
+            targetPace = timePercent <= fastGate ? 2f : Mathf.Lerp(2f, 1f, Mathf.InverseLerp(fastGate, 1f, timePercent));
+        } else if (completionRatio <= 0f) {
+            targetPace = timePercent >= slowGate ? 0f : Mathf.Lerp(1f, 0f, Mathf.InverseLerp(0f, slowGate, timePercent));
+        } else {
+            float expectedAtFastGate = 1f;
+            float rateRequired = expectedAtFastGate / fastGate;
+            float currentRate = completionRatio / Mathf.Max(0.0001f, timePercent);
+            float efficiency = Mathf.Clamp(currentRate / rateRequired, 0f, 1f);
+            float earlyBonus = Mathf.Lerp(0f, 1f, Mathf.InverseLerp(0f, fastGate, timePercent));
+            float midBlend = Mathf.Lerp(efficiency, completionRatio, earlyBonus);
+            targetPace = Mathf.Lerp(0f, 2f, midBlend);
+        }
+        PaceRatio = Mathf.Lerp(PaceRatio, targetPace, (float)delta * 2f);
+    // RANGE METRIC
+    // Previously, with zero samples RangeRatio decayed toward 0 (undesired). Maintain baseline 1 until data exists.
+    if (_killDistanceSamples > 0) {
+        float avgKillDistance = _killDistanceAccum / _killDistanceSamples;
+        float rangeDenom = Mathf.Max(1f, RangeRatingFixedPoint);
+        float targetRange = Mathf.Clamp((avgKillDistance / rangeDenom) * 2f, 0f, 2f);
+        RangeRatio = Mathf.Lerp(RangeRatio, targetRange, (float)delta * 2f);
+    } else {
+        RangeRatio = Mathf.Lerp(RangeRatio, 1f, (float)delta * 2f); // hold neutral value until kills happen
+    }
+
+    // OPTIONAL OBJECTIVE METRIC (smooth update during level)
+    if (OptionalObjectivesTotal > 0) {
+        float targetOptional = Mathf.Clamp((float)OptionalObjectivesCompleted / OptionalObjectivesTotal, 0f, 1f);
+        OptionalRatio = Mathf.Lerp(OptionalRatio, targetOptional, (float)delta * 2f);
+    }
+    }
+
+    public static void SetOptionalObjectiveProgress(int completed, int total) {
+        OptionalObjectivesTotal = Mathf.Max(0, total);
+        OptionalObjectivesCompleted = Mathf.Clamp(completed, 0, OptionalObjectivesTotal);
+        OptionalRatio = OptionalObjectivesTotal > 0 ? Mathf.Clamp((float)OptionalObjectivesCompleted / OptionalObjectivesTotal, 0f, 1f) : 0f;
+        Log.Me(() => $"Optional objectives progress set: {OptionalObjectivesCompleted}/{OptionalObjectivesTotal} -> ratio={OptionalRatio:F2}");
+    }
+
+    public static void SetOptionalObjectives(int total) {
+        OptionalObjectivesTotal = Mathf.Max(0, total);
+        OptionalObjectivesCompleted = Mathf.Min(OptionalObjectivesCompleted, OptionalObjectivesTotal);
+        Log.Me(() => $"Optional objectives total set: {OptionalObjectivesTotal}");
+    }
+
+    public static void RegisterOptionalObjectiveCompletion() {
+        if (OptionalObjectivesTotal <= 0) return;
+        if (OptionalObjectivesCompleted >= OptionalObjectivesTotal) return;
+        OptionalObjectivesCompleted++;
+        Log.Me(() => $"Optional objective completed: {OptionalObjectivesCompleted}/{OptionalObjectivesTotal}");
+    }
 
 
 
