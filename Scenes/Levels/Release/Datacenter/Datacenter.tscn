@@ -3056,9 +3056,9 @@ polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Arr
 outlines = Array[PackedVector2Array]([PackedVector2Array(464, 149, 400, 149, 400, 303, 544, 303, 544, 330, 608, 330, 608, 189, 467, 189, 464, 176)])
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_jfiow"]
-vertices = PackedVector2Array(643.64844, 117, 678, 117, 678, 147, 634, 147, 634, 141.10938, 620.97656, 118.00781, 623.7031, 135.39844, 454, 140.89844, 454, 149, 410, 149, 410, 136.45313, 453.8672, 117, 165.0625, 320, 122, 320, 122, 117, 166.0625, 149.52344, 464.85156, 135.32031, 475, 118.00781, 542, 145, 481.04688, 146.89063, 495.60938, 117.00781, 518.03125, 118.00781, 605.27344, 146.89844, 538.2969, 117, 599.8203, 117)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3, 4), PackedInt32Array(5, 0, 4, 6), PackedInt32Array(7, 8, 9, 10, 11), PackedInt32Array(12, 13, 14, 15), PackedInt32Array(15, 14, 11, 10), PackedInt32Array(16, 7, 11, 17), PackedInt32Array(18, 19, 16, 17, 20, 21), PackedInt32Array(6, 22, 18, 21, 23, 24, 5)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(175, 330, 112, 330, 112, 107, 454.14255, 107.00006, 475, 108, 495.5772, 107.00004, 518, 108, 538, 107, 600.088, 107.000015, 621, 108, 643.4219, 107.00003, 688, 107, 688, 157, 624, 157, 624, 147, 608, 157, 542, 155, 478, 157, 464, 147, 464, 159, 400, 159, 400, 147, 176, 159)])
+vertices = PackedVector2Array(643.64844, 117, 678, 117, 678, 147, 636.8125, 147, 626.25, 133.79688, 620.97656, 118.00781, 454, 140.89844, 454, 149, 410, 149, 410, 136.45313, 453.8672, 117, 165.0625, 320, 122, 320, 122, 117, 166.0625, 149.52344, 464.85156, 135.32031, 475, 118.00781, 542, 145, 481.04688, 146.89063, 495.60938, 117.00781, 518.03125, 118.00781, 605.27344, 146.89844, 538.2969, 117, 599.8203, 117)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3, 4, 5), PackedInt32Array(6, 7, 8, 9, 10), PackedInt32Array(11, 12, 13, 14), PackedInt32Array(14, 13, 10, 9), PackedInt32Array(15, 6, 10, 16), PackedInt32Array(17, 18, 15, 16, 19, 20), PackedInt32Array(4, 21, 17, 20, 22, 23, 5)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(175, 330, 112, 330, 112, 107, 454.14255, 107.00006, 475, 108, 495.5772, 107.00004, 518, 108, 538, 107, 600.088, 107.000015, 621, 108, 643.4219, 107.00003, 688, 107, 688, 157, 632, 157, 624, 147, 608, 157, 542, 155, 478, 157, 464, 147, 464, 159, 400, 159, 400, 147, 176, 159)])
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_6uv1i"]
 vertices = PackedVector2Array(949.9531, 9.1171875, 949.0469, 176, 906, 176, 906, 150, 940.7578, 8.2890625, 714, 150, 714, 10, 735.09375, 10, 743.15625, -1.09375, 937.9375, -4.84375)
@@ -3133,7 +3133,7 @@ CameraNodePaths = [NodePath("Props/Panels/Power Box3"), NodePath("Unit Spawns/U1
 AmbientAudio = ExtResource("2_1kqr7")
 LevelIndex = 3
 LevelTimeLimit = 180.0
-BaseBudget = 1200
+BaseBudget = 2000
 StaticEnemyTypes = [ExtResource("2_rkcg0"), ExtResource("3_ggy7f"), ExtResource("4_1kqr7"), ExtResource("5_y5rpv"), ExtResource("6_tbigm"), ExtResource("7_vq2t3")]
 DynamicEnemyTypes = [ExtResource("2_rkcg0"), ExtResource("3_ggy7f"), ExtResource("4_1kqr7"), ExtResource("5_y5rpv"), ExtResource("6_tbigm"), ExtResource("7_vq2t3")]
 EnemyStaticSpawningDelayMultiplier = 0.4
