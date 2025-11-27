@@ -172,7 +172,6 @@ Transition = NodePath("Transition")
 OnScreenText = NodePath("On-ScreenText")
 
 [node name="HUD" type="MarginContainer" parent="." node_paths=PackedStringArray("health_bar", "power", "current_character", "inventory_slots", "hud_container", "char_info", "char_inventory", "char_preview")]
-visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -235,7 +234,7 @@ theme_override_icons/grabber_highlight = SubResource("CompressedTexture2D_lsael"
 theme_override_icons/grabber_disabled = SubResource("CompressedTexture2D_lsael")
 theme_override_styles/slider = SubResource("StyleBoxFlat_ck6j7")
 theme_override_styles/grabber_area = SubResource("StyleBoxFlat_lsael")
-value = 100.0
+value = 50.0
 editable = false
 scrollable = false
 
@@ -600,6 +599,7 @@ end_pos = Vector2(-960, 0)
 transition_time = 1.0
 
 [node name="On-ScreenText" type="MarginContainer" parent="." node_paths=PackedStringArray("center_label", "subtitle", "timer")]
+visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
