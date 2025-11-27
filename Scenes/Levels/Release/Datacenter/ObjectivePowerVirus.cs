@@ -13,6 +13,9 @@ public partial class ObjectivePowerVirus : StandardPanel {
 
         GameManager.SetGameData("L4_PowerVirusInstalled", null, true);
 
+    // Count this as a required objective completion for pacing.
+    AIDirector.RegisterRequiredObjectiveCompletion();
+
         // Disable panel after interaction
         IsEnabled = false;
         Activated = true;

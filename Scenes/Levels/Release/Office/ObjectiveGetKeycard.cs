@@ -13,6 +13,9 @@ public partial class ObjectiveGetKeycard : StandardPanel {
 
         UIManager.SetBottomOverlayText("Got one elevator keycard!");
 
+    // Count this keycard as a required objective completion for pacing.
+    AIDirector.RegisterRequiredObjectiveCompletion();
+
         // Disable panel after interaction
         IsEnabled = false;
         Activated = true;

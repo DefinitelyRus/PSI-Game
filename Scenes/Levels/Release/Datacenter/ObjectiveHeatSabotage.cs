@@ -19,6 +19,9 @@ public partial class ObjectiveHeatSabotage : StandardPanel {
     // Mark activated but keep panel enabled in case other objectives aren't done yet
     Activated = true;
 
+    // Count this as a required objective completion for pacing.
+    AIDirector.RegisterRequiredObjectiveCompletion();
+
         if (ActivationSound != null) AudioManager.StreamAudio(ActivationSound);
 
         UIManager.SetBottomOverlayText("Heat management system sabotaged!", 2f);

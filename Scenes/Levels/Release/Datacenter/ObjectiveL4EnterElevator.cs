@@ -95,6 +95,9 @@ public partial class ObjectiveL4EnterElevator : StandardPanel {
         DataManager.RecordPanelInteraction(this, character, extra);
         Log.Me(() => $"All units have entered the elevator!");
 
+    // Count this final extraction as a required objective completion for pacing.
+    AIDirector.RegisterRequiredObjectiveCompletion();
+
         // Disable panel after interaction
         IsEnabled = false;
         Activated = true;

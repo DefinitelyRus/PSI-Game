@@ -40,6 +40,9 @@ public partial class ObjectiveEnterBuilding : StandardPanel {
 
         Log.Me(() => $"{character.CharacterName} has entered the building!");
 
+    // Count this as a required objective completion for pacing.
+    AIDirector.RegisterRequiredObjectiveCompletion();
+
         // Disable panel after interaction
         IsEnabled = false;
         Activated = true;

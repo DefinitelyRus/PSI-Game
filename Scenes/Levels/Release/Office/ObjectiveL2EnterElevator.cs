@@ -59,6 +59,9 @@ public partial class ObjectiveL2EnterElevator : StandardPanel {
         GameManager.SetGameData("L2_EnteredElevator", null, true);
         Log.Me(() => $"All units have entered the elevator!");
 
+    // Count this as a required objective completion for pacing.
+    AIDirector.RegisterRequiredObjectiveCompletion();
+
         // Disable panel after interaction
         IsEnabled = false;
         Activated = true;

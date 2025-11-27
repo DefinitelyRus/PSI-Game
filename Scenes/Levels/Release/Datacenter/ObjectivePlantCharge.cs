@@ -47,8 +47,11 @@ public partial class ObjectivePlantCharge : StandardPanel {
         UIManager.SetBottomOverlayText($"Good luck.", 3f);
         Log.Me(() => $"{character.CharacterName} has planted the charge at the datacenter!");
 
-        if (MusicOnPlant != null) AudioManager.StreamAudio(MusicOnPlant);
-        GameManager.SetGameData("L4_ChargePlanted", null, true);
+    if (MusicOnPlant != null) AudioManager.StreamAudio(MusicOnPlant);
+    GameManager.SetGameData("L4_ChargePlanted", null, true);
+
+    // Register this critical step as a required objective completion for pacing.
+    AIDirector.RegisterRequiredObjectiveCompletion();
 
         // Wait until the cinematic camera path has fully completed before starting the timer
         while (CameraMan.IsPathActive) {
