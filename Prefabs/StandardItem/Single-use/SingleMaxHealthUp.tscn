@@ -5,8 +5,8 @@
 
 [node name="Max Health Up" instance=ExtResource("1_l2vdo")]
 script = ExtResource("2_kvq4o")
-IncreaseAmount = 100.0
-ChanceWeight = 25
+IncreaseAmount = 50.0
+ChanceWeight = 40
 ItemName = "Max Health Up"
 ItemID = "max_health_up"
 Tags = PackedStringArray("SingleUse")
