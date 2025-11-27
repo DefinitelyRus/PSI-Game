@@ -155,7 +155,23 @@ public partial class AIAgentManager : Node2D {
 		if (!Character.IsAlive) return;
 
 		NavAgent.TargetPosition = target;
+		bool isReachable = NavAgent.IsTargetReachable();
+		bool isUnit = Character.Tags.Contains("Unit");
+
 		HasDestination = true;
+
+		if (!isReachable) {
+			Log.Me(() => $"{Character.InstanceID} cannot reach target at ({target.X:F2}, {target.Y:F2}).", LogPhysics);
+
+			if (isUnit) AudioManager.StreamAudio("error");
+			HasDestination = false;
+			return;
+		}
+
+		if (isUnit) {
+			UIManager.SpawnIndicator(Character, target);
+			AudioManager.StreamAudio("move_command");
+		}
 	}
 
 

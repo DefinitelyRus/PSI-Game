@@ -2,6 +2,7 @@ using Game;
 using Godot;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace CommonScripts;
 
@@ -10,6 +11,7 @@ public partial class Commander : Node {
 	#region Instance Members
 
 	[Export] public PackedScene[] InitialUnits = [];
+	[Export] public PackedScene IndicatorNodeScene = null!;
 
 	#region Debugging
 
@@ -19,6 +21,24 @@ public partial class Commander : Node {
 	#endregion
 
 	#region Godot Callbacks
+
+	public override void _EnterTree() {
+		Log.Me(() => "Commander _EnterTree called.", true, true);
+		if (Instance != null) {
+			Log.Err("Multiple instances of Commander detected. There should only be one Commander in the scene.");
+			QueueFree();
+			return;
+		}
+
+		if (InitialUnits == null) {
+			Log.Err("InitialUnits is null in Commander. Please assign initial unit scenes in the inspector.");
+			InitialUnits = [];
+		}
+
+		if (IndicatorNodeScene == null) {
+			Log.Err("IndicatorNodeScene is null in Commander. Please assign an indicator node scene in the inspector.");
+		}
+	}
 
 	public override void _Ready() {
 		if (Instance != null) {
@@ -261,17 +281,19 @@ public partial class Commander : Node {
 	}
 
 
-	public static void MoveAndSearch(Vector2 mousePos) {
+	public static async void MoveAndSearch(Vector2 mousePos) {
 		foreach (StandardCharacter unit in GetSelectedUnits()) {
 			AIAgentManager agent = unit.AIAgent;
 			agent.Action1(mousePos);
 			agent.Searching = true;
 			agent.Targeting = false;
+
+			await Instance.ToSignal(Instance.GetTree().CreateTimer(0.1f), "timeout");
 		}
 	}
 
 
-	public static void MoveAndTarget(Vector2 mousePos) {
+	public static async void MoveAndTarget(Vector2 mousePos) {
 		foreach (StandardCharacter unit in GetSelectedUnits()) {
 			AIAgentManager agent = unit.AIAgent;
 			AITargetingManager targeter = unit.TargetingManager;
@@ -304,6 +326,8 @@ public partial class Commander : Node {
 			else {
 				Log.Me(() => $"MoveAndTarget: Entity at ({mousePos.X:F2}, {mousePos.Y:F2}) not a valid StandardCharacter target. Moving only.", Instance.LogInput);
 			}
+
+			await Instance.ToSignal(Instance.GetTree().CreateTimer(0.1f), "timeout");
 		}
 	}
 
