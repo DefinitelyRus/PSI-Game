@@ -51,7 +51,33 @@ public partial class AIDirector : Node2D {
 
     public static AIDirector Instance { get; private set; } = null!;
 
-    public static Level CurrentLevel { get; set; } = null!;
+    private static Level? _currentLevel;
+    public static Level CurrentLevel {
+        get => _currentLevel!;
+        set {
+            if (!ReferenceEquals(_currentLevel, value)) {
+                Level? previous = _currentLevel;
+                _currentLevel = value;
+                // When level changes, finalize OptionalRatio from previous level's data
+                // Mapping rules:
+                // - If no optional objectives existed: 1.0
+                // - 0% completed: 0.0
+                // - 100% completed: 2.0
+                if (previous != null) {
+                    FinalizeOptionalRatioFromPreviousLevel();
+                } else {
+                    // No previous level: treat as having no optionals
+                    OptionalRatio = 1f;
+                }
+
+                // Reset counters for the new level; the new level will set its totals as it loads
+                OptionalObjectivesCompleted = 0;
+                OptionalObjectivesTotal = 0;
+                // Reset wave/budget state so budgets do not carry over between levels
+                ResetWaveState();
+            }
+        }
+    }
 
     public enum SpawnMode {
         Static,
@@ -308,6 +334,20 @@ public partial class AIDirector : Node2D {
     public static float PerWaveMaxIncrease { get; set; } = 0.25f;
     // Tracks the most recently computed/used budget to apply the per-wave increase cap.
     private static int _lastWaveBudgetComputed;
+    /// <summary>
+    /// Clears all wave-related runtime state so that a newly entered level starts fresh.
+    /// Budget will be recalculated from the new level's BaseBudget and current performance metrics.
+    /// </summary>
+    private static void ResetWaveState() {
+        _waveTimer = 0f;
+        _waveCooldownTimer = 0f;
+        _isWaveActive = false;
+        _hasStartedAtLeastOneWave = false;
+        _lastWaveBudgetComputed = 0;
+        _tokensLeftThisWave = 0;
+        _spendTimer = 0d;
+        _spawnWeights.Clear();
+    }
 
     private static float GetCurrentEnemyTokenValue() {
         float total = 0f;
@@ -333,6 +373,16 @@ public partial class AIDirector : Node2D {
         if (CurrentLevel == null) return;
 
         RecalculateBudget();
+        // New rule: deduct 50% of the tokens currently active on the field from the next wave's budget
+        // Example: 100 active, 200 budget -> deduct 50, resulting budget 150
+        float activeNow = GetCurrentEnemyTokenValue();
+        int deduction = Mathf.RoundToInt(activeNow * 0.5f);
+        int before = _tokensLeftThisWave;
+        _tokensLeftThisWave = Mathf.Max(0, _tokensLeftThisWave - deduction);
+        _lastWaveBudgetComputed = _tokensLeftThisWave; // keep last computed in sync with effective budget
+        if (deduction > 0) {
+            Log.Me(() => $"Wave budget adjusted: base={before}, activeTokens={activeNow:F0}, deduction(50%)={deduction}, final={_tokensLeftThisWave}");
+        }
         _isWaveActive = true;
         _waveTimer = WaveDuration;
     if (!_hasStartedAtLeastOneWave) _hasStartedAtLeastOneWave = true;
@@ -359,37 +409,23 @@ public partial class AIDirector : Node2D {
                 return;
             }
 
-            // Subsequent waves: manage cooldown gating
+            // Subsequent waves: dynamic cooldown based on active tokens ratio.
+            // ratio = activeTokens / nextBudget; cooldown = baseDelay + ratio * baseDelay
             if (_waveCooldownTimer <= 0f) {
                 float currentTokens = GetCurrentEnemyTokenValue();
                 float nextBudget = ComputeNextWaveBudgetPreview();
-                float threshold = Mathf.Clamp(EnemyOverflowThreshold, 0f, 1f);
-
-                // Hold off starting the cooldown until enemy field is below threshold
-                if (_waveCooldownTimer == 0f && nextBudget > 0f && currentTokens >= nextBudget * threshold) {
-                    return; // wait before initiating cooldown
-                }
-
-                // If cooldown not set yet, set it
-                if (_waveCooldownTimer == 0f) {
-                    _waveCooldownTimer = TimeUntilNextWave;
-                    Log.Me(() => "Starting inter-wave cooldown.");
-                    return; // begin countdown next frame
-                }
+                float baseDelay = TimeUntilNextWave;
+                float ratio = 0f;
+                if (nextBudget > 0f) ratio = Mathf.Max(0f, currentTokens / nextBudget);
+                float addedDelay = baseDelay * ratio;
+                _waveCooldownTimer = baseDelay + addedDelay;
+                Log.Me(() => $"Starting inter-wave cooldown. baseDelay={baseDelay:F1}, activeTokens={currentTokens:F0}, nextBudget={nextBudget:F0}, ratio={ratio:F2}, totalDelay={_waveCooldownTimer:F1}");
+                return; // begin countdown next frame
             }
 
             // Countdown
             _waveCooldownTimer -= delta;
-            // Before starting a wave, re-check enemy overflow threshold to enforce lock
             if (_waveCooldownTimer <= 0f) {
-                float currentTokens2 = GetCurrentEnemyTokenValue();
-                float nextBudget2 = ComputeNextWaveBudgetPreview();
-                float threshold2 = Mathf.Clamp(EnemyOverflowThreshold, 0f, 1f);
-                if (nextBudget2 > 0f && currentTokens2 >= nextBudget2 * threshold2) {
-                    // Reset cooldown to a small delay to re-evaluate soon rather than insta-starting
-                    _waveCooldownTimer = Mathf.Max(1f, TimeUntilNextWave * 0.25f);
-                    return;
-                }
                 StartWave();
             }
         }
@@ -514,12 +550,54 @@ public partial class AIDirector : Node2D {
     /// Updated over time.
     /// </summary>
     public static float PaceRatio { get; set; } = 1f;
+    // --- Pace timing state ---
+    /// <summary>
+    /// True after the first required objective is completed; used so pace
+    /// stays fixed at 1.0 before any required objective is done.
+    /// </summary>
+    private static bool _hasCompletedFirstRequiredObjective = false;
+    /// <summary>
+    /// Accumulator so pace is only recalculated once per real second, not per frame.
+    /// </summary>
+    private static float _paceUpdateAccumulator = 0f;
+    /// <summary>
+    /// Timestamps (LevelElapsedTime seconds) when required objectives were completed.
+    /// Used to compute objectives-per-minute (OPM) over a 60s sliding window.
+    /// </summary>
+    private static readonly List<float> _requiredObjectiveCompletionTimes = new();
     public static float LevelElapsedTime { get; set; } = 0f;
     public static int RequiredObjectivesTotal { get; set; } = 0;
     public static int RequiredObjectivesCompleted { get; set; } = 0;
     public static void SetRequiredObjectives(int totalIncludingCompletionObjective, int completedEligibleObjectives) {
         RequiredObjectivesTotal = Mathf.Max(0, totalIncludingCompletionObjective);
         RequiredObjectivesCompleted = Mathf.Max(0, completedEligibleObjectives);
+    }
+
+    /// <summary>
+    /// Call this when a required objective has been completed.
+    /// This increments the completed count (up to the eligible maximum)
+    /// and resets the time-since-last-objective timer so that the pace
+    /// metric reflects the new completion immediately.
+    /// </summary>
+    public static void RegisterRequiredObjectiveCompletion() {
+        // Always increment; if totals aren't initialized yet we still want pace to unlock.
+        RequiredObjectivesCompleted++;
+
+        // If first time, unlock pacing and force an immediate update next frame.
+        if (!_hasCompletedFirstRequiredObjective) {
+            _hasCompletedFirstRequiredObjective = true;
+            // Set accumulator to >=1 to trigger immediate pace calculation next _Process.
+            _paceUpdateAccumulator = 1f;
+            Log.Me(() => "Pace unlocked: first required objective completion registered.");
+        } else {
+            // Reset timer for subsequent completions.
+            // Force immediate recalculation.
+            _paceUpdateAccumulator = 1f;
+            Log.Me(() => "Pace timer reset after required objective completion.");
+        }
+
+    // Record timestamp for OPM calculation
+    _requiredObjectiveCompletionTimes.Add(LevelElapsedTime);
     }
 
     /// <summary>
@@ -534,29 +612,33 @@ public partial class AIDirector : Node2D {
     /// <br/><br/>
     /// Updated at the end of each level.
     /// </summary>
-    public static float OptionalRatio { get; set; } = 0f;
+    public static float OptionalRatio { get; set; } = 1f;
     public static int OptionalObjectivesTotal { get; set; } = 0;
     public static int OptionalObjectivesCompleted { get; set; } = 0;
 
     public static float HealthRatingFixedPoint { get; set; } = 1200f;
     public static float RangeRatingFixedPoint { get; set; } = 360f;
-    private static float _killDistanceAccum;
-    private static int _killDistanceSamples;
+    // Maintain a FIFO of the last N kill distances
+    private const int KillDistanceWindow = 15;
+    private static readonly Queue<float> _killDistances = new();
     public static void RegisterKillDistance(float distance) {
         if (distance < 0f) return;
-        _killDistanceAccum += distance;
-        _killDistanceSamples++;
-        if (_killDistanceSamples == 1) Log.Me(() => $"First kill distance sample registered (distance={distance:F1}). Range metric will begin updating.");
+        _killDistances.Enqueue(distance);
+        while (_killDistances.Count > KillDistanceWindow) _killDistances.Dequeue();
+        if (_killDistances.Count == 1) Log.Me(() => $"First kill distance sample registered (distance={distance:F1}). Range metric will begin updating.");
     }
 
     public static void ResetMetrics() {
         HealthRatio = 1f;
         PaceRatio = 1f;
         RangeRatio = 1f;
-        OptionalRatio = 0f;
+        // Do not reset OptionalRatio here; it should reflect the previous level and only
+        // update when the level changes.
         LevelElapsedTime = 0f;
-        _killDistanceAccum = 0f;
-        _killDistanceSamples = 0;
+        _hasCompletedFirstRequiredObjective = false;
+        _paceUpdateAccumulator = 0f;
+        _requiredObjectiveCompletionTimes.Clear();
+    _killDistances.Clear();
         RequiredObjectivesTotal = 0;
         RequiredObjectivesCompleted = 0;
         OptionalObjectivesTotal = 0;
@@ -568,10 +650,10 @@ public partial class AIDirector : Node2D {
         if (units.Count == 0) return;
 
         float dt = (float)delta;
-        UpdateHealthMetric(units, dt);
-        UpdatePaceMetric(dt);
-        UpdateRangeMetric(dt);
-        UpdateOptionalMetric(dt);
+    UpdateHealthMetric(units, dt);
+    UpdatePaceMetric(dt);
+    UpdateRangeMetric(dt);
+    // OptionalRatio updates only on level change using previous level's data.
     }
 
     private static void UpdateHealthMetric(List<StandardCharacter> units, float delta) {
@@ -584,162 +666,95 @@ public partial class AIDirector : Node2D {
     }
 
     private static void UpdatePaceMetric(float delta) {
-        // Pace is based on how quickly required objectives (excluding the final completion
-        // objective) are being cleared relative to the level timer.
-        // Design goals:
-        //  - If 100% of eligible objectives are done by 30% of total time -> Pace = 2.0
-        //  - If none are done after 70% of total time -> Pace = 0.0
-        //  - If 50% of objectives are done at exactly 50% of total time -> Pace = 1.0
-
-        if (CurrentLevel == null) return;
-
-        float levelTimeLimit = Mathf.Max(0.0001f, (float)CurrentLevel.LevelTimeLimit);
-        float elapsed = Mathf.Clamp(LevelElapsedTime, 0f, levelTimeLimit);
-
-        // Exclude the last (completion) objective from the pacing metric.
-        int eligibleObjectivesTotal = Mathf.Max(0, RequiredObjectivesTotal - 1);
-        int eligibleObjectivesCompleted = Mathf.Clamp(RequiredObjectivesCompleted, 0, eligibleObjectivesTotal);
-
-        float completionRatio = eligibleObjectivesTotal > 0
-            ? (float)eligibleObjectivesCompleted / eligibleObjectivesTotal
-            : 0f; // no eligible objectives -> treat as 0 so pace decays toward neutral.
-
-        float timePercent = elapsed / levelTimeLimit; // 0..1
-        const float fastGate = 0.30f; // earlier than this = "fast"
-        const float slowGate = 0.70f; // later than this with no progress = "slow"
-
-        float targetPace;
-
-        // Case 1: all eligible objectives done.
-        if (completionRatio >= 0.999f && eligibleObjectivesTotal > 0) {
-            // If done by the fast gate, max reward.
-            if (timePercent <= fastGate) targetPace = 2f;
-            else {
-                // After the fast gate, linearly fall back toward 1.0 as you use more time.
-                float t = Mathf.InverseLerp(fastGate, 1f, Mathf.Clamp(timePercent, fastGate, 1f));
-                targetPace = Mathf.Lerp(2f, 1f, t);
-            }
-        }
-
-        // Case 2: no progress yet.
-        else if (completionRatio <= 0.001f) {
-            // Before the slow gate, decay from 1.0 toward 0.0.
-            if (timePercent >= slowGate) targetPace = 0f;
-            else {
-                float t = Mathf.InverseLerp(0f, slowGate, Mathf.Clamp(timePercent, 0f, slowGate));
-                targetPace = Mathf.Lerp(1f, 0f, t);
-            }
-        }
-
-        // Case 3: partial progress.
-        else {
-            // We compare current completion rate (objectives per unit time)
-            // against the rate needed to finish all eligible objectives by the fast gate.
-            float requiredRate = eligibleObjectivesTotal > 0
-                ? 1f / fastGate // 100% of objectives over 30% of the time window
-                : 0f;
-
-            // Avoid division by zero when very early in the level.
-            float currentRate = timePercent > 0.001f
-                ? completionRatio / timePercent
-                : 0f;
-
-            float efficiency = requiredRate > 0f
-                ? Mathf.Clamp(currentRate / requiredRate, 0f, 2f) // allow some overspeed bonus
-                : 0f;
-
-            // Map efficiency into 0–2. At requiredRate, efficiency = 1 -> Pace = 2.
-            float basePace = Mathf.Lerp(0f, 2f, Mathf.Clamp(efficiency, 0f, 1f));
-
-            // Blend in how much of the work is actually done so we respect
-            // the 50%/50% => 1.0 design point.
-            float completionInfluence = completionRatio; // 0..1
-            float blended = Mathf.Lerp(basePace, 2f * completionRatio, completionInfluence);
-
-            targetPace = Mathf.Clamp(blended, 0f, 2f);
-        }
-
-        PaceRatio = Mathf.Lerp(PaceRatio, targetPace, delta * 2f);
-    }
-
-    private static void UpdateRangeMetric(float delta) {
-        // Range metric is based on the average kill distance of the most recent kills.
-        // Design goals:
-        //  - For the past N kills (effectively capped), if avg distance is 320 -> Range = 2.0
-        //  - If avg distance is <64 -> Range = 0.0
-        //  - Interpolate linearly between these extremes.
-
-        if (_killDistanceSamples <= 0) {
-            // No data yet, ease back toward neutral.
-            RangeRatio = Mathf.Lerp(RangeRatio, 1f, delta * 2f);
+        // Before first required objective completion: keep pace at 1.0.
+        if (!_hasCompletedFirstRequiredObjective) {
+            PaceRatio = 1f;
             return;
         }
 
-        float avgKillDistance = _killDistanceAccum / _killDistanceSamples;
+        // Per-second update gating.
+        _paceUpdateAccumulator += delta;
+        if (_paceUpdateAccumulator < 1f) return;
+        _paceUpdateAccumulator = 0f; // reset for next second
 
-        const float minRangeDist = 64f;   // 0.0 when below this
-        const float maxRangeDist = 320f;  // 2.0 when at or above this
+        // Compute objectives per minute (OPM) as completions in the last 60 seconds.
+        float now = LevelElapsedTime;
+        float window = 60f;
+        // prune old timestamps
+        for (int i = _requiredObjectiveCompletionTimes.Count - 1; i >= 0; i--) {
+            if (now - _requiredObjectiveCompletionTimes[i] > window) {
+                _requiredObjectiveCompletionTimes.RemoveAt(i);
+            }
+        }
+        int countLastMinute = _requiredObjectiveCompletionTimes.Count;
+        float opm = countLastMinute; // since window is 60s
 
-        float t;
-        if (avgKillDistance <= minRangeDist) t = 0f;
-        else if (avgKillDistance >= maxRangeDist) t = 1f;
-        else t = (avgKillDistance - minRangeDist) / (maxRangeDist - minRangeDist);
+        // Map OPM to pace: <=0.5 -> 0.0, >=3.0 -> 2.0, linear between.
+        const float minOpm = 0.5f;
+        const float maxOpm = 3.0f;
+        float targetPace;
+        if (opm <= minOpm) targetPace = 0f;
+        else if (opm >= maxOpm) targetPace = 2f;
+        else {
+            float alpha = (opm - minOpm) / (maxOpm - minOpm); // 0..1
+            targetPace = alpha * 2f; // 0..2
+        }
 
-        float targetRange = Mathf.Lerp(0f, 2f, t);
+        PaceRatio = targetPace;
+    }
+
+    private static void UpdateRangeMetric(float delta) {
+        // If fewer than 15 kills, keep value at 0.5
+        if (_killDistances.Count < KillDistanceWindow) {
+            RangeRatio = Mathf.Lerp(RangeRatio, 0.5f, delta * 2f);
+            return;
+        }
+
+        // Compute average of the window
+        float sum = 0f;
+        foreach (float d in _killDistances) sum += d;
+        float avg = sum / Mathf.Max(1, _killDistances.Count);
+
+        // Map avg distance to range ratio:
+        // avg >= 320 -> 2.0; avg <= 64 -> 0.0; linear between 64 and 320
+        const float minDist = 64f;
+        const float maxDist = 320f;
+        float targetRange;
+        if (avg <= minDist) targetRange = 0f;
+        else if (avg >= maxDist) targetRange = 2f;
+        else {
+            float t = (avg - minDist) / (maxDist - minDist); // 0..1
+            targetRange = t * 2f; // 0..2
+        }
+
         RangeRatio = Mathf.Lerp(RangeRatio, targetRange, delta * 2f);
     }
 
-    private static void UpdateOptionalMetric(float delta) {
-        // OptionalRatio tracks how many optional objectives have been completed.
-        //  - 0% completed    -> 0.0
-        //  - 100% completed  -> 2.0
-        // It is updated continuously so that wave previews stay in sync.
+    private static void FinalizeOptionalRatioFromPreviousLevel() {
+        if (OptionalObjectivesTotal <= 0) {
+            OptionalRatio = 1f; // No optional objectives => neutral 1.0
+            return;
+        }
 
-        if (OptionalObjectivesTotal > 0) {
-            float fraction = Mathf.Clamp((float)OptionalObjectivesCompleted / OptionalObjectivesTotal, 0f, 1f);
-            float targetOptional = 2f * fraction;
-            OptionalRatio = Mathf.Lerp(OptionalRatio, targetOptional, delta * 2f);
-        }
-        else {
-            // No optional objectives in this level: keep at 0.
-            OptionalRatio = Mathf.Lerp(OptionalRatio, 0f, delta * 2f);
-        }
+        float completion = Mathf.Clamp((float)OptionalObjectivesCompleted / OptionalObjectivesTotal, 0f, 1f);
+        OptionalRatio = Mathf.Clamp(completion * 2f, 0f, 2f);
     }
 
     public static void SetOptionalObjectiveProgress(int completed, int total) {
-        // Called by game logic whenever optional objectives progress changes.
+        // Update only counters during a level; OptionalRatio is finalized on level change
         OptionalObjectivesTotal = Mathf.Max(0, total);
         OptionalObjectivesCompleted = Mathf.Clamp(completed, 0, OptionalObjectivesTotal);
-
-        if (OptionalObjectivesTotal > 0) {
-            float fraction = Mathf.Clamp((float)OptionalObjectivesCompleted / OptionalObjectivesTotal, 0f, 1f);
-            OptionalRatio = 2f * fraction;
-        } else {
-            OptionalRatio = 0f;
-        }
     }
 
     public static void SetOptionalObjectives(int total) {
-        // Should be called whenever the level changes or when optional objectives are (re)defined.
         OptionalObjectivesTotal = Mathf.Max(0, total);
         OptionalObjectivesCompleted = Mathf.Min(OptionalObjectivesCompleted, OptionalObjectivesTotal);
-
-        if (OptionalObjectivesTotal > 0) {
-            float fraction = Mathf.Clamp((float)OptionalObjectivesCompleted / OptionalObjectivesTotal, 0f, 1f);
-            OptionalRatio = 2f * fraction;
-        } else {
-            OptionalRatio = 0f;
-        }
     }
 
     public static void RegisterOptionalObjectiveCompletion() {
         if (OptionalObjectivesTotal <= 0) return;
         if (OptionalObjectivesCompleted >= OptionalObjectivesTotal) return;
-
         OptionalObjectivesCompleted++;
-
-        float fraction = Mathf.Clamp((float)OptionalObjectivesCompleted / OptionalObjectivesTotal, 0f, 1f);
-        OptionalRatio = 2f * fraction;
     }
 
 
