@@ -219,7 +219,6 @@ public partial class AIDirector : Node2D {
             return null;
         }
 
-        // Compute weights only for available types
         float total = 0f;
         List<(StandardEnemy enemy, float weight)> candidates = [];
         foreach (PackedScene enemyScene in CurrentLevel.DynamicEnemyTypes) {
@@ -230,13 +229,13 @@ public partial class AIDirector : Node2D {
             }
 
 			_spawnWeights.TryGetValue(enemy.EnemyType, out float weight);
-			candidates.Add((enemy, weight));
-            total += weight;
+            float gatedWeight = ApplyExtremeSpawnGates(enemy.EnemyType, weight);
+			candidates.Add((enemy, gatedWeight));
+            total += gatedWeight;
         }
 
         if (candidates.Count == 0) return null;
 
-        // If all weights are zero or negative, fallback to equal weights among available types
         if (total <= 0f) {
             total = candidates.Count;
             for (int i = 0; i < candidates.Count; i++) {
@@ -245,14 +244,9 @@ public partial class AIDirector : Node2D {
         }
 
         float pick = (float) GD.RandRange(0, total);
-        // For each candidate...
         for (int candIdx = 0; candIdx < candidates.Count; candIdx++) {
             pick -= candidates[candIdx].weight;
-
-            // If picked...
             if (pick <= 0f) {
-
-                // For all others, free them
                 for (int j = 0; j < candidates.Count; j++) {
                     if (j == candIdx) continue;
                     candidates[j].enemy.QueueFree();
@@ -262,10 +256,40 @@ public partial class AIDirector : Node2D {
             }
         }
 
-        // Fallback: choose first and free others
         for (int j = 1; j < candidates.Count; j++) candidates[j].enemy.QueueFree();
 
         return candidates[0].enemy;
+    }
+
+    private static float ApplyExtremeSpawnGates(EnemyType type, float baseWeight) {
+        float pace = PaceRatio;
+        float range = RangeRatio;
+
+        float veryLowPace = 0.3f;
+        float cruisingMin = 0.95f;
+        float cruisingMax = 1.15f;
+        float mediumPace = 1.2f;
+        float veryHighPace = 1.7f;
+        float veryHighRange = 1.5f;
+
+        switch (type) {
+            case EnemyType.Juggernaut:
+                if (pace <= veryLowPace) return Mathf.Max(baseWeight, 1f);
+                return 0f;
+            case EnemyType.Sentinel:
+                if (range >= veryHighRange) return Mathf.Max(baseWeight, 1f);
+                return 0f;
+            case EnemyType.Drone:
+                if (pace >= cruisingMin && pace <= cruisingMax) return Mathf.Max(baseWeight, 1f);
+                if (pace < cruisingMin) return 0f;
+                if (pace >= mediumPace) return 0f;
+                return baseWeight;
+            case EnemyType.Sentry:
+                if (pace >= veryHighPace) return Mathf.Max(baseWeight, 1f);
+                return 0f;
+            default:
+                return baseWeight;
+        }
     }
 
 
@@ -511,19 +535,18 @@ public partial class AIDirector : Node2D {
     /// Updated at the end of each level.
     /// </summary>
     public static float OptionalRatio { get; set; } = 0f;
-    // Optional objective tracking (dynamic). These allow OptionalRatio to update smoothly over time rather than only at level end.
     public static int OptionalObjectivesTotal { get; set; } = 0;
     public static int OptionalObjectivesCompleted { get; set; } = 0;
 
-    public static float HealthRatingFixedPoint { get; set; } = 1200f; // 2.0 rating at this average HP
-    public static float RangeRatingFixedPoint { get; set; } = 360f;   // 2.0 rating at this average distance
+    public static float HealthRatingFixedPoint { get; set; } = 1200f;
+    public static float RangeRatingFixedPoint { get; set; } = 360f;
     private static float _killDistanceAccum;
     private static int _killDistanceSamples;
     public static void RegisterKillDistance(float distance) {
         if (distance < 0f) return;
         _killDistanceAccum += distance;
         _killDistanceSamples++;
-    if (_killDistanceSamples == 1) Log.Me(() => $"First kill distance sample registered (distance={distance:F1}). Range metric will begin updating.");
+        if (_killDistanceSamples == 1) Log.Me(() => $"First kill distance sample registered (distance={distance:F1}). Range metric will begin updating.");
     }
 
     public static void ResetMetrics() {
@@ -536,23 +559,33 @@ public partial class AIDirector : Node2D {
         _killDistanceSamples = 0;
         RequiredObjectivesTotal = 0;
         RequiredObjectivesCompleted = 0;
-    OptionalObjectivesTotal = 0;
-    OptionalObjectivesCompleted = 0;
+        OptionalObjectivesTotal = 0;
+        OptionalObjectivesCompleted = 0;
     }
 
     private static void UpdatePerformanceMetrics(double delta) {
         List<StandardCharacter> units = [.. Commander.GetAllUnits().Where(u => u.IsAlive)];
         if (units.Count == 0) return;
 
-        // Health rating: use average absolute health, map such that HealthRatingFixedPoint = 2.0 rating
+        float dt = (float)delta;
+        UpdateHealthMetric(units, dt);
+        UpdatePaceMetric(dt);
+        UpdateRangeMetric(dt);
+        UpdateOptionalMetric(dt);
+    }
+
+    private static void UpdateHealthMetric(List<StandardCharacter> units, float delta) {
         float sumHealth = 0f;
         foreach (StandardCharacter u in units) sumHealth += u.Health;
         float avgHealth = sumHealth / units.Count;
         float healthDenom = Mathf.Max(1f, HealthRatingFixedPoint);
-        float targetHealth = (avgHealth / healthDenom) * 2f; // 2.0 at fixed point
-        HealthRatio = Mathf.Lerp(HealthRatio, targetHealth, (float)delta * 2f);
-    float levelTimeLimit = CurrentLevel != null ? (float)CurrentLevel.LevelTimeLimit : 1f;
-    float elapsed = Mathf.Clamp(LevelElapsedTime, 0f, levelTimeLimit);
+        float targetHealth = avgHealth / healthDenom * 2f;
+        HealthRatio = Mathf.Lerp(HealthRatio, targetHealth, delta * 2f);
+    }
+
+    private static void UpdatePaceMetric(float delta) {
+        float levelTimeLimit = CurrentLevel != null ? (float)CurrentLevel.LevelTimeLimit : 1f;
+        float elapsed = Mathf.Clamp(LevelElapsedTime, 0f, levelTimeLimit);
         int eligibleObjectivesTotal = Mathf.Max(0, RequiredObjectivesTotal - 1);
         int eligibleObjectivesCompleted = Mathf.Clamp(RequiredObjectivesCompleted, 0, eligibleObjectivesTotal);
         float completionRatio = eligibleObjectivesTotal > 0 ? (float)eligibleObjectivesCompleted / eligibleObjectivesTotal : 0f;
@@ -560,6 +593,7 @@ public partial class AIDirector : Node2D {
         float fastGate = 0.3f;
         float slowGate = 0.7f;
         float targetPace = 0f;
+
         if (completionRatio >= 1f) {
             targetPace = timePercent <= fastGate ? 2f : Mathf.Lerp(2f, 1f, Mathf.InverseLerp(fastGate, 1f, timePercent));
         } else if (completionRatio <= 0f) {
@@ -573,43 +607,43 @@ public partial class AIDirector : Node2D {
             float midBlend = Mathf.Lerp(efficiency, completionRatio, earlyBonus);
             targetPace = Mathf.Lerp(0f, 2f, midBlend);
         }
-        PaceRatio = Mathf.Lerp(PaceRatio, targetPace, (float)delta * 2f);
-    // RANGE METRIC
-    // Previously, with zero samples RangeRatio decayed toward 0 (undesired). Maintain baseline 1 until data exists.
-    if (_killDistanceSamples > 0) {
-        float avgKillDistance = _killDistanceAccum / _killDistanceSamples;
-        float rangeDenom = Mathf.Max(1f, RangeRatingFixedPoint);
-        float targetRange = Mathf.Clamp((avgKillDistance / rangeDenom) * 2f, 0f, 2f);
-        RangeRatio = Mathf.Lerp(RangeRatio, targetRange, (float)delta * 2f);
-    } else {
-        RangeRatio = Mathf.Lerp(RangeRatio, 1f, (float)delta * 2f); // hold neutral value until kills happen
+
+        PaceRatio = Mathf.Lerp(PaceRatio, targetPace, delta * 2f);
     }
 
-    // OPTIONAL OBJECTIVE METRIC (smooth update during level)
-    if (OptionalObjectivesTotal > 0) {
-        float targetOptional = Mathf.Clamp((float)OptionalObjectivesCompleted / OptionalObjectivesTotal, 0f, 1f);
-        OptionalRatio = Mathf.Lerp(OptionalRatio, targetOptional, (float)delta * 2f);
+    private static void UpdateRangeMetric(float delta) {
+        if (_killDistanceSamples > 0) {
+            float avgKillDistance = _killDistanceAccum / _killDistanceSamples;
+            float rangeDenom = Mathf.Max(1f, RangeRatingFixedPoint);
+            float targetRange = Mathf.Clamp(avgKillDistance / rangeDenom * 2f, 0f, 2f);
+            RangeRatio = Mathf.Lerp(RangeRatio, targetRange, delta * 2f);
+        } else {
+            RangeRatio = Mathf.Lerp(RangeRatio, 1f, delta * 2f);
+        }
     }
+
+    private static void UpdateOptionalMetric(float delta) {
+        if (OptionalObjectivesTotal > 0) {
+            float targetOptional = Mathf.Clamp((float)OptionalObjectivesCompleted / OptionalObjectivesTotal, 0f, 1f);
+            OptionalRatio = Mathf.Lerp(OptionalRatio, targetOptional, delta * 2f);
+        }
     }
 
     public static void SetOptionalObjectiveProgress(int completed, int total) {
         OptionalObjectivesTotal = Mathf.Max(0, total);
         OptionalObjectivesCompleted = Mathf.Clamp(completed, 0, OptionalObjectivesTotal);
         OptionalRatio = OptionalObjectivesTotal > 0 ? Mathf.Clamp((float)OptionalObjectivesCompleted / OptionalObjectivesTotal, 0f, 1f) : 0f;
-        Log.Me(() => $"Optional objectives progress set: {OptionalObjectivesCompleted}/{OptionalObjectivesTotal} -> ratio={OptionalRatio:F2}");
     }
 
     public static void SetOptionalObjectives(int total) {
         OptionalObjectivesTotal = Mathf.Max(0, total);
         OptionalObjectivesCompleted = Mathf.Min(OptionalObjectivesCompleted, OptionalObjectivesTotal);
-        Log.Me(() => $"Optional objectives total set: {OptionalObjectivesTotal}");
     }
 
     public static void RegisterOptionalObjectiveCompletion() {
         if (OptionalObjectivesTotal <= 0) return;
         if (OptionalObjectivesCompleted >= OptionalObjectivesTotal) return;
         OptionalObjectivesCompleted++;
-        Log.Me(() => $"Optional objective completed: {OptionalObjectivesCompleted}/{OptionalObjectivesTotal}");
     }
 
 
