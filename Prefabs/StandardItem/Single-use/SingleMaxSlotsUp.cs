@@ -14,6 +14,10 @@ public partial class SingleMaxSlotsUp : UpgradeItem {
         AudioManager.StreamAudio("max_slots_up", 0.8f);
         UIManager.SetOpenSlots(OwnerCharacter.UpgradeManager.CurrentMaxSlots);
 
+        if (OwnerCharacter.UpgradeManager.CurrentMaxSlots > OwnerCharacter.UpgradeManager.MaxSlots) {
+            OwnerCharacter.UpgradeManager.CurrentMaxSlots = OwnerCharacter.UpgradeManager.MaxSlots;
+        }
+
         UIManager.SetBottomOverlayText("Inventory Slot Increased!", 2.0f);
         return null;
     }

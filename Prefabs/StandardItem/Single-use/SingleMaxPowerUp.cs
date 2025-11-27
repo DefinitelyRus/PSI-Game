@@ -9,14 +9,19 @@ public partial class SingleMaxPowerUp : UpgradeItem {
             Log.Err(() => "OwnerCharacter is null in SingleMaxPowerUp. Cannot use item.");
             return null;
         }
+    OwnerCharacter.UpgradeManager.CurrentMaxPower += 1;
+    AudioManager.StreamAudio("max_power_up", 0.8f);
 
-        OwnerCharacter.UpgradeManager.CurrentMaxPower += 1;
-        OwnerCharacter.UpgradeManager.CurrentPower += 1;
-        AudioManager.StreamAudio("max_power_up", 0.8f);
-        
-        int currentPower = OwnerCharacter.UpgradeManager.CurrentPower;
-        int maxPower = OwnerCharacter.UpgradeManager.CurrentMaxPower;
-        UIManager.SetPower(currentPower, maxPower);
+    int currentPowered = OwnerCharacter.UpgradeManager.CurrentPower;
+    int newMax = OwnerCharacter.UpgradeManager.CurrentMaxPower;
+
+    // Do not exceed upgrade manager's max power
+    if (newMax > OwnerCharacter.UpgradeManager.MaxPower) {
+        newMax = OwnerCharacter.UpgradeManager.MaxPower;
+        OwnerCharacter.UpgradeManager.CurrentMaxPower = newMax;
+    }
+
+    UIManager.SetPower(newMax - currentPowered, newMax); // show available vs max
 
         UIManager.SetBottomOverlayText("Power Capacity Increased!", 2.0f);
         return null;
