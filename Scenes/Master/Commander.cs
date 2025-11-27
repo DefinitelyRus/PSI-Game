@@ -55,6 +55,8 @@ public partial class Commander : Node {
 			StandardCharacter unit = unitScene.Instantiate<StandardCharacter>();
 			RegisterUnit(unit);
 		}
+
+		UIManager.SetPower(1, 1);
 	}
 
 	#endregion
