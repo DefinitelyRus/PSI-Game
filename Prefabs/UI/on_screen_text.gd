@@ -110,7 +110,7 @@ func subtitle_fade_out():
 	return
 
 
-func  set_timer_enabled(enabled: bool) -> void:
+func set_timer_enabled(enabled: bool) -> void:
 	timer.visible = enabled
 	timer.modulate.a = 1.0
 

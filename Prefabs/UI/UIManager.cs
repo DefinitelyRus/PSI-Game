@@ -48,6 +48,9 @@ public partial class UIManager : CanvasLayer {
 		SetItemIcon(2, (Texture2D)null!);
 		SetItemIcon(3, (Texture2D)null!);
 		SetItemIcon(4, (Texture2D)null!);
+
+		// Start with zero accessible slots until a character explicitly sets them
+		SetOpenSlots(0);
 	}
 
 	#endregion
@@ -65,6 +68,10 @@ public partial class UIManager : CanvasLayer {
 		if (enable && UpgradeManager.Instance != null) {
 			UpgradeManager.Instance.RefreshInventoryUI();
 		}
+
+	// Timer is visible only when UI is enabled, HUD is visible, and a level timer is active
+	bool shouldShowTimer = enable && HUD.Visible && GameManager.TimeRemaining < double.MaxValue;
+	SetTimerEnabled(shouldShowTimer);
 	}
 
 	#region Popup
@@ -106,10 +113,19 @@ public partial class UIManager : CanvasLayer {
 			HUD.CallDeferred("set_visibility", visible, 0);
 			HUD.CallDeferred("set_visibility", visible, 1);
 			HUD.CallDeferred("set_visibility", visible, 2);
+			// Control timer with main HUD visibility
+			bool shouldShowTimerAll = visible && Instance.Visible && GameManager.TimeRemaining < double.MaxValue;
+			SetTimerEnabled(shouldShowTimerAll);
 			return;
 		}
 
 		HUD.CallDeferred("set_visibility", visible, segment);
+
+		// If toggling the main HUD segment, mirror timer visibility
+		if (segment == 0) {
+			bool shouldShowTimer = visible && Instance.Visible && GameManager.TimeRemaining < double.MaxValue;
+			SetTimerEnabled(shouldShowTimer);
+		}
 	}
 
 	public static void SetHealth(float health, float maxHealth) {
@@ -138,7 +154,7 @@ public partial class UIManager : CanvasLayer {
 
 	public static void SetItemIcon(int slotIndex, Sprite2D? icon) {
 		if (icon == null) {
-			HUD.CallDeferred("set_item", new(), slotIndex);
+			SetItemIcon(slotIndex, (Texture2D)null!);
 			return;
 		}
 
@@ -158,6 +174,25 @@ public partial class UIManager : CanvasLayer {
 
 	public static void SetItemAlpha(int slotIndex, float alpha) {
 		HUD.CallDeferred("set_item_alpha", slotIndex, alpha);
+	}
+
+	public static void SetTimerEnabled(bool enabled) {
+		Instance.OnScreenText.CallDeferred("set_timer_enabled", enabled);
+	}
+
+	public static void SetTimerText(double time) {
+		int minutes = (int)(time / 60);
+		int seconds = (int)(time % 60);
+		string text = $"{minutes:00}:{seconds:00}";
+		Instance.OnScreenText.CallDeferred("set_timer_text", text);
+	}
+
+	public static void SetTimerText(string text) {
+		Instance.OnScreenText.CallDeferred("set_timer_text", text);
+	}
+
+	public static void SetTimerColor(Color color) {
+		Instance.OnScreenText.CallDeferred("set_timer_color", color);
 	}
 
 	#endregion

@@ -61,7 +61,7 @@ public partial class UpgradeManager : Node {
                 _poweredItems.Remove(item);
                 CurrentPower = Mathf.Max(CurrentPower - 1, 0);
                 AudioManager.StreamAudio("unpower_item");
-                UIManager.SetPower(CurrentPower, CurrentMaxPower);
+                UIManager.SetPower(CurrentMaxPower - CurrentPower, CurrentMaxPower);
                 DataManager.RecordInventoryEvent(Character, item, "power_off", CurrentPower, CurrentMaxPower, Items.Count, CurrentMaxSlots);
                 RefreshInventoryUI();
                 return;
@@ -77,7 +77,7 @@ public partial class UpgradeManager : Node {
             _poweredItems.Add(item);
             CurrentPower++;
             AudioManager.StreamAudio("power_item");
-            UIManager.SetPower(CurrentPower, CurrentMaxPower);
+            UIManager.SetPower(CurrentMaxPower - CurrentPower, CurrentMaxPower);
             DataManager.RecordInventoryEvent(Character, item, "power_on", CurrentPower, CurrentMaxPower, Items.Count, CurrentMaxSlots);
             RefreshInventoryUI();
             return;
@@ -89,7 +89,7 @@ public partial class UpgradeManager : Node {
             _poweredItems.Remove(item);
             CurrentPower = Mathf.Max(CurrentPower - 1, 0);
             AudioManager.StreamAudio("unpower_item");
-            UIManager.SetPower(CurrentPower, CurrentMaxPower);
+            UIManager.SetPower(CurrentMaxPower - CurrentPower, CurrentMaxPower);
             DataManager.RecordInventoryEvent(Character, item, "power_off", CurrentPower, CurrentMaxPower, Items.Count, CurrentMaxSlots);
             RefreshInventoryUI();
         }
@@ -204,6 +204,7 @@ public partial class UpgradeManager : Node {
             _poweredItems.Remove(item);
             CurrentPower = Mathf.Max(CurrentPower - 1, 0);
             AudioManager.StreamAudio("unpower_item");
+            UIManager.SetPower(CurrentMaxPower - CurrentPower, CurrentMaxPower);
         }
 
         Vector2 dropVector = Character.Control.FacingDirection * DropDistance;
@@ -277,7 +278,7 @@ public partial class UpgradeManager : Node {
         }
         _poweredItems.Clear();
         CurrentPower = 0;
-        UIManager.SetPower(CurrentPower, CurrentMaxPower);
+    UIManager.SetPower(CurrentMaxPower - CurrentPower, CurrentMaxPower);
         RefreshInventoryUI();
     }
 
@@ -327,6 +328,11 @@ public partial class UpgradeManager : Node {
                 UIManager.SetItemIcon(i, (Texture2D)null!);
                 UIManager.SetItemAlpha(i, 1f);
             }
+        }
+
+        for (int i = CurrentMaxSlots; i < MaxSlots; i++) {
+            UIManager.SetItemIcon(i, (Texture2D) null!);
+            UIManager.SetItemAlpha(i, 1f);
         }
     }
 
