@@ -332,7 +332,7 @@ size_flags_horizontal = 8
 size_flags_vertical = 0
 theme_override_fonts/font = ExtResource("7_ck6j7")
 theme_override_font_sizes/font_size = 36
-text = "Orra  Kale"
+text = "Kasane  Teto"
 horizontal_alignment = 1
 
 [node name="Pop-Up" type="Control" parent="." node_paths=PackedStringArray("popUP_container", "header_text", "paragraph_text", "button_container", "button_row1", "row1_buttons", "button_row2", "row2_buttons", "button_row3", "row3_buttons")]
