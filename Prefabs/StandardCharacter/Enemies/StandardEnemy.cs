@@ -16,9 +16,12 @@ public partial class StandardEnemy : StandardCharacter {
 
     [ExportSubgroup("Dynamic Spawning")]
     [Export] public int DynamicSpawnCost = 0;
+    [Export] public AIDirector.EnemyType EnemyType = AIDirector.EnemyType.Drone;
+    
 
     [ExportGroup("Camera Shake")]
     [Export] public float DeathCameraShakeIntensity = 0.7f;
+
 
 	public override void Kill() {
         if (!IsAlive) return;

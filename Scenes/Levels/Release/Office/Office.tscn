@@ -1,4 +1,4 @@
-[gd_scene load_steps=68 format=4 uid="uid://2sdjs7gc04c5"]
+[gd_scene load_steps=71 format=4 uid="uid://2sdjs7gc04c5"]
 
 [ext_resource type="PackedScene" uid="uid://drho55fepd4p7" path="res://Scenes/Levels/StandardLevel.tscn" id="1_oafpl"]
 [ext_resource type="AudioStream" uid="uid://bro8ih20wrpc2" path="res://Audio/Music/L2 - Grand Project Extended.mp3" id="2_4n7bc"]
@@ -8,7 +8,10 @@
 [ext_resource type="Texture2D" uid="uid://dboq7ap8y2i5r" path="res://Sprites/World Sprites/Level 1 - Office/Office_Props.png" id="4_4n7bc"]
 [ext_resource type="PackedScene" uid="uid://c6k63hyv33gxi" path="res://Prefabs/StandardCharacter/Enemies/Flakfly/Flakfly.tscn" id="4_hxry2"]
 [ext_resource type="PackedScene" uid="uid://brhhm6ehuvt0w" path="res://Prefabs/Props/Level 1/cubicle_group_l.tscn" id="5_4ilei"]
+[ext_resource type="PackedScene" uid="uid://d2sumagtfmyln" path="res://Prefabs/StandardCharacter/Enemies/Gunner Drone/Drone.tscn" id="5_qrot0"]
 [ext_resource type="PackedScene" uid="uid://cvffuc70sd7yo" path="res://Prefabs/Props/Level 1/cubicle_group_s.tscn" id="6_0jbu7"]
+[ext_resource type="PackedScene" uid="uid://bymb268wxlptk" path="res://Prefabs/StandardCharacter/Enemies/Juggernaut/Juggernaut.tscn" id="6_1xmfo"]
+[ext_resource type="PackedScene" uid="uid://3cxd35pr5lif" path="res://Prefabs/StandardCharacter/Enemies/Sentinel/Sentinel.tscn" id="7_0jgfv"]
 [ext_resource type="PackedScene" uid="uid://dhwy6fp4vnljs" path="res://Prefabs/Props/Level 1/l_table.tscn" id="7_tj6ml"]
 [ext_resource type="PackedScene" uid="uid://bx6pp5taql4w8" path="res://Prefabs/Props/Level 1/l_table_2.tscn" id="8_knigi"]
 [ext_resource type="PackedScene" uid="uid://ul0y4uios3h8" path="res://Prefabs/Props/Level 1/bookshelf.tscn" id="8_y14h8"]
@@ -7280,7 +7283,9 @@ CameraNodePaths = [NodePath("Props/Required Panels/L Table5"), NodePath("Props/R
 BackgroundMusic = ExtResource("2_4n7bc")
 LevelIndex = 1
 LevelTimeLimit = 300.0
-EnemyTypes = [ExtResource("3_1wk65"), ExtResource("4_hxry2")]
+BaseBudget = 200
+StaticEnemyTypes = [ExtResource("3_1wk65"), ExtResource("4_hxry2")]
+DynamicEnemyTypes = [ExtResource("3_1wk65"), ExtResource("4_hxry2"), ExtResource("5_qrot0"), ExtResource("6_1xmfo"), ExtResource("7_0jgfv")]
 EnemyStaticSpawningDelayMultiplier = 0.7
 EnemyCountLimit = 15
 
@@ -7504,7 +7509,7 @@ position = Vector2(414, 379)
 position = Vector2(349, 381)
 
 [node name="E71" type="Node2D" parent="Enemy Spawns" index="70"]
-position = Vector2(267, 382)
+position = Vector2(273, 388)
 
 [node name="E72" type="Node2D" parent="Enemy Spawns" index="71"]
 position = Vector2(213, 382)

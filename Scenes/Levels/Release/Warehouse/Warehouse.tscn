@@ -1,4 +1,4 @@
-[gd_scene load_steps=72 format=4 uid="uid://b2uvlodlqe2mk"]
+[gd_scene load_steps=74 format=4 uid="uid://b2uvlodlqe2mk"]
 
 [ext_resource type="PackedScene" uid="uid://drho55fepd4p7" path="res://Scenes/Levels/StandardLevel.tscn" id="1_lp5d7"]
 [ext_resource type="AudioStream" uid="uid://dyq0i47c3g1tj" path="res://Audio/Music/L3 - Tunetank Extended.mp3" id="2_7e5pe"]
@@ -12,9 +12,11 @@
 [ext_resource type="PackedScene" uid="uid://hvosro84sbgh" path="res://Prefabs/Props/Level 2/beige_container_up.tscn" id="5_ac5sp"]
 [ext_resource type="PackedScene" uid="uid://d2sumagtfmyln" path="res://Prefabs/StandardCharacter/Enemies/Gunner Drone/Drone.tscn" id="5_cq3cu"]
 [ext_resource type="PackedScene" uid="uid://b83ravx2pf44u" path="res://Prefabs/Props/Level 2/blue_container_side.tscn" id="6_0pyxq"]
+[ext_resource type="PackedScene" uid="uid://bymb268wxlptk" path="res://Prefabs/StandardCharacter/Enemies/Juggernaut/Juggernaut.tscn" id="6_41anr"]
 [ext_resource type="PackedScene" uid="uid://3cxd35pr5lif" path="res://Prefabs/StandardCharacter/Enemies/Sentinel/Sentinel.tscn" id="6_d2dtn"]
 [ext_resource type="PackedScene" uid="uid://rsigg68skmvl" path="res://Prefabs/Props/Level 2/container_big.tscn" id="8_2xd7g"]
 [ext_resource type="PackedScene" uid="uid://bpsrekf2c0bia" path="res://Prefabs/Props/Level 2/lift.tscn" id="8_ac5sp"]
+[ext_resource type="PackedScene" uid="uid://bymiistxia5re" path="res://Prefabs/StandardCharacter/Enemies/Sentry/Sentry.tscn" id="8_h0ldu"]
 [ext_resource type="PackedScene" uid="uid://djk0f17qgpb4e" path="res://Prefabs/Props/Level 2/tires.tscn" id="9_0pyxq"]
 [ext_resource type="PackedScene" uid="uid://bpchf1dns2sq2" path="res://Prefabs/Props/Level 2/traffic_cone.tscn" id="10_kfees"]
 [ext_resource type="PackedScene" uid="uid://pg8f56uiiqf" path="res://Prefabs/Props/Level 2/packing_table.tscn" id="11_1i161"]
@@ -2632,7 +2634,8 @@ CameraNodePaths = [NodePath("Props/Panel Power Station 1/Area2D/CollisionShape2D
 BackgroundMusic = ExtResource("2_7e5pe")
 LevelIndex = 2
 LevelTimeLimit = 480.0
-EnemyTypes = [ExtResource("2_hi47n"), ExtResource("4_xpc51"), ExtResource("5_cq3cu"), ExtResource("6_d2dtn")]
+StaticEnemyTypes = [ExtResource("2_hi47n"), ExtResource("4_xpc51"), ExtResource("5_cq3cu"), ExtResource("6_41anr"), ExtResource("6_d2dtn"), ExtResource("8_h0ldu")]
+DynamicEnemyTypes = [ExtResource("8_h0ldu"), ExtResource("6_d2dtn"), ExtResource("6_41anr"), ExtResource("5_cq3cu"), ExtResource("4_xpc51"), ExtResource("2_hi47n")]
 EnemyStaticSpawningDelayMultiplier = 0.5
 
 [node name="Unit Spawns" parent="." index="0"]

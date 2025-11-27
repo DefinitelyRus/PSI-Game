@@ -27,6 +27,7 @@ public partial class Level : Node2D {
 	[Export] public uint LevelIndex = 0;
 	private int CurrentSpawnIndex = 0;
 	[Export] public double LevelTimeLimit = 600;
+	[Export] public uint BaseBudget = 150;
 
 	#endregion
 
@@ -79,7 +80,8 @@ public partial class Level : Node2D {
 	#region Enemy Spawning
 
 	[ExportGroup("Enemy Spawning")]
-	[Export] public PackedScene[] EnemyTypes = [];
+	[Export] public PackedScene[] StaticEnemyTypes = [];
+	[Export] public PackedScene[] DynamicEnemyTypes = [];
 	[Export] public float EnemyStaticSpawningDelayMultiplier = 1f;
 	[Export] public uint EnemyCountLimit = 50;
 
