@@ -1,45 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://bw5fxtq4gusk1"]
+[gd_scene load_steps=7 format=3 uid="uid://bop0jyofp0dce"]
 
 [ext_resource type="Texture2D" uid="uid://cpunct2go825q" path="res://Sprites/UI/Markers.png" id="1_1eqnf"]
-
-[sub_resource type="Animation" id="Animation_v7p6q"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:texture")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("1_1eqnf")]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [1]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Sprite2D:frame_coords")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Vector2i(0, 1)]
-}
+[ext_resource type="Script" uid="uid://dvvtaxmx52fso" path="res://Prefabs/UI/MovementMarker.cs" id="1_v7p6q"]
 
 [sub_resource type="Animation" id="Animation_1eqnf"]
 resource_name = "Orra_Marker"
@@ -99,6 +61,45 @@ tracks/1/keys = {
 "values": [ExtResource("1_1eqnf")]
 }
 
+[sub_resource type="Animation" id="Animation_v7p6q"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_1eqnf")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:frame_coords")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2i(0, 1)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_3b6va"]
 _data = {
 &"Mira_Marker": SubResource("Animation_1eqnf"),
@@ -106,10 +107,16 @@ _data = {
 &"RESET": SubResource("Animation_v7p6q")
 }
 
-[node name="Movement Marker" type="Node2D"]
+[node name="Movement Marker" type="Node2D" node_paths=PackedStringArray("AnimationPlayer", "MarkerSprite")]
+y_sort_enabled = true
+script = ExtResource("1_v7p6q")
+AnimationPlayer = NodePath("AnimationPlayer")
+MarkerSprite = NodePath("Sprite2D")
+ScanRadius = 16.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_1eqnf")
+offset = Vector2(1, -3)
 hframes = 9
 vframes = 2
 frame = 9
