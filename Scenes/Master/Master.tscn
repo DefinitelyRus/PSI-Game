@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://d3cvhjbvnx1a1"]
+[gd_scene load_steps=33 format=3 uid="uid://d3cvhjbvnx1a1"]
 
 [ext_resource type="Script" uid="uid://cdfonun0qopbr" path="res://Scenes/Master/Master.cs" id="1_o4rt4"]
 [ext_resource type="Script" uid="uid://bskjggdrqe3xx" path="res://Scenes/Master/SceneLoader.cs" id="2_7tgqy"]
@@ -24,6 +24,7 @@
 [ext_resource type="PackedScene" uid="uid://2sdjs7gc04c5" path="res://Scenes/Levels/Release/Office/Office.tscn" id="13_0hine"]
 [ext_resource type="PackedScene" uid="uid://o52kke4dfdo0" path="res://Prefabs/UI/player_ui.tscn" id="14_yfaob"]
 [ext_resource type="PackedScene" uid="uid://b2uvlodlqe2mk" path="res://Scenes/Levels/Release/Warehouse/Warehouse.tscn" id="15_xey05"]
+[ext_resource type="PackedScene" uid="uid://bop0jyofp0dce" path="res://Prefabs/UI/MovementMarker.tscn" id="16_0emmy"]
 [ext_resource type="PackedScene" uid="uid://d0ppjvnd47xrt" path="res://Scenes/Levels/Release/Datacenter/Datacenter.tscn" id="16_hw2j4"]
 [ext_resource type="PackedScene" uid="uid://c1huap8uooafm" path="res://Prefabs/StandardCharacter/Enemies/Clone Cyborg/CloneCyborg.tscn" id="16_kfhj5"]
 [ext_resource type="PackedScene" uid="uid://c6k63hyv33gxi" path="res://Prefabs/StandardCharacter/Enemies/Flakfly/Flakfly.tscn" id="17_7iufv"]
@@ -62,6 +63,7 @@ RandomDropItems = [ExtResource("7_dac6d"), ExtResource("8_jgj6d"), ExtResource("
 [node name="Commander" type="Node" parent="."]
 script = ExtResource("3_8ixx1")
 InitialUnits = [ExtResource("6_0hine"), ExtResource("7_4hy21")]
+IndicatorNodeScene = ExtResource("16_0emmy")
 
 [node name="AI Director" type="Node2D" parent="."]
 script = ExtResource("7_0hine")
