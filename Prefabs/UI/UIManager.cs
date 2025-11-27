@@ -60,13 +60,30 @@ public partial class UIManager : CanvasLayer {
 	#region Static Members
 
 	public static UIManager Instance { get; private set; } = null!;
+	// Currently selected character whose data should drive HUD updates.
+	public static StandardCharacter? SelectedCharacter { get; private set; }
+
+	/// <summary>
+	/// Sets the currently selected character and immediately refreshes HUD from that character's UpgradeManager.
+	/// Safe to call even if UI is disabled; underlying state is kept in sync.
+	/// </summary>
+	/// <param name="character">Character to select (may be null to clear selection)</param>
+	public static void SetSelectedCharacter(StandardCharacter? character) {
+		SelectedCharacter = character;
+		if (SelectedCharacter?.UpgradeManager != null) {
+			// Force HUD to represent ONLY the selected character's state
+			SelectedCharacter.UpgradeManager.RefreshInventoryUI();
+			SetPower(SelectedCharacter.UpgradeManager.CurrentMaxPower - SelectedCharacter.UpgradeManager.CurrentPower,
+				SelectedCharacter.UpgradeManager.CurrentMaxPower);
+		}
+	}
 	private static MarginContainer HUD => Instance.HUDNode;
 	public static Control Popup => Instance.PopupNode;
 
 	public static void EnableUI(bool enable) {
 		Instance.Visible = enable;
-		if (enable && UpgradeManager.Instance != null) {
-			UpgradeManager.Instance.RefreshInventoryUI();
+		if (enable && SelectedCharacter?.UpgradeManager != null) {
+			SelectedCharacter.UpgradeManager.RefreshInventoryUI();
 		}
 
 	// Timer is visible only when UI is enabled, HUD is visible, and a level timer is active
