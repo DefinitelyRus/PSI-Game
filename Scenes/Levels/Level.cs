@@ -292,6 +292,13 @@ public partial class Level : Node2D {
 		else CameraMan.SetTarget(SpawnParent, true);
 
 		GameManager.ManualTimerCheck = false;
+
+		// Initialize level timer display and state
+		if (LevelTimeLimit > 0) {
+			GameManager.TimeRemaining = LevelTimeLimit;
+			UIManager.SetTimerText(GameManager.TimeRemaining);
+			UIManager.SetTimerColor(Colors.White);
+		}
 	}
 	
 	#endregion
