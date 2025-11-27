@@ -174,6 +174,8 @@ public partial class Commander : Node {
 		if (GetSelectedUnitCount() != 1) return;
 
 		StandardCharacter unit = GetSelectedUnits().First();
+		// Ensure HUD is bound to this character
+		UIManager.SetSelectedCharacter(unit);
 
 		// Check which unit is selected by name
 		string unitName = unit.CharacterID;
@@ -181,6 +183,8 @@ public partial class Commander : Node {
 		UIManager.SetCharacterName(unitName);
 		UIManager.SetHUDVisible(true, 0);
 		UIManager.SetHealth(unit.Health, unit.CurrentMaxHealth);
+		// Refresh inventory + power fully for selected character
+		unit.UpgradeManager.RefreshAll();
 
 		// Update inventory UI
 		UpgradeManager upMan = unit.UpgradeManager;
