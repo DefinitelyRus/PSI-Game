@@ -54,10 +54,8 @@ func set_health_color(character: String) -> void:
 	match character:
 		"mira_kale":
 			grabber_style.bg_color = mira_color
-			print("Updated grabber color to:", mira_color)
 		"orra_kale": 
 			grabber_style.bg_color = orra_color
-			print("Updated grabber color to:", orra_color)
 
 
 # ----------- INVENTORY MANAGER ----------
