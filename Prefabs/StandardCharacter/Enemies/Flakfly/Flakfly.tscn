@@ -164,7 +164,10 @@ transitions = ["Idle", "Death", SubResource("AnimationNodeStateMachineTransition
 graph_offset = Vector2(6, -82)
 
 [node name="Fly" node_paths=PackedStringArray("Weapon", "AnimationTree") instance=ExtResource("1_02e0k")]
+collision_layer = 144
+collision_mask = 13
 script = ExtResource("2_4m76y")
+DropRate = 0.2
 StaticSpawnWeight = 120
 DelayAfterSpawn = 1.0
 DynamicSpawnCost = 1

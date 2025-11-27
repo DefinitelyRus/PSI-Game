@@ -169,10 +169,13 @@ transitions = ["Idle", "Death", SubResource("AnimationNodeStateMachineTransition
 graph_offset = Vector2(-69, 4)
 
 [node name="Clone Cyborg" node_paths=PackedStringArray("Weapon", "AnimationTree") instance=ExtResource("1_kbbx7")]
+collision_layer = 144
+collision_mask = 13
 script = ExtResource("2_7st76")
+DropRate = 0.2
 StaticSpawnWeight = 40
 DelayAfterSpawn = 5.0
-DynamicSpawnCost = 10
+DynamicSpawnCost = 20
 EnemyType = 3
 DeathCameraShakeIntensity = 0.4
 CharacterName = "Clone Cyborg"

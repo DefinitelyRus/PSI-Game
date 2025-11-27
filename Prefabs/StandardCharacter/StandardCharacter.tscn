@@ -1257,7 +1257,6 @@ process_thread_messages = 0
 physics_interpolation_mode = 1
 y_sort_enabled = true
 collision_layer = 16
-collision_mask = 17
 motion_mode = 1
 script = ExtResource("1_udvt5")
 Control = NodePath("Control Surface")

@@ -473,10 +473,13 @@ transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition
 graph_offset = Vector2(-10, -89)
 
 [node name="Sentry" node_paths=PackedStringArray("Weapon", "AnimationTree") instance=ExtResource("1_ot42w")]
+collision_layer = 144
+collision_mask = 13
 script = ExtResource("2_rfyjh")
+DropRate = 0.2
 StaticSpawnWeight = 5
 DelayAfterSpawn = 3.0
-DynamicSpawnCost = 50
+DynamicSpawnCost = 200
 EnemyType = 2
 DeathCameraShakeIntensity = 0.6
 CharacterName = "Sentry"

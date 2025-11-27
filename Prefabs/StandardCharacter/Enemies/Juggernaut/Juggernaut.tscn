@@ -173,10 +173,13 @@ transitions = ["Idle", "Death", SubResource("AnimationNodeStateMachineTransition
 graph_offset = Vector2(-42, -53)
 
 [node name="Juggernaut" node_paths=PackedStringArray("Weapon", "AnimationTree") instance=ExtResource("1_y36br")]
+collision_layer = 144
+collision_mask = 13
 script = ExtResource("2_f6w81")
+DropRate = 0.2
 StaticSpawnWeight = 5
 DelayAfterSpawn = 30.0
-DynamicSpawnCost = 50
+DynamicSpawnCost = 200
 EnemyType = 5
 DeathCameraShakeIntensity = 2.0
 CharacterName = "Juggernaut"

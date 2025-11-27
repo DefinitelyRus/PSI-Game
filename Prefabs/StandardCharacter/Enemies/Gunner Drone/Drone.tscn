@@ -166,13 +166,14 @@ graph_offset = Vector2(21, 19)
 
 [node name="Drone" node_paths=PackedStringArray("Weapon", "AnimationTree") instance=ExtResource("1_0iji5")]
 collision_layer = 144
-collision_mask = 28
+collision_mask = 13
 script = ExtResource("2_je7xu")
+DropRate = 0.2
 StaticSpawnWeight = 40
 DelayAfterSpawn = 5.0
-DynamicSpawnCost = 15
-DeathCameraShakeIntensity = 0.7
+DynamicSpawnCost = 40
 EnemyType = 1
+DeathCameraShakeIntensity = 0.7
 CharacterName = "Drone"
 CharacterID = "drone"
 MaxHealth = 200.0
@@ -183,10 +184,11 @@ Weapon = NodePath("Drone Gun")
 AnimationTree = NodePath("AnimationTree")
 
 [node name="Drone Gun" parent="." index="1" instance=ExtResource("2_tleep")]
-position = Vector2(0, 3)
+position = Vector2(0, -9)
 BaseDamage = 25.0
 
 [node name="AI Targeting Manager" parent="." index="2"]
+position = Vector2(0, -9)
 TargetDetectionRadius = 100.0
 CurrentTargetMode = 3
 TurnRate = 36000.0
