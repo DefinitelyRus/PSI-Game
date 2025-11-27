@@ -9,6 +9,8 @@ public partial class StandardEnemy : StandardCharacter {
     #region Spawn Properties
 
     [ExportGroup("Spawn Properties")]
+    [Export] public float DropRate = 0.2f;
+
     [ExportSubgroup("Static Spawning")]
     [Export] public int StaticSpawnWeight = 1;
     [Export] public float DelayAfterSpawn = 1f;
@@ -29,8 +31,8 @@ public partial class StandardEnemy : StandardCharacter {
         CameraMan.Shake(DeathCameraShakeIntensity, GlobalPosition);
 
         // 10% chance to drop random item on death
-        int randomValue = new RandomNumberGenerator().RandiRange(1, 100);
-        if (randomValue <= 10) {
+        float randomValue = new RandomNumberGenerator().RandfRange(0, 1);
+        if (randomValue <= DropRate) {
             UpgradeItem? item = GameManager.GetRandomDropItem(GlobalPosition);
 
             if (item == null) {
