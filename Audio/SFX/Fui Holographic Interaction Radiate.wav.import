@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://c7mq41e5io4jy"
+path="res://.godot/imported/Fui Holographic Interaction Radiate.wav-5b9a1fdf23bf4bc6e966c2f6443bc327.sample"
+
+[deps]
+
+source_file="res://Audio/SFX/Fui Holographic Interaction Radiate.wav"
+dest_files=["res://.godot/imported/Fui Holographic Interaction Radiate.wav-5b9a1fdf23bf4bc6e966c2f6443bc327.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

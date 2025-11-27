@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://d3cvhjbvnx1a1"]
+[gd_scene load_steps=37 format=3 uid="uid://d3cvhjbvnx1a1"]
 
 [ext_resource type="Script" uid="uid://cdfonun0qopbr" path="res://Scenes/Master/Master.cs" id="1_o4rt4"]
 [ext_resource type="Script" uid="uid://bskjggdrqe3xx" path="res://Scenes/Master/SceneLoader.cs" id="2_7tgqy"]
@@ -11,11 +11,15 @@
 [ext_resource type="AudioStream" uid="uid://qvabsno0y5eu" path="res://Audio/SFX/whoosh.mp3" id="4_xd8m4"]
 [ext_resource type="Script" uid="uid://ccfcn78cg1s2f" path="res://Scenes/Master/EntityManager.cs" id="5_0hine"]
 [ext_resource type="Script" uid="uid://b3xb0rhvopx03" path="res://Scenes/Master/InputManager.cs" id="5_qemos"]
+[ext_resource type="AudioStream" uid="uid://dry8gouvu200b" path="res://Audio/SFX/Fui Ping Triplet Echo.wav" id="5_w68d0"]
 [ext_resource type="PackedScene" uid="uid://b6yrlsn2k0uvf" path="res://Prefabs/StandardCharacter/Units/Mira Kale/Mira Kale.tscn" id="6_0hine"]
+[ext_resource type="AudioStream" uid="uid://lj5ti28q2pel" path="res://Audio/SFX/Uiglitch Error Tone 03.wav" id="6_r8204"]
 [ext_resource type="Script" uid="uid://dv8fmgivi507t" path="res://Scenes/Master/AIDirector.cs" id="7_0hine"]
+[ext_resource type="AudioStream" uid="uid://dwmdklv1cxu1w" path="res://Audio/SFX/Fui Holographic Button Press 1.wav" id="7_1q7vc"]
 [ext_resource type="PackedScene" uid="uid://dmuhp2l2j70gn" path="res://Prefabs/StandardCharacter/Units/Orra Kale/Orra Kale.tscn" id="7_4hy21"]
 [ext_resource type="PackedScene" uid="uid://bmldgdm0648r5" path="res://Prefabs/StandardItem/Single-use/SingleHeal1.tscn" id="7_dac6d"]
 [ext_resource type="PackedScene" uid="uid://d5qbrukaokrs" path="res://Prefabs/StandardItem/Single-use/SingleHeal2.tscn" id="8_jgj6d"]
+[ext_resource type="AudioStream" uid="uid://c7mq41e5io4jy" path="res://Audio/SFX/Fui Holographic Interaction Radiate.wav" id="8_qpkc3"]
 [ext_resource type="PackedScene" uid="uid://icvwhwqhv73i" path="res://Prefabs/StandardItem/Single-use/SingleHeal3.tscn" id="9_ck1j4"]
 [ext_resource type="PackedScene" uid="uid://4av0n3taxtct" path="res://Scenes/Levels/Release/ParkingLot/ParkingLot.tscn" id="10_8ixx1"]
 [ext_resource type="PackedScene" uid="uid://b3x18kjwlbo8o" path="res://Prefabs/StandardItem/Single-use/SingleMaxHealthUp.tscn" id="10_eyrpq"]
@@ -47,6 +51,10 @@ InputManager = NodePath("Input Manager")
 script = ExtResource("2_m6dx2")
 SFXLibrary = Dictionary[String, AudioStream]({
 "camera_whoosh": ExtResource("4_xd8m4"),
+"error": ExtResource("6_r8204"),
+"item_drop": ExtResource("8_qpkc3"),
+"item_pickup": ExtResource("7_1q7vc"),
+"move_command": ExtResource("5_w68d0"),
 "text_tick": ExtResource("3_4qjrx")
 })
 
