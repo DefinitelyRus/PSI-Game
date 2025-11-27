@@ -10,7 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://bp7qd4q73av7e" path="res://Sprites/UI/Transition.png" id="8_lsyk6"]
 [ext_resource type="Script" uid="uid://cdv0dp7u5wtwa" path="res://Prefabs/UI/transition.gd" id="9_f5urv"]
 [ext_resource type="Script" uid="uid://dr81xdqcutnel" path="res://Prefabs/UI/on_screen_text.gd" id="10_0i7dx"]
-[ext_resource type="Script" uid="uid://dn8v6kws28uv5" path="res://Prefabs/UI/controls_panel.gd" id="11_uycg4"]
+[ext_resource type="Script" path="res://Prefabs/UI/controls_panel.gd" id="11_uycg4"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_lsael"]
 
@@ -316,7 +316,6 @@ theme_override_styles/pressed = SubResource("StyleBoxTexture_64sls")
 theme_override_styles/hover = SubResource("StyleBoxTexture_64sls")
 
 [node name="Right-Info" type="VBoxContainer" parent="HUD"]
-visible = false
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 0
@@ -332,8 +331,9 @@ layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 0
 theme_override_fonts/font = ExtResource("7_ck6j7")
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 36
 text = "Orra  Kale"
+horizontal_alignment = 1
 
 [node name="Pop-Up" type="Control" parent="." node_paths=PackedStringArray("popUP_container", "header_text", "paragraph_text", "button_container", "button_row1", "row1_buttons", "button_row2", "row2_buttons", "button_row3", "row3_buttons")]
 visible = false
@@ -585,7 +585,6 @@ theme_override_styles/pressed = SubResource("StyleBoxTexture_lsyk6")
 theme_override_styles/hover = SubResource("StyleBoxTexture_f5urv")
 
 [node name="Transition" type="TextureRect" parent="." node_paths=PackedStringArray("on_screen_text")]
-visible = false
 offset_right = 960.0
 offset_bottom = 360.0
 texture = ExtResource("8_lsyk6")
@@ -599,7 +598,6 @@ end_pos = Vector2(-960, 0)
 transition_time = 1.0
 
 [node name="On-ScreenText" type="MarginContainer" parent="." node_paths=PackedStringArray("center_label", "subtitle", "timer")]
-visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0

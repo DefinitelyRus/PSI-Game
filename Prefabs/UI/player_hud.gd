@@ -52,10 +52,10 @@ func set_health_color(character: String) -> void:
 	var orra_color =  Color(60/255.0, 41/255.0, 94/255.0)
 	
 	match character:
-		"mira":
+		"mira_kale":
 			grabber_style.bg_color = mira_color
 			print("Updated grabber color to:", mira_color)
-		"orra": 
+		"orra_kale": 
 			grabber_style.bg_color = orra_color
 			print("Updated grabber color to:", orra_color)
 
@@ -94,12 +94,13 @@ func set_item_alpha(target: int, alpha: float) -> void:
 ## Set the name of the currently active character
 func set_character_name(character: String) -> void:
 	match character:
-		"mira": current_character.text = "Mira Kale"
-		"orra": current_character.text = "Orra Kale"
+		"mira_kale": current_character.text = "Mira"
+		"orra_kale": current_character.text = "Orra"
+		_: current_character.text = ""
 
 # ---------- GODOT CALLBACKS -----------
 func _ready() -> void:
-	set_health_color("mira")
+	set_health_color("mira_kale")
 	pass
 	## TEST: Disables inventory slots upon load
 	#for i in range(inventory_slots.size()):

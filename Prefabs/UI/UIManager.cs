@@ -116,6 +116,14 @@ public partial class UIManager : CanvasLayer {
 		HUD.CallDeferred("update_health", health, maxHealth);
 	}
 
+	public static void SetHealthColor(string character) {
+		HUD.CallDeferred("set_health_color", character);
+	}
+
+	public static void SetCharacterName(string character) {
+		HUD.CallDeferred("set_character_name", character);
+	}
+
 	public static void SetPower(int power, int maxPower) {
 		HUD.CallDeferred("set_power", power, maxPower);
 	}

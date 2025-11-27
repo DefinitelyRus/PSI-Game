@@ -138,6 +138,7 @@ public partial class Commander : Node {
 			Units[i].AIAgent.IsSelected = i == index;
 		}
 
+		UIManager.SetCharacterName("");
 		SingleUnitControl();
 	}
 
@@ -152,6 +153,10 @@ public partial class Commander : Node {
 
 		StandardCharacter unit = GetSelectedUnits().First();
 
+		// Check which unit is selected by name
+		string unitName = unit.CharacterID;
+		UIManager.SetHealthColor(unitName);
+		UIManager.SetCharacterName(unitName);
 		UIManager.SetHUDVisible(true, 0);
 		UIManager.SetHealth(unit.Health, unit.CurrentMaxHealth);
 
@@ -199,9 +204,10 @@ public partial class Commander : Node {
 		{
 			unit.AIAgent.IsSelected = false;
 		}
-		
+
 		ClearFocusedUnit();
 
+		UIManager.SetCharacterName("");
 		UIManager.SetHUDVisible(false, 0);
 	}
 
