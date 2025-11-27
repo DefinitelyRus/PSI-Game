@@ -259,8 +259,13 @@ public partial class StandardProjectile : RigidBody2D
 	protected virtual void Impact(Area2D area) {
 		if (area.GetParent() is StandardCharacter character) {
 			if (character == WeaponOwner) return;
-			
-			character.TakeDamage(Weapon.Damage);
+			float damage = Weapon.Damage;
+			bool wasAlive = character.IsAlive;
+			character.TakeDamage(damage);
+			bool didKill = wasAlive && !character.IsAlive;
+			if (WeaponOwner is StandardEnemy && character.Tags.Contains("Unit")) {
+				CombatAnalytics.Record(WeaponOwner, character, damage, didKill);
+			}
 			QueueFree();
 		}
 	}

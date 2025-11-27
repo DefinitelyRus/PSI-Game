@@ -21,6 +21,7 @@ public partial class GameManager : Node2D {
         }
 
         Instance = this;
+    DataManager.RecordGameStart();
     }
 
 	public override void _Process(double delta) {
@@ -150,6 +151,10 @@ public partial class GameManager : Node2D {
 
         if (allDead || timesUp || loseOverride) {
             GameEnded = true;
+
+            // Record completion BEFORE resetting TimeRemaining so timestamps are valid
+            if (level != null) DataManager.RecordLevelCompletion(level);
+
             TimeRemaining = double.MaxValue;
 
             UIManager.StartTransition("Mission Failed");

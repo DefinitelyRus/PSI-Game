@@ -20,6 +20,11 @@ public partial class OptionalPanel : StandardPanel {
         itemInstance.GlobalPosition = ItemSpawnPoint!.GlobalPosition;
         itemInstance.EntityType = StandardItem.EntityTypes.World;
 
+        Godot.Collections.Dictionary extra = new() {
+            {"droppedItemInstanceID", itemInstance.InstanceID}
+        };
+        DataManager.RecordPanelInteraction(this, character, extra);
+
         ItemSpawnPoint.QueueFree();
         ItemSpawnPoint = null;
     }

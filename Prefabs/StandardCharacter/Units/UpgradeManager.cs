@@ -19,7 +19,7 @@ public partial class UpgradeManager : Node {
     public int CurrentMaxPower { get; set; } = 1;
     public int CurrentPower { get; set; } = 0;
     // Tracks powered items separately from any item equip state.
-    private readonly HashSet<UpgradeItem> _poweredItems = new();
+    private readonly HashSet<UpgradeItem> _poweredItems = [];
 
     [Export] public float PowerOnCooldown { get; private set; } = 0.5f;
     private double _cooldownTimer = 0d;
@@ -62,6 +62,7 @@ public partial class UpgradeManager : Node {
                 CurrentPower = Mathf.Max(CurrentPower - 1, 0);
                 AudioManager.StreamAudio("unpower_item");
                 UIManager.SetPower(CurrentPower, CurrentMaxPower);
+                DataManager.RecordInventoryEvent(Character, item, "power_off", CurrentPower, CurrentMaxPower, Items.Count, CurrentMaxSlots);
                 RefreshInventoryUI();
                 return;
             }
@@ -77,6 +78,7 @@ public partial class UpgradeManager : Node {
             CurrentPower++;
             AudioManager.StreamAudio("power_item");
             UIManager.SetPower(CurrentPower, CurrentMaxPower);
+            DataManager.RecordInventoryEvent(Character, item, "power_on", CurrentPower, CurrentMaxPower, Items.Count, CurrentMaxSlots);
             RefreshInventoryUI();
             return;
         }
@@ -88,6 +90,7 @@ public partial class UpgradeManager : Node {
             CurrentPower = Mathf.Max(CurrentPower - 1, 0);
             AudioManager.StreamAudio("unpower_item");
             UIManager.SetPower(CurrentPower, CurrentMaxPower);
+            DataManager.RecordInventoryEvent(Character, item, "power_off", CurrentPower, CurrentMaxPower, Items.Count, CurrentMaxSlots);
             RefreshInventoryUI();
         }
     }
@@ -148,6 +151,7 @@ public partial class UpgradeManager : Node {
 
                 item.SetOwner(Character);
                 item.Use();
+                DataManager.RecordInventoryEvent(Character, item, "use", CurrentPower, CurrentMaxPower, Items.Count, CurrentMaxSlots);
                 item.QueueFree();
 
                 continue;
@@ -163,6 +167,7 @@ public partial class UpgradeManager : Node {
 
                 item.SetOwner(Character);
                 Pickup(item);
+                DataManager.RecordInventoryEvent(Character, item, "pickup", CurrentPower, CurrentMaxPower, Items.Count, CurrentMaxSlots);
             }
 
             break;
@@ -187,6 +192,7 @@ public partial class UpgradeManager : Node {
         item.SetOwner(Character);
         item.Reparent(Character);
         Items.Add(item);
+    DataManager.RecordInventoryEvent(Character, item, "add", CurrentPower, CurrentMaxPower, Items.Count, CurrentMaxSlots);
         RefreshInventoryUI();
     }
 
@@ -226,6 +232,8 @@ public partial class UpgradeManager : Node {
 
         // Move item 32 pixels in front of where the character is facing
         item.GlobalPosition = Character.GlobalPosition + offset;
+
+    DataManager.RecordInventoryEvent(Character, item, "remove", CurrentPower, CurrentMaxPower, Items.Count, CurrentMaxSlots);
 
         RefreshInventoryUI();
     }
@@ -323,4 +331,5 @@ public partial class UpgradeManager : Node {
     }
 
     #endregion
+
 }

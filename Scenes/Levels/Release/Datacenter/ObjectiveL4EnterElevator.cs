@@ -60,6 +60,11 @@ public partial class ObjectiveL4EnterElevator : StandardPanel {
         }
         
         GameManager.SetGameData("L4_EnteredElevator", null, true);
+        Godot.Collections.Dictionary extra = new() {
+            {"objectiveKey", "L4_EnteredElevator"},
+            {"objectiveValue", true}
+        };
+        DataManager.RecordPanelInteraction(this, character, extra);
         Log.Me(() => $"All units have entered the elevator!");
 
         // Disable panel after interaction
@@ -69,6 +74,7 @@ public partial class ObjectiveL4EnterElevator : StandardPanel {
         AudioManager.StopMusic("AmbientAudio");
         UIManager.StartTransition("Mission Complete");
         UIManager.SetHUDVisible(false);
+        if (SceneLoader.Instance.LoadedScene is Level lvl) DataManager.RecordLevelCompletion(lvl);
         await ToSignal(GetTree().CreateTimer(5.0f), "timeout");
 
         //TODO: Go to main menu
