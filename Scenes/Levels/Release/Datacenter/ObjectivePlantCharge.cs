@@ -10,13 +10,15 @@ public partial class ObjectivePlantCharge : StandardPanel {
     [Export] public NavigationRegion2D? Nav = null;
     [Export] public ObjectiveL4EnterElevator? ElevatorObjective = null;
     [Export] public float ExplosionShakeIntensity = 10f;
-    public double TimeLeft { get; set; } = 0;
+    // Duration of the charge timer (seconds). Adjust as needed for this level.
+    [Export] public double ChargeDuration = 221.5;
 
     public override async void Interact(StandardCharacter character) {
         Variant? alreadyActivated = GameManager.GetGameData("L4_ChargePlanted", null);
         if (alreadyActivated != null) return;
 
-        CameraNodes[^1] = character;
+    // Append the interacting character as the final camera target if a path is provided
+    if (CameraNodes.Length > 0) CameraNodes[^1] = character;
 
         if (CameraNodes.Length > 0) CameraMan.SetTarget(CameraNodes[^1]);
 
@@ -30,7 +32,7 @@ public partial class ObjectivePlantCharge : StandardPanel {
 
         if (ActivationSound != null) AudioManager.StreamAudio(ActivationSound);
 
-        if (CameraNodes.Length > 0) CameraMan.SetCameraPath(CameraNodes);
+    if (CameraNodes.Length > 0) CameraMan.SetCameraPath(CameraNodes);
 
         UIManager.SetBottomOverlayText($"Install the power virus...", 2f);
 
@@ -47,41 +49,53 @@ public partial class ObjectivePlantCharge : StandardPanel {
 
         if (MusicOnPlant != null) AudioManager.StreamAudio(MusicOnPlant);
         GameManager.SetGameData("L4_ChargePlanted", null, true);
+
+        // Wait until the cinematic camera path has fully completed before starting the timer
+        while (CameraMan.IsPathActive) {
+            await ToSignal(GetTree(), "process_frame");
+        }
+
+        // Start the actual level countdown now (show and tick the HUD timer)
+        GameManager.TimeRemaining = ChargeDuration;
+        GameManager.ManualTimerCheck = false;
+
         InputManager.AllowOverride = true;
         AIDirector.AllowSpawning = true;
         if (Nav != null) Nav.Enabled = true;
-        
-        GameManager.TimeRemaining = 221.5;
-        GameManager.ManualTimerCheck = true;
-        TimeLeft = 221.5;
-        await ToSignal(GetTree().CreateTimer(221.5 - 60f), "timeout");
 
-        UIManager.SetBottomOverlayText($"60 seconds until detonation!", 5f);
-        await ToSignal(GetTree().CreateTimer(40f), "timeout");
+        // Schedule timed events relative to countdown start
+        double t = ChargeDuration;
+        // 60s remaining notification
+        if (t > 60.0) {
+            await ToSignal(GetTree().CreateTimer((float)(t - 60.0)), "timeout");
+            UIManager.SetBottomOverlayText($"60 seconds until detonation!", 5f);
+        }
 
-        UIManager.SetBottomOverlayText($"The elevator's open!", 5f);
-        ElevatorObjective?.GetChild<AnimationPlayer>(3).Play("Door Open");
-
-        await ToSignal(GetTree().CreateTimer(20f), "timeout");
-        Variant? missionSuccess = GameManager.GetGameData("L4_EnteredElevator", null);
-        if (missionSuccess == null) {
-            Log.Me(() => "Mission failed: Charge detonated before escape.");
-            CameraMan.Shake(ExplosionShakeIntensity);
-
-            foreach (StandardCharacter unit in Commander.GetAllUnits()) {
-                if (unit.IsAlive) {
-                    unit.Kill();
-                }
+        // Open the elevator at 25s remaining
+        if (t > 25.0) {
+            if (t > 60.0) {
+                await ToSignal(GetTree().CreateTimer(35f), "timeout"); // from 60 -> 25
+            } else {
+                await ToSignal(GetTree().CreateTimer((float)(t - 25.0)), "timeout");
             }
+            UIManager.SetBottomOverlayText($"The elevator's open!", 5f);
+            ElevatorObjective?.GetChild<AnimationPlayer>(3).Play("Door Open");
+        }
+
+        // At 10s remaining try to auto-complete if units are in position
+        if (t > 10.0) {
+            if (t > 25.0) {
+                await ToSignal(GetTree().CreateTimer(15f), "timeout"); // from 25 -> 10
+            } else {
+                await ToSignal(GetTree().CreateTimer((float)(t - 10.0)), "timeout");
+            }
+            ElevatorObjective?.TryAutoCompleteAtFinalCountdown();
         }
     }
 
     public override void _Process(double delta) {
         ScanForPlayer();
         HighlightPanel(delta);
-
-        TimeLeft -= delta;
-        if (TimeLeft < 0) TimeLeft = 0;
     }
 
 	public override void _Ready() {
@@ -89,6 +103,10 @@ public partial class ObjectivePlantCharge : StandardPanel {
 
         // Disable nav region until charge is planted
         if (Nav != null) Nav.Enabled = false;
+
+        // For this level, do not show or tick the HUD timer until the charge is planted
+        GameManager.ManualTimerCheck = true;
+        GameManager.TimeRemaining = double.MaxValue;
 
 		base._Ready();
 	}

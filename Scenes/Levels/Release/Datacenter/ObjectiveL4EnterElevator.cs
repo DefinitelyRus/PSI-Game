@@ -39,16 +39,13 @@ public partial class ObjectiveL4EnterElevator : StandardPanel {
         }
 
         // Check if the time has more than 10 seconds left.
-        if (ChargeObjective != null) {
-            if (ChargeObjective.TimeLeft > 10.0) {
-                if (_promptTimer <= 0f) {
-                    UIManager.SetBottomOverlayText("The elevator's coming down...", 2.2f);
-                    Log.Me(() => $"{character.CharacterName} tried to access the elevator but there is still time left on the charge.");
-                    _promptTimer = PromptDelay;
-                }
-                
-                return;
+    if (GameManager.TimeRemaining > 10.0) {
+            if (_promptTimer <= 0f) {
+                UIManager.SetBottomOverlayText("The elevator's coming down...", 2.2f);
+                Log.Me(() => $"{character.CharacterName} tried to access the elevator but there is still time left on the charge.");
+                _promptTimer = PromptDelay;
             }
+            return;
         }
 
         // Check if all alive units are at the elevator
@@ -59,6 +56,37 @@ public partial class ObjectiveL4EnterElevator : StandardPanel {
             if (!isAtLocation) return;
         }
         
+    await CompleteAndExitAsync(character);
+    }
+
+	public override void _Process(double delta) {
+        ScanForPlayer();
+        HighlightPanel(delta);
+
+        if (_promptTimer > 0f) {
+            _promptTimer -= (float) delta;
+        }
+    }
+
+    public async void TryAutoCompleteAtFinalCountdown() {
+        // Only auto-complete if we are in the last 10 seconds
+        if (GameManager.TimeRemaining > 10.0) return;
+
+        // Ensure all alive units are at the elevator
+        foreach (StandardCharacter unit in Commander.GetAllUnits()) {
+            if (!unit.IsAlive) continue;
+            bool isAtLocation = ScanForUnit(unit);
+            if (!isAtLocation) return;
+        }
+
+        // Use commander focused unit or first alive for logging purposes
+        StandardCharacter? any = null;
+        foreach (StandardCharacter unit in Commander.GetAllUnits()) { if (unit.IsAlive) { any = unit; break; } }
+        if (any == null) return;
+        await CompleteAndExitAsync(any);
+    }
+
+    private async System.Threading.Tasks.Task CompleteAndExitAsync(StandardCharacter character) {
         GameManager.SetGameData("L4_EnteredElevator", null, true);
         Godot.Collections.Dictionary extra = new() {
             {"objectiveKey", "L4_EnteredElevator"},
@@ -77,18 +105,9 @@ public partial class ObjectiveL4EnterElevator : StandardPanel {
         if (SceneLoader.Instance.LoadedScene is Level lvl) DataManager.RecordLevelCompletion(lvl);
         await ToSignal(GetTree().CreateTimer(5.0f), "timeout");
 
-        //TODO: Go to main menu
+        // Go to main menu
         Commander.Initialize();
         SceneLoader.LoadLevel(0);
-    }
-
-	public override void _Process(double delta) {
-        ScanForPlayer();
-        HighlightPanel(delta);
-
-        if (_promptTimer > 0f) {
-            _promptTimer -= (float) delta;
-        }
     }
 
 }

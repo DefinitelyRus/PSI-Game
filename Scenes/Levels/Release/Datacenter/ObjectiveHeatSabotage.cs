@@ -16,9 +16,8 @@ public partial class ObjectiveHeatSabotage : StandardPanel {
         Log.Me(() => $"{character.CharacterName} has disabled the heat management system!");
         GameManager.SetGameData("L4_HeatManagementSabotaged", null, true);
 
-        // Disable panel after interaction
-        IsEnabled = false;
-        Activated = true;
+    // Mark activated but keep panel enabled in case other objectives aren't done yet
+    Activated = true;
 
         if (ActivationSound != null) AudioManager.StreamAudio(ActivationSound);
 
