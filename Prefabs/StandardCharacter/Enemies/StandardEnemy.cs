@@ -28,6 +28,13 @@ public partial class StandardEnemy : StandardCharacter {
 	public override void Kill() {
         if (!IsAlive) return;
 
+        // Record kill distance relative to nearest player for range metric
+        var nearestPlayer = AIDirector.FindNearestPlayer(GlobalPosition);
+        if (nearestPlayer != null && IsInstanceValid(nearestPlayer)) {
+            float killDistance = nearestPlayer.GlobalPosition.DistanceTo(GlobalPosition);
+            AIDirector.RegisterKillDistance(killDistance);
+        }
+
         CameraMan.Shake(DeathCameraShakeIntensity, GlobalPosition);
 
         // 10% chance to drop random item on death
