@@ -584,66 +584,162 @@ public partial class AIDirector : Node2D {
     }
 
     private static void UpdatePaceMetric(float delta) {
-        float levelTimeLimit = CurrentLevel != null ? (float)CurrentLevel.LevelTimeLimit : 1f;
+        // Pace is based on how quickly required objectives (excluding the final completion
+        // objective) are being cleared relative to the level timer.
+        // Design goals:
+        //  - If 100% of eligible objectives are done by 30% of total time -> Pace = 2.0
+        //  - If none are done after 70% of total time -> Pace = 0.0
+        //  - If 50% of objectives are done at exactly 50% of total time -> Pace = 1.0
+
+        if (CurrentLevel == null) return;
+
+        float levelTimeLimit = Mathf.Max(0.0001f, (float)CurrentLevel.LevelTimeLimit);
         float elapsed = Mathf.Clamp(LevelElapsedTime, 0f, levelTimeLimit);
+
+        // Exclude the last (completion) objective from the pacing metric.
         int eligibleObjectivesTotal = Mathf.Max(0, RequiredObjectivesTotal - 1);
         int eligibleObjectivesCompleted = Mathf.Clamp(RequiredObjectivesCompleted, 0, eligibleObjectivesTotal);
-        float completionRatio = eligibleObjectivesTotal > 0 ? (float)eligibleObjectivesCompleted / eligibleObjectivesTotal : 0f;
-        float timePercent = levelTimeLimit > 0f ? elapsed / levelTimeLimit : 0f;
-        float fastGate = 0.3f;
-        float slowGate = 0.7f;
-        float targetPace = 0f;
 
-        if (completionRatio >= 1f) {
-            targetPace = timePercent <= fastGate ? 2f : Mathf.Lerp(2f, 1f, Mathf.InverseLerp(fastGate, 1f, timePercent));
-        } else if (completionRatio <= 0f) {
-            targetPace = timePercent >= slowGate ? 0f : Mathf.Lerp(1f, 0f, Mathf.InverseLerp(0f, slowGate, timePercent));
-        } else {
-            float expectedAtFastGate = 1f;
-            float rateRequired = expectedAtFastGate / fastGate;
-            float currentRate = completionRatio / Mathf.Max(0.0001f, timePercent);
-            float efficiency = Mathf.Clamp(currentRate / rateRequired, 0f, 1f);
-            float earlyBonus = Mathf.Lerp(0f, 1f, Mathf.InverseLerp(0f, fastGate, timePercent));
-            float midBlend = Mathf.Lerp(efficiency, completionRatio, earlyBonus);
-            targetPace = Mathf.Lerp(0f, 2f, midBlend);
+        float completionRatio = eligibleObjectivesTotal > 0
+            ? (float)eligibleObjectivesCompleted / eligibleObjectivesTotal
+            : 0f; // no eligible objectives -> treat as 0 so pace decays toward neutral.
+
+        float timePercent = elapsed / levelTimeLimit; // 0..1
+        const float fastGate = 0.30f; // earlier than this = "fast"
+        const float slowGate = 0.70f; // later than this with no progress = "slow"
+
+        float targetPace;
+
+        // Case 1: all eligible objectives done.
+        if (completionRatio >= 0.999f && eligibleObjectivesTotal > 0) {
+            // If done by the fast gate, max reward.
+            if (timePercent <= fastGate) targetPace = 2f;
+            else {
+                // After the fast gate, linearly fall back toward 1.0 as you use more time.
+                float t = Mathf.InverseLerp(fastGate, 1f, Mathf.Clamp(timePercent, fastGate, 1f));
+                targetPace = Mathf.Lerp(2f, 1f, t);
+            }
+        }
+
+        // Case 2: no progress yet.
+        else if (completionRatio <= 0.001f) {
+            // Before the slow gate, decay from 1.0 toward 0.0.
+            if (timePercent >= slowGate) targetPace = 0f;
+            else {
+                float t = Mathf.InverseLerp(0f, slowGate, Mathf.Clamp(timePercent, 0f, slowGate));
+                targetPace = Mathf.Lerp(1f, 0f, t);
+            }
+        }
+
+        // Case 3: partial progress.
+        else {
+            // We compare current completion rate (objectives per unit time)
+            // against the rate needed to finish all eligible objectives by the fast gate.
+            float requiredRate = eligibleObjectivesTotal > 0
+                ? 1f / fastGate // 100% of objectives over 30% of the time window
+                : 0f;
+
+            // Avoid division by zero when very early in the level.
+            float currentRate = timePercent > 0.001f
+                ? completionRatio / timePercent
+                : 0f;
+
+            float efficiency = requiredRate > 0f
+                ? Mathf.Clamp(currentRate / requiredRate, 0f, 2f) // allow some overspeed bonus
+                : 0f;
+
+            // Map efficiency into 0–2. At requiredRate, efficiency = 1 -> Pace = 2.
+            float basePace = Mathf.Lerp(0f, 2f, Mathf.Clamp(efficiency, 0f, 1f));
+
+            // Blend in how much of the work is actually done so we respect
+            // the 50%/50% => 1.0 design point.
+            float completionInfluence = completionRatio; // 0..1
+            float blended = Mathf.Lerp(basePace, 2f * completionRatio, completionInfluence);
+
+            targetPace = Mathf.Clamp(blended, 0f, 2f);
         }
 
         PaceRatio = Mathf.Lerp(PaceRatio, targetPace, delta * 2f);
     }
 
     private static void UpdateRangeMetric(float delta) {
-        if (_killDistanceSamples > 0) {
-            float avgKillDistance = _killDistanceAccum / _killDistanceSamples;
-            float rangeDenom = Mathf.Max(1f, RangeRatingFixedPoint);
-            float targetRange = Mathf.Clamp(avgKillDistance / rangeDenom * 2f, 0f, 2f);
-            RangeRatio = Mathf.Lerp(RangeRatio, targetRange, delta * 2f);
-        } else {
+        // Range metric is based on the average kill distance of the most recent kills.
+        // Design goals:
+        //  - For the past N kills (effectively capped), if avg distance is 320 -> Range = 2.0
+        //  - If avg distance is <64 -> Range = 0.0
+        //  - Interpolate linearly between these extremes.
+
+        if (_killDistanceSamples <= 0) {
+            // No data yet, ease back toward neutral.
             RangeRatio = Mathf.Lerp(RangeRatio, 1f, delta * 2f);
+            return;
         }
+
+        float avgKillDistance = _killDistanceAccum / _killDistanceSamples;
+
+        const float minRangeDist = 64f;   // 0.0 when below this
+        const float maxRangeDist = 320f;  // 2.0 when at or above this
+
+        float t;
+        if (avgKillDistance <= minRangeDist) t = 0f;
+        else if (avgKillDistance >= maxRangeDist) t = 1f;
+        else t = (avgKillDistance - minRangeDist) / (maxRangeDist - minRangeDist);
+
+        float targetRange = Mathf.Lerp(0f, 2f, t);
+        RangeRatio = Mathf.Lerp(RangeRatio, targetRange, delta * 2f);
     }
 
     private static void UpdateOptionalMetric(float delta) {
+        // OptionalRatio tracks how many optional objectives have been completed.
+        //  - 0% completed    -> 0.0
+        //  - 100% completed  -> 2.0
+        // It is updated continuously so that wave previews stay in sync.
+
         if (OptionalObjectivesTotal > 0) {
-            float targetOptional = Mathf.Clamp((float)OptionalObjectivesCompleted / OptionalObjectivesTotal, 0f, 1f);
+            float fraction = Mathf.Clamp((float)OptionalObjectivesCompleted / OptionalObjectivesTotal, 0f, 1f);
+            float targetOptional = 2f * fraction;
             OptionalRatio = Mathf.Lerp(OptionalRatio, targetOptional, delta * 2f);
+        }
+        else {
+            // No optional objectives in this level: keep at 0.
+            OptionalRatio = Mathf.Lerp(OptionalRatio, 0f, delta * 2f);
         }
     }
 
     public static void SetOptionalObjectiveProgress(int completed, int total) {
+        // Called by game logic whenever optional objectives progress changes.
         OptionalObjectivesTotal = Mathf.Max(0, total);
         OptionalObjectivesCompleted = Mathf.Clamp(completed, 0, OptionalObjectivesTotal);
-        OptionalRatio = OptionalObjectivesTotal > 0 ? Mathf.Clamp((float)OptionalObjectivesCompleted / OptionalObjectivesTotal, 0f, 1f) : 0f;
+
+        if (OptionalObjectivesTotal > 0) {
+            float fraction = Mathf.Clamp((float)OptionalObjectivesCompleted / OptionalObjectivesTotal, 0f, 1f);
+            OptionalRatio = 2f * fraction;
+        } else {
+            OptionalRatio = 0f;
+        }
     }
 
     public static void SetOptionalObjectives(int total) {
+        // Should be called whenever the level changes or when optional objectives are (re)defined.
         OptionalObjectivesTotal = Mathf.Max(0, total);
         OptionalObjectivesCompleted = Mathf.Min(OptionalObjectivesCompleted, OptionalObjectivesTotal);
+
+        if (OptionalObjectivesTotal > 0) {
+            float fraction = Mathf.Clamp((float)OptionalObjectivesCompleted / OptionalObjectivesTotal, 0f, 1f);
+            OptionalRatio = 2f * fraction;
+        } else {
+            OptionalRatio = 0f;
+        }
     }
 
     public static void RegisterOptionalObjectiveCompletion() {
         if (OptionalObjectivesTotal <= 0) return;
         if (OptionalObjectivesCompleted >= OptionalObjectivesTotal) return;
+
         OptionalObjectivesCompleted++;
+
+        float fraction = Mathf.Clamp((float)OptionalObjectivesCompleted / OptionalObjectivesTotal, 0f, 1f);
+        OptionalRatio = 2f * fraction;
     }
 
 
