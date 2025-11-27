@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://o52kke4dfdo0"]
+[gd_scene load_steps=39 format=3 uid="uid://o52kke4dfdo0"]
 
 [ext_resource type="Texture2D" uid="uid://kqo44exiy3bv" path="res://Sprites/UI/Modern_UI_Style_2_32x32.png" id="1_7a7a1"]
 [ext_resource type="Script" uid="uid://bdv1hbweo6wlo" path="res://Prefabs/UI/player_hud.gd" id="1_av0rp"]
@@ -76,6 +76,10 @@ font = ExtResource("7_ck6j7")
 font_size = 48
 
 [sub_resource type="LabelSettings" id="LabelSettings_f5urv"]
+font = ExtResource("7_ck6j7")
+font_size = 32
+
+[sub_resource type="LabelSettings" id="LabelSettings_wnd18"]
 font = ExtResource("7_ck6j7")
 font_size = 32
 
@@ -168,7 +172,6 @@ Transition = NodePath("Transition")
 OnScreenText = NodePath("On-ScreenText")
 
 [node name="HUD" type="MarginContainer" parent="." node_paths=PackedStringArray("health_bar", "power", "current_character", "inventory_slots", "hud_container", "char_info", "char_inventory", "char_preview")]
-visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -231,7 +234,7 @@ theme_override_icons/grabber_highlight = SubResource("CompressedTexture2D_lsael"
 theme_override_icons/grabber_disabled = SubResource("CompressedTexture2D_lsael")
 theme_override_styles/slider = SubResource("StyleBoxFlat_ck6j7")
 theme_override_styles/grabber_area = SubResource("StyleBoxFlat_lsael")
-value = 100.0
+value = 50.0
 editable = false
 scrollable = false
 
@@ -582,6 +585,7 @@ theme_override_styles/pressed = SubResource("StyleBoxTexture_lsyk6")
 theme_override_styles/hover = SubResource("StyleBoxTexture_f5urv")
 
 [node name="Transition" type="TextureRect" parent="." node_paths=PackedStringArray("on_screen_text")]
+visible = false
 offset_right = 960.0
 offset_bottom = 360.0
 texture = ExtResource("8_lsyk6")
@@ -594,18 +598,21 @@ middle_pos = Vector2(-120, 0)
 end_pos = Vector2(-960, 0)
 transition_time = 1.0
 
-[node name="On-ScreenText" type="MarginContainer" parent="." node_paths=PackedStringArray("center_label", "subtitle")]
+[node name="On-ScreenText" type="MarginContainer" parent="." node_paths=PackedStringArray("center_label", "subtitle", "timer")]
+visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_bottom = 10
 script = ExtResource("10_0i7dx")
 center_label = NodePath("Center")
 subtitle = NodePath("Subtitle")
+timer = NodePath("Timer")
 
 [node name="Center" type="Label" parent="On-ScreenText"]
-visible = false
 layout_mode = 2
 text = "Anong ginagawa ni diddy
 blud sa kalkyuleytor?"
@@ -614,7 +621,6 @@ horizontal_alignment = 1
 vertical_alignment = 2
 
 [node name="Subtitle" type="Label" parent="On-ScreenText"]
-visible = false
 layout_mode = 2
 size_flags_vertical = 8
 text = "Anong ginagawa ni diddy
@@ -622,6 +628,13 @@ blud sa kalkyuleytor?"
 label_settings = SubResource("LabelSettings_f5urv")
 horizontal_alignment = 1
 vertical_alignment = 2
+
+[node name="Timer" type="Label" parent="On-ScreenText"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+text = "00 : 00"
+label_settings = SubResource("LabelSettings_wnd18")
 
 [node name="ControlsPanel" type="MarginContainer" parent="." node_paths=PackedStringArray("camera_controls_button", "camera_controls_panel", "character_movement_button", "characters_controls_panel", "item_controls_button", "item_controls_panel")]
 visible = false

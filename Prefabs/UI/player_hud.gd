@@ -42,6 +42,23 @@ func set_power(current_power: int, _max_power: int) -> void:
 	for i in range(current_power):
 		if i < power.size():
 			power[i].disabled = false
+			pass
+		pass
+
+## Set health bar color
+func set_health_color(character: String) -> void:
+	var grabber_style: StyleBoxFlat = health_bar.get("theme_override_styles/grabber_area") as StyleBoxFlat
+	var mira_color = Color(145/255.0, 60/255.0, 81/255.0)
+	var orra_color =  Color(60/255.0, 41/255.0, 94/255.0)
+	
+	match character:
+		"mira":
+			grabber_style.bg_color = mira_color
+			print("Updated grabber color to:", mira_color)
+		"orra": 
+			grabber_style.bg_color = orra_color
+			print("Updated grabber color to:", orra_color)
+
 
 # ----------- INVENTORY MANAGER ----------
 ## Set number of slots to make visible (enabled)
@@ -82,6 +99,7 @@ func set_character_name(character: String) -> void:
 
 # ---------- GODOT CALLBACKS -----------
 func _ready() -> void:
+	set_health_color("mira")
 	pass
 	## TEST: Disables inventory slots upon load
 	#for i in range(inventory_slots.size()):
