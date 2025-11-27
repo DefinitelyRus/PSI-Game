@@ -161,6 +161,7 @@ public partial class GameManager : Node2D {
             }
 
             await Instance.ToSignal(Instance.GetTree().CreateTimer(4.0), "timeout");
+            AIDirector.ResetMetrics();
 
             //TODO: Go to main menu
             Commander.Initialize();
