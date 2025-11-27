@@ -2634,6 +2634,7 @@ CameraNodePaths = [NodePath("Props/Panel Power Station 1/Area2D/CollisionShape2D
 BackgroundMusic = ExtResource("2_7e5pe")
 LevelIndex = 2
 LevelTimeLimit = 480.0
+BaseBudget = 1000
 StaticEnemyTypes = [ExtResource("2_hi47n"), ExtResource("4_xpc51"), ExtResource("5_cq3cu"), ExtResource("6_41anr"), ExtResource("6_d2dtn"), ExtResource("8_h0ldu")]
 DynamicEnemyTypes = [ExtResource("8_h0ldu"), ExtResource("6_d2dtn"), ExtResource("6_41anr"), ExtResource("5_cq3cu"), ExtResource("4_xpc51"), ExtResource("2_hi47n")]
 EnemyStaticSpawningDelayMultiplier = 0.5
