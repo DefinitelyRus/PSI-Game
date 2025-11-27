@@ -25,7 +25,27 @@ public partial class GameManager : Node2D {
     }
 
 	public override void _Process(double delta) {
-		CallDeferred(nameof(CheckLoseConditions), false);
+        // Update timer text and color before checking lose conditions
+        if (!GameEnded) {
+            // Only update timer if time limit is active
+            if (!ManualTimerCheck && TimeRemaining < double.MaxValue) {
+                // Clamp to non-negative for display and stop at zero
+                double displayTime = TimeRemaining;
+                if (displayTime <= 0) {
+                    UIManager.SetTimerText(0);
+                    UIManager.SetTimerColor(Colors.Red);
+                }
+
+                else {
+                    UIManager.SetTimerText(displayTime);
+                    // Switch to red at 30s remaining
+                    if (displayTime <= 30.0) UIManager.SetTimerColor(Colors.Red);
+                    else UIManager.SetTimerColor(Colors.White);
+                }
+            }
+        }
+
+        CallDeferred(nameof(CheckLoseConditions), false);
 	}
 
     #endregion
@@ -138,8 +158,11 @@ public partial class GameManager : Node2D {
 		if (levelNode is not Level level) return;
 
         // Lose if time is up.
-        bool timesUp = false;
-        TimeRemaining -= Instance.GetProcessDeltaTime();
+    bool timesUp = false;
+    // Decrement remaining time only when using level timer
+    if (!ManualTimerCheck && TimeRemaining < double.MaxValue) {
+    	TimeRemaining -= Instance.GetProcessDeltaTime();
+    }
         if (level.LevelTimeLimit > 0) {
             timesUp = TimeRemaining <= 0 && !ManualTimerCheck;
         }
