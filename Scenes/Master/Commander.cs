@@ -298,16 +298,25 @@ public partial class Commander : Node {
 	public static async void MoveAndSearch(Vector2 mousePos) {
 		foreach (StandardCharacter unit in GetSelectedUnits()) {
 			Vector2 position = mousePos;
+
+			// Check if pointing at an objective panel
+			if (EntityManager.HasEntityAtPosition(mousePos, out var entity)) {
+				if (entity is not StandardPanel panel) continue;
+
+				Vector2? targetPos = StandardPanel.GetNavigablePosition(unit, panel);
+				if (targetPos != null) position = targetPos.Value;
+			}
 			
 			// Randomize position slightly if more than one unit is selected
 			if (GetSelectedUnits().Count() > 1) {
 				RandomNumberGenerator rng = new();
 				Vector2 offset = new(rng.RandfRange(-8f, 8f), rng.RandfRange(-8f, 8f));
-				mousePos = new(mousePos.X + offset.X, mousePos.Y + offset.Y);
+				
+				position = new(position.X + offset.X, position.Y + offset.Y);
 			}
 
 			AIAgentManager agent = unit.AIAgent;
-			agent.Action1(mousePos);
+			agent.Action1(position);
 			agent.Searching = true;
 			agent.Targeting = false;
 
@@ -324,7 +333,7 @@ public partial class Commander : Node {
 			if (GetSelectedUnits().Count() > 1) {
 				RandomNumberGenerator rng = new();
 				Vector2 offset = new(rng.RandfRange(-8f, 8f), rng.RandfRange(-8f, 8f));
-				mousePos = new(mousePos.X + offset.X, mousePos.Y + offset.Y);
+				position = new(position.X + offset.X, position.Y + offset.Y);
 			}
 
 			AIAgentManager agent = unit.AIAgent;
