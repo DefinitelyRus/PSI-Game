@@ -90,16 +90,11 @@ func set_item(icon: Texture2D, target: int) -> void:
 		return
 	
 	var button := inventory_slots[target]
-	# If no icon provided, clear any existing overrides so the slot looks empty
-	if icon == null:
-		button.remove_theme_stylebox_override("normal")
-		button.remove_theme_stylebox_override("hover")
-		button.remove_theme_stylebox_override("pressed")
-		return
-
 	var style := StyleBoxTexture.new()
-	style.texture = icon
-
+	
+	if icon != null:
+		style.texture = icon
+	
 	button.add_theme_stylebox_override("normal", style)
 	button.add_theme_stylebox_override("hover", style)
 	button.add_theme_stylebox_override("pressed", style)

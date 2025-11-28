@@ -1,16 +1,15 @@
-[gd_scene load_steps=39 format=3 uid="uid://o52kke4dfdo0"]
+[gd_scene load_steps=40 format=3 uid="uid://o52kke4dfdo0"]
 
 [ext_resource type="Texture2D" uid="uid://kqo44exiy3bv" path="res://Sprites/UI/Modern_UI_Style_2_32x32.png" id="1_7a7a1"]
 [ext_resource type="Script" uid="uid://bdv1hbweo6wlo" path="res://Prefabs/UI/player_hud.gd" id="1_av0rp"]
 [ext_resource type="Script" uid="uid://bu2jemlmpvmfq" path="res://Prefabs/UI/UIManager.cs" id="1_vpfb6"]
-[ext_resource type="Texture2D" uid="uid://bjipwk6ac5bx0" path="res://Sprites/Units/Mira Kale/Idle.png" id="3_frt37"]
 [ext_resource type="Script" uid="uid://0av647fe1ugh" path="res://Prefabs/UI/pop_up.gd" id="4_64sls"]
 [ext_resource type="Texture2D" uid="uid://c81w6xkq461rl" path="res://Sprites/UI/UI_HoloBook_Spritesheet01a.png" id="6_7rjoj"]
 [ext_resource type="FontFile" uid="uid://duqjr4hlekkbk" path="res://Font/Anxel.ttf" id="7_ck6j7"]
 [ext_resource type="Texture2D" uid="uid://bp7qd4q73av7e" path="res://Sprites/UI/Transition.png" id="8_lsyk6"]
 [ext_resource type="Script" uid="uid://cdv0dp7u5wtwa" path="res://Prefabs/UI/transition.gd" id="9_f5urv"]
 [ext_resource type="Script" uid="uid://dr81xdqcutnel" path="res://Prefabs/UI/on_screen_text.gd" id="10_0i7dx"]
-[ext_resource type="Script" path="res://Prefabs/UI/controls_panel.gd" id="11_uycg4"]
+[ext_resource type="Script" uid="uid://dn8v6kws28uv5" path="res://Prefabs/UI/controls_panel.gd" id="11_uycg4"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_lsael"]
 
@@ -33,9 +32,25 @@ texture = ExtResource("1_7a7a1")
 region_rect = Rect2(320, 321, 32, 32)
 modulate_color = Color(0.325441, 0.325441, 0.325441, 1)
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_64sls"]
-texture = ExtResource("3_frt37")
-region_rect = Rect2(159, 18, 23, 28)
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_n0gxw"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_i8vns"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uycg4"]
+bg_color = Color(1, 1, 1, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 0.19607843)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7vhy3"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_wu6fg"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8ncxl"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_m631n"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_oh086"]
 texture = ExtResource("6_7rjoj")
@@ -85,84 +100,37 @@ font_size = 32
 
 [sub_resource type="LabelSettings" id="LabelSettings_uycg4"]
 font = ExtResource("7_ck6j7")
-font_size = 32
+font_size = 24
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_wnd18"]
-texture = ExtResource("6_7rjoj")
-texture_margin_left = 2.0
-texture_margin_top = 2.0
-texture_margin_right = 2.0
-texture_margin_bottom = 2.0
-region_rect = Rect2(4, 160, 384, 24)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5w5d2"]
-texture = ExtResource("6_7rjoj")
-texture_margin_left = 2.0
-texture_margin_top = 2.0
-texture_margin_right = 2.0
-texture_margin_bottom = 2.0
-region_rect = Rect2(4, 256, 384, 24)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_kld5w"]
-texture = ExtResource("6_7rjoj")
-texture_margin_left = 2.0
-texture_margin_top = 2.0
-texture_margin_right = 2.0
-texture_margin_bottom = 2.0
-region_rect = Rect2(4, 352, 384, 24)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0i7dx"]
+bg_color = Color(1, 1, 1, 0)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.2509804, 0.2509804, 0.2509804, 1)
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_uycg4"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_oh086"]
 font = ExtResource("7_ck6j7")
+font_size = 8
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_htyr3"]
-texture = ExtResource("6_7rjoj")
-texture_margin_left = 2.0
-texture_margin_top = 2.0
-texture_margin_right = 2.0
-texture_margin_bottom = 2.0
-region_rect = Rect2(4, 192, 384, 24)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oh086"]
+bg_color = Color(1, 1, 1, 1)
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_y0qck"]
-texture = ExtResource("6_7rjoj")
-texture_margin_left = 2.0
-texture_margin_top = 2.0
-texture_margin_right = 2.0
-texture_margin_bottom = 2.0
-region_rect = Rect2(4, 288, 384, 24)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wnd18"]
+border_width_left = 5
+border_color = Color(0.08235294, 0.08235294, 0.08235294, 0.6039216)
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vq6ry"]
-texture = ExtResource("6_7rjoj")
-texture_margin_left = 2.0
-texture_margin_top = 2.0
-texture_margin_right = 2.0
-texture_margin_bottom = 2.0
-region_rect = Rect2(4, 384, 384, 24)
+[sub_resource type="Theme" id="Theme_wnd18"]
+VScrollBar/styles/grabber = SubResource("StyleBoxFlat_oh086")
+VScrollBar/styles/grabber_highlight = null
+VScrollBar/styles/scroll = SubResource("StyleBoxFlat_wnd18")
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rqlod"]
-texture = ExtResource("6_7rjoj")
-texture_margin_left = 2.0
-texture_margin_top = 2.0
-texture_margin_right = 2.0
-texture_margin_bottom = 2.0
-region_rect = Rect2(4, 224, 384, 24)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_3mbnn"]
-texture = ExtResource("6_7rjoj")
-texture_margin_left = 2.0
-texture_margin_top = 2.0
-texture_margin_right = 2.0
-texture_margin_bottom = 2.0
-region_rect = Rect2(4, 320, 384, 24)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_gil55"]
-texture = ExtResource("6_7rjoj")
-texture_margin_left = 2.0
-texture_margin_top = 2.0
-texture_margin_right = 2.0
-texture_margin_bottom = 2.0
-region_rect = Rect2(4, 416, 384, 24)
+[sub_resource type="LabelSettings" id="LabelSettings_htyr3"]
+font = ExtResource("7_ck6j7")
+font_size = 8
 
 [node name="Player_UI" type="CanvasLayer" node_paths=PackedStringArray("HUDNode", "PopupNode", "ControlsPanelNode", "Transition", "OnScreenText")]
 script = ExtResource("1_vpfb6")
@@ -173,6 +141,7 @@ Transition = NodePath("Transition")
 OnScreenText = NodePath("On-ScreenText")
 
 [node name="HUD" type="MarginContainer" parent="." node_paths=PackedStringArray("health_bar", "power", "current_character", "inventory_slots", "hud_container", "char_info", "char_inventory", "char_preview")]
+visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -241,14 +210,19 @@ scrollable = false
 
 [node name="PowerContainer" type="MarginContainer" parent="HUD/Left-Info/Player_Info/BG/Info"]
 layout_mode = 1
-offset_right = 45.0
-offset_bottom = 34.0
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -22.5
+offset_right = 48.0
+offset_bottom = 22.5
+grow_vertical = 2
 theme_override_constants/margin_left = 6
 theme_override_constants/margin_top = 25
 
 [node name="HBoxContainer" type="HBoxContainer" parent="HUD/Left-Info/Player_Info/BG/Info/PowerContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
+size_flags_horizontal = 0
 size_flags_vertical = 4
 theme_override_constants/separation = 2
 
@@ -282,39 +256,189 @@ mouse_filter = 2
 theme_override_constants/separation = 10
 
 [node name="InvSlot1" type="Button" parent="HUD/Left-Info/Inventory"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxTexture_n0gxw")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_i8vns")
+
+[node name="MarginContainer" type="MarginContainer" parent="HUD/Left-Info/Inventory/InvSlot1"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="HUD/Left-Info/Inventory/InvSlot1/MarginContainer"]
+z_index = 1
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme_override_fonts/font = ExtResource("7_ck6j7")
+theme_override_font_sizes/font_size = 16
+text = "1"
+
+[node name="Panel" type="Panel" parent="HUD/Left-Info/Inventory/InvSlot1/MarginContainer"]
 custom_minimum_size = Vector2(35, 35)
 layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxTexture_64sls")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_64sls")
-theme_override_styles/hover = SubResource("StyleBoxTexture_64sls")
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_uycg4")
 
 [node name="InvSlot2" type="Button" parent="HUD/Left-Info/Inventory"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxTexture_7vhy3")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_i8vns")
+
+[node name="MarginContainer" type="MarginContainer" parent="HUD/Left-Info/Inventory/InvSlot2"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="HUD/Left-Info/Inventory/InvSlot2/MarginContainer"]
+z_index = 1
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme_override_fonts/font = ExtResource("7_ck6j7")
+theme_override_font_sizes/font_size = 16
+text = "2"
+
+[node name="Panel" type="Panel" parent="HUD/Left-Info/Inventory/InvSlot2/MarginContainer"]
 custom_minimum_size = Vector2(35, 35)
 layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxTexture_64sls")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_64sls")
-theme_override_styles/hover = SubResource("StyleBoxTexture_64sls")
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_uycg4")
 
 [node name="InvSlot3" type="Button" parent="HUD/Left-Info/Inventory"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxTexture_wu6fg")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_i8vns")
+
+[node name="MarginContainer" type="MarginContainer" parent="HUD/Left-Info/Inventory/InvSlot3"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="HUD/Left-Info/Inventory/InvSlot3/MarginContainer"]
+z_index = 1
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme_override_fonts/font = ExtResource("7_ck6j7")
+theme_override_font_sizes/font_size = 16
+text = "3"
+
+[node name="Panel" type="Panel" parent="HUD/Left-Info/Inventory/InvSlot3/MarginContainer"]
 custom_minimum_size = Vector2(35, 35)
 layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxTexture_64sls")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_64sls")
-theme_override_styles/hover = SubResource("StyleBoxTexture_64sls")
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_uycg4")
 
 [node name="InvSlot4" type="Button" parent="HUD/Left-Info/Inventory"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxTexture_8ncxl")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_i8vns")
+
+[node name="MarginContainer" type="MarginContainer" parent="HUD/Left-Info/Inventory/InvSlot4"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="HUD/Left-Info/Inventory/InvSlot4/MarginContainer"]
+z_index = 1
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme_override_fonts/font = ExtResource("7_ck6j7")
+theme_override_font_sizes/font_size = 16
+text = "4"
+
+[node name="Panel" type="Panel" parent="HUD/Left-Info/Inventory/InvSlot4/MarginContainer"]
 custom_minimum_size = Vector2(35, 35)
 layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxTexture_64sls")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_64sls")
-theme_override_styles/hover = SubResource("StyleBoxTexture_64sls")
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_uycg4")
 
 [node name="InvSlot5" type="Button" parent="HUD/Left-Info/Inventory"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxTexture_m631n")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_i8vns")
+
+[node name="MarginContainer" type="MarginContainer" parent="HUD/Left-Info/Inventory/InvSlot5"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="HUD/Left-Info/Inventory/InvSlot5/MarginContainer"]
+z_index = 1
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme_override_fonts/font = ExtResource("7_ck6j7")
+theme_override_font_sizes/font_size = 16
+text = "5"
+
+[node name="Panel" type="Panel" parent="HUD/Left-Info/Inventory/InvSlot5/MarginContainer"]
 custom_minimum_size = Vector2(35, 35)
 layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxTexture_64sls")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_64sls")
-theme_override_styles/hover = SubResource("StyleBoxTexture_64sls")
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_uycg4")
 
 [node name="Right-Info" type="VBoxContainer" parent="HUD"]
 layout_mode = 2
@@ -332,7 +456,7 @@ layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 0
 theme_override_fonts/font = ExtResource("7_ck6j7")
-theme_override_font_sizes/font_size = 36
+theme_override_font_sizes/font_size = 24
 text = "Kasane  Teto"
 horizontal_alignment = 1
 
@@ -586,6 +710,7 @@ theme_override_styles/pressed = SubResource("StyleBoxTexture_lsyk6")
 theme_override_styles/hover = SubResource("StyleBoxTexture_f5urv")
 
 [node name="Transition" type="TextureRect" parent="." node_paths=PackedStringArray("on_screen_text")]
+visible = false
 offset_right = 960.0
 offset_bottom = 360.0
 texture = ExtResource("8_lsyk6")
@@ -599,6 +724,7 @@ end_pos = Vector2(-960, 0)
 transition_time = 1.0
 
 [node name="On-ScreenText" type="MarginContainer" parent="." node_paths=PackedStringArray("center_label", "subtitle", "timer")]
+visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -635,8 +761,7 @@ size_flags_vertical = 0
 text = "00 : 00"
 label_settings = SubResource("LabelSettings_wnd18")
 
-[node name="ControlsPanel" type="MarginContainer" parent="." node_paths=PackedStringArray("camera_controls_button", "camera_controls_panel", "character_movement_button", "characters_controls_panel", "item_controls_button", "item_controls_panel")]
-visible = false
+[node name="Help" type="MarginContainer" parent="." node_paths=PackedStringArray("camera_controls_button", "camera_controls_panel", "character_movement_button", "characters_controls_panel", "item_controls_button", "item_controls_panel")]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -649,236 +774,27 @@ offset_bottom = 40.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("11_uycg4")
-camera_controls_button = NodePath("TextsContainer/Content/HBoxContainer/Camera")
-camera_controls_panel = NodePath("TextsContainer/Content/HBoxContainer/CameraControls")
-character_movement_button = NodePath("TextsContainer/Content/HBoxContainer/CharMovement")
-characters_controls_panel = NodePath("TextsContainer/Content/HBoxContainer/CharacterControls")
-item_controls_button = NodePath("TextsContainer/Content/HBoxContainer/Items")
-item_controls_panel = NodePath("TextsContainer/Content/HBoxContainer/ItemControls")
+camera_controls_button = NodePath("ControlSection/HBoxContainer/Camera")
+camera_controls_panel = NodePath("ControlSection/HBoxContainer/CameraControls")
+character_movement_button = NodePath("ControlSection/HBoxContainer/CharMovement")
+characters_controls_panel = NodePath("ControlSection/HBoxContainer/CharacterControls")
+item_controls_button = NodePath("ControlSection/HBoxContainer/Items")
+item_controls_panel = NodePath("ControlSection/HBoxContainer/ItemControls")
 
-[node name="Controls" type="NinePatchRect" parent="ControlsPanel"]
-custom_minimum_size = Vector2(436, 200)
+[node name="HelpPanel" type="NinePatchRect" parent="Help"]
+custom_minimum_size = Vector2(460, 220)
 layout_mode = 2
 texture = ExtResource("6_7rjoj")
-region_rect = Rect2(3, 3, 218, 90)
+region_rect = Rect2(224, 48, 234, 90)
 
-[node name="TextsContainer" type="MarginContainer" parent="ControlsPanel"]
-layout_mode = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 20
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 15
-
-[node name="Content" type="VBoxContainer" parent="ControlsPanel/TextsContainer"]
-layout_mode = 2
-theme_override_constants/separation = 0
-
-[node name="Label" type="Label" parent="ControlsPanel/TextsContainer/Content"]
-layout_mode = 2
-size_flags_horizontal = 4
-text = "Controls"
-label_settings = SubResource("LabelSettings_uycg4")
-
-[node name="Control" type="Control" parent="ControlsPanel/TextsContainer/Content"]
-custom_minimum_size = Vector2(0, 10)
-layout_mode = 2
-
-[node name="HBoxContainer" type="VBoxContainer" parent="ControlsPanel/TextsContainer/Content"]
-layout_mode = 2
-theme_override_constants/separation = 5
-
-[node name="Camera" type="Button" parent="ControlsPanel/TextsContainer/Content/HBoxContainer"]
-custom_minimum_size = Vector2(384, 30)
-layout_mode = 2
-size_flags_horizontal = 4
-focus_mode = 0
-theme_override_styles/normal = SubResource("StyleBoxTexture_wnd18")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_5w5d2")
-theme_override_styles/hover = SubResource("StyleBoxTexture_kld5w")
-toggle_mode = true
-button_group = SubResource("ButtonGroup_uycg4")
-
-[node name="CameraControls" type="MarginContainer" parent="ControlsPanel/TextsContainer/Content/HBoxContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 35
-theme_override_constants/margin_right = 35
-
-[node name="Control" type="VBoxContainer" parent="ControlsPanel/TextsContainer/Content/HBoxContainer/CameraControls"]
-layout_mode = 2
-size_flags_horizontal = 0
-
-[node name="Label" type="Label" parent="ControlsPanel/TextsContainer/Content/HBoxContainer/CameraControls/Control"]
-layout_mode = 2
-size_flags_horizontal = 0
-text = "Move  camera"
-label_settings = SubResource("LabelSettings_oh086")
-
-[node name="Label2" type="Label" parent="ControlsPanel/TextsContainer/Content/HBoxContainer/CameraControls/Control"]
-layout_mode = 2
-size_flags_horizontal = 4
-text = "Focus  camera"
-label_settings = SubResource("LabelSettings_oh086")
-
-[node name="Keys" type="VBoxContainer" parent="ControlsPanel/TextsContainer/Content/HBoxContainer/CameraControls"]
-layout_mode = 2
-size_flags_horizontal = 8
-
-[node name="Label" type="Label" parent="ControlsPanel/TextsContainer/Content/HBoxContainer/CameraControls/Keys"]
-layout_mode = 2
-size_flags_horizontal = 8
-text = "W,  A,  S,  D"
-label_settings = SubResource("LabelSettings_oh086")
-
-[node name="Label2" type="Label" parent="ControlsPanel/TextsContainer/Content/HBoxContainer/CameraControls/Keys"]
-layout_mode = 2
-size_flags_horizontal = 8
-text = "SHIFT + F1, F2"
-label_settings = SubResource("LabelSettings_oh086")
-
-[node name="CharMovement" type="Button" parent="ControlsPanel/TextsContainer/Content/HBoxContainer"]
-custom_minimum_size = Vector2(384, 30)
-layout_mode = 2
-size_flags_horizontal = 4
-focus_mode = 0
-theme_override_styles/normal = SubResource("StyleBoxTexture_htyr3")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_y0qck")
-theme_override_styles/hover = SubResource("StyleBoxTexture_vq6ry")
-toggle_mode = true
-button_group = SubResource("ButtonGroup_uycg4")
-
-[node name="CharacterControls" type="MarginContainer" parent="ControlsPanel/TextsContainer/Content/HBoxContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 35
-theme_override_constants/margin_right = 35
-
-[node name="Control" type="VBoxContainer" parent="ControlsPanel/TextsContainer/Content/HBoxContainer/CharacterControls"]
-layout_mode = 2
-size_flags_horizontal = 0
-
-[node name="Label" type="Label" parent="ControlsPanel/TextsContainer/Content/HBoxContainer/CharacterControls/Control"]
-layout_mode = 2
-size_flags_horizontal = 0
-text = "Select  character"
-label_settings = SubResource("LabelSettings_oh086")
-
-[node name="Label2" type="Label" parent="ControlsPanel/TextsContainer/Content/HBoxContainer/CharacterControls/Control"]
-layout_mode = 2
-size_flags_horizontal = 0
-text = "Deseclect  character"
-label_settings = SubResource("LabelSettings_oh086")
-
-[node name="Label3" type="Label" parent="ControlsPanel/TextsContainer/Content/HBoxContainer/CharacterControls/Control"]
-layout_mode = 2
-size_flags_horizontal = 0
-text = "Command  stop"
-label_settings = SubResource("LabelSettings_oh086")
-
-[node name="Label4" type="Label" parent="ControlsPanel/TextsContainer/Content/HBoxContainer/CharacterControls/Control"]
-layout_mode = 2
-size_flags_horizontal = 0
-text = "Move  and  search"
-label_settings = SubResource("LabelSettings_oh086")
-
-[node name="Label5" type="Label" parent="ControlsPanel/TextsContainer/Content/HBoxContainer/CharacterControls/Control"]
-layout_mode = 2
-size_flags_horizontal = 0
-text = "Move  and  target"
-label_settings = SubResource("LabelSettings_oh086")
-
-[node name="Keys" type="VBoxContainer" parent="ControlsPanel/TextsContainer/Content/HBoxContainer/CharacterControls"]
-layout_mode = 2
-size_flags_horizontal = 8
-
-[node name="Label" type="Label" parent="ControlsPanel/TextsContainer/Content/HBoxContainer/CharacterControls/Keys"]
-layout_mode = 2
-size_flags_horizontal = 8
-text = "F1, F2"
-label_settings = SubResource("LabelSettings_oh086")
-
-[node name="Label2" type="Label" parent="ControlsPanel/TextsContainer/Content/HBoxContainer/CharacterControls/Keys"]
-layout_mode = 2
-size_flags_horizontal = 8
-text = "ESC"
-label_settings = SubResource("LabelSettings_oh086")
-
-[node name="Label3" type="Label" parent="ControlsPanel/TextsContainer/Content/HBoxContainer/CharacterControls/Keys"]
-layout_mode = 2
-size_flags_horizontal = 8
-text = "SPACE"
-label_settings = SubResource("LabelSettings_oh086")
-
-[node name="Label4" type="Label" parent="ControlsPanel/TextsContainer/Content/HBoxContainer/CharacterControls/Keys"]
-layout_mode = 2
-size_flags_horizontal = 8
-text = "LMB"
-label_settings = SubResource("LabelSettings_oh086")
-
-[node name="Label5" type="Label" parent="ControlsPanel/TextsContainer/Content/HBoxContainer/CharacterControls/Keys"]
-layout_mode = 2
-size_flags_horizontal = 8
-text = "RMB"
-label_settings = SubResource("LabelSettings_oh086")
-
-[node name="Items" type="Button" parent="ControlsPanel/TextsContainer/Content/HBoxContainer"]
-custom_minimum_size = Vector2(384, 30)
-layout_mode = 2
-size_flags_horizontal = 4
-focus_mode = 0
-theme_override_styles/normal = SubResource("StyleBoxTexture_rqlod")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_3mbnn")
-theme_override_styles/hover = SubResource("StyleBoxTexture_gil55")
-toggle_mode = true
-button_group = SubResource("ButtonGroup_uycg4")
-
-[node name="ItemControls" type="MarginContainer" parent="ControlsPanel/TextsContainer/Content/HBoxContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 35
-theme_override_constants/margin_right = 35
-
-[node name="Control" type="VBoxContainer" parent="ControlsPanel/TextsContainer/Content/HBoxContainer/ItemControls"]
-layout_mode = 2
-size_flags_horizontal = 0
-
-[node name="Label" type="Label" parent="ControlsPanel/TextsContainer/Content/HBoxContainer/ItemControls/Control"]
-layout_mode = 2
-size_flags_horizontal = 0
-text = "Set   item  power "
-label_settings = SubResource("LabelSettings_oh086")
-
-[node name="Label2" type="Label" parent="ControlsPanel/TextsContainer/Content/HBoxContainer/ItemControls/Control"]
-layout_mode = 2
-size_flags_horizontal = 0
-text = "Drop  item"
-label_settings = SubResource("LabelSettings_oh086")
-
-[node name="Keys" type="VBoxContainer" parent="ControlsPanel/TextsContainer/Content/HBoxContainer/ItemControls"]
-layout_mode = 2
-size_flags_horizontal = 8
-
-[node name="Label" type="Label" parent="ControlsPanel/TextsContainer/Content/HBoxContainer/ItemControls/Keys"]
-layout_mode = 2
-size_flags_horizontal = 8
-text = "1 - 5"
-label_settings = SubResource("LabelSettings_oh086")
-
-[node name="Label2" type="Label" parent="ControlsPanel/TextsContainer/Content/HBoxContainer/ItemControls/Keys"]
-layout_mode = 2
-size_flags_horizontal = 8
-text = "SHIFT + 1 - 5"
-label_settings = SubResource("LabelSettings_oh086")
-
-[node name="Control2" type="Control" parent="ControlsPanel/TextsContainer/Content"]
-custom_minimum_size = Vector2(0, 15)
-layout_mode = 2
-
-[node name="ExitButton" type="MarginContainer" parent="ControlsPanel"]
+[node name="ExitButton" type="MarginContainer" parent="Help"]
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 0
 theme_override_constants/margin_top = -7
 theme_override_constants/margin_right = -7
 
-[node name="Exit" type="Button" parent="ControlsPanel/ExitButton"]
+[node name="Exit" type="Button" parent="Help/ExitButton"]
 custom_minimum_size = Vector2(25, 23)
 layout_mode = 2
 size_flags_horizontal = 8
@@ -888,8 +804,295 @@ theme_override_styles/normal = SubResource("StyleBoxTexture_ck6j7")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_lsyk6")
 theme_override_styles/hover = SubResource("StyleBoxTexture_f5urv")
 
+[node name="ControlSection" type="MarginContainer" parent="Help"]
+custom_minimum_size = Vector2(210, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+mouse_filter = 2
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 7
+
+[node name="HBoxContainer" type="VBoxContainer" parent="Help/ControlSection"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_constants/separation = 3
+
+[node name="Label" type="Label" parent="Help/ControlSection/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+text = "Controls"
+label_settings = SubResource("LabelSettings_uycg4")
+
+[node name="Control" type="Control" parent="Help/ControlSection/HBoxContainer"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+
+[node name="Camera" type="Button" parent="Help/ControlSection/HBoxContainer"]
+custom_minimum_size = Vector2(180, 15)
+layout_mode = 2
+size_flags_horizontal = 4
+focus_mode = 0
+theme_override_fonts/font = ExtResource("7_ck6j7")
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxFlat_0i7dx")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_0i7dx")
+theme_override_styles/hover = SubResource("StyleBoxFlat_0i7dx")
+toggle_mode = true
+button_group = SubResource("ButtonGroup_uycg4")
+text = "   Camera"
+alignment = 0
+
+[node name="CameraControls" type="MarginContainer" parent="Help/ControlSection/HBoxContainer"]
+visible = false
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
+
+[node name="Control" type="VBoxContainer" parent="Help/ControlSection/HBoxContainer/CameraControls"]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="Label" type="Label" parent="Help/ControlSection/HBoxContainer/CameraControls/Control"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Move  camera"
+label_settings = SubResource("LabelSettings_oh086")
+
+[node name="Label2" type="Label" parent="Help/ControlSection/HBoxContainer/CameraControls/Control"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Focus  camera"
+label_settings = SubResource("LabelSettings_oh086")
+
+[node name="Keys" type="VBoxContainer" parent="Help/ControlSection/HBoxContainer/CameraControls"]
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="Label" type="Label" parent="Help/ControlSection/HBoxContainer/CameraControls/Keys"]
+layout_mode = 2
+size_flags_horizontal = 8
+text = "W,  A,  S,  D"
+label_settings = SubResource("LabelSettings_oh086")
+
+[node name="Label2" type="Label" parent="Help/ControlSection/HBoxContainer/CameraControls/Keys"]
+layout_mode = 2
+size_flags_horizontal = 8
+text = "SHIFT + 1, 2"
+label_settings = SubResource("LabelSettings_oh086")
+
+[node name="CharMovement" type="Button" parent="Help/ControlSection/HBoxContainer"]
+custom_minimum_size = Vector2(180, 15)
+layout_mode = 2
+size_flags_horizontal = 4
+focus_mode = 0
+theme_override_fonts/font = ExtResource("7_ck6j7")
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxFlat_0i7dx")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_0i7dx")
+theme_override_styles/hover = SubResource("StyleBoxFlat_0i7dx")
+toggle_mode = true
+button_group = SubResource("ButtonGroup_uycg4")
+text = "   Character Movement"
+alignment = 0
+
+[node name="CharacterControls" type="MarginContainer" parent="Help/ControlSection/HBoxContainer"]
+visible = false
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
+
+[node name="Control" type="VBoxContainer" parent="Help/ControlSection/HBoxContainer/CharacterControls"]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="Label" type="Label" parent="Help/ControlSection/HBoxContainer/CharacterControls/Control"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Select  character"
+label_settings = SubResource("LabelSettings_oh086")
+
+[node name="Label2" type="Label" parent="Help/ControlSection/HBoxContainer/CharacterControls/Control"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Deseclect  character"
+label_settings = SubResource("LabelSettings_oh086")
+
+[node name="Label3" type="Label" parent="Help/ControlSection/HBoxContainer/CharacterControls/Control"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Command  stop"
+label_settings = SubResource("LabelSettings_oh086")
+
+[node name="Label4" type="Label" parent="Help/ControlSection/HBoxContainer/CharacterControls/Control"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Move  and  search"
+label_settings = SubResource("LabelSettings_oh086")
+
+[node name="Label5" type="Label" parent="Help/ControlSection/HBoxContainer/CharacterControls/Control"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Move  and  target"
+label_settings = SubResource("LabelSettings_oh086")
+
+[node name="Keys" type="VBoxContainer" parent="Help/ControlSection/HBoxContainer/CharacterControls"]
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="Label" type="Label" parent="Help/ControlSection/HBoxContainer/CharacterControls/Keys"]
+layout_mode = 2
+size_flags_horizontal = 8
+text = "1, 2"
+label_settings = SubResource("LabelSettings_oh086")
+
+[node name="Label2" type="Label" parent="Help/ControlSection/HBoxContainer/CharacterControls/Keys"]
+layout_mode = 2
+size_flags_horizontal = 8
+text = "ESC"
+label_settings = SubResource("LabelSettings_oh086")
+
+[node name="Label3" type="Label" parent="Help/ControlSection/HBoxContainer/CharacterControls/Keys"]
+layout_mode = 2
+size_flags_horizontal = 8
+text = "SPACE"
+label_settings = SubResource("LabelSettings_oh086")
+
+[node name="Label4" type="Label" parent="Help/ControlSection/HBoxContainer/CharacterControls/Keys"]
+layout_mode = 2
+size_flags_horizontal = 8
+text = "LMB"
+label_settings = SubResource("LabelSettings_oh086")
+
+[node name="Label5" type="Label" parent="Help/ControlSection/HBoxContainer/CharacterControls/Keys"]
+layout_mode = 2
+size_flags_horizontal = 8
+text = "RMB"
+label_settings = SubResource("LabelSettings_oh086")
+
+[node name="Items" type="Button" parent="Help/ControlSection/HBoxContainer"]
+custom_minimum_size = Vector2(180, 15)
+layout_mode = 2
+size_flags_horizontal = 4
+focus_mode = 0
+theme_override_fonts/font = ExtResource("7_ck6j7")
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxFlat_0i7dx")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_0i7dx")
+theme_override_styles/hover = SubResource("StyleBoxFlat_0i7dx")
+toggle_mode = true
+button_group = SubResource("ButtonGroup_uycg4")
+text = "   Items"
+alignment = 0
+
+[node name="ItemControls" type="MarginContainer" parent="Help/ControlSection/HBoxContainer"]
+visible = false
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
+
+[node name="Control" type="VBoxContainer" parent="Help/ControlSection/HBoxContainer/ItemControls"]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="Label" type="Label" parent="Help/ControlSection/HBoxContainer/ItemControls/Control"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Set   item  power "
+label_settings = SubResource("LabelSettings_oh086")
+
+[node name="Label2" type="Label" parent="Help/ControlSection/HBoxContainer/ItemControls/Control"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Drop  item"
+label_settings = SubResource("LabelSettings_oh086")
+
+[node name="Keys" type="VBoxContainer" parent="Help/ControlSection/HBoxContainer/ItemControls"]
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="Label" type="Label" parent="Help/ControlSection/HBoxContainer/ItemControls/Keys"]
+layout_mode = 2
+size_flags_horizontal = 8
+text = "Z, X ,C"
+label_settings = SubResource("LabelSettings_oh086")
+
+[node name="Label2" type="Label" parent="Help/ControlSection/HBoxContainer/ItemControls/Keys"]
+layout_mode = 2
+size_flags_horizontal = 8
+text = "SHIFT + Z, X, C"
+label_settings = SubResource("LabelSettings_oh086")
+
+[node name="HowToPlaySection" type="MarginContainer" parent="Help"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+mouse_filter = 2
+theme_override_constants/margin_left = 11
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Help/HowToPlaySection"]
+custom_minimum_size = Vector2(235, 185)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme = SubResource("Theme_wnd18")
+
+[node name="HBoxContainer" type="VBoxContainer" parent="Help/HowToPlaySection/ScrollContainer"]
+custom_minimum_size = Vector2(230, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="Help/HowToPlaySection/ScrollContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+text = "How  To  Play"
+label_settings = SubResource("LabelSettings_uycg4")
+
+[node name="Control" type="Control" parent="Help/HowToPlaySection/ScrollContainer/HBoxContainer"]
+custom_minimum_size = Vector2(0, 2)
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="Help/HowToPlaySection/ScrollContainer/HBoxContainer"]
+custom_minimum_size = Vector2(210, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "-  Complete  the  required  objectives  to  proceed  to  the  next  level.  They're  the  objects  on  the  map  that  flash  quickly."
+label_settings = SubResource("LabelSettings_htyr3")
+autowrap_mode = 3
+
+[node name="Label3" type="Label" parent="Help/HowToPlaySection/ScrollContainer/HBoxContainer"]
+custom_minimum_size = Vector2(210, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+text = " -  Complete  the  optional  objectives  to  get  equipment  upgrades.  They're  the  objects  on  the  map  that   flash   slowly."
+label_settings = SubResource("LabelSettings_htyr3")
+autowrap_mode = 3
+
+[node name="Label4" type="Label" parent="Help/HowToPlaySection/ScrollContainer/HBoxContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "               -  Allocate  power  to  the  			equipment  by  pressings  its     		corresponding  key  bind  (Z,  X,  			and  C  respectively)."
+label_settings = SubResource("LabelSettings_htyr3")
+horizontal_alignment = 2
+autowrap_mode = 3
+
+[node name="Label5" type="Label" parent="Help/HowToPlaySection/ScrollContainer/HBoxContainer"]
+custom_minimum_size = Vector2(210, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+text = " -  Destroy  enemy  robots  to  get  heals  and  permanent  upgrades."
+label_settings = SubResource("LabelSettings_htyr3")
+autowrap_mode = 3
+
 [connection signal="pressed" from="Pop-Up/Content/ExitButton/Exit" to="Pop-Up" method="_on_exit_pressed"]
-[connection signal="pressed" from="ControlsPanel/TextsContainer/Content/HBoxContainer/Camera" to="ControlsPanel" method="_on_camera_pressed"]
-[connection signal="pressed" from="ControlsPanel/TextsContainer/Content/HBoxContainer/CharMovement" to="ControlsPanel" method="_on_char_movement_pressed"]
-[connection signal="pressed" from="ControlsPanel/TextsContainer/Content/HBoxContainer/Items" to="ControlsPanel" method="_on_items_pressed"]
-[connection signal="pressed" from="ControlsPanel/ExitButton/Exit" to="ControlsPanel" method="_on_exit_pressed"]
+[connection signal="pressed" from="Help/ExitButton/Exit" to="Help" method="_on_exit_pressed"]
+[connection signal="pressed" from="Help/ControlSection/HBoxContainer/Camera" to="Help" method="_on_camera_pressed"]
+[connection signal="pressed" from="Help/ControlSection/HBoxContainer/CharMovement" to="Help" method="_on_char_movement_pressed"]
+[connection signal="pressed" from="Help/ControlSection/HBoxContainer/Items" to="Help" method="_on_items_pressed"]

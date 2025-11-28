@@ -22,9 +22,9 @@ public partial class UIManager : CanvasLayer {
 
 	public override void _EnterTree() {
 		if (HUDNode == null) {
-            Log.Err(() => "HUDNode is null in UIManager. Please assign it in the inspector.");
+			Log.Err(() => "HUDNode is null in UIManager. Please assign it in the inspector.");
 			return;
-        }
+		}
 
 		if (PopupNode == null) {
 			Log.Err(() => "PopupNode is null in UIManager. Please assign it in the inspector.");
@@ -265,7 +265,7 @@ public partial class UIManager : CanvasLayer {
 
 	public static void StartTransition(string text = "") {
 		Instance.Transition.CallDeferred("start_transition", text);
-    }
+	}
 
 	public static void EndTransition() {
 		Instance.Transition.CallDeferred("end_transition");
@@ -273,7 +273,7 @@ public partial class UIManager : CanvasLayer {
 
 	public static void Reset() {
 		Instance.Transition.CallDeferred("reset");
-    }
+	}
 
 	#endregion
 
@@ -285,7 +285,7 @@ public partial class UIManager : CanvasLayer {
 
 	public static void SetBottomOverlayText(string text, float duration = 2f) {
 		Instance.OnScreenText.CallDeferred("show_subtitle", text, duration);
-    }
+	}
 
 	#endregion
 
