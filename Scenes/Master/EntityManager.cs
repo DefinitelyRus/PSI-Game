@@ -34,8 +34,11 @@ public partial class EntityManager : Node2D {
 
     #region Entity Management
 
-    public static void AddCharacter(PhysicsBody2D entity)
-    {
+    public static void RegisterEntity(PhysicsBody2D entity) {
+        Entities.Add(entity);
+    }
+
+    public static void AddEntity(PhysicsBody2D entity) {
         Entities.Add(entity);
     }
 
