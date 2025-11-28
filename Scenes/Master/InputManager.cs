@@ -1,4 +1,5 @@
 global using IM = CommonScripts.InputManager;
+using System.Linq;
 using System.Reflection.Metadata;
 using Godot;
 namespace CommonScripts;
@@ -34,8 +35,8 @@ public partial class InputManager : Node2D {
 			CallDeferred(nameof(ReceiveRTSInputs));
 		}
 
-		if (Input.IsActionJustReleased(ExitGame)) _exitHoldTimer = 0f;
-		if (Input.IsActionPressed(ExitGame)) {
+		if (Input.IsActionJustReleased(Cancel)) _exitHoldTimer = 0f;
+		if (Input.IsActionPressed(Cancel)) {
 			_exitHoldTimer += (float)delta;
 			if (_exitHoldTimer >= 2f) {
 				GetTree().Quit();
@@ -68,11 +69,11 @@ public partial class InputManager : Node2D {
 
 	public const string LeftClick = "mouse_action_1";
 	public const string RightClick = "mouse_action_2";
-	public const string StopAction = "stop_action";
+	public const string Halt = "halt";
 	public const string DebugNextLevel = "debug_next_level";
 	public const string DebugPrevLevel = "debug_prev_level";
 	public const string DebugEndGame = "debug_end_game";
-	public const string ExitGame = "exit_game";
+	public const string Cancel = "cancel";
 
 	public static bool AllowOverride { get; set; } = true;
 
@@ -98,34 +99,40 @@ public partial class InputManager : Node2D {
 		Vector2 mousePos = CameraMan.GetCleanMousePosition();
 		bool ctrlPressed = Input.IsActionPressed("ctrl_modifier");
 
+		if (Input.IsActionJustPressed(Cancel) && CameraMan.IsPathActive) {
+			CameraMan.FinishPathInstantly();
+			return;
+		}
+
 		ReceiveCameraInputs();
 
-		// Only allow focusing on units while controls are locked
+		// Only allow selection while controls are locked
 		if (CameraMan.IsControlsLocked) {
 			if (!AllowOverride) return;
-
-			if (ctrlPressed && Input.IsActionJustPressed("select_unit_1")) Commander.SetFocusedUnit(0, true);
-			if (ctrlPressed && Input.IsActionJustPressed("select_unit_2")) Commander.SetFocusedUnit(1, true);
 			Commander.PrimeDrop = false;
-
 			return;
 		}
 
 		// RTS Unit Selection Inputs
-		if (Input.IsActionJustPressed("select_unit_1")) {
-			if (ctrlPressed) Commander.SetFocusedUnit(0, true);
-			else Commander.SelectUnit(0);
-		}
-
-		if (Input.IsActionJustPressed("select_unit_2")) {
-			if (ctrlPressed) Commander.SetFocusedUnit(1, true);
-			else Commander.SelectUnit(1);
+		bool select1 = Input.IsActionJustPressed("select_unit_1");
+		bool select2 = Input.IsActionJustPressed("select_unit_2");
+		if (select1 || select2) {
+			int idx = select1 ? 0 : 1;
+			Commander.SelectUnit(idx);
+			if (ctrlPressed) {
+				var unit = Commander.GetSelectedUnits().First();
+				if (CameraMan.IsPathActive) CameraMan.FinishPathInstantly(skipFocus: true);
+				CameraMan.SetTarget(unit);
+				_ctrlFocusActive = true;
+				_ctrlFocusLatched = true;
+				_ctrlFocusedUnit = unit;
+			}
 		}
 
 		// RTS Command Inputs
 		if (Input.IsActionJustPressed("select_1")) Commander.MoveAndSearch(mousePos);
 		if (Input.IsActionJustPressed("select_2")) Commander.MoveAndTarget(mousePos);
-		if (Input.IsActionJustPressed("stop_action")) Commander.StopSelectedUnits();
+		if (Input.IsActionJustPressed("halt")) Commander.StopSelectedUnits();
 		
 		if (Input.IsActionJustPressed("select_all_units")) Commander.SelectAllUnits();
 		if (Input.IsActionJustPressed("deselect_all_units")) Commander.DeselectAllUnits();
@@ -137,6 +144,26 @@ public partial class InputManager : Node2D {
 		if (Input.IsActionJustPressed("item_3")) Commander.SelectItem(2);
 		if (Input.IsActionJustPressed("item_4")) Commander.SelectItem(3);
 		if (Input.IsActionJustPressed("item_5")) Commander.SelectItem(4);
+
+		int selectedCount = Commander.GetSelectedUnitCount();
+		if (ctrlPressed && selectedCount >= 1) {
+			var unit = Commander.GetSelectedUnits().First();
+			bool needRetarget = !_ctrlFocusActive || !ReferenceEquals(unit, _ctrlFocusedUnit);
+			if (needRetarget) {
+				_ctrlFocusActive = true;
+				_ctrlFocusedUnit = unit;
+				if (CameraMan.IsPathActive) CameraMan.FinishPathInstantly(skipFocus: true);
+				CameraMan.SetTarget(unit);
+			}
+			if (CameraMan.HasArrivedAtTarget()) _ctrlFocusLatched = true;
+		}
+		else {
+			if (_ctrlFocusActive) {
+				_ctrlFocusActive = false;
+				_ctrlFocusedUnit = null;
+				if (!_ctrlFocusLatched && !CameraMan.IsPathActive) CameraMan.ClearTarget();
+			}
+		}
 
 		if (Input.IsActionJustPressed(DebugNextLevel)) SceneLoader.NextLevel();
 		if (Input.IsActionJustPressed(DebugPrevLevel)) SceneLoader.PreviousLevel();
@@ -154,6 +181,9 @@ public partial class InputManager : Node2D {
 	}
 
 	private float _exitHoldTimer = 0f;
+	private bool _ctrlFocusActive = false;
+	private bool _ctrlFocusLatched = false;
+	private StandardCharacter? _ctrlFocusedUnit = null;
 	
 	#endregion
 

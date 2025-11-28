@@ -171,7 +171,11 @@ public partial class Commander : Node {
 			return;
 		}
 
-		if (GetSelectedUnitCount() != 1) return;
+		if (GetSelectedUnitCount() != 1) {
+			UIManager.SetSelectedCharacter(null);
+			UIManager.SetHUDVisible(false, 0);
+			return;
+		}
 
 		StandardCharacter unit = GetSelectedUnits().First();
 		// Ensure HUD is bound to this character
@@ -216,6 +220,11 @@ public partial class Commander : Node {
 		}
 
 		ClearFocusedUnit();
+
+		UIManager.SetSelectedCharacter(null);
+		UIManager.SetCharacterName("BOTH");
+		UIManager.SetHUDVisible(false, 0);
+		UIManager.SetTimerEnabled(true);
 	}
 
 
@@ -234,7 +243,9 @@ public partial class Commander : Node {
 		ClearFocusedUnit();
 
 		UIManager.SetCharacterName("");
+		UIManager.SetSelectedCharacter(null);
 		UIManager.SetHUDVisible(false, 0);
+		UIManager.SetTimerEnabled(true);
 	}
 
 	#endregion
@@ -292,7 +303,7 @@ public partial class Commander : Node {
 			agent.Searching = true;
 			agent.Targeting = false;
 
-			await Instance.ToSignal(Instance.GetTree().CreateTimer(0.1f), "timeout");
+			await Instance.ToSignal(Instance.GetTree().CreateTimer(0.15f), "timeout");
 		}
 	}
 
@@ -312,6 +323,8 @@ public partial class Commander : Node {
 
 			bool pointingAtEntity = EntityManager.HasEntityAtPosition(mousePos, out var entity);
 			
+			await Instance.ToSignal(Instance.GetTree().CreateTimer(0.15f), "timeout");
+
 			if (!pointingAtEntity) {
 				Log.Me(() => $"MoveAndTarget: No entity found at ({mousePos.X:F2}, {mousePos.Y:F2}). Moving only.", Instance.LogInput);
 				continue;
@@ -330,8 +343,6 @@ public partial class Commander : Node {
 			else {
 				Log.Me(() => $"MoveAndTarget: Entity at ({mousePos.X:F2}, {mousePos.Y:F2}) not a valid StandardCharacter target. Moving only.", Instance.LogInput);
 			}
-
-			await Instance.ToSignal(Instance.GetTree().CreateTimer(0.1f), "timeout");
 		}
 	}
 
