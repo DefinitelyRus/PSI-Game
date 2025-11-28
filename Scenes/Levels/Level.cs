@@ -219,6 +219,10 @@ public partial class Level : Node2D {
 			Log.Me(() => $"Setting navigation map for prop {prop.InstanceID} to region {newRegion.Name}.", LogReady);
 			prop.NavObstacle.SetNavigationMap(mapRid.Value);
 			prop.Reparent(newRegion, true);
+
+			if (prop is StandardPanel panel) {
+                EntityManager.RegisterEntity(panel);
+            }
 		}
 
 		// Bake navigation polygons for all regions
