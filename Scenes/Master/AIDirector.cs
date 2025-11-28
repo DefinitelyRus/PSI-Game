@@ -815,7 +815,7 @@ public partial class AIDirector : Node2D {
     public static void ClearEnemies() {
         foreach (StandardCharacter enemy in Enemies) {
             if (IsInstanceValid(enemy)) enemy.QueueFree();
-            EntityManager.RemoveCharacter(enemy);
+            EntityManager.RemoveEntity(enemy);
         }
 
         Enemies.Clear();
@@ -827,7 +827,7 @@ public partial class AIDirector : Node2D {
 
         foreach (StandardCharacter enemy in deadEnemies) {
             enemy.QueueFree();
-            EntityManager.RemoveCharacter(enemy);
+            EntityManager.RemoveEntity(enemy);
             Enemies.Remove(enemy);
         }
     }

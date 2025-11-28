@@ -281,7 +281,7 @@ public partial class StandardCharacter : CharacterBody2D {
 	public bool RemoveItemFromInventory(StandardItem item, bool spawnInWorld) {
 		if (spawnInWorld) {
 			item.Position = GlobalPosition;
-			EntityManager.AddCharacter(item);
+			EntityManager.AddEntity(item);
 		}
 
 		return Inventory.Remove(item);
@@ -596,7 +596,7 @@ public partial class StandardCharacter : CharacterBody2D {
 		Health = MaxHealth;
 		CurrentMaxSpeed = MaxSpeed;
 
-		EntityManager.AddCharacter(this);
+		EntityManager.AddEntity(this);
 
 		Log.Me(() => "Done!", enabled: LogReady);
 		return;
@@ -612,7 +612,7 @@ public partial class StandardCharacter : CharacterBody2D {
 
 	public override void _ExitTree() {
 		// Unregister to avoid stale references.
-		if (EntityManager.Instance != null) EntityManager.RemoveCharacter(this);
+		if (EntityManager.Instance != null) EntityManager.RemoveEntity(this);
 	}
 
 	#endregion

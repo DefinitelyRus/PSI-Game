@@ -49,7 +49,7 @@ public partial class StandardEnemy : StandardCharacter {
 
             Node level = SceneLoader.Instance.LoadedScene;
             level.AddChild(item);
-            EntityManager.AddCharacter(item!);
+            EntityManager.AddEntity(item!);
             item?.SpawnInWorld();
         }
 

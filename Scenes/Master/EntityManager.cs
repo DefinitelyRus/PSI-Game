@@ -32,7 +32,7 @@ public partial class EntityManager : Node2D {
     /// </summary>
     public static List<PhysicsBody2D> Entities { get; private set; } = [];
 
-    #region Character Management
+    #region Entity Management
 
     public static void AddCharacter(PhysicsBody2D entity)
     {
@@ -40,15 +40,14 @@ public partial class EntityManager : Node2D {
     }
 
 
-    public static void AddCharacter(PhysicsBody2D entity, Vector2 position) {
+    public static void AddEntity(PhysicsBody2D entity, Vector2 position) {
         entity.Position = position;
         Instance.AddChild(entity);
         Entities.Add(entity);
     }
 
 
-	public static void RemoveCharacter(PhysicsBody2D entity)
-    {
+	public static void RemoveEntity(PhysicsBody2D entity) {
         Entities.Remove(entity);
     }
 

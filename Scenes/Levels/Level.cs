@@ -177,7 +177,7 @@ public partial class Level : Node2D {
 
 			// Kill the occupying character with a 20% chance
 			bool coinFlip = GD.Randi() % 5 == 0;
-			if (coinFlip) EntityManager.RemoveCharacter(otherCharacter);
+			if (coinFlip) EntityManager.RemoveEntity(otherCharacter);
 
 			// Recursively search for the next available spawn point.
 			// May throw a warning if index is out of range.
