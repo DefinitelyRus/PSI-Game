@@ -255,6 +255,7 @@ AttackOriginType = 0
 [node name="AI Targeting Manager" parent="." index="3"]
 TargetDetectionRadius = 120.0
 TargetLostRadius = 240.0
+TargetSwitchCooldown = 0.0
 
 [node name="Audio Controller" parent="." index="8"]
 AudioClips = Dictionary[String, AudioStream]({

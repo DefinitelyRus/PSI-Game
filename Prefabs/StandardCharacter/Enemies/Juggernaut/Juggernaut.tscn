@@ -196,11 +196,10 @@ AnimationTree = NodePath("AnimationTree")
 position = Vector2(0, -27)
 
 [node name="Missile Launcher" parent="." index="1" instance=ExtResource("3_x4lwo")]
-position = Vector2(0, -27)
 BaseDamage = 300.0
 
 [node name="AI Targeting Manager" parent="." index="2"]
-position = Vector2(0, -27)
+position = Vector2(0, 0)
 TargetDetectionRadius = 180.0
 TargetLostRadius = 320.0
 CurrentTargetMode = 3

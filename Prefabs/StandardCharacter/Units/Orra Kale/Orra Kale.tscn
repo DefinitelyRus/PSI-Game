@@ -1226,6 +1226,7 @@ AttackOriginType = 0
 [node name="AI Targeting Manager" parent="." index="3"]
 TargetDetectionRadius = 240.0
 TargetLostRadius = 720.0
+TargetSwitchCooldown = 0.0
 CurrentTargetMode = 3
 
 [node name="Audio Controller" parent="." index="8"]
