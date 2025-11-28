@@ -164,10 +164,11 @@ texture_margin_right = 2.0
 texture_margin_bottom = 2.0
 region_rect = Rect2(4, 416, 384, 24)
 
-[node name="Player_UI" type="CanvasLayer" node_paths=PackedStringArray("HUDNode", "PopupNode", "Transition", "OnScreenText")]
+[node name="Player_UI" type="CanvasLayer" node_paths=PackedStringArray("HUDNode", "PopupNode", "ControlsPanelNode", "Transition", "OnScreenText")]
 script = ExtResource("1_vpfb6")
 HUDNode = NodePath("HUD")
 PopupNode = NodePath("Pop-Up")
+ControlsPanelNode = NodePath("ControlsPanel")
 Transition = NodePath("Transition")
 OnScreenText = NodePath("On-ScreenText")
 

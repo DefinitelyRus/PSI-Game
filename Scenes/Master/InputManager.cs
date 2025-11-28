@@ -74,6 +74,7 @@ public partial class InputManager : Node2D {
 	public const string DebugPrevLevel = "debug_prev_level";
 	public const string DebugEndGame = "debug_end_game";
 	public const string Cancel = "cancel";
+	public const string Help = "help";
 
 	public static bool AllowOverride { get; set; } = true;
 
@@ -101,6 +102,11 @@ public partial class InputManager : Node2D {
 
 		if (Input.IsActionJustPressed(Cancel) && CameraMan.IsPathActive) {
 			CameraMan.FinishPathInstantly();
+			return;
+		}
+
+		if (Input.IsActionJustPressed(Help)) {
+			UIManager.ToggleHelp();
 			return;
 		}
 

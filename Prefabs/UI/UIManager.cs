@@ -1,5 +1,6 @@
 using Godot;
 using Game;
+using System.Threading.Tasks;
 namespace CommonScripts;
 
 public partial class UIManager : CanvasLayer {
@@ -118,9 +119,26 @@ public partial class UIManager : CanvasLayer {
 
 	private static bool _helpVisible = false;
 
-	public static void ToggleHelp() {
+	public static async void ToggleHelp() {
+		//Pause game when help is visible
 		_helpVisible = !_helpVisible;
-		ControlsPanel.CallDeferred("set_help_visible", _helpVisible);
+
+		if (_helpVisible) {
+			StartTransition();
+
+			// TODO: Pause game timer
+
+			// TODO: Lock player controls (except this one)
+			
+			await Instance.ToSignal(Instance.GetTree().CreateTimer(1.0f), "timeout");
+		}
+		else {
+			EndTransition();
+		}
+
+		Instance.GetTree().Paused = _helpVisible;
+
+		//ControlsPanel.CallDeferred("set_help_visible", _helpVisible);
 	}
 
 	#endregion
