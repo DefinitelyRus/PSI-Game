@@ -10,6 +10,7 @@ public partial class UIManager : CanvasLayer {
 
 	[Export] MarginContainer HUDNode = null!;
 	[Export] Control PopupNode = null!;
+	[Export] Control ControlsPanelNode = null!;
 	[Export] TextureRect Transition = null!;
 	[Export] Control OnScreenText = null!;
 	[Export] public float UnpoweredAlpha { get; private set; } = 0.5f;
@@ -26,6 +27,11 @@ public partial class UIManager : CanvasLayer {
 
 		if (PopupNode == null) {
 			Log.Err(() => "PopupNode is null in UIManager. Please assign it in the inspector.");
+			return;
+		}
+
+		if (ControlsPanelNode == null) {
+			Log.Err(() => "ControlsPanel is null in UIManager. Please assign it in the inspector.");
 			return;
 		}
 
@@ -79,6 +85,7 @@ public partial class UIManager : CanvasLayer {
 	}
 	private static MarginContainer HUD => Instance.HUDNode;
 	public static Control Popup => Instance.PopupNode;
+	private static Control ControlsPanel => Instance.ControlsPanelNode;
 
 	public static void EnableUI(bool enable) {
 		Instance.Visible = enable;
@@ -107,6 +114,13 @@ public partial class UIManager : CanvasLayer {
 
 	public static void SetButtonText(int row, int index, string text) {
 		Popup.CallDeferred("set_btn_text", text, row, index);
+	}
+
+	private static bool _helpVisible = false;
+
+	public static void ToggleHelp() {
+		_helpVisible = !_helpVisible;
+		ControlsPanel.CallDeferred("set_help_visible", _helpVisible);
 	}
 
 	#endregion
