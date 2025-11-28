@@ -91,7 +91,7 @@ script = ExtResource("2_7tgqy")
 Master = NodePath("..")
 Theatre = NodePath("../Theatre")
 MainMenu = ExtResource("3_1t0lv")
-DevScene = ExtResource("13_0hine")
+DevScene = ExtResource("10_8ixx1")
 Levels = [ExtResource("10_8ixx1"), ExtResource("13_0hine"), ExtResource("15_xey05"), ExtResource("16_hw2j4")]
 LogReady = true
 
