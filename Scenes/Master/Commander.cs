@@ -2,7 +2,6 @@ using Game;
 using Godot;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace CommonScripts;
 
@@ -276,7 +275,7 @@ public partial class Commander : Node {
 	public static void ClearFocusedUnit()
 	{
 		FocusedUnit = null!;
-	if (!CameraMan.IsPathActive) CameraMan.ClearTarget();
+		if (!CameraMan.IsPathActive) CameraMan.ClearTarget();
 	}
 
 
@@ -298,6 +297,15 @@ public partial class Commander : Node {
 
 	public static async void MoveAndSearch(Vector2 mousePos) {
 		foreach (StandardCharacter unit in GetSelectedUnits()) {
+			Vector2 position = mousePos;
+			
+			// Randomize position slightly if more than one unit is selected
+			if (GetSelectedUnits().Count() > 1) {
+				RandomNumberGenerator rng = new();
+				Vector2 offset = new(rng.RandfRange(-8f, 8f), rng.RandfRange(-8f, 8f));
+				mousePos = new(mousePos.X + offset.X, mousePos.Y + offset.Y);
+			}
+
 			AIAgentManager agent = unit.AIAgent;
 			agent.Action1(mousePos);
 			agent.Searching = true;
@@ -310,6 +318,15 @@ public partial class Commander : Node {
 
 	public static async void MoveAndTarget(Vector2 mousePos) {
 		foreach (StandardCharacter unit in GetSelectedUnits()) {
+			Vector2 position = mousePos;
+
+			// Randomize position slightly if more than one unit is selected
+			if (GetSelectedUnits().Count() > 1) {
+				RandomNumberGenerator rng = new();
+				Vector2 offset = new(rng.RandfRange(-8f, 8f), rng.RandfRange(-8f, 8f));
+				mousePos = new(mousePos.X + offset.X, mousePos.Y + offset.Y);
+			}
+
 			AIAgentManager agent = unit.AIAgent;
 			AITargetingManager targeter = unit.TargetingManager;
 
@@ -317,16 +334,16 @@ public partial class Commander : Node {
 			agent.CurrentTarget = null;
 			targeter.ClearTarget();
 
-			agent.GoTo(mousePos);
+			agent.GoTo(position);
 			agent.Targeting = true;
 			agent.Searching = false;
 
-			bool pointingAtEntity = EntityManager.HasEntityAtPosition(mousePos, out var entity);
+			bool pointingAtEntity = EntityManager.HasEntityAtPosition(position, out var entity);
 			
 			await Instance.ToSignal(Instance.GetTree().CreateTimer(0.15f), "timeout");
 
 			if (!pointingAtEntity) {
-				Log.Me(() => $"MoveAndTarget: No entity found at ({mousePos.X:F2}, {mousePos.Y:F2}). Moving only.", Instance.LogInput);
+				Log.Me(() => $"MoveAndTarget: No entity found at ({position.X:F2}, {position.Y:F2}). Moving only.", Instance.LogInput);
 				continue;
 			}
 
@@ -337,11 +354,11 @@ public partial class Commander : Node {
 				
 				targeter.SetAimDirection();
 
-				Log.Me(() => $"MoveAndTarget: {unit.InstanceID} targeting unit {targetUnit.InstanceID} at ({mousePos.X:F2}, {mousePos.Y:F2}).", Instance.LogInput);
+				Log.Me(() => $"MoveAndTarget: {unit.InstanceID} targeting unit {targetUnit.InstanceID} at ({position.X:F2}, {position.Y:F2}).", Instance.LogInput);
 			}
 			
 			else {
-				Log.Me(() => $"MoveAndTarget: Entity at ({mousePos.X:F2}, {mousePos.Y:F2}) not a valid StandardCharacter target. Moving only.", Instance.LogInput);
+				Log.Me(() => $"MoveAndTarget: Entity at ({position.X:F2}, {position.Y:F2}) not a valid StandardCharacter target. Moving only.", Instance.LogInput);
 			}
 		}
 	}
