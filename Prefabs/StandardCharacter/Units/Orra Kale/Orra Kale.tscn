@@ -1221,6 +1221,7 @@ Character = NodePath("..")
 
 [node name="Heavy Rifle 1" parent="." index="2" instance=ExtResource("2_07s0f")]
 BaseDamage = 50.0
+AttackOriginType = 0
 
 [node name="AI Targeting Manager" parent="." index="3"]
 TargetDetectionRadius = 240.0
