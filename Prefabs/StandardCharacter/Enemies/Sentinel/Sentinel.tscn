@@ -171,10 +171,14 @@ transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition
 graph_offset = Vector2(29, -3)
 
 [node name="Sentinel" node_paths=PackedStringArray("Weapon", "AnimationTree") instance=ExtResource("1_1ia5b")]
+collision_layer = 144
+collision_mask = 13
 script = ExtResource("2_5kolp")
+DropRate = 0.4
 StaticSpawnWeight = 5
 DelayAfterSpawn = 10.0
-DynamicSpawnCost = 0
+DynamicSpawnCost = 100
+EnemyType = 4
 DeathCameraShakeIntensity = 0.6
 CharacterName = "Tentacle Bot"
 CharacterID = "tentacle_bot"
@@ -186,7 +190,7 @@ Weapon = NodePath("Sentinel Gun")
 AnimationTree = NodePath("AnimationTree")
 
 [node name="Sentinel Gun" parent="." index="1" instance=ExtResource("3_5kolp")]
-BaseDamage = 100.0
+BaseDamage = 80.0
 
 [node name="AI Targeting Manager" parent="." index="2"]
 TargetDetectionRadius = 400.0

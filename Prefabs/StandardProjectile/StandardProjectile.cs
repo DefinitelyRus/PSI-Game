@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using Game;
 using Godot;
 namespace CommonScripts;
 
@@ -258,8 +259,13 @@ public partial class StandardProjectile : RigidBody2D
 	protected virtual void Impact(Area2D area) {
 		if (area.GetParent() is StandardCharacter character) {
 			if (character == WeaponOwner) return;
-			
-			character.TakeDamage(Weapon.Damage);
+			float damage = Weapon.Damage;
+			bool wasAlive = character.IsAlive;
+			character.TakeDamage(damage);
+			bool didKill = wasAlive && !character.IsAlive;
+			if (WeaponOwner is StandardEnemy && character.Tags.Contains("Unit")) {
+				CombatAnalytics.Record(WeaponOwner, character, damage, didKill);
+			}
 			QueueFree();
 		}
 	}
@@ -312,10 +318,11 @@ public partial class StandardProjectile : RigidBody2D
 
 		if (ForceType == ForceTypes.Impulse) ApplyImpulseForce();
 
-		WeaponOwner?.AudioController.PlayAudio("attack_1");
+		if (WeaponOwner == null) return;
+
+		WeaponOwner.AudioController.PlayAudio("attack_1", 1.0f);
 
 		Log.Me(() => "Done!", LogReady);
-		
 	}
 
 	public override void _Process(double delta) {

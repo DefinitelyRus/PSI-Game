@@ -10,6 +10,7 @@ public partial class Commander : Node {
 	#region Instance Members
 
 	[Export] public PackedScene[] InitialUnits = [];
+	[Export] public PackedScene IndicatorNodeScene = null!;
 
 	#region Debugging
 
@@ -19,6 +20,24 @@ public partial class Commander : Node {
 	#endregion
 
 	#region Godot Callbacks
+
+	public override void _EnterTree() {
+		Log.Me(() => "Commander _EnterTree called.", true, true);
+		if (Instance != null) {
+			Log.Err("Multiple instances of Commander detected. There should only be one Commander in the scene.");
+			QueueFree();
+			return;
+		}
+
+		if (InitialUnits == null) {
+			Log.Err("InitialUnits is null in Commander. Please assign initial unit scenes in the inspector.");
+			InitialUnits = [];
+		}
+
+		if (IndicatorNodeScene == null) {
+			Log.Err("IndicatorNodeScene is null in Commander. Please assign an indicator node scene in the inspector.");
+		}
+	}
 
 	public override void _Ready() {
 		if (Instance != null) {
@@ -50,11 +69,33 @@ public partial class Commander : Node {
 
 	public static void Initialize()
 	{
+		// Ensure any previous run state is cleared
+		ResetUnits();
 		foreach (PackedScene unitScene in Instance.InitialUnits)
 		{
 			StandardCharacter unit = unitScene.Instantiate<StandardCharacter>();
 			RegisterUnit(unit);
 		}
+
+		UIManager.SetPower(1, 1);
+	}
+
+	public static void ResetUnits()
+	{
+		// Free existing unit nodes (they may still be in the scene tree)
+		foreach (var u in Units.ToList())
+		{
+			try {
+				if (IsInstanceValid(u)) u.QueueFree();
+			} catch { /* ignore */ }
+		}
+		Units.Clear();
+		FocusedUnit = null!;
+		TargetedUnit = null!;
+		PrimeDrop = false;
+		UIManager.SetSelectedCharacter(null);
+		UIManager.SetCharacterName("");
+		UIManager.SetHUDVisible(false, 0);
 	}
 
 	#endregion
@@ -138,6 +179,7 @@ public partial class Commander : Node {
 			Units[i].AIAgent.IsSelected = i == index;
 		}
 
+		UIManager.SetCharacterName("");
 		SingleUnitControl();
 	}
 
@@ -148,12 +190,24 @@ public partial class Commander : Node {
 			return;
 		}
 
-		if (GetSelectedUnitCount() != 1) return;
+		if (GetSelectedUnitCount() != 1) {
+			UIManager.SetSelectedCharacter(null);
+			UIManager.SetHUDVisible(false, 0);
+			return;
+		}
 
 		StandardCharacter unit = GetSelectedUnits().First();
+		// Ensure HUD is bound to this character
+		UIManager.SetSelectedCharacter(unit);
 
+		// Check which unit is selected by name
+		string unitName = unit.CharacterID;
+		UIManager.SetHealthColor(unitName);
+		UIManager.SetCharacterName(unitName);
 		UIManager.SetHUDVisible(true, 0);
 		UIManager.SetHealth(unit.Health, unit.CurrentMaxHealth);
+		// Refresh inventory + power fully for selected character
+		unit.UpgradeManager.RefreshAll();
 
 		// Update inventory UI
 		UpgradeManager upMan = unit.UpgradeManager;
@@ -185,6 +239,11 @@ public partial class Commander : Node {
 		}
 
 		ClearFocusedUnit();
+
+		UIManager.SetSelectedCharacter(null);
+		UIManager.SetCharacterName("BOTH");
+		UIManager.SetHUDVisible(false, 0);
+		UIManager.SetTimerEnabled(true);
 	}
 
 
@@ -199,10 +258,13 @@ public partial class Commander : Node {
 		{
 			unit.AIAgent.IsSelected = false;
 		}
-		
+
 		ClearFocusedUnit();
 
+		UIManager.SetCharacterName("");
+		UIManager.SetSelectedCharacter(null);
 		UIManager.SetHUDVisible(false, 0);
+		UIManager.SetTimerEnabled(true);
 	}
 
 	#endregion
@@ -233,7 +295,7 @@ public partial class Commander : Node {
 	public static void ClearFocusedUnit()
 	{
 		FocusedUnit = null!;
-	if (!CameraMan.IsPathActive) CameraMan.ClearTarget();
+		if (!CameraMan.IsPathActive) CameraMan.ClearTarget();
 	}
 
 
@@ -253,18 +315,47 @@ public partial class Commander : Node {
 	}
 
 
-	public static void MoveAndSearch(Vector2 mousePos) {
+	public static async void MoveAndSearch(Vector2 mousePos) {
 		foreach (StandardCharacter unit in GetSelectedUnits()) {
+			Vector2 position = mousePos;
+
+			// Check if pointing at an objective panel
+			if (EntityManager.HasEntityAtPosition(mousePos, out var entity)) {
+				if (entity is not StandardPanel panel) continue;
+
+				Vector2? targetPos = StandardPanel.GetNavigablePosition(unit, panel);
+				if (targetPos != null) position = targetPos.Value;
+			}
+			
+			// Randomize position slightly if more than one unit is selected
+			if (GetSelectedUnits().Count() > 1) {
+				RandomNumberGenerator rng = new();
+				Vector2 offset = new(rng.RandfRange(-8f, 8f), rng.RandfRange(-8f, 8f));
+				
+				position = new(position.X + offset.X, position.Y + offset.Y);
+			}
+
 			AIAgentManager agent = unit.AIAgent;
-			agent.Action1(mousePos);
+			agent.Action1(position);
 			agent.Searching = true;
 			agent.Targeting = false;
+
+			await Instance.ToSignal(Instance.GetTree().CreateTimer(0.15f), "timeout");
 		}
 	}
 
 
-	public static void MoveAndTarget(Vector2 mousePos) {
+	public static async void MoveAndTarget(Vector2 mousePos) {
 		foreach (StandardCharacter unit in GetSelectedUnits()) {
+			Vector2 position = mousePos;
+
+			// Randomize position slightly if more than one unit is selected
+			if (GetSelectedUnits().Count() > 1) {
+				RandomNumberGenerator rng = new();
+				Vector2 offset = new(rng.RandfRange(-8f, 8f), rng.RandfRange(-8f, 8f));
+				position = new(position.X + offset.X, position.Y + offset.Y);
+			}
+
 			AIAgentManager agent = unit.AIAgent;
 			AITargetingManager targeter = unit.TargetingManager;
 
@@ -272,14 +363,16 @@ public partial class Commander : Node {
 			agent.CurrentTarget = null;
 			targeter.ClearTarget();
 
-			agent.GoTo(mousePos);
+			agent.GoTo(position);
 			agent.Targeting = true;
 			agent.Searching = false;
 
-			bool pointingAtEntity = EntityManager.HasEntityAtPosition(mousePos, out var entity);
+			bool pointingAtEntity = EntityManager.HasEntityAtPosition(position, out var entity);
 			
+			await Instance.ToSignal(Instance.GetTree().CreateTimer(0.15f), "timeout");
+
 			if (!pointingAtEntity) {
-				Log.Me(() => $"MoveAndTarget: No entity found at ({mousePos.X:F2}, {mousePos.Y:F2}). Moving only.", Instance.LogInput);
+				Log.Me(() => $"MoveAndTarget: No entity found at ({position.X:F2}, {position.Y:F2}). Moving only.", Instance.LogInput);
 				continue;
 			}
 
@@ -290,11 +383,11 @@ public partial class Commander : Node {
 				
 				targeter.SetAimDirection();
 
-				Log.Me(() => $"MoveAndTarget: {unit.InstanceID} targeting unit {targetUnit.InstanceID} at ({mousePos.X:F2}, {mousePos.Y:F2}).", Instance.LogInput);
+				Log.Me(() => $"MoveAndTarget: {unit.InstanceID} targeting unit {targetUnit.InstanceID} at ({position.X:F2}, {position.Y:F2}).", Instance.LogInput);
 			}
 			
 			else {
-				Log.Me(() => $"MoveAndTarget: Entity at ({mousePos.X:F2}, {mousePos.Y:F2}) not a valid StandardCharacter target. Moving only.", Instance.LogInput);
+				Log.Me(() => $"MoveAndTarget: Entity at ({position.X:F2}, {position.Y:F2}) not a valid StandardCharacter target. Moving only.", Instance.LogInput);
 			}
 		}
 	}

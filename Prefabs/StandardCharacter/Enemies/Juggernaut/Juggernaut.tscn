@@ -8,8 +8,8 @@
 [ext_resource type="AudioStream" uid="uid://b3r5ip546vbcn" path="res://Prefabs/StandardCharacter/Enemies/Juggernaut/E4D1 - Beeptimer Anticipation Beeps 05.wav" id="5_8jp21"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_y36br"]
-radius = 6.0
-height = 20.0
+radius = 4.0
+height = 8.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7amjy"]
 radius = 20.0
@@ -173,44 +173,56 @@ transitions = ["Idle", "Death", SubResource("AnimationNodeStateMachineTransition
 graph_offset = Vector2(-42, -53)
 
 [node name="Juggernaut" node_paths=PackedStringArray("Weapon", "AnimationTree") instance=ExtResource("1_y36br")]
+collision_layer = 144
+collision_mask = 13
 script = ExtResource("2_f6w81")
+DropRate = 1.0
 StaticSpawnWeight = 5
 DelayAfterSpawn = 30.0
-DynamicSpawnCost = 0
+DynamicSpawnCost = 160
+EnemyType = 5
 DeathCameraShakeIntensity = 2.0
 CharacterName = "Juggernaut"
 CharacterID = "juggernaut"
-MaxHealth = 4500.0
-MaxSpeed = 16.0
+MaxHealth = 2500.0
+MaxSpeed = 24.0
 AccelerationTime = 2.0
 Tags = PackedStringArray("Enemy")
 DespawnAfterAnimation = true
 Weapon = NodePath("Missile Launcher")
 AnimationTree = NodePath("AnimationTree")
 
+[node name="Control Surface" parent="." index="0"]
+position = Vector2(0, -27)
+
 [node name="Missile Launcher" parent="." index="1" instance=ExtResource("3_x4lwo")]
-BaseDamage = 1000.0
+BaseDamage = 300.0
 
 [node name="AI Targeting Manager" parent="." index="2"]
+position = Vector2(0, 0)
 TargetDetectionRadius = 180.0
 TargetLostRadius = 320.0
 CurrentTargetMode = 3
 TurnRate = 36000.0
 
 [node name="Body Collider" parent="." index="4"]
-position = Vector2(0, 31)
+position = Vector2(0, 0)
 shape = SubResource("CapsuleShape2D_y36br")
+
+[node name="Hit Area" parent="." index="5"]
+position = Vector2(0, -27)
 
 [node name="Hit Collider" parent="Hit Area" index="0"]
 position = Vector2(0, 11)
 shape = SubResource("CircleShape2D_7amjy")
 
 [node name="Click Area" parent="." index="6"]
+position = Vector2(0, -27)
 monitoring = false
 monitorable = false
 
 [node name="CollisionShape2D" parent="Click Area" index="0"]
-position = Vector2(3.5, 7.5)
+position = Vector2(0, 4)
 shape = SubResource("RectangleShape2D_7amjy")
 
 [node name="Audio Controller" parent="." index="7"]
@@ -221,7 +233,7 @@ AudioClips = Dictionary[String, AudioStream]({
 })
 
 [node name="Sprite2D" parent="." index="8"]
-position = Vector2(0, 31)
+position = Vector2(0, 0)
 texture = ExtResource("2_7amjy")
 offset = Vector2(0, -32)
 hframes = 9

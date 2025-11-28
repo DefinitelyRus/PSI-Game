@@ -4,6 +4,7 @@ class_name OnScreenText
 
 @export var center_label: Label
 @export var subtitle: Label
+@export var timer: Label
 @export var fade_duration: float = 0.5
 
 var fade_value: float
@@ -11,8 +12,10 @@ var fade_value: float
 func _ready() -> void:
 	center_label.visible = false
 	subtitle.visible = false
+	timer.visible = false
 	center_label.modulate.a = 1.0
 	subtitle.modulate.a = 1.0
+	timer.modulate.a = 1.0
 
 
 func show_center_text(text: String, duration: float = 2.0) -> void:
@@ -105,3 +108,16 @@ func subtitle_fade_out():
 		await get_tree().process_frame
 	subtitle.visible = false
 	return
+
+
+func set_timer_enabled(enabled: bool) -> void:
+	timer.visible = enabled
+	timer.modulate.a = 1.0
+
+
+func set_timer_text(text: String) -> void:
+	timer.text = text
+
+
+func set_timer_color(color: Color) -> void:
+	timer.add_theme_color_override("font_color", color)

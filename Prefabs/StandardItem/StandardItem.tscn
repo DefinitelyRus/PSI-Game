@@ -19,6 +19,7 @@ Sprite = NodePath("Sprite2D")
 Collider = NodePath("CollisionShape2D")
 PickupArea = NodePath("Area2D")
 LogReady = false
+AllowNoIcon = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_8ro5o")

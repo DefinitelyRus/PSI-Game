@@ -19,7 +19,7 @@ public partial class UpgradeManager : Node {
     public int CurrentMaxPower { get; set; } = 1;
     public int CurrentPower { get; set; } = 0;
     // Tracks powered items separately from any item equip state.
-    private readonly HashSet<UpgradeItem> _poweredItems = new();
+    private readonly HashSet<UpgradeItem> _poweredItems = [];
 
     [Export] public float PowerOnCooldown { get; private set; } = 0.5f;
     private double _cooldownTimer = 0d;
@@ -60,9 +60,12 @@ public partial class UpgradeManager : Node {
                 item.PowerOff();
                 _poweredItems.Remove(item);
                 CurrentPower = Mathf.Max(CurrentPower - 1, 0);
-                AudioManager.StreamAudio("unpower_item");
-                UIManager.SetPower(CurrentPower, CurrentMaxPower);
-                RefreshInventoryUI();
+                // AudioManager.StreamAudio("unpower_item");
+                // Rebind selection to ensure HUD sync after interaction
+                UIManager.SetSelectedCharacter(UIManager.SelectedCharacter == Character ? Character : UIManager.SelectedCharacter);
+                if (UIManager.SelectedCharacter == Character) UIManager.SetPower(CurrentMaxPower - CurrentPower, CurrentMaxPower);
+                DataManager.RecordInventoryEvent(Character, item, "power_off", CurrentPower, CurrentMaxPower, Items.Count, CurrentMaxSlots);
+                if (UIManager.SelectedCharacter == Character) RefreshInventoryUI();
                 return;
             }
 
@@ -75,9 +78,11 @@ public partial class UpgradeManager : Node {
             item.PowerOn();
             _poweredItems.Add(item);
             CurrentPower++;
-            AudioManager.StreamAudio("power_item");
-            UIManager.SetPower(CurrentPower, CurrentMaxPower);
-            RefreshInventoryUI();
+            // AudioManager.StreamAudio("power_item");
+            UIManager.SetSelectedCharacter(UIManager.SelectedCharacter == Character ? Character : UIManager.SelectedCharacter);
+            if (UIManager.SelectedCharacter == Character) UIManager.SetPower(CurrentMaxPower - CurrentPower, CurrentMaxPower);
+            DataManager.RecordInventoryEvent(Character, item, "power_on", CurrentPower, CurrentMaxPower, Items.Count, CurrentMaxSlots);
+            if (UIManager.SelectedCharacter == Character) RefreshInventoryUI();
             return;
         }
 
@@ -87,8 +92,10 @@ public partial class UpgradeManager : Node {
             _poweredItems.Remove(item);
             CurrentPower = Mathf.Max(CurrentPower - 1, 0);
             AudioManager.StreamAudio("unpower_item");
-            UIManager.SetPower(CurrentPower, CurrentMaxPower);
-            RefreshInventoryUI();
+            UIManager.SetSelectedCharacter(UIManager.SelectedCharacter == Character ? Character : UIManager.SelectedCharacter);
+            if (UIManager.SelectedCharacter == Character) UIManager.SetPower(CurrentMaxPower - CurrentPower, CurrentMaxPower);
+            DataManager.RecordInventoryEvent(Character, item, "power_off", CurrentPower, CurrentMaxPower, Items.Count, CurrentMaxSlots);
+            if (UIManager.SelectedCharacter == Character) RefreshInventoryUI();
         }
     }
 
@@ -148,6 +155,7 @@ public partial class UpgradeManager : Node {
 
                 item.SetOwner(Character);
                 item.Use();
+                DataManager.RecordInventoryEvent(Character, item, "use", CurrentPower, CurrentMaxPower, Items.Count, CurrentMaxSlots);
                 item.QueueFree();
 
                 continue;
@@ -163,6 +171,7 @@ public partial class UpgradeManager : Node {
 
                 item.SetOwner(Character);
                 Pickup(item);
+                DataManager.RecordInventoryEvent(Character, item, "pickup", CurrentPower, CurrentMaxPower, Items.Count, CurrentMaxSlots);
             }
 
             break;
@@ -187,7 +196,9 @@ public partial class UpgradeManager : Node {
         item.SetOwner(Character);
         item.Reparent(Character);
         Items.Add(item);
-        RefreshInventoryUI();
+    DataManager.RecordInventoryEvent(Character, item, "add", CurrentPower, CurrentMaxPower, Items.Count, CurrentMaxSlots);
+    UIManager.SetSelectedCharacter(UIManager.SelectedCharacter == Character ? Character : UIManager.SelectedCharacter);
+    if (UIManager.SelectedCharacter == Character) RefreshInventoryUI();
     }
 
 
@@ -197,7 +208,9 @@ public partial class UpgradeManager : Node {
             item.PowerOff();
             _poweredItems.Remove(item);
             CurrentPower = Mathf.Max(CurrentPower - 1, 0);
-            AudioManager.StreamAudio("unpower_item");
+            // AudioManager.StreamAudio("unpower_item");
+            UIManager.SetSelectedCharacter(UIManager.SelectedCharacter == Character ? Character : UIManager.SelectedCharacter);
+            if (UIManager.SelectedCharacter == Character) UIManager.SetPower(CurrentMaxPower - CurrentPower, CurrentMaxPower);
         }
 
         Vector2 dropVector = Character.Control.FacingDirection * DropDistance;
@@ -227,7 +240,10 @@ public partial class UpgradeManager : Node {
         // Move item 32 pixels in front of where the character is facing
         item.GlobalPosition = Character.GlobalPosition + offset;
 
-        RefreshInventoryUI();
+    DataManager.RecordInventoryEvent(Character, item, "remove", CurrentPower, CurrentMaxPower, Items.Count, CurrentMaxSlots);
+
+    UIManager.SetSelectedCharacter(UIManager.SelectedCharacter == Character ? Character : UIManager.SelectedCharacter);
+    if (UIManager.SelectedCharacter == Character) RefreshInventoryUI();
     }
 
     #endregion
@@ -269,8 +285,11 @@ public partial class UpgradeManager : Node {
         }
         _poweredItems.Clear();
         CurrentPower = 0;
-        UIManager.SetPower(CurrentPower, CurrentMaxPower);
+    UIManager.SetSelectedCharacter(UIManager.SelectedCharacter == Character ? Character : UIManager.SelectedCharacter);
+    if (UIManager.SelectedCharacter == Character) {
+        UIManager.SetPower(CurrentMaxPower - CurrentPower, CurrentMaxPower);
         RefreshInventoryUI();
+    }
     }
 
 
@@ -301,7 +320,8 @@ public partial class UpgradeManager : Node {
     }
 
     public void RefreshInventoryUI() {
-        UIManager.SetOpenSlots(CurrentMaxSlots);
+    if (UIManager.SelectedCharacter != Character) return; // Only render selected character
+    UIManager.SetOpenSlots(CurrentMaxSlots);
 
         for (int i = 0; i < CurrentMaxSlots; i++) {
             if (i < Items.Count) {
@@ -320,7 +340,23 @@ public partial class UpgradeManager : Node {
                 UIManager.SetItemAlpha(i, 1f);
             }
         }
+
+        for (int i = CurrentMaxSlots; i < MaxSlots; i++) {
+            UIManager.SetItemIcon(i, (Texture2D) null!);
+            UIManager.SetItemAlpha(i, 1f);
+        }
+    }
+
+
+    /// <summary>
+    /// Refreshes both inventory slots/icons and power bar to reflect current state.
+    /// Used when switching selected character to guarantee consistency.
+    /// </summary>
+    public void RefreshAll() {
+        RefreshInventoryUI();
+        UIManager.SetPower(CurrentMaxPower - CurrentPower, CurrentMaxPower);
     }
 
     #endregion
+
 }

@@ -250,11 +250,12 @@ Character = NodePath("..")
 
 [node name="Assault Rifle 1" parent="." index="2" instance=ExtResource("2_haq8x")]
 BaseDamage = 30.0
-AttackOriginDistance = 32.0
+AttackOriginType = 0
 
 [node name="AI Targeting Manager" parent="." index="3"]
 TargetDetectionRadius = 120.0
 TargetLostRadius = 240.0
+TargetSwitchCooldown = 0.0
 
 [node name="Audio Controller" parent="." index="8"]
 AudioClips = Dictionary[String, AudioStream]({

@@ -3,7 +3,10 @@ namespace Game;
 
 public partial class ObjectiveGetKeys : StandardPanel {
     public override void Interact(StandardCharacter character) {
-        GameManager.SetGameData("L1_GotKeys", null, true);
+    GameManager.SetGameData("L1_GotKeys", null, true);
+
+    // Register this as a required objective completion for pacing.
+    AIDirector.RegisterRequiredObjectiveCompletion();
 
         Log.Me(() => $"{character.CharacterName} has obtained the parking lot keys!");
 

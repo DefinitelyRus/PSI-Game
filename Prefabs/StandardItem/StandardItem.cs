@@ -879,7 +879,7 @@ public partial class StandardItem : RigidBody2D
 		Log.Me(() => $"Changing node name to \"{InstanceID}\"...", LogReady);
 		Name = InstanceID;
 
-		EntityManager.AddCharacter(this);
+		EntityManager.AddEntity(this);
 		
 		Log.Me(() => "Done!", LogReady);
 	}

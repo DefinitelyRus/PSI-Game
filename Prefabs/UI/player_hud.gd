@@ -38,17 +38,50 @@ func update_health(current_hp: int, max_hp: int) -> void:
 	health_bar.value = clamp(current_hp, 0, max_hp)
 
 ## Set power value and power max value
-func set_power(current_power: int, _max_power: int) -> void:
-	for i in range(current_power):
-		if i < power.size():
-			power[i].disabled = false
+func set_power(current_power: int, max_power: int) -> void:
+	# Set the max power.
+	# If the max power is less than the current power, clamp it.
+	# Then set the power buttons accordingly.
+	for i in range(power.size()):
+		if i < max_power: power[i].visible = true
+		else: power[i].visible = false
+	
+	for i in range(max_power):
+		if i < current_power: power[i].visible = true
+		else: power[i].visible = false
+	pass
+
+## Set health bar color
+func set_health_color(character: String) -> void:
+	var grabber_style: StyleBoxFlat = health_bar.get("theme_override_styles/grabber_area") as StyleBoxFlat
+	var mira_color = Color(145/255.0, 60/255.0, 81/255.0)
+	var orra_color =  Color(60/255.0, 41/255.0, 94/255.0)
+	
+	match character:
+		"mira_kale":
+			grabber_style.bg_color = mira_color
+		"orra_kale": 
+			grabber_style.bg_color = orra_color
+
 
 # ----------- INVENTORY MANAGER ----------
 ## Set number of slots to make visible (enabled)
 func manage_slots(target: int) -> void:
-	for i in range(target):
-		if i < inventory_slots.size():
-			inventory_slots[i].disabled = false
+	# Refresh all slots, not just accessible ones, so stale icons are cleared when switching characters.
+	for i in range(inventory_slots.size()):
+		var btn: Button = inventory_slots[i]
+		if i < target:
+			btn.disabled = false
+			# Keep visible (could opt to hide) so layout remains stable
+			btn.visible = true
+		else:
+			# Inaccessible slot: disable and clear any icon/theme overrides
+			btn.disabled = true
+			btn.visible = true
+			btn.remove_theme_stylebox_override("normal")
+			btn.remove_theme_stylebox_override("hover")
+			btn.remove_theme_stylebox_override("pressed")
+			btn.modulate.a = 1.0
 
 ## Set item icon to a specific hotbar slot
 func set_item(icon: Texture2D, target: int) -> void:
@@ -57,6 +90,13 @@ func set_item(icon: Texture2D, target: int) -> void:
 		return
 	
 	var button := inventory_slots[target]
+	# If no icon provided, clear any existing overrides so the slot looks empty
+	if icon == null:
+		button.remove_theme_stylebox_override("normal")
+		button.remove_theme_stylebox_override("hover")
+		button.remove_theme_stylebox_override("pressed")
+		return
+
 	var style := StyleBoxTexture.new()
 	style.texture = icon
 
@@ -77,26 +117,11 @@ func set_item_alpha(target: int, alpha: float) -> void:
 ## Set the name of the currently active character
 func set_character_name(character: String) -> void:
 	match character:
-		"mira": current_character.text = "Mira Kale"
-		"orra": current_character.text = "Orra Kale"
+		"mira_kale": current_character.text = "Mira"
+		"orra_kale": current_character.text = "Orra"
+		_: current_character.text = ""
 
 # ---------- GODOT CALLBACKS -----------
 func _ready() -> void:
+	set_health_color("mira_kale")
 	pass
-	## TEST: Disables inventory slots upon load
-	#for i in range(inventory_slots.size()):
-		#var slot = inventory_slots[i]
-		#slot.disabled = true
-		#slot.pressed.connect(_on_inventory_slot_pressed)
-	#
-	## TEST: Disables power upon load
-	#for i in range(power.size()):
-		#power[i].disabled = true
-	#
-	## TEST for the health and power info
-	#update_health(60, 100)
-	#manage_slots(3)
-	#set_power(1, 2)
-	#
-	## TEST: Sets the char name upon load
-	#set_character_name("mira")

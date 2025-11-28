@@ -123,7 +123,7 @@ public partial class StandardCharacter : CharacterBody2D {
 
 			if (count > 0) {
 				int randomIndex = (int) (GD.Randi() % count) + 1;
-				AudioController.PlayAudio($"hit_{randomIndex}");
+				AudioController.CallDeferred(nameof(AudioController.PlayAudio), $"hit_{randomIndex}", 1.3f);
 			}
 		}
 
@@ -178,8 +178,8 @@ public partial class StandardCharacter : CharacterBody2D {
 		bool useAnimation = AnimationTree != null && AnimationState != null && AnimationPlayer != null;
 
 		#region AVFX
-
-		AudioController.PlayAudio("death", 0.7f);
+		
+		AudioController.CallDeferred(nameof(AudioController.PlayAudio), "death", 0.7f);
 
 		if (useAnimation) {
 			AnimationTree!.Set("parameters/Death/blend_position", new Vector2(LastMovementDirection.X, -LastMovementDirection.Y));
@@ -281,7 +281,7 @@ public partial class StandardCharacter : CharacterBody2D {
 	public bool RemoveItemFromInventory(StandardItem item, bool spawnInWorld) {
 		if (spawnInWorld) {
 			item.Position = GlobalPosition;
-			EntityManager.AddCharacter(item);
+			EntityManager.AddEntity(item);
 		}
 
 		return Inventory.Remove(item);
@@ -596,7 +596,7 @@ public partial class StandardCharacter : CharacterBody2D {
 		Health = MaxHealth;
 		CurrentMaxSpeed = MaxSpeed;
 
-		EntityManager.AddCharacter(this);
+		EntityManager.AddEntity(this);
 
 		Log.Me(() => "Done!", enabled: LogReady);
 		return;
@@ -612,7 +612,7 @@ public partial class StandardCharacter : CharacterBody2D {
 
 	public override void _ExitTree() {
 		// Unregister to avoid stale references.
-		if (EntityManager.Instance != null) EntityManager.RemoveCharacter(this);
+		if (EntityManager.Instance != null) EntityManager.RemoveEntity(this);
 	}
 
 	#endregion

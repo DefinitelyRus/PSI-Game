@@ -1,9 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://bfs7tl0xkmubg"]
+[gd_scene load_steps=3 format=3 uid="uid://bfs7tl0xkmubg"]
 
 [ext_resource type="PackedScene" uid="uid://cgwbyxdsmb6ty" path="res://Prefabs/StandardItem/Upgrades/UpgradeItem.tscn" id="1_u4t0c"]
+[ext_resource type="Script" uid="uid://r8meki4h0fpm" path="res://Prefabs/StandardItem/Single-use/SingleMaxSlotsUp.cs" id="2_fxtcf"]
 
 [node name="Max Slots Up" instance=ExtResource("1_u4t0c")]
 ChanceWeight = 25
+script = ExtResource("2_fxtcf")
 ItemName = "Max Slots Up"
 ItemID = "max_slots_up"
 Tags = PackedStringArray("SingleUse")

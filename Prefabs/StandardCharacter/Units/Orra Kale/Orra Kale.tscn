@@ -1209,7 +1209,7 @@ graph_offset = Vector2(36, 55)
 [node name="Orra Kale" node_paths=PackedStringArray("UpgradeManager", "Weapon", "AnimationTree") instance=ExtResource("1_jdgtp")]
 CharacterName = "Orra Kale"
 CharacterID = "orra_kale"
-MaxHealth = 300.0
+MaxHealth = 350.0
 Tags = PackedStringArray("Unit")
 UpgradeManager = NodePath("Upgrade Manager")
 Weapon = NodePath("Heavy Rifle 1")
@@ -1221,10 +1221,12 @@ Character = NodePath("..")
 
 [node name="Heavy Rifle 1" parent="." index="2" instance=ExtResource("2_07s0f")]
 BaseDamage = 50.0
+AttackOriginType = 0
 
 [node name="AI Targeting Manager" parent="." index="3"]
 TargetDetectionRadius = 240.0
 TargetLostRadius = 720.0
+TargetSwitchCooldown = 0.0
 CurrentTargetMode = 3
 
 [node name="Audio Controller" parent="." index="8"]

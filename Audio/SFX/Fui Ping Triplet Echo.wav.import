@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://dry8gouvu200b"
+path="res://.godot/imported/Fui Ping Triplet Echo.wav-f64c45164f525effd7768c9ed3b65cd2.sample"
+
+[deps]
+
+source_file="res://Audio/SFX/Fui Ping Triplet Echo.wav"
+dest_files=["res://.godot/imported/Fui Ping Triplet Echo.wav-f64c45164f525effd7768c9ed3b65cd2.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

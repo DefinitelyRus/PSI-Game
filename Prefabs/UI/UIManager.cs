@@ -1,5 +1,6 @@
 using Godot;
 using Game;
+using System.Threading.Tasks;
 namespace CommonScripts;
 
 public partial class UIManager : CanvasLayer {
@@ -10,6 +11,7 @@ public partial class UIManager : CanvasLayer {
 
 	[Export] MarginContainer HUDNode = null!;
 	[Export] Control PopupNode = null!;
+	[Export] Control ControlsPanelNode = null!;
 	[Export] TextureRect Transition = null!;
 	[Export] Control OnScreenText = null!;
 	[Export] public float UnpoweredAlpha { get; private set; } = 0.5f;
@@ -26,6 +28,11 @@ public partial class UIManager : CanvasLayer {
 
 		if (PopupNode == null) {
 			Log.Err(() => "PopupNode is null in UIManager. Please assign it in the inspector.");
+			return;
+		}
+
+		if (ControlsPanelNode == null) {
+			Log.Err(() => "ControlsPanel is null in UIManager. Please assign it in the inspector.");
 			return;
 		}
 
@@ -48,6 +55,9 @@ public partial class UIManager : CanvasLayer {
 		SetItemIcon(2, (Texture2D)null!);
 		SetItemIcon(3, (Texture2D)null!);
 		SetItemIcon(4, (Texture2D)null!);
+
+		// Start with zero accessible slots until a character explicitly sets them
+		SetOpenSlots(0);
 	}
 
 	#endregion
@@ -57,14 +67,37 @@ public partial class UIManager : CanvasLayer {
 	#region Static Members
 
 	public static UIManager Instance { get; private set; } = null!;
+	// Currently selected character whose data should drive HUD updates.
+	public static StandardCharacter? SelectedCharacter { get; private set; }
+
+	/// <summary>
+	/// Sets the currently selected character and immediately refreshes HUD from that character's UpgradeManager.
+	/// Safe to call even if UI is disabled; underlying state is kept in sync.
+	/// </summary>
+	/// <param name="character">Character to select (may be null to clear selection)</param>
+	public static void SetSelectedCharacter(StandardCharacter? character) {
+		SelectedCharacter = character;
+		if (SelectedCharacter?.UpgradeManager != null) {
+			// Force HUD to represent ONLY the selected character's state
+			SelectedCharacter.UpgradeManager.RefreshInventoryUI();
+			SetPower(SelectedCharacter.UpgradeManager.CurrentMaxPower - SelectedCharacter.UpgradeManager.CurrentPower,
+				SelectedCharacter.UpgradeManager.CurrentMaxPower);
+		}
+	}
 	private static MarginContainer HUD => Instance.HUDNode;
+	public static bool IsHUDVisible => Instance.HUDNode.Visible;
 	public static Control Popup => Instance.PopupNode;
+	private static Control ControlsPanel => Instance.ControlsPanelNode;
 
 	public static void EnableUI(bool enable) {
 		Instance.Visible = enable;
-		if (enable && UpgradeManager.Instance != null) {
-			UpgradeManager.Instance.RefreshInventoryUI();
+		if (enable && SelectedCharacter?.UpgradeManager != null) {
+			SelectedCharacter.UpgradeManager.RefreshInventoryUI();
 		}
+
+	// Timer is visible only when UI is enabled, HUD is visible, and a level timer is active
+	bool shouldShowTimer = enable && HUD.Visible && GameManager.TimeRemaining < double.MaxValue;
+	SetTimerEnabled(shouldShowTimer);
 	}
 
 	#region Popup
@@ -83,6 +116,30 @@ public partial class UIManager : CanvasLayer {
 
 	public static void SetButtonText(int row, int index, string text) {
 		Popup.CallDeferred("set_btn_text", text, row, index);
+	}
+
+	private static bool _helpVisible = false;
+
+	public static async void ToggleHelp() {
+		//Pause game when help is visible
+		_helpVisible = !_helpVisible;
+
+		if (_helpVisible) {
+			StartTransition();
+
+			// TODO: Pause game timer
+
+			// TODO: Lock player controls (except this one)
+			
+			await Instance.ToSignal(Instance.GetTree().CreateTimer(1.0f), "timeout");
+		}
+		else {
+			EndTransition();
+		}
+
+		Instance.GetTree().Paused = _helpVisible;
+
+		//ControlsPanel.CallDeferred("set_help_visible", _helpVisible);
 	}
 
 	#endregion
@@ -106,14 +163,31 @@ public partial class UIManager : CanvasLayer {
 			HUD.CallDeferred("set_visibility", visible, 0);
 			HUD.CallDeferred("set_visibility", visible, 1);
 			HUD.CallDeferred("set_visibility", visible, 2);
+			// Control timer with main HUD visibility
+			bool shouldShowTimerAll = visible && Instance.Visible && GameManager.TimeRemaining < double.MaxValue;
+			SetTimerEnabled(shouldShowTimerAll);
 			return;
 		}
 
 		HUD.CallDeferred("set_visibility", visible, segment);
+
+		// If toggling the main HUD segment, mirror timer visibility
+		if (segment == 0) {
+			bool shouldShowTimer = visible && Instance.Visible && GameManager.TimeRemaining < double.MaxValue;
+			SetTimerEnabled(shouldShowTimer);
+		}
 	}
 
 	public static void SetHealth(float health, float maxHealth) {
 		HUD.CallDeferred("update_health", health, maxHealth);
+	}
+
+	public static void SetHealthColor(string character) {
+		HUD.CallDeferred("set_health_color", character);
+	}
+
+	public static void SetCharacterName(string character) {
+		HUD.CallDeferred("set_character_name", character);
 	}
 
 	public static void SetPower(int power, int maxPower) {
@@ -130,7 +204,7 @@ public partial class UIManager : CanvasLayer {
 
 	public static void SetItemIcon(int slotIndex, Sprite2D? icon) {
 		if (icon == null) {
-			HUD.CallDeferred("set_item", new(), slotIndex);
+			SetItemIcon(slotIndex, (Texture2D)null!);
 			return;
 		}
 
@@ -150,6 +224,39 @@ public partial class UIManager : CanvasLayer {
 
 	public static void SetItemAlpha(int slotIndex, float alpha) {
 		HUD.CallDeferred("set_item_alpha", slotIndex, alpha);
+	}
+
+	public static void SetTimerEnabled(bool enabled) {
+		Instance.OnScreenText.CallDeferred("set_timer_enabled", enabled);
+	}
+
+	public static void SetTimerText(double time) {
+		int minutes = (int)(time / 60);
+		int seconds = (int)(time % 60);
+		string text = $"{minutes:00}:{seconds:00}";
+		Instance.OnScreenText.CallDeferred("set_timer_text", text);
+	}
+
+	public static void SetTimerText(string text) {
+		Instance.OnScreenText.CallDeferred("set_timer_text", text);
+	}
+
+	public static void SetTimerColor(Color color) {
+		Instance.OnScreenText.CallDeferred("set_timer_color", color);
+	}
+
+	public static void SpawnIndicator(StandardCharacter owner, Vector2 position) {
+		MovementMarker indicator = Commander.Instance.IndicatorNodeScene.Instantiate<MovementMarker>();
+		if (SceneLoader.Instance.LoadedScene is Level currentLevel) {
+			indicator.OwnerCharacter = owner;
+			currentLevel.AddChild(indicator);
+			indicator.GlobalPosition = position;
+		}
+
+		else {
+			Log.Warn("Cannot add indicator node to current scene. Scene is not a Level.", true, true);
+			indicator.QueueFree();
+		}
 	}
 
 	#endregion

@@ -169,10 +169,14 @@ transitions = ["Idle", "Death", SubResource("AnimationNodeStateMachineTransition
 graph_offset = Vector2(-69, 4)
 
 [node name="Clone Cyborg" node_paths=PackedStringArray("Weapon", "AnimationTree") instance=ExtResource("1_kbbx7")]
+collision_layer = 144
+collision_mask = 13
 script = ExtResource("2_7st76")
+DropRate = 0.2
 StaticSpawnWeight = 40
 DelayAfterSpawn = 5.0
-DynamicSpawnCost = 0
+DynamicSpawnCost = 30
+EnemyType = 3
 DeathCameraShakeIntensity = 0.4
 CharacterName = "Clone Cyborg"
 CharacterID = "clone_cyborg"
@@ -184,7 +188,7 @@ Weapon = NodePath("Cyborg Gun")
 AnimationTree = NodePath("AnimationTree")
 
 [node name="Cyborg Gun" parent="." index="1" instance=ExtResource("3_kbbx7")]
-BaseDamage = 50.0
+BaseDamage = 30.0
 
 [node name="AI Targeting Manager" parent="." index="2"]
 TargetDetectionRadius = 80.0

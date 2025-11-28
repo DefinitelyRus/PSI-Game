@@ -150,6 +150,10 @@ public partial class CameraMan : Node2D {
         DamageLocked = true;
         DamageUnlockTimer = 0f;
 
+    // Hide and pause the level timer while the cinematic path is active
+    GameManager.ManualTimerCheck = true;
+    UIManager.SetTimerEnabled(false);
+
         SetTarget(NodePaths[^1], true); // Snap to final target immediately
         SetTarget(NodePaths[CurrentPathIndex]); // Set initial target
     }
@@ -194,17 +198,24 @@ public partial class CameraMan : Node2D {
         DamageUnlockTimer = 5f;
         Commander.SetFocusedUnit(0, true);
 
-        // Show HUD again
-        UIManager.SetHUDVisible(false, -1);
-        UIManager.SetHUDVisible(true, 0);
-        UIManager.SetHUDVisible(true, 1);
-        UIManager.SetHUDVisible(true, 2);
+    // Show HUD again (enable entire HUD and its segments)
+    UIManager.SetHUDVisible(true, -1);
+    UIManager.SetHUDVisible(true, 0);
+    UIManager.SetHUDVisible(true, 1);
+    UIManager.SetHUDVisible(true, 2);
 
-        // Start level timer
-        Node? levelNode = SceneLoader.Instance.LoadedScene;
-        if (levelNode == null) return;
-        if (levelNode is not Level level) return;
-        GameManager.TimeRemaining = level.LevelTimeLimit;
+        // Do not force-start timers here if manual control is requested by the level logic
+        if (!GameManager.ManualTimerCheck) {
+            Node? levelNode = SceneLoader.Instance.LoadedScene;
+            if (levelNode == null) return;
+            if (levelNode is not Level level) return;
+            GameManager.TimeRemaining = level.LevelTimeLimit;
+        }
+
+    // Cinematic finished: allow timer to tick and show it when applicable
+    GameManager.ManualTimerCheck = false;
+    bool shouldShowTimer = UIManager.Instance.Visible && UIManager.IsHUDVisible && GameManager.TimeRemaining < double.MaxValue;
+    UIManager.SetTimerEnabled(shouldShowTimer);
     }
 
 
@@ -216,13 +227,18 @@ public partial class CameraMan : Node2D {
         DamageLocked = true;
         DamageUnlockTimer = 5f;
 
-        // Show HUD again
-        UIManager.SetHUDVisible(false, -1);
-        UIManager.SetHUDVisible(true, 0);
-        UIManager.SetHUDVisible(true, 1);
-        UIManager.SetHUDVisible(true, 2);
+    // Show HUD again (enable entire HUD and its segments)
+    UIManager.SetHUDVisible(true, -1);
+    UIManager.SetHUDVisible(true, 0);
+    UIManager.SetHUDVisible(true, 1);
+    UIManager.SetHUDVisible(true, 2);
 
         if (!skipFocus) Commander.SetFocusedUnit(0, true);
+
+    // Path skipped: allow timer to tick and show it when applicable
+    GameManager.ManualTimerCheck = false;
+    bool shouldShowTimer = UIManager.Instance.Visible && UIManager.IsHUDVisible && GameManager.TimeRemaining < double.MaxValue;
+    UIManager.SetTimerEnabled(shouldShowTimer);
     }
 
 
@@ -244,8 +260,6 @@ public partial class CameraMan : Node2D {
 
 
     public static void SetTarget(Node2D target, bool instant = false) {
-        Log.Me(() => $"Setting camera target to {target.Name}.");
-
         Target = target;
 
         bool snapToTarget = !Instance.SmoothFollow || instant;

@@ -23,10 +23,13 @@ public partial class ObjectivePowerBox : StandardPanel {
             if (isRestored) return;
         }
 
-        // Restore power for this box
+    // Restore power for this box
         Log.Me(() => $"{character.CharacterName} has restored power station {Id}.");
         UIManager.SetBottomOverlayText($"Power station {Id + 1} restored.");
         GameManager.SetGameData($"L3_PowerRestored{Id}", null, true);
+
+    // Count this as a required objective completion for pacing.
+    AIDirector.RegisterRequiredObjectiveCompletion();
 
         // Disable all other boxes with the same ID
         foreach (ObjectivePowerBox box in powerBoxes) {

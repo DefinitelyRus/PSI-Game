@@ -32,49 +32,72 @@ public partial class EntityManager : Node2D {
     /// </summary>
     public static List<PhysicsBody2D> Entities { get; private set; } = [];
 
-    #region Character Management
+    #region Entity Management
 
-    public static void AddCharacter(PhysicsBody2D entity)
-    {
+    public static void RegisterEntity(PhysicsBody2D entity) {
+        Entities.Add(entity);
+    }
+
+    public static void AddEntity(PhysicsBody2D entity) {
         Entities.Add(entity);
     }
 
 
-    public static void AddCharacter(PhysicsBody2D entity, Vector2 position) {
+    public static void AddEntity(PhysicsBody2D entity, Vector2 position) {
         entity.Position = position;
         Instance.AddChild(entity);
         Entities.Add(entity);
     }
 
 
-	public static void RemoveCharacter(PhysicsBody2D entity)
-    {
+	public static void RemoveEntity(PhysicsBody2D entity) {
         Entities.Remove(entity);
     }
 
 
     public static bool HasEntityAtPosition(Vector2 position, out PhysicsBody2D? pointedEntity) {
+        List<PhysicsBody2D> removedEntities = [];
         foreach (PhysicsBody2D entity in Entities) {
-
-            bool isCharacter = entity is StandardCharacter;
-            bool isProp = entity is StandardPanel;
-            Area2D clickArea;
-
-            if (isCharacter) {
-                StandardCharacter character = (StandardCharacter) entity;
-                clickArea = character.ClickArea;
+            if (!IsInstanceValid(entity)) {
+                removedEntities.Add(entity);
+                continue;
             }
 
-            else if (isProp) {
-                StandardPanel panel = (StandardPanel) entity;
-                clickArea = panel.ClickArea;
+            Node2D positionBase;
+            CollisionShape2D? shapeNode = null;
+            Shape2D shape;
+
+            // Use click area for characters.
+            if (entity is StandardCharacter character) {
+                positionBase = character.ClickArea;
+                shapeNode = positionBase.GetNodeOrNull<CollisionShape2D>("CollisionShape2D");
+
+                if (shapeNode == null) {
+                    Log.Warn(() => $"Entity {character.InstanceID} has no CollisionShape2D for click detection.");
+                    continue;
+                }
+
+                shape = shapeNode.Shape;
             }
 
+            // Use collision shape for props.
+            else if (entity is StandardProp prop) {
+                shapeNode = prop.GetNodeOrNull<CollisionShape2D>("CollisionShape2D");
+                positionBase = shapeNode;
+
+                if (shapeNode == null) {
+                    Log.Warn(() => $"Entity {prop.InstanceID} has no CollisionShape2D for click detection.");
+                    continue;
+                }
+
+                shape = shapeNode.Shape;
+            }
+
+            // Unsupported entity type.
             else continue;
 
-            CollisionShape2D shapeNode = clickArea.GetNode<CollisionShape2D>("CollisionShape2D");
-            Shape2D shape = shapeNode.Shape;
-            Vector2 localPoint = clickArea.ToLocal(position);
+            // Check if the position is within the shape.
+            Vector2 localPoint = positionBase.ToLocal(position);
             bool pointingAtEntity = false;
 
             switch (shape) {
@@ -86,12 +109,17 @@ public partial class EntityManager : Node2D {
                     break;
             }
 
+            // Return the entity if found.
             if (pointingAtEntity) {
                 pointedEntity = entity;
                 return true;
             }
         }
 
+        foreach (PhysicsBody2D removedEntity in removedEntities) {
+            RemoveEntity(removedEntity);
+        }
+        
         pointedEntity = null;
         return false;
     }

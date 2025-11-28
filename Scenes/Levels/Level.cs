@@ -27,6 +27,7 @@ public partial class Level : Node2D {
 	[Export] public uint LevelIndex = 0;
 	private int CurrentSpawnIndex = 0;
 	[Export] public double LevelTimeLimit = 600;
+	[Export] public uint BaseBudget = 150;
 
 	#endregion
 
@@ -79,7 +80,8 @@ public partial class Level : Node2D {
 	#region Enemy Spawning
 
 	[ExportGroup("Enemy Spawning")]
-	[Export] public PackedScene[] EnemyTypes = [];
+	[Export] public PackedScene[] StaticEnemyTypes = [];
+	[Export] public PackedScene[] DynamicEnemyTypes = [];
 	[Export] public float EnemyStaticSpawningDelayMultiplier = 1f;
 	[Export] public uint EnemyCountLimit = 50;
 
@@ -175,7 +177,7 @@ public partial class Level : Node2D {
 
 			// Kill the occupying character with a 20% chance
 			bool coinFlip = GD.Randi() % 5 == 0;
-			if (coinFlip) EntityManager.RemoveCharacter(otherCharacter);
+			if (coinFlip) EntityManager.RemoveEntity(otherCharacter);
 
 			// Recursively search for the next available spawn point.
 			// May throw a warning if index is out of range.
@@ -217,6 +219,10 @@ public partial class Level : Node2D {
 			Log.Me(() => $"Setting navigation map for prop {prop.InstanceID} to region {newRegion.Name}.", LogReady);
 			prop.NavObstacle.SetNavigationMap(mapRid.Value);
 			prop.Reparent(newRegion, true);
+
+			if (prop is StandardPanel panel) {
+                EntityManager.RegisterEntity(panel);
+            }
 		}
 
 		// Bake navigation polygons for all regions
@@ -286,10 +292,23 @@ public partial class Level : Node2D {
 		if (BackgroundMusic != null) AudioManager.StreamAudio(BackgroundMusic, "BackgroundMusic");
 		if (AmbientAudio != null) AudioManager.StreamAudio(AmbientAudio, "AmbientAudio", 0.2f);
 
-		if (CameraNodePaths.Length != 0) CameraMan.SetCameraPath(CameraNodePaths);
-		else CameraMan.SetTarget(SpawnParent, true);
+		if (CameraNodePaths.Length != 0) {
+			CameraMan.SetCameraPath(CameraNodePaths);
+			// Keep the timer paused while the camera path plays
+			GameManager.ManualTimerCheck = true;
+		}
+		else {
+			CameraMan.SetTarget(SpawnParent, true);
+			// No cinematic path; allow timer to tick normally
+			GameManager.ManualTimerCheck = false;
+		}
 
-		GameManager.ManualTimerCheck = false;
+		// Initialize level timer display and state
+		if (LevelTimeLimit > 0) {
+			GameManager.TimeRemaining = LevelTimeLimit;
+			UIManager.SetTimerText(GameManager.TimeRemaining);
+			UIManager.SetTimerColor(Colors.White);
+		}
 	}
 	
 	#endregion

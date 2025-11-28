@@ -473,10 +473,14 @@ transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition
 graph_offset = Vector2(-10, -89)
 
 [node name="Sentry" node_paths=PackedStringArray("Weapon", "AnimationTree") instance=ExtResource("1_ot42w")]
+collision_layer = 144
+collision_mask = 13
 script = ExtResource("2_rfyjh")
+DropRate = 1.0
 StaticSpawnWeight = 5
 DelayAfterSpawn = 3.0
-DynamicSpawnCost = 0
+DynamicSpawnCost = 200
+EnemyType = 2
 DeathCameraShakeIntensity = 0.6
 CharacterName = "Sentry"
 CharacterID = "sentry"
@@ -488,7 +492,7 @@ Weapon = NodePath("Turret")
 AnimationTree = NodePath("AnimationTree")
 
 [node name="Turret" parent="." index="1" instance=ExtResource("2_f756v")]
-BaseDamage = 50.0
+BaseDamage = 15.0
 
 [node name="AI Targeting Manager" parent="." index="2"]
 TargetDetectionRadius = 180.0
