@@ -1209,7 +1209,7 @@ graph_offset = Vector2(36, 55)
 [node name="Orra Kale" node_paths=PackedStringArray("UpgradeManager", "Weapon", "AnimationTree") instance=ExtResource("1_jdgtp")]
 CharacterName = "Orra Kale"
 CharacterID = "orra_kale"
-MaxHealth = 300.0
+MaxHealth = 350.0
 Tags = PackedStringArray("Unit")
 UpgradeManager = NodePath("Upgrade Manager")
 Weapon = NodePath("Heavy Rifle 1")

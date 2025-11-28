@@ -492,7 +492,7 @@ Weapon = NodePath("Turret")
 AnimationTree = NodePath("AnimationTree")
 
 [node name="Turret" parent="." index="1" instance=ExtResource("2_f756v")]
-BaseDamage = 50.0
+BaseDamage = 15.0
 
 [node name="AI Targeting Manager" parent="." index="2"]
 TargetDetectionRadius = 180.0

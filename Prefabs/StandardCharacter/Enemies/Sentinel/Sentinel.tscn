@@ -190,7 +190,7 @@ Weapon = NodePath("Sentinel Gun")
 AnimationTree = NodePath("AnimationTree")
 
 [node name="Sentinel Gun" parent="." index="1" instance=ExtResource("3_5kolp")]
-BaseDamage = 100.0
+BaseDamage = 80.0
 
 [node name="AI Targeting Manager" parent="." index="2"]
 TargetDetectionRadius = 400.0

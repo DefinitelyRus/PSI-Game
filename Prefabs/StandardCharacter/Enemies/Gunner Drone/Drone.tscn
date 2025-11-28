@@ -185,7 +185,7 @@ AnimationTree = NodePath("AnimationTree")
 
 [node name="Drone Gun" parent="." index="1" instance=ExtResource("2_tleep")]
 position = Vector2(0, -9)
-BaseDamage = 25.0
+BaseDamage = 20.0
 
 [node name="AI Targeting Manager" parent="." index="2"]
 position = Vector2(0, -9)
