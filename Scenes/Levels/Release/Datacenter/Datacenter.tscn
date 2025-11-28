@@ -3722,61 +3722,43 @@ position = Vector2(1406, 236)
 [node name="Boxes" type="Node2D" parent="Props" index="4"]
 y_sort_enabled = true
 
-[node name="Boxes1" parent="Props/Boxes" index="0" instance=ExtResource("9_abqqn")]
-position = Vector2(134, 370)
-
-[node name="Boxes2" parent="Props/Boxes" index="1" instance=ExtResource("10_ecrq6")]
-position = Vector2(159, 390)
-
-[node name="Boxes3" parent="Props/Boxes" index="2" instance=ExtResource("10_ecrq6")]
+[node name="Boxes3" parent="Props/Boxes" index="0" instance=ExtResource("10_ecrq6")]
 position = Vector2(416, 286)
 
-[node name="Boxes5" parent="Props/Boxes" index="3" instance=ExtResource("10_ecrq6")]
-position = Vector2(523, 344)
-
-[node name="Boxes9" parent="Props/Boxes" index="4" instance=ExtResource("10_ecrq6")]
+[node name="Boxes9" parent="Props/Boxes" index="1" instance=ExtResource("10_ecrq6")]
 position = Vector2(881, 553)
 
-[node name="Boxes8" parent="Props/Boxes" index="5" instance=ExtResource("10_ecrq6")]
+[node name="Boxes8" parent="Props/Boxes" index="2" instance=ExtResource("10_ecrq6")]
 position = Vector2(1344, 607)
 
-[node name="Boxes6" parent="Props/Boxes" index="6" instance=ExtResource("9_abqqn")]
-position = Vector2(518, 368)
-
-[node name="Boxes10" parent="Props/Boxes" index="7" instance=ExtResource("9_abqqn")]
+[node name="Boxes10" parent="Props/Boxes" index="3" instance=ExtResource("9_abqqn")]
 position = Vector2(874, 582)
 
-[node name="Boxes7" parent="Props/Boxes" index="8" instance=ExtResource("9_abqqn")]
+[node name="Boxes7" parent="Props/Boxes" index="4" instance=ExtResource("9_abqqn")]
 position = Vector2(1302, 612)
 
 [node name="Board" type="Node2D" parent="Props" index="5"]
 y_sort_enabled = true
 
-[node name="Board" parent="Props/Board" index="0" instance=ExtResource("11_ecrq6")]
-position = Vector2(132, 405)
-
-[node name="Board3" parent="Props/Board" index="1" instance=ExtResource("11_ecrq6")]
+[node name="Board3" parent="Props/Board" index="0" instance=ExtResource("11_ecrq6")]
 position = Vector2(220, 417)
 
-[node name="Board9" parent="Props/Board" index="2" instance=ExtResource("11_ecrq6")]
+[node name="Board9" parent="Props/Board" index="1" instance=ExtResource("11_ecrq6")]
 position = Vector2(217, 176)
 
-[node name="Board2" parent="Props/Board" index="3" instance=ExtResource("11_ecrq6")]
+[node name="Board2" parent="Props/Board" index="2" instance=ExtResource("11_ecrq6")]
 position = Vector2(515, 239)
 
-[node name="Board4" parent="Props/Board" index="4" instance=ExtResource("11_ecrq6")]
-position = Vector2(532, 318)
-
-[node name="Board8" parent="Props/Board" index="5" instance=ExtResource("11_ecrq6")]
+[node name="Board8" parent="Props/Board" index="3" instance=ExtResource("11_ecrq6")]
 position = Vector2(896, 23)
 
-[node name="Board5" parent="Props/Board" index="6" instance=ExtResource("11_ecrq6")]
+[node name="Board5" parent="Props/Board" index="4" instance=ExtResource("11_ecrq6")]
 position = Vector2(850, 549)
 
-[node name="Board7" parent="Props/Board" index="7" instance=ExtResource("11_ecrq6")]
+[node name="Board7" parent="Props/Board" index="5" instance=ExtResource("11_ecrq6")]
 position = Vector2(1298, 139)
 
-[node name="Board6" parent="Props/Board" index="8" instance=ExtResource("11_ecrq6")]
+[node name="Board6" parent="Props/Board" index="6" instance=ExtResource("11_ecrq6")]
 position = Vector2(1448, 313)
 
 [node name="Storage" type="Node2D" parent="Props" index="6"]
@@ -3839,28 +3821,16 @@ position = Vector2(1480, 610)
 [node name="Blockers" type="Node2D" parent="Props" index="8"]
 y_sort_enabled = true
 
-[node name="Guard Rail Side" parent="Props/Blockers" index="0" instance=ExtResource("16_ypkc1")]
-position = Vector2(524, 645)
-
-[node name="Guard Rail Side3" parent="Props/Blockers" index="1" instance=ExtResource("16_ypkc1")]
-position = Vector2(1275, 343)
-
-[node name="Guard Rail Side2" parent="Props/Blockers" index="2" instance=ExtResource("16_ypkc1")]
-position = Vector2(661, 644)
-
-[node name="Traffic Cone" parent="Props/Blockers" index="3" instance=ExtResource("17_cp170")]
+[node name="Traffic Cone" parent="Props/Blockers" index="0" instance=ExtResource("17_cp170")]
 position = Vector2(1259, 322)
 
-[node name="Traffic Cone2" parent="Props/Blockers" index="4" instance=ExtResource("17_cp170")]
+[node name="Traffic Cone2" parent="Props/Blockers" index="1" instance=ExtResource("17_cp170")]
 position = Vector2(1289, 357)
 
 [node name="Barrel" type="Node2D" parent="Props" index="9"]
 y_sort_enabled = true
 
-[node name="Barrel_2" parent="Props/Barrel" index="0" instance=ExtResource("17_ibk3h")]
-position = Vector2(501, 326)
-
-[node name="Barrel_3" parent="Props/Barrel" index="1" instance=ExtResource("17_ibk3h")]
+[node name="Barrel_3" parent="Props/Barrel" index="0" instance=ExtResource("17_ibk3h")]
 position = Vector2(786, 672)
 
 [node name="AC Pipes" type="Node2D" parent="Props" index="10"]
@@ -3940,6 +3910,7 @@ CameraNodes = [NodePath("../Big Terminal"), NodePath("../Terminal6"), NodePath("
 Nav = NodePath("../../../Regions/Region 3")
 ElevatorObjective = NodePath("../Elevator3")
 ExplosionShakeIntensity = 10.0
+ChargeDuration = 221.5
 ActivationArea = NodePath("../Charge Area")
 ActivationRadius = 32
 ActivationSound = null
@@ -4082,6 +4053,49 @@ IsEnabled = true
 HighlightSpeed = 0.5
 
 [node name="Node2D" type="Node2D" parent="Props/Optional Panels/Cubicle Group L4" index="3"]
+
+[node name="No collision" type="Node2D" parent="Props" index="15"]
+y_sort_enabled = true
+
+[node name="Boxes1" parent="Props/No collision" index="0" instance=ExtResource("9_abqqn")]
+position = Vector2(134, 370)
+collision_layer = 0
+
+[node name="Boxes2" parent="Props/No collision" index="1" instance=ExtResource("10_ecrq6")]
+position = Vector2(159, 390)
+collision_layer = 0
+
+[node name="Boxes5" parent="Props/No collision" index="2" instance=ExtResource("10_ecrq6")]
+position = Vector2(523, 344)
+collision_layer = 0
+
+[node name="Boxes6" parent="Props/No collision" index="3" instance=ExtResource("9_abqqn")]
+position = Vector2(518, 368)
+collision_layer = 0
+
+[node name="Board" parent="Props/No collision" index="4" instance=ExtResource("11_ecrq6")]
+position = Vector2(132, 405)
+collision_layer = 0
+
+[node name="Board4" parent="Props/No collision" index="5" instance=ExtResource("11_ecrq6")]
+position = Vector2(532, 318)
+collision_layer = 0
+
+[node name="Guard Rail Side" parent="Props/No collision" index="6" instance=ExtResource("16_ypkc1")]
+position = Vector2(524, 645)
+collision_layer = 0
+
+[node name="Guard Rail Side3" parent="Props/No collision" index="7" instance=ExtResource("16_ypkc1")]
+position = Vector2(1275, 343)
+collision_layer = 0
+
+[node name="Guard Rail Side2" parent="Props/No collision" index="8" instance=ExtResource("16_ypkc1")]
+position = Vector2(661, 644)
+collision_layer = 0
+
+[node name="Barrel_2" parent="Props/No collision" index="9" instance=ExtResource("17_ibk3h")]
+position = Vector2(501, 326)
+collision_layer = 0
 
 [node name="Region 0" type="NavigationRegion2D" parent="Regions" index="0"]
 y_sort_enabled = true
