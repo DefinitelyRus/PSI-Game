@@ -85,6 +85,7 @@ public partial class UIManager : CanvasLayer {
 		}
 	}
 	private static MarginContainer HUD => Instance.HUDNode;
+	public static bool IsHUDVisible => Instance.HUDNode.Visible;
 	public static Control Popup => Instance.PopupNode;
 	private static Control ControlsPanel => Instance.ControlsPanelNode;
 

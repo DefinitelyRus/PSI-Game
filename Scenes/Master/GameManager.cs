@@ -150,51 +150,69 @@ public partial class GameManager : Node2D {
 
     public static bool ManualTimerCheck { get; set; } = false;
 
+    public static void ResetGame()
+    {
+        // Reset core flags
+        GameEnded = false;
+        ManualTimerCheck = false;
+        TimeRemaining = double.MaxValue;
+
+        // Clear dynamic game data
+        ClearAllData();
+        AIDirector.ResetMetrics();
+        Commander.ResetUnits();
+        Commander.Initialize();
+        UIManager.SetTimerEnabled(false);
+        UIManager.SetHUDVisible(false, 0);
+    }
+
+    public static async void HandleWin(Level level)
+    {
+        if (GameEnded) return;
+        GameEnded = true;
+        DataManager.RecordLevelCompletion(level);
+
+        UIManager.StartTransition("Mission Complete");
+        await Instance.ToSignal(Instance.GetTree().CreateTimer(3.0), "timeout");
+
+        ResetGame();
+        SceneLoader.UnloadLevel(true); // Return to main menu
+    }
+
     public static async void CheckLoseConditions(bool loseOverride = false) {
         if (GameEnded) return;
 
         Node? levelNode = SceneLoader.Instance.LoadedScene;
         if (levelNode == null) return;
-		if (levelNode is not Level level) return;
+        if (levelNode is not Level level) return;
 
-        // Lose if time is up.
-    bool timesUp = false;
-    // Decrement remaining time only when using level timer
-    if (!ManualTimerCheck && TimeRemaining < double.MaxValue) {
-    	TimeRemaining -= Instance.GetProcessDeltaTime();
-    }
+        bool timesUp = false;
+        if (!ManualTimerCheck && TimeRemaining < double.MaxValue) {
+            TimeRemaining -= Instance.GetProcessDeltaTime();
+        }
         if (level.LevelTimeLimit > 0) {
             timesUp = TimeRemaining <= 0 && !ManualTimerCheck;
         }
 
         if (TimeRemaining % 10 <= 0.01 && TimeRemaining < 14400) Log.Me(() => $"Time Remaining: {TimeRemaining:F2}s");
 
-		// Lose if both units are dead.
-		bool allDead = !Commander.GetAllUnits().Where(u => u.IsAlive).Any();
+        bool allDead = !Commander.GetAllUnits().Where(u => u.IsAlive).Any();
 
         if (allDead || timesUp || loseOverride) {
             GameEnded = true;
-
-            // Record completion BEFORE resetting TimeRemaining so timestamps are valid
-            if (level != null) DataManager.RecordLevelCompletion(level);
-
+            DataManager.RecordLevelCompletion(level);
             TimeRemaining = double.MaxValue;
 
             UIManager.StartTransition("Mission Failed");
-
             if (timesUp) {
                 foreach (StandardCharacter unit in Commander.GetAllUnits().Where(u => u.IsAlive)) {
                     unit.Kill();
                 }
             }
-
             await Instance.ToSignal(Instance.GetTree().CreateTimer(4.0), "timeout");
-            AIDirector.ResetMetrics();
 
-            //TODO: Go to main menu
-            Commander.Initialize();
-            SceneLoader.LoadLevel(0);
-
+            ResetGame();
+            SceneLoader.UnloadLevel(true); // Back to main menu
             return;
         }
     }

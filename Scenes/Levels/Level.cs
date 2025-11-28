@@ -292,10 +292,16 @@ public partial class Level : Node2D {
 		if (BackgroundMusic != null) AudioManager.StreamAudio(BackgroundMusic, "BackgroundMusic");
 		if (AmbientAudio != null) AudioManager.StreamAudio(AmbientAudio, "AmbientAudio", 0.2f);
 
-		if (CameraNodePaths.Length != 0) CameraMan.SetCameraPath(CameraNodePaths);
-		else CameraMan.SetTarget(SpawnParent, true);
-
-		GameManager.ManualTimerCheck = false;
+		if (CameraNodePaths.Length != 0) {
+			CameraMan.SetCameraPath(CameraNodePaths);
+			// Keep the timer paused while the camera path plays
+			GameManager.ManualTimerCheck = true;
+		}
+		else {
+			CameraMan.SetTarget(SpawnParent, true);
+			// No cinematic path; allow timer to tick normally
+			GameManager.ManualTimerCheck = false;
+		}
 
 		// Initialize level timer display and state
 		if (LevelTimeLimit > 0) {

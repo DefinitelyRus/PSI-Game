@@ -69,6 +69,8 @@ public partial class Commander : Node {
 
 	public static void Initialize()
 	{
+		// Ensure any previous run state is cleared
+		ResetUnits();
 		foreach (PackedScene unitScene in Instance.InitialUnits)
 		{
 			StandardCharacter unit = unitScene.Instantiate<StandardCharacter>();
@@ -76,6 +78,24 @@ public partial class Commander : Node {
 		}
 
 		UIManager.SetPower(1, 1);
+	}
+
+	public static void ResetUnits()
+	{
+		// Free existing unit nodes (they may still be in the scene tree)
+		foreach (var u in Units.ToList())
+		{
+			try {
+				if (IsInstanceValid(u)) u.QueueFree();
+			} catch { /* ignore */ }
+		}
+		Units.Clear();
+		FocusedUnit = null!;
+		TargetedUnit = null!;
+		PrimeDrop = false;
+		UIManager.SetSelectedCharacter(null);
+		UIManager.SetCharacterName("");
+		UIManager.SetHUDVisible(false, 0);
 	}
 
 	#endregion
