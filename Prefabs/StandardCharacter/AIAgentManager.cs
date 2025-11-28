@@ -149,10 +149,10 @@ public partial class AIAgentManager : Node2D {
 
 	#region Navigation
 
-	public void GoTo(Vector2 target) {
-		if (!IsInstanceValid(this)) return;
-		if (!IsInstanceValid(Character)) return;
-		if (!Character.IsAlive) return;
+	public bool GoTo(Vector2 target) {
+		if (!IsInstanceValid(this)) return false;
+		if (!IsInstanceValid(Character)) return false;
+		if (!Character.IsAlive) return false;
 
 		NavAgent.TargetPosition = target;
 		bool isReachable = NavAgent.IsTargetReachable();
@@ -165,13 +165,15 @@ public partial class AIAgentManager : Node2D {
 
 			if (isUnit) AudioManager.StreamAudio("error");
 			HasDestination = false;
-			return;
+			return false;
 		}
 
 		if (isUnit) {
 			UIManager.SpawnIndicator(Character, target);
 			AudioManager.StreamAudio("move_command");
 		}
+
+		return true;
 	}
 
 
