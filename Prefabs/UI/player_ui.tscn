@@ -136,12 +136,11 @@ font_size = 8
 script = ExtResource("1_vpfb6")
 HUDNode = NodePath("HUD")
 PopupNode = NodePath("Pop-Up")
-ControlsPanelNode = NodePath("ControlsPanel")
+ControlsPanelNode = NodePath("Help")
 Transition = NodePath("Transition")
 OnScreenText = NodePath("On-ScreenText")
 
 [node name="HUD" type="MarginContainer" parent="." node_paths=PackedStringArray("health_bar", "power", "current_character", "inventory_slots", "hud_container", "char_info", "char_inventory", "char_preview")]
-visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -710,7 +709,6 @@ theme_override_styles/pressed = SubResource("StyleBoxTexture_lsyk6")
 theme_override_styles/hover = SubResource("StyleBoxTexture_f5urv")
 
 [node name="Transition" type="TextureRect" parent="." node_paths=PackedStringArray("on_screen_text")]
-visible = false
 offset_right = 960.0
 offset_bottom = 360.0
 texture = ExtResource("8_lsyk6")
@@ -724,7 +722,6 @@ end_pos = Vector2(-960, 0)
 transition_time = 1.0
 
 [node name="On-ScreenText" type="MarginContainer" parent="." node_paths=PackedStringArray("center_label", "subtitle", "timer")]
-visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -762,6 +759,7 @@ text = "00 : 00"
 label_settings = SubResource("LabelSettings_wnd18")
 
 [node name="Help" type="MarginContainer" parent="." node_paths=PackedStringArray("camera_controls_button", "camera_controls_panel", "character_movement_button", "characters_controls_panel", "item_controls_button", "item_controls_panel")]
+visible = false
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
