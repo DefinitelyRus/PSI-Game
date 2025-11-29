@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://o52kke4dfdo0"]
+[gd_scene load_steps=41 format=3 uid="uid://o52kke4dfdo0"]
 
 [ext_resource type="Texture2D" uid="uid://kqo44exiy3bv" path="res://Sprites/UI/Modern_UI_Style_2_32x32.png" id="1_7a7a1"]
 [ext_resource type="Script" uid="uid://bdv1hbweo6wlo" path="res://Prefabs/UI/player_hud.gd" id="1_av0rp"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://bp7qd4q73av7e" path="res://Sprites/UI/Transition.png" id="8_lsyk6"]
 [ext_resource type="Script" uid="uid://cdv0dp7u5wtwa" path="res://Prefabs/UI/transition.gd" id="9_f5urv"]
 [ext_resource type="Script" uid="uid://dr81xdqcutnel" path="res://Prefabs/UI/on_screen_text.gd" id="10_0i7dx"]
+[ext_resource type="Script" uid="uid://cniaajei4317w" path="res://Prefabs/UI/main_menu.gd" id="11_oh086"]
 [ext_resource type="Script" uid="uid://dn8v6kws28uv5" path="res://Prefabs/UI/controls_panel.gd" id="11_uycg4"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_lsael"]
@@ -141,6 +142,7 @@ Transition = NodePath("Transition")
 OnScreenText = NodePath("On-ScreenText")
 
 [node name="HUD" type="MarginContainer" parent="." node_paths=PackedStringArray("health_bar", "power", "current_character", "inventory_slots", "hud_container", "char_info", "char_inventory", "char_preview")]
+visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -1088,6 +1090,46 @@ size_flags_horizontal = 4
 text = " -  Destroy  enemy  robots  to  get  heals  and  permanent  upgrades."
 label_settings = SubResource("LabelSettings_htyr3")
 autowrap_mode = 3
+
+[node name="MainMenu" type="MarginContainer" parent="." node_paths=PackedStringArray("press_play")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_bottom = 40
+script = ExtResource("11_oh086")
+press_play = NodePath("VBoxContainer/SPACE")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainMenu"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme_override_constants/separation = 15
+
+[node name="SPACE" type="Label" parent="MainMenu/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme_override_fonts/font = ExtResource("7_ck6j7")
+theme_override_font_sizes/font_size = 32
+text = "Press  SPACE  to  start"
+
+[node name="H" type="Label" parent="MainMenu/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme_override_fonts/font = ExtResource("7_ck6j7")
+theme_override_font_sizes/font_size = 16
+text = "Press  H  to  open  the  help  guide"
+
+[node name="ESC" type="Label" parent="MainMenu/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme_override_fonts/font = ExtResource("7_ck6j7")
+theme_override_font_sizes/font_size = 16
+text = "Press  ESC  to  exit"
 
 [connection signal="pressed" from="Pop-Up/Content/ExitButton/Exit" to="Pop-Up" method="_on_exit_pressed"]
 [connection signal="pressed" from="Help/ExitButton/Exit" to="Help" method="_on_exit_pressed"]
