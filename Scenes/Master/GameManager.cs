@@ -210,7 +210,7 @@ public partial class GameManager : Node2D {
             await Instance.ToSignal(Instance.GetTree().CreateTimer(4.0), "timeout");
 
             ResetGame();
-            SceneLoader.UnloadLevel(true); // Back to main menu
+            SceneLoader.LoadLevel(0);
             return;
         }
     }
