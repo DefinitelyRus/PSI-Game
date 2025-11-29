@@ -15,9 +15,10 @@ config/version="1.2.0"
 run/main_scene="uid://d3cvhjbvnx1a1"
 config/features=PackedStringArray("4.5", "C#", "Mobile")
 run/max_fps=120
-boot_splash/bg_color=Color(0.1254902, 0.1254902, 0.1254902, 1)
-boot_splash/image="uid://dpievhnfao2mw"
+boot_splash/bg_color=Color(0, 0, 0, 1)
+boot_splash/image="uid://c24eeqgboxhi3"
 config/icon="uid://b0am7xcokepsp"
+boot_splash/minimum_display_time=2000
 
 [display]
 

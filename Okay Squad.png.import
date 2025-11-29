@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dpievhnfao2mw"
-path="res://.godot/imported/Pixel Peeping Party.png-8e9a34e94a7f4e9ef061c1aa24322d78.ctex"
+uid="uid://c24eeqgboxhi3"
+path="res://.godot/imported/Okay Squad.png-5b03b541b4dd475667a05ae6caa15444.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Pixel Peeping Party.png"
-dest_files=["res://.godot/imported/Pixel Peeping Party.png-8e9a34e94a7f4e9ef061c1aa24322d78.ctex"]
+source_file="res://Okay Squad.png"
+dest_files=["res://.godot/imported/Okay Squad.png-5b03b541b4dd475667a05ae6caa15444.ctex"]
 
 [params]
 
