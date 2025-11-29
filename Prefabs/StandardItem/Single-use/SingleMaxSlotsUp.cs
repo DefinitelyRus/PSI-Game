@@ -11,7 +11,7 @@ public partial class SingleMaxSlotsUp : UpgradeItem {
         }
 
         OwnerCharacter.UpgradeManager.CurrentMaxSlots += 1;
-        AudioManager.StreamAudio("max_slots_up", 0.8f);
+        AudioManager.StreamAudio("max_slots_up", volume: 0.8f);
         if (UIManager.SelectedCharacter == OwnerCharacter)
             UIManager.SetOpenSlots(OwnerCharacter.UpgradeManager.CurrentMaxSlots);
 

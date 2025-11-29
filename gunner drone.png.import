@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dpievhnfao2mw"
-path="res://.godot/imported/Pixel Peeping Party.png-8e9a34e94a7f4e9ef061c1aa24322d78.ctex"
+uid="uid://bjifhfqckcntx"
+path="res://.godot/imported/gunner drone.png-fa2854993d154e98c8b6dece9f3d4bf2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Pixel Peeping Party.png"
-dest_files=["res://.godot/imported/Pixel Peeping Party.png-8e9a34e94a7f4e9ef061c1aa24322d78.ctex"]
+source_file="res://gunner drone.png"
+dest_files=["res://.godot/imported/gunner drone.png-fa2854993d154e98c8b6dece9f3d4bf2.ctex"]
 
 [params]
 

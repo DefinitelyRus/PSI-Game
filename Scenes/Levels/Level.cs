@@ -289,8 +289,8 @@ public partial class Level : Node2D {
 
 		AIDirector.CurrentLevel = this;
 
-		if (BackgroundMusic != null) AudioManager.StreamAudio(BackgroundMusic, "BackgroundMusic");
-		if (AmbientAudio != null) AudioManager.StreamAudio(AmbientAudio, "AmbientAudio", 0.2f);
+		if (BackgroundMusic != null) AudioManager.StreamAudio(BackgroundMusic, "BackgroundMusic", AudioManager.AudioChannels.Music);
+		if (AmbientAudio != null) AudioManager.StreamAudio(AmbientAudio, "AmbientAudio", AudioManager.AudioChannels.Ambient, 0.3f);
 
 		if (CameraNodePaths.Length != 0) {
 			CameraMan.SetCameraPath(CameraNodePaths);

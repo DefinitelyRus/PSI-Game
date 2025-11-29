@@ -2490,9 +2490,9 @@ size = Vector2(139, 69)
 size = Vector2(144, 39)
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_s4xl0"]
-vertices = PackedVector2Array(312, 6.2421875, 312, 182, 264, 182, 264, 57, 271.0625, -3.9765625, 188.14063, -3.0234375, 168.65625, 8, 24, 58.171875, 24, 8, 41.6875, 57, 38.21875, 60.453125)
+vertices = PackedVector2Array(312, 6.2421875, 312, 182, 264, 182, 264, 47.648438, 271.0625, -3.9765625, 188.14063, -3.0234375, 168.65625, 8, 24, 58.171875, 24, 8, 41.546875, 57.140625, 38.21875, 60.453125)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3, 4), PackedInt32Array(5, 4, 3, 6), PackedInt32Array(7, 8, 6, 9), PackedInt32Array(6, 3, 9), PackedInt32Array(7, 9, 10)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(16, 0, 166.5527, 0, 186, -11, 272, -12, 320, 0, 320, 190, 256, 190, 256, 65, 45, 65, 41, 69, 16, 65)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(16, 0, 166.5527, 0, 186, -11, 272, -12, 320, 0, 320, 190, 256, 190, 256, 56, 45, 65, 41, 69, 16, 65)])
 agent_radius = 8.0
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_k1ua6"]
@@ -2637,7 +2637,7 @@ LevelTimeLimit = 480.0
 BaseBudget = 1000
 StaticEnemyTypes = [ExtResource("2_hi47n"), ExtResource("4_xpc51"), ExtResource("5_cq3cu"), ExtResource("6_41anr"), ExtResource("6_d2dtn"), ExtResource("8_h0ldu")]
 DynamicEnemyTypes = [ExtResource("8_h0ldu"), ExtResource("6_d2dtn"), ExtResource("6_41anr"), ExtResource("5_cq3cu"), ExtResource("4_xpc51"), ExtResource("2_hi47n")]
-EnemyStaticSpawningDelayMultiplier = 0.5
+EnemyStaticSpawningDelayMultiplier = 0.7
 
 [node name="Unit Spawns" parent="." index="0"]
 position = Vector2(89, 14)

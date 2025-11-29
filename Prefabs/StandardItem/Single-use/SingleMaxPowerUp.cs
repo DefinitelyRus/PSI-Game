@@ -10,7 +10,7 @@ public partial class SingleMaxPowerUp : UpgradeItem {
             return null;
         }
     OwnerCharacter.UpgradeManager.CurrentMaxPower += 1;
-    AudioManager.StreamAudio("max_power_up", 0.8f);
+    AudioManager.StreamAudio("max_power_up", volume: 0.8f);
 
     int currentPowered = OwnerCharacter.UpgradeManager.CurrentPower;
     int newMax = OwnerCharacter.UpgradeManager.CurrentMaxPower;

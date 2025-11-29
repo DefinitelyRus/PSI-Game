@@ -478,7 +478,7 @@ collision_mask = 13
 script = ExtResource("2_rfyjh")
 DropRate = 1.0
 StaticSpawnWeight = 5
-DelayAfterSpawn = 3.0
+DelayAfterSpawn = 5.0
 DynamicSpawnCost = 200
 EnemyType = 2
 DeathCameraShakeIntensity = 0.6
@@ -497,7 +497,7 @@ BaseDamage = 15.0
 [node name="AI Targeting Manager" parent="." index="2"]
 TargetDetectionRadius = 180.0
 TargetLostRadius = 240.0
-TurnRate = 180.0
+TurnRate = 90.0
 
 [node name="Body Collider" parent="." index="4"]
 position = Vector2(0, 7)

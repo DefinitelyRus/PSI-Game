@@ -48,10 +48,10 @@ public partial class SceneLoader : Node
             return;
         }
 
-        if (MainMenu == null) {
-            Log.Err(() => "MainMenu is not assigned. Cannot proceed.");
-            return;
-        }
+        // if (MainMenu == null) {
+        //     Log.Err(() => "MainMenu is not assigned. Cannot proceed.");
+        //     return;
+        // }
 
         #endregion
 

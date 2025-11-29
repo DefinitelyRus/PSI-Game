@@ -38,8 +38,8 @@ public partial class ObjectiveL4EnterElevator : StandardPanel {
             return;
         }
 
-        // Check if the time has more than 10 seconds left.
-    if (GameManager.TimeRemaining > 10.0) {
+        // Check if the time has more than 25 seconds left.
+        if (GameManager.TimeRemaining > 25.0) {
             if (_promptTimer <= 0f) {
                 UIManager.SetBottomOverlayText("The elevator's coming down...", 2.2f);
                 Log.Me(() => $"{character.CharacterName} tried to access the elevator but there is still time left on the charge.");
@@ -56,7 +56,7 @@ public partial class ObjectiveL4EnterElevator : StandardPanel {
             if (!isAtLocation) return;
         }
         
-    await CompleteAndExitAsync(character);
+        await CompleteAndExitAsync(character);
     }
 
 	public override void _Process(double delta) {
@@ -69,8 +69,8 @@ public partial class ObjectiveL4EnterElevator : StandardPanel {
     }
 
     public async void TryAutoCompleteAtFinalCountdown() {
-        // Only auto-complete if we are in the last 10 seconds
-        if (GameManager.TimeRemaining > 10.0) return;
+        // Only auto-complete if we are in the last 25 seconds
+        if (GameManager.TimeRemaining > 25.0) return;
 
         // Ensure all alive units are at the elevator
         foreach (StandardCharacter unit in Commander.GetAllUnits()) {
@@ -95,8 +95,8 @@ public partial class ObjectiveL4EnterElevator : StandardPanel {
         DataManager.RecordPanelInteraction(this, character, extra);
         Log.Me(() => $"All units have entered the elevator!");
 
-    // Count this final extraction as a required objective completion for pacing.
-    AIDirector.RegisterRequiredObjectiveCompletion();
+        // Count this final extraction as a required objective completion for pacing.
+        AIDirector.RegisterRequiredObjectiveCompletion();
 
         // Disable panel after interaction
         IsEnabled = false;

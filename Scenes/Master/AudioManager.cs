@@ -68,7 +68,7 @@ public partial class AudioManager : Node2D {
 	/// <summary>
 	/// Searches the SFX Library for a sound effect by name and plays it.
 	/// </summary>
-	public static AudioStreamPlayer? StreamAudio(string sfxName, float volume = 1f) {
+	public static AudioStreamPlayer? StreamAudio(string sfxName, AudioChannels channel = AudioChannels.SFX, float volume = 1f) {
 		if (!Instance.SFXLibrary.TryGetValue(sfxName, out AudioStream? stream)) {
 			Log.Warn(() => $"SFX '{sfxName}' not found in SFX Library!", true, true);
 			return null;
@@ -78,33 +78,41 @@ public partial class AudioManager : Node2D {
 		int suffix = rng.RandiRange(0, 99999);
 		string id = $"{sfxName}#{suffix:D5}";
 
-		return StreamAudio(stream, id, volume);
+		return StreamAudio(stream, id, channel, volume);
 	}
 
 
 	/// <summary>
 	/// Plays an audio stream.
 	/// </summary>
-	public static AudioStreamPlayer StreamAudio(AudioStream stream, string? uniqueName = null, float volume = 1f) {
+	public static AudioStreamPlayer StreamAudio(AudioStream stream, string? uniqueName = null, AudioChannels channel = AudioChannels.SFX, float volume = 1f) {
 		uniqueName ??= Guid.NewGuid().ToString();
 
-		AudioStreamPlayer musicPlayer = new() {
+		volume = channel switch {
+			AudioChannels.Master => volume * Instance.UniversalVolume,
+			AudioChannels.Music => volume * Instance.UniversalVolume * Instance.MusicVolume,
+			AudioChannels.SFX => volume * Instance.UniversalVolume * Instance.SFXVolume,
+			AudioChannels.Ambient => volume * Instance.UniversalVolume * Instance.AmbientVolume,
+			_ => volume * Instance.UniversalVolume
+		};
+
+		AudioStreamPlayer audioPlayer = new() {
 			Name = uniqueName,
 			Stream = stream,
-			VolumeLinear = volume * Instance.MusicVolume,
+			VolumeLinear = volume,
 			Autoplay = false
 		};
 
-		Instance.AudioStreams.Add(musicPlayer);
-		Instance.AddChild(musicPlayer);
+		Instance.AudioStreams.Add(audioPlayer);
+		Instance.AddChild(audioPlayer);
 
-		musicPlayer.Finished += () => {
-			Instance.AudioStreams.Remove(musicPlayer);
-			musicPlayer.QueueFree();
+		audioPlayer.Finished += () => {
+			Instance.AudioStreams.Remove(audioPlayer);
+			audioPlayer.QueueFree();
 		};
 
-		musicPlayer.Play();
-		return musicPlayer;
+		audioPlayer.Play();
+		return audioPlayer;
 	}
 
 

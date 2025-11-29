@@ -21,7 +21,7 @@ public partial class GameManager : Node2D {
         }
 
         Instance = this;
-    DataManager.RecordGameStart();
+        DataManager.RecordGameStart();
     }
 
 	public override void _Process(double delta) {
@@ -58,7 +58,7 @@ public partial class GameManager : Node2D {
 
     #region Game Data Management
 
-    public static System.Collections.Generic.Dictionary<string, Data> GameData { get; private set; } = [];
+    public static Dictionary<string, Data> GameData { get; private set; } = [];
 
 
     public static Variant? GetGameData(string key, string? ownerID) {
@@ -173,6 +173,7 @@ public partial class GameManager : Node2D {
         DataManager.RecordLevelCompletion(level);
 
         UIManager.StartTransition("Mission Complete");
+        TimeRemaining = double.MaxValue;
         await Instance.ToSignal(Instance.GetTree().CreateTimer(3.0), "timeout");
 
         ResetGame();
@@ -194,8 +195,6 @@ public partial class GameManager : Node2D {
             timesUp = TimeRemaining <= 0 && !ManualTimerCheck;
         }
 
-        if (TimeRemaining % 10 <= 0.01 && TimeRemaining < 14400) Log.Me(() => $"Time Remaining: {TimeRemaining:F2}s");
-
         bool allDead = !Commander.GetAllUnits().Where(u => u.IsAlive).Any();
 
         if (allDead || timesUp || loseOverride) {
@@ -212,7 +211,7 @@ public partial class GameManager : Node2D {
             await Instance.ToSignal(Instance.GetTree().CreateTimer(4.0), "timeout");
 
             ResetGame();
-            SceneLoader.UnloadLevel(true); // Back to main menu
+            SceneLoader.LoadLevel(0);
             return;
         }
     }
