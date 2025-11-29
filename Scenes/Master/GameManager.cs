@@ -173,6 +173,7 @@ public partial class GameManager : Node2D {
         DataManager.RecordLevelCompletion(level);
 
         UIManager.StartTransition("Mission Complete");
+        TimeRemaining = double.MaxValue;
         await Instance.ToSignal(Instance.GetTree().CreateTimer(3.0), "timeout");
 
         ResetGame();
