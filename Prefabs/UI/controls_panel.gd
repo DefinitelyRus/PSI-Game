@@ -14,6 +14,11 @@ extends MarginContainer
 @export var item_controls_button: Button
 @export var item_controls_panel: MarginContainer
 
+# ---------- HELP PANEL ----------
+## Enable the help panel
+func enable_help_panel() -> void:
+	controls_panel.visible = true
+
 # ---------- UI MANAGER ----------
 func set_visibility(target: int, visibility: bool) -> void:
 	match target:
