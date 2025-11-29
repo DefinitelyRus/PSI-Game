@@ -13,7 +13,7 @@ public partial class SingleHeal : UpgradeItem {
         }
 
         OwnerCharacter.Heal(HealAmount);
-        AudioManager.StreamAudio("heal", 0.8f);
+        AudioManager.StreamAudio("heal", volume: 0.8f);
         QueueFree();
         return null;
     }

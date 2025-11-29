@@ -47,8 +47,8 @@ public partial class ObjectivePlantCharge : StandardPanel {
         UIManager.SetBottomOverlayText($"Good luck.", 3f);
         Log.Me(() => $"{character.CharacterName} has planted the charge at the datacenter!");
 
-    if (MusicOnPlant != null) AudioManager.StreamAudio(MusicOnPlant);
-    GameManager.SetGameData("L4_ChargePlanted", null, true);
+        if (MusicOnPlant != null) AudioManager.StreamAudio(MusicOnPlant, "L4_Music", AudioManager.AudioChannels.Music, 1.2f);
+        GameManager.SetGameData("L4_ChargePlanted", null, true);
 
         // Register this critical step as a required objective completion for pacing.
         AIDirector.RegisterRequiredObjectiveCompletion();

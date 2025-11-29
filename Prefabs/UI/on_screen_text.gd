@@ -42,7 +42,7 @@ func show_center_text(text: String, duration: float = 2.0) -> void:
 		if master_node:
 			var audio_manager: Node2D = master_node.get_node("Audio Manager")
 			if audio_manager:
-				audio_manager.call("StreamAudio", "text_tick", 1)
+				audio_manager.call("StreamAudio", "text_tick", 2, 1)
 				pass
 			pass
 
@@ -83,7 +83,7 @@ func show_subtitle(text: String, duration: float = 2.0) -> void:
 	if master_node:
 		var audio_manager: Node2D = master_node.get_node("Audio Manager")
 		if audio_manager:
-			audio_manager.call("StreamAudio", "text_tick", 1)
+			audio_manager.call("StreamAudio", "text_tick", 2, 1)
 			pass
 		pass
 	

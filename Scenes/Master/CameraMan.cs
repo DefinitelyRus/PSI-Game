@@ -273,7 +273,7 @@ public partial class CameraMan : Node2D {
                 float maxDistanceAdjusted = Instance.SetTargetSFXMaxDistance - Instance.SetTargetSFXMinDistance;
 
                 float volumeScale = Math.Clamp(minDistanceAdjusted / maxDistanceAdjusted, 0f, 1f);
-                AudioManager.StreamAudio("camera_whoosh", volumeScale);
+                AudioManager.StreamAudio("camera_whoosh", volume: volumeScale);
             }
         }
     }

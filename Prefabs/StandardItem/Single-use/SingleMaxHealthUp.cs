@@ -14,7 +14,7 @@ public partial class SingleMaxHealthUp : UpgradeItem {
 
         OwnerCharacter.CurrentMaxHealth += IncreaseAmount;
         OwnerCharacter.Heal(IncreaseAmount);
-        AudioManager.StreamAudio("max_health_up", 0.8f);
+        AudioManager.StreamAudio("max_health_up", volume: 0.8f);
         QueueFree();
         UIManager.SetBottomOverlayText("Increased max health!", 2f);
         return null;

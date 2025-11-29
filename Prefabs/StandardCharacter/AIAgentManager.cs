@@ -170,7 +170,7 @@ public partial class AIAgentManager : Node2D {
 
 		if (isUnit) {
 			UIManager.SpawnIndicator(Character, target);
-			AudioManager.StreamAudio("move_command");
+			AudioManager.StreamAudio("move_command", AudioManager.AudioChannels.SFX);
 		}
 
 		return true;
