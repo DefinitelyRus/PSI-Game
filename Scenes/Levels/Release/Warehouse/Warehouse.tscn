@@ -2637,7 +2637,7 @@ LevelTimeLimit = 480.0
 BaseBudget = 1000
 StaticEnemyTypes = [ExtResource("2_hi47n"), ExtResource("4_xpc51"), ExtResource("5_cq3cu"), ExtResource("6_41anr"), ExtResource("6_d2dtn"), ExtResource("8_h0ldu")]
 DynamicEnemyTypes = [ExtResource("8_h0ldu"), ExtResource("6_d2dtn"), ExtResource("6_41anr"), ExtResource("5_cq3cu"), ExtResource("4_xpc51"), ExtResource("2_hi47n")]
-EnemyStaticSpawningDelayMultiplier = 0.5
+EnemyStaticSpawningDelayMultiplier = 0.7
 
 [node name="Unit Spawns" parent="." index="0"]
 position = Vector2(89, 14)
