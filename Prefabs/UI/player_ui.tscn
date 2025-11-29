@@ -284,7 +284,7 @@ size_flags_horizontal = 8
 size_flags_vertical = 8
 theme_override_fonts/font = ExtResource("7_ck6j7")
 theme_override_font_sizes/font_size = 16
-text = "1"
+text = "Z"
 
 [node name="Panel" type="Panel" parent="HUD/Left-Info/Inventory/InvSlot1/MarginContainer"]
 custom_minimum_size = Vector2(35, 35)
@@ -321,7 +321,7 @@ size_flags_horizontal = 8
 size_flags_vertical = 8
 theme_override_fonts/font = ExtResource("7_ck6j7")
 theme_override_font_sizes/font_size = 16
-text = "2"
+text = "X"
 
 [node name="Panel" type="Panel" parent="HUD/Left-Info/Inventory/InvSlot2/MarginContainer"]
 custom_minimum_size = Vector2(35, 35)
@@ -358,7 +358,7 @@ size_flags_horizontal = 8
 size_flags_vertical = 8
 theme_override_fonts/font = ExtResource("7_ck6j7")
 theme_override_font_sizes/font_size = 16
-text = "3"
+text = "C"
 
 [node name="Panel" type="Panel" parent="HUD/Left-Info/Inventory/InvSlot3/MarginContainer"]
 custom_minimum_size = Vector2(35, 35)
@@ -368,6 +368,7 @@ size_flags_vertical = 4
 theme_override_styles/panel = SubResource("StyleBoxFlat_uycg4")
 
 [node name="InvSlot4" type="Button" parent="HUD/Left-Info/Inventory"]
+visible = false
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 focus_mode = 0
@@ -375,6 +376,7 @@ theme_override_styles/normal = SubResource("StyleBoxTexture_8ncxl")
 theme_override_styles/disabled = SubResource("StyleBoxTexture_i8vns")
 
 [node name="MarginContainer" type="MarginContainer" parent="HUD/Left-Info/Inventory/InvSlot4"]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -389,6 +391,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Label" type="Label" parent="HUD/Left-Info/Inventory/InvSlot4/MarginContainer"]
+visible = false
 z_index = 1
 layout_mode = 2
 size_flags_horizontal = 8
@@ -398,6 +401,7 @@ theme_override_font_sizes/font_size = 16
 text = "4"
 
 [node name="Panel" type="Panel" parent="HUD/Left-Info/Inventory/InvSlot4/MarginContainer"]
+visible = false
 custom_minimum_size = Vector2(35, 35)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -405,6 +409,7 @@ size_flags_vertical = 4
 theme_override_styles/panel = SubResource("StyleBoxFlat_uycg4")
 
 [node name="InvSlot5" type="Button" parent="HUD/Left-Info/Inventory"]
+visible = false
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 focus_mode = 0
@@ -412,6 +417,7 @@ theme_override_styles/normal = SubResource("StyleBoxTexture_m631n")
 theme_override_styles/disabled = SubResource("StyleBoxTexture_i8vns")
 
 [node name="MarginContainer" type="MarginContainer" parent="HUD/Left-Info/Inventory/InvSlot5"]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -426,6 +432,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Label" type="Label" parent="HUD/Left-Info/Inventory/InvSlot5/MarginContainer"]
+visible = false
 z_index = 1
 layout_mode = 2
 size_flags_horizontal = 8
@@ -435,6 +442,7 @@ theme_override_font_sizes/font_size = 16
 text = "5"
 
 [node name="Panel" type="Panel" parent="HUD/Left-Info/Inventory/InvSlot5/MarginContainer"]
+visible = false
 custom_minimum_size = Vector2(35, 35)
 layout_mode = 2
 size_flags_horizontal = 4
