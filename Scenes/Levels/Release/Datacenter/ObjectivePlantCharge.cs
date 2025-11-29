@@ -17,8 +17,8 @@ public partial class ObjectivePlantCharge : StandardPanel {
         Variant? alreadyActivated = GameManager.GetGameData("L4_ChargePlanted", null);
         if (alreadyActivated != null) return;
 
-    // Append the interacting character as the final camera target if a path is provided
-    if (CameraNodes.Length > 0) CameraNodes[^1] = character;
+        // Append the interacting character as the final camera target if a path is provided
+        if (CameraNodes.Length > 0) CameraNodes[^1] = character;
 
         if (CameraNodes.Length > 0) CameraMan.SetTarget(CameraNodes[^1]);
 
@@ -32,7 +32,7 @@ public partial class ObjectivePlantCharge : StandardPanel {
 
         if (ActivationSound != null) AudioManager.StreamAudio(ActivationSound);
 
-    if (CameraNodes.Length > 0) CameraMan.SetCameraPath(CameraNodes);
+        if (CameraNodes.Length > 0) CameraMan.SetCameraPath(CameraNodes);
 
         UIManager.SetBottomOverlayText($"Install the power virus...", 2f);
 
@@ -50,8 +50,8 @@ public partial class ObjectivePlantCharge : StandardPanel {
     if (MusicOnPlant != null) AudioManager.StreamAudio(MusicOnPlant);
     GameManager.SetGameData("L4_ChargePlanted", null, true);
 
-    // Register this critical step as a required objective completion for pacing.
-    AIDirector.RegisterRequiredObjectiveCompletion();
+        // Register this critical step as a required objective completion for pacing.
+        AIDirector.RegisterRequiredObjectiveCompletion();
 
         // Wait until the cinematic camera path has fully completed before starting the timer
         while (CameraMan.IsPathActive) {
@@ -87,11 +87,8 @@ public partial class ObjectivePlantCharge : StandardPanel {
 
         // At 10s remaining try to auto-complete if units are in position
         if (t > 10.0) {
-            if (t > 25.0) {
-                await ToSignal(GetTree().CreateTimer(15f), "timeout"); // from 25 -> 10
-            } else {
-                await ToSignal(GetTree().CreateTimer((float)(t - 10.0)), "timeout");
-            }
+            if (t > 25.0) await ToSignal(GetTree().CreateTimer(15f), "timeout");
+            else await ToSignal(GetTree().CreateTimer((float)(t - 10.0)), "timeout");
             ElevatorObjective?.TryAutoCompleteAtFinalCountdown();
         }
     }

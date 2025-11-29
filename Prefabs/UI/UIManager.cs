@@ -95,9 +95,9 @@ public partial class UIManager : CanvasLayer {
 			SelectedCharacter.UpgradeManager.RefreshInventoryUI();
 		}
 
-	// Timer is visible only when UI is enabled, HUD is visible, and a level timer is active
-	bool shouldShowTimer = enable && HUD.Visible && GameManager.TimeRemaining < double.MaxValue;
-	SetTimerEnabled(shouldShowTimer);
+		// Timer is visible only when UI is enabled, HUD is visible, and a level timer is active
+		bool shouldShowTimer = enable && HUD.Visible && GameManager.TimeRemaining < double.MaxValue;
+		SetTimerEnabled(shouldShowTimer);
 	}
 
 	#region Popup
