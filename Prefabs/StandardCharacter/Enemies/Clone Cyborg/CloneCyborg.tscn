@@ -174,14 +174,14 @@ collision_mask = 13
 script = ExtResource("2_7st76")
 DropRate = 0.2
 StaticSpawnWeight = 40
-DelayAfterSpawn = 5.0
+DelayAfterSpawn = 2.5
 DynamicSpawnCost = 30
 EnemyType = 3
 DeathCameraShakeIntensity = 0.4
 CharacterName = "Clone Cyborg"
 CharacterID = "clone_cyborg"
 MaxHealth = 400.0
-MaxSpeed = 24.0
+MaxSpeed = 32.0
 Tags = PackedStringArray("Enemy")
 DespawnAfterAnimation = true
 Weapon = NodePath("Cyborg Gun")
@@ -193,6 +193,7 @@ BaseDamage = 30.0
 [node name="AI Targeting Manager" parent="." index="2"]
 TargetDetectionRadius = 80.0
 TargetLostRadius = 240.0
+CurrentTargetMode = 3
 TurnRate = 36000.0
 
 [node name="Body Collider" parent="." index="4"]

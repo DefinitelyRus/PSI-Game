@@ -256,6 +256,7 @@ AttackOriginType = 0
 TargetDetectionRadius = 120.0
 TargetLostRadius = 240.0
 TargetSwitchCooldown = 0.0
+TurnRate = 3600.0
 
 [node name="Audio Controller" parent="." index="8"]
 AudioClips = Dictionary[String, AudioStream]({
