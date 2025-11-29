@@ -42,6 +42,8 @@ InputManager = NodePath("Input Manager")
 
 [node name="Audio Manager" type="Node2D" parent="."]
 script = ExtResource("2_m6dx2")
+SFXVolume = 0.8
+MusicVolume = 0.4
 SFXLibrary = Dictionary[String, AudioStream]({
 "camera_whoosh": ExtResource("4_xd8m4"),
 "error": ExtResource("6_r8204"),
