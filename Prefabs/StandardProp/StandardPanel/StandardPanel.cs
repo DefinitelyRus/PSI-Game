@@ -159,19 +159,19 @@ public partial class StandardPanel : StandardProp {
 		return null;
 	}
 
-	public static Vector2? GetNavigablePosition(StandardCharacter unit, StandardPanel panel) {
+	public override Vector2? GetNavigablePosition(StandardCharacter unit) {
 		NavigationAgent2D agent = unit.AIAgent.NavAgent;
-		Vector2 panelPos = panel.GlobalPosition;
+		Vector2 panelPos = GlobalPosition;
 		RandomNumberGenerator rng = new();
 		Vector2 currentUnitTargetPos = agent.TargetPosition;
 		int attemptCountRemaining = 10;
 		
 
-		switch (panel.ActivationMethod) {
+		switch (ActivationMethod) {
 			// Try to get a position 
 			case ActivationMethods.Radius:
 				// Try to get a random point within the activation radius
-				float radius = panel.ActivationRadius;
+				float radius = ActivationRadius;
 
 				GetRandomPointInRadius:
 
@@ -198,7 +198,7 @@ public partial class StandardPanel : StandardProp {
 				else break;
 
 			case ActivationMethods.Area:
-				Area2D activationArea = panel.ActivationArea;
+				Area2D activationArea = ActivationArea;
 				CollisionShape2D shapeNode = activationArea.GetNode<CollisionShape2D>("CollisionShape2D");
 				Shape2D shape = shapeNode.Shape;
 				Vector2 shapePos = shapeNode.GlobalPosition; // Centered
@@ -229,7 +229,7 @@ public partial class StandardPanel : StandardProp {
 				else break;
 		}
 
-		Log.Me(() => $"Unable to find navigable target position for {unit.InstanceID} to reach panel {panel.InstanceID}.");
+		Log.Me(() => $"Unable to find navigable target position for {unit.InstanceID} to reach panel {InstanceID}.");
 		return null;
     }
 }

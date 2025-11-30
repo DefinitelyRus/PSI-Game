@@ -319,13 +319,19 @@ public partial class Commander : Node {
 		foreach (StandardCharacter unit in GetSelectedUnits()) {
 			Vector2 position = mousePos;
 
+			Log.Me(() => $"{unit.InstanceID} processing MoveAndSearch at position ({position.X:F2}, {position.Y:F2}).");
+
 			// Check if pointing at an objective panel
 			if (EntityManager.HasEntityAtPosition(mousePos, out var entity)) {
-				if (entity is not StandardPanel panel) continue;
-
-				Vector2? targetPos = StandardPanel.GetNavigablePosition(unit, panel);
+				if (entity is not StandardProp prop) goto MoveUnit;
+				
+				Vector2? targetPos = prop.GetNavigablePosition(unit);
 				if (targetPos != null) position = targetPos.Value;
 			}
+
+			MoveUnit:
+
+			Log.Me(() => $"{unit.InstanceID} moving to position ({position.X:F2}, {position.Y:F2}).");
 			
 			// Randomize position slightly if more than one unit is selected
 			if (GetSelectedUnits().Count() > 1) {
@@ -334,6 +340,8 @@ public partial class Commander : Node {
 				
 				position = new(position.X + offset.X, position.Y + offset.Y);
 			}
+
+			Log.Me(() => $"{unit.InstanceID} final target position ({position.X:F2}, {position.Y:F2}).");
 
 			AIAgentManager agent = unit.AIAgent;
 			agent.Action1(position);
