@@ -24,6 +24,24 @@ public partial class StandardEnemy : StandardCharacter {
     [ExportGroup("Camera Shake")]
     [Export] public float DeathCameraShakeIntensity = 0.7f;
 
+    #endregion
+
+    #region Idle Despawn
+
+    [ExportGroup("Idle Despawn")]
+    [Export] public float IdleDespawnSeconds = 45f;
+
+    private double _secondsSinceLastUnitAttack = 0.0;
+
+    /// <summary>
+    /// Call this when this enemy successfully damages a Unit (player-controlled unit).
+    /// Resets the idle despawn timer.
+    /// </summary>
+    public void RegisterUnitAttack()
+    {
+        _secondsSinceLastUnitAttack = 0.0;
+    }
+
 
 	public override void Kill() {
         if (!IsAlive) return;
@@ -57,6 +75,16 @@ public partial class StandardEnemy : StandardCharacter {
 	}
 
 	public override void _Process(double delta) {
+        // If alive, tick idle-despawn timer and kill if exceeded.
+        if (IsAlive && IdleDespawnSeconds > 0f)
+        {
+            _secondsSinceLastUnitAttack += delta;
+            if (_secondsSinceLastUnitAttack >= IdleDespawnSeconds)
+            {
+                Kill();
+                return;
+            }
+        }
         // Flip sprite based on movement direction
         if (Velocity.X != 0 && !Tags.Contains("Unit")) {
             Sprite.FlipH = Velocity.X < 0;
