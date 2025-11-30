@@ -28,6 +28,8 @@ public partial class Level : Node2D {
 	private int CurrentSpawnIndex = 0;
 	[Export] public double LevelTimeLimit = 600;
 	[Export] public uint BaseBudget = 150;
+	[Export] public int MinSpendBudget = 25;
+	[Export] public int MaxTotalBudget = 500;
 
 	#endregion
 
@@ -220,9 +222,7 @@ public partial class Level : Node2D {
 			prop.NavObstacle.SetNavigationMap(mapRid.Value);
 			prop.Reparent(newRegion, true);
 
-			if (prop is StandardPanel panel) {
-                EntityManager.RegisterEntity(panel);
-            }
+			EntityManager.RegisterEntity(prop);
 		}
 
 		// Bake navigation polygons for all regions

@@ -263,8 +263,9 @@ public partial class StandardProjectile : RigidBody2D
 			bool wasAlive = character.IsAlive;
 			character.TakeDamage(damage);
 			bool didKill = wasAlive && !character.IsAlive;
-			if (WeaponOwner is StandardEnemy && character.Tags.Contains("Unit")) {
+			if (WeaponOwner is StandardEnemy enemyOwner && character.Tags.Contains("Unit")) {
 				CombatAnalytics.Record(WeaponOwner, character, damage, didKill);
+				enemyOwner.RegisterUnitAttack();
 			}
 			QueueFree();
 		}

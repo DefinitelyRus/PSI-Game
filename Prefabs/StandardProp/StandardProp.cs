@@ -1,4 +1,5 @@
 using System;
+using System.Runtime.InteropServices.Marshalling;
 using Godot;
 namespace CommonScripts;
 
@@ -248,4 +249,34 @@ public partial class StandardProp : RigidBody2D {
 
 	#endregion
 
+	public virtual Vector2? GetNavigablePosition(StandardCharacter unit) {
+		NavigationAgent2D agent = unit.AIAgent.NavAgent;
+		RandomNumberGenerator rng = new();
+		Vector2 propPos = GlobalPosition;
+		Vector2 originalTargetPos = agent.TargetPosition;
+		Vector2? newPos = null;
+		
+		// Try up to 10 times to find a navigable position near the prop.
+		// Each attempt increases the radius by 16 pixels.
+		for (int attempt = 0; attempt < 10; attempt++) {
+			// Random angle and distance
+			float angle = rng.RandfRange(0, Mathf.Tau);
+			float distance = rng.RandfRange(0, attempt * 16);
+
+			Vector2 candidatePos = propPos + new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * distance;
+			bool canReach = unit.AIAgent.GoTo(candidatePos);
+
+			// Reset agent to original target
+			unit.AIAgent.GoTo(originalTargetPos);
+
+			Log.Me(() => $"Attempt {attempt + 1}: Checking candidate position ({candidatePos.X:F2}, {candidatePos.Y:F2}) - Can Reach: {canReach}");
+
+			if (canReach) {
+				newPos = candidatePos;
+				break;
+			}
+		}
+
+		return newPos;
+	}
 }

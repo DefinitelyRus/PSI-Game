@@ -7363,6 +7363,7 @@ BackgroundMusic = ExtResource("2_4n7bc")
 LevelIndex = 1
 LevelTimeLimit = 300.0
 BaseBudget = 350
+MinSpendBudget = 160
 StaticEnemyTypes = [ExtResource("3_1wk65"), ExtResource("4_hxry2")]
 DynamicEnemyTypes = [ExtResource("3_1wk65"), ExtResource("4_hxry2"), ExtResource("5_qrot0"), ExtResource("6_1xmfo"), ExtResource("7_0jgfv")]
 EnemyStaticSpawningDelayMultiplier = 0.7
@@ -8332,28 +8333,12 @@ HighlightSpeed = 0.5
 [node name="Spawn" type="Node2D" parent="Props/Optional Panels/L Table4" index="4"]
 position = Vector2(-76, 35)
 
-[node name="L Table5" parent="Props/Optional Panels" index="3" node_paths=PackedStringArray("ItemSpawnPoint") instance=ExtResource("7_tj6ml")]
-position = Vector2(1012, 451)
-script = ExtResource("25_43s4o")
-ItemSpawnPoint = NodePath("Spawn")
-ItemPacked = ExtResource("27_o1pal")
-ActivationRadius = 48
-ActivationSound = null
-PanelType = 0
-ActivationMethod = 0
-Activated = false
-IsEnabled = true
-HighlightSpeed = 0.5
-
-[node name="Spawn" type="Node2D" parent="Props/Optional Panels/L Table5" index="4"]
-position = Vector2(-76, 35)
-
-[node name="Cubicle Group S4" parent="Props/Optional Panels" index="4" node_paths=PackedStringArray("ItemSpawnPoint") instance=ExtResource("6_0jbu7")]
+[node name="Cubicle Group S4" parent="Props/Optional Panels" index="3" node_paths=PackedStringArray("ItemSpawnPoint") instance=ExtResource("6_0jbu7")]
 position = Vector2(501, 14)
 script = ExtResource("25_43s4o")
 ItemSpawnPoint = NodePath("Spawn")
 ItemPacked = ExtResource("28_rp3pd")
-ActivationRadius = 48
+ActivationRadius = 64
 ActivationSound = null
 PanelType = 0
 ActivationMethod = 0
