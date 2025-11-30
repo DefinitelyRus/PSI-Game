@@ -72,6 +72,10 @@ IndicatorNodeScene = ExtResource("16_0emmy")
 script = ExtResource("7_0hine")
 Mode = 1
 SpawnpointSelectionCount = 30
+TimeUntilNextWaveInstance = 10.0
+MinBudgetInstance = 100
+RangeMinDistanceInstance = 96.0
+PaceMaxOpmInstance = 4.0
 
 [node name="Entity Manager" type="Node2D" parent="."]
 script = ExtResource("5_0hine")
