@@ -25,6 +25,29 @@ public partial class AIAgentManager : Node2D {
 
 	#endregion
 
+	#region Enemy Retargeting
+
+	[ExportGroup("Enemy Retargeting")]
+	[Export] public float EnemyRetargetInterval = 2f;
+
+	private double _enemyRetargetTimer = 0d;
+
+	private void RetargetEnemy(double delta) {
+		if (Character.Tags.Contains("Unit")) return;
+		if (!Character.IsAlive) return;
+
+		_enemyRetargetTimer += delta;
+		if (_enemyRetargetTimer < EnemyRetargetInterval) return;
+		_enemyRetargetTimer = 0d;
+
+		var nearest = AIDirector.FindNearestPlayer(Character.GlobalPosition);
+		if (nearest == null || !IsInstanceValid(nearest)) return;
+
+		GoTo(nearest.GlobalPosition);
+	}
+
+	#endregion
+
 	#region Inputs
 
 	public Vector2 TargetPosition => NavAgent.TargetPosition;
@@ -339,6 +362,7 @@ public partial class AIAgentManager : Node2D {
 
 	public override void _PhysicsProcess(double delta) {
 		MoveTo();
+		RetargetEnemy(delta);
 	}
 
 	#endregion
