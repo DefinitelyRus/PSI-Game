@@ -127,6 +127,8 @@ public partial class UIManager : CanvasLayer {
 	private static bool _helpVisible = false;
 
 	public static async void ToggleHelp() {
+		Log.Me(() => $"Setting help visibility to {!_helpVisible}.");
+
 		// Hide help
 		if (_helpVisible) {
 			_helpVisible = false;
@@ -137,6 +139,10 @@ public partial class UIManager : CanvasLayer {
 			// Show main menu if no scene loaded
 			if (SceneLoader.Instance.LoadedScene == null) {
 				Menu.SetDeferred("visible", true);
+			}
+			
+			else {
+				HUD.SetDeferred("visible", true);
 			}
 		}
 
@@ -150,10 +156,13 @@ public partial class UIManager : CanvasLayer {
 				Menu.SetDeferred("visible", false);
 			}
 
+			else {
+                HUD.SetDeferred("visible", false);
+            }
+
 			await Instance.ToSignal(Instance.GetTree().CreateTimer(1.0f), "timeout");
 
 			Help.SetDeferred("visible", true);
-			Menu.SetDeferred("visible", false);
 			_helpVisible = true;
 		}
 	}

@@ -128,11 +128,6 @@ public partial class InputManager : Node2D {
 			return;
 		}
 
-		if (Input.IsActionJustPressed(Help)) {
-			UIManager.ToggleHelp();
-			return;
-		}
-
 		ReceiveCameraInputs();
 
 		// Only allow selection while controls are locked
