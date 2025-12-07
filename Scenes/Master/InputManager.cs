@@ -49,7 +49,12 @@ public partial class InputManager : Node2D {
 		// Main Menu Inputs
 		bool HasLoadedLevel = SceneLoader.Instance.LoadedScene is Level;
 		if (!HasLoadedLevel) {
-			if (Input.IsActionJustPressed(StartGame)) SceneLoader.LoadLevel(0);
+			if (Input.IsActionJustPressed(StartGame)) {
+				UIManager.Menu.SetDeferred("visible", false);
+				UIManager.Instance.CallDeferred("SetHUDVisible", true, -1);
+				UIManager.Instance.CallDeferred("SetHUDVisible", true, 0);
+				SceneLoader.Instance.CallDeferred("LoadLevel", 0);
+			}
 			return;
 		}
 
@@ -61,7 +66,7 @@ public partial class InputManager : Node2D {
 
 	public override void _Input(InputEvent @event) {
 		if (Master.IsPaused) return;
-		
+
 		if (Mode == InputModes.RTS) {
 			ReceiveCameraInputs(@event);
 		}
