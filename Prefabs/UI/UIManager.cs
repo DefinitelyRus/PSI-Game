@@ -53,8 +53,8 @@ public partial class UIManager : CanvasLayer {
 		SetItemIcon(0, (Texture2D)null!);
 		SetItemIcon(1, (Texture2D)null!);
 		SetItemIcon(2, (Texture2D)null!);
-		SetItemIcon(3, (Texture2D)null!);
-		SetItemIcon(4, (Texture2D)null!);
+		// SetItemIcon(3, (Texture2D)null!);
+		// SetItemIcon(4, (Texture2D)null!);
 
 		// Start with zero accessible slots until a character explicitly sets them
 		SetOpenSlots(0);
@@ -67,7 +67,6 @@ public partial class UIManager : CanvasLayer {
 	#region Static Members
 
 	public static UIManager Instance { get; private set; } = null!;
-	// Currently selected character whose data should drive HUD updates.
 	public static StandardCharacter? SelectedCharacter { get; private set; }
 
 	/// <summary>
