@@ -603,10 +603,14 @@ public partial class StandardCharacter : CharacterBody2D {
 	}
 
 	public override void _Process(double delta) {
+		if (Master.IsPaused) return;
+
 		UpdateAnimations();
 	}
 
 	public override void _PhysicsProcess(double delta) {
+		if (Master.IsPaused) return;
+
 		Move(delta);
 	}
 

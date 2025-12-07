@@ -41,12 +41,12 @@ public partial class ObjectiveL3EnterElevator : StandardPanel {
     }
 
 	public override void _Process(double delta) {
+        if (Master.IsPaused) return;
+
         ScanForPlayer();
         HighlightPanel(delta);
 
-        if (_promptTimer > 0f) {
-            _promptTimer -= (float) delta;
-        }
+        if (_promptTimer > 0f) _promptTimer -= (float) delta;
     }
 
 }

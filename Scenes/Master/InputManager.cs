@@ -30,7 +30,7 @@ public partial class InputManager : Node2D {
 	}
 
 	public override void _Process(double delta) {
-		
+
 		// Exit Game
 		if (Input.IsActionJustReleased(Cancel)) _exitHoldTimer = 0f;
 		if (Input.IsActionPressed(Cancel)) {

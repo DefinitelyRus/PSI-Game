@@ -307,6 +307,8 @@ public partial class AITargetingManager : Node2D {
     #region Godot Callbacks
 
     public override void _PhysicsProcess(double delta) {
+        if (Master.IsPaused) return;
+
         ScanForTargets(delta);
         UpdateAimDirection(delta);
         Attack();

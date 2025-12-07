@@ -51,10 +51,13 @@ public partial class ObjectiveEnterBuilding : StandardPanel {
     }
 
 	public override void _Process(double delta) {
+        if (Master.IsPaused) return;
+
         ScanForPlayer();
         HighlightPanel(delta);
-    if (_cameraPromptTimer > 0f) _cameraPromptTimer -= (float) delta;
-    if (_interactCooldownTimer > 0f) _interactCooldownTimer -= (float) delta;
+        
+        if (_cameraPromptTimer > 0f) _cameraPromptTimer -= (float) delta;
+        if (_interactCooldownTimer > 0f) _interactCooldownTimer -= (float) delta;
     }
 
 }

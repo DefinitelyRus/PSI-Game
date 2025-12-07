@@ -60,6 +60,8 @@ public partial class ObjectiveL4EnterElevator : StandardPanel {
     }
 
 	public override void _Process(double delta) {
+        if (Master.IsPaused) return;
+
         ScanForPlayer();
         HighlightPanel(delta);
 

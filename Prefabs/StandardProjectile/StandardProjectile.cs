@@ -327,6 +327,8 @@ public partial class StandardProjectile : RigidBody2D
 	}
 
 	public override void _Process(double delta) {
+		if (Master.IsPaused) return;
+
 		if (Lifespan <= 0f) {
 			QueueFree(); //TODO: Implement a proper deletion system.
 			return;
@@ -336,6 +338,8 @@ public partial class StandardProjectile : RigidBody2D
 	}
 
 	public override void _PhysicsProcess(double delta) {
+		if (Master.IsPaused) return;
+
 		switch (ForceType) {
 			case ForceTypes.Impulse: break; // Impulse is applied in _Ready().
 

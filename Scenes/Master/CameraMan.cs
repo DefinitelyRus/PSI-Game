@@ -89,6 +89,8 @@ public partial class CameraMan : Node2D {
     }
 
     public override void _Process(double delta) {
+        if (Master.IsPaused) return;
+
         FollowTarget(delta);
         ScanPathReached();
         ShakeDecay(delta);

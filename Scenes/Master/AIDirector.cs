@@ -60,7 +60,9 @@ public partial class AIDirector : Node2D {
 	}
 
     public override void _Process(double delta) {
-    if (CurrentLevel != null) LevelElapsedTime += (float)delta;
+        if (Master.IsPaused) return;
+
+        if (CurrentLevel != null) LevelElapsedTime += (float)delta;
     UpdatePerformanceMetrics(delta);
         switch (Mode) {
             case SpawnMode.Static:

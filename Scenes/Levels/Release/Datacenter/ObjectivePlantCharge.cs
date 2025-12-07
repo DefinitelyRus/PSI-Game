@@ -94,6 +94,8 @@ public partial class ObjectivePlantCharge : StandardPanel {
     }
 
     public override void _Process(double delta) {
+        if (Master.IsPaused) return;
+
         ScanForPlayer();
         HighlightPanel(delta);
     }

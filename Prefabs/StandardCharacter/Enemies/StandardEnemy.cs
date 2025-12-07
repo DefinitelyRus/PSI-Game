@@ -75,6 +75,8 @@ public partial class StandardEnemy : StandardCharacter {
 	}
 
 	public override void _Process(double delta) {
+        if (Master.IsPaused) return;
+
         // If alive, tick idle-despawn timer and kill if exceeded.
         if (IsAlive && IdleDespawnSeconds > 0f)
         {

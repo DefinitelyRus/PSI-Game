@@ -47,6 +47,8 @@ public partial class AudioManager : Node2D {
 	}
 
 	public override void _Process(double delta) {
+		if (Master.IsPaused) return;
+
 		UpdateFadeOut(delta);
 	}
 
