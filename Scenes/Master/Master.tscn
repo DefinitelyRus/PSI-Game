@@ -32,7 +32,7 @@
 
 [node name="Master" type="Node" node_paths=PackedStringArray("SceneLoader", "InputManager")]
 process_mode = 3
-process_thread_group = 2
+process_thread_group = 1
 process_thread_group_order = 0
 process_thread_messages = 0
 physics_interpolation_mode = 2
@@ -41,6 +41,9 @@ SceneLoader = NodePath("Scene Loader")
 InputManager = NodePath("Input Manager")
 
 [node name="Audio Manager" type="Node2D" parent="."]
+process_thread_group = 2
+process_thread_group_order = 0
+process_thread_messages = 0
 script = ExtResource("2_m6dx2")
 SFXVolume = 0.8
 MusicVolume = 0.4
@@ -60,6 +63,9 @@ process_thread_messages = 0
 script = ExtResource("3_iwwxa")
 
 [node name="Game Manager" type="Node2D" parent="."]
+process_thread_group = 2
+process_thread_group_order = 0
+process_thread_messages = 0
 script = ExtResource("4_iwwxa")
 RandomDropItems = [ExtResource("7_dac6d"), ExtResource("8_jgj6d"), ExtResource("9_ck1j4"), ExtResource("10_eyrpq"), ExtResource("11_kqqrh"), ExtResource("12_7iufv")]
 
@@ -69,6 +75,9 @@ InitialUnits = [ExtResource("6_0hine"), ExtResource("7_4hy21")]
 IndicatorNodeScene = ExtResource("16_0emmy")
 
 [node name="AI Director" type="Node2D" parent="."]
+process_thread_group = 2
+process_thread_group_order = 0
+process_thread_messages = 0
 script = ExtResource("7_0hine")
 Mode = 1
 SpawnpointSelectionCount = 30
@@ -78,17 +87,25 @@ RangeMinDistanceInstance = 96.0
 PaceMaxOpmInstance = 4.0
 
 [node name="Entity Manager" type="Node2D" parent="."]
+process_thread_group = 2
+process_thread_group_order = 0
+process_thread_messages = 0
 script = ExtResource("5_0hine")
 
 [node name="Input Manager" type="Node2D" parent="."]
+process_thread_group = 2
+process_thread_group_order = 0
+process_thread_messages = 0
 script = ExtResource("5_qemos")
 LogInput = true
 
 [node name="Scene Loader" type="Node" parent="." node_paths=PackedStringArray("Master", "Theatre")]
+process_thread_group = 2
+process_thread_group_order = 0
+process_thread_messages = 0
 script = ExtResource("2_7tgqy")
 Master = NodePath("..")
 Theatre = NodePath("../Theatre")
-DevScene = ExtResource("10_8ixx1")
 Levels = [ExtResource("10_8ixx1"), ExtResource("13_0hine"), ExtResource("15_xey05"), ExtResource("16_hw2j4")]
 LogReady = true
 
