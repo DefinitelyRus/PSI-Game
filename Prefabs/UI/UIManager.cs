@@ -11,9 +11,10 @@ public partial class UIManager : CanvasLayer {
 
 	[Export] MarginContainer HUDNode = null!;
 	[Export] Control PopupNode = null!;
-	[Export] Control ControlsPanelNode = null!;
+	[Export] Control HelpNode = null!;
 	[Export] TextureRect Transition = null!;
 	[Export] Control OnScreenText = null!;
+	[Export] Control MainMenu = null!;
 	[Export] public float UnpoweredAlpha { get; private set; } = 0.5f;
 
 	#endregion
@@ -31,7 +32,7 @@ public partial class UIManager : CanvasLayer {
 			return;
 		}
 
-		if (ControlsPanelNode == null) {
+		if (HelpNode == null) {
 			Log.Err(() => "ControlsPanel is null in UIManager. Please assign it in the inspector.");
 			return;
 		}
@@ -43,6 +44,11 @@ public partial class UIManager : CanvasLayer {
 
 		if (OnScreenText == null) {
 			Log.Err(() => "OnScreenText is null in UIManager. Please assign it in the inspector.");
+			return;
+		}
+
+		if (MainMenu == null) {
+			Log.Err(() => "MainMenu is null in UIManager. Please assign it in the inspector.");
 			return;
 		}
 
@@ -86,7 +92,8 @@ public partial class UIManager : CanvasLayer {
 	private static MarginContainer HUD => Instance.HUDNode;
 	public static bool IsHUDVisible => Instance.HUDNode.Visible;
 	public static Control Popup => Instance.PopupNode;
-	private static Control ControlsPanel => Instance.ControlsPanelNode;
+	public static Control Help => Instance.HelpNode;
+	public static Control Menu => Instance.MainMenu;
 
 	public static void EnableUI(bool enable) {
 		Instance.Visible = enable;
@@ -120,25 +127,35 @@ public partial class UIManager : CanvasLayer {
 	private static bool _helpVisible = false;
 
 	public static async void ToggleHelp() {
-		//Pause game when help is visible
-		_helpVisible = !_helpVisible;
-
+		// Hide help
 		if (_helpVisible) {
+			_helpVisible = false;
+			Master.IsPaused = false;
+			Help.SetDeferred("visible", false);
+			EndTransition();
+
+			// Show main menu if no scene loaded
+			if (SceneLoader.Instance.LoadedScene == null) {
+				Menu.SetDeferred("visible", true);
+			}
+		}
+
+		// Show help
+		else {
+			Master.IsPaused = true;
 			StartTransition();
 
-			// TODO: Pause game timer
+			// Hide main menu if no scene loaded
+			if (SceneLoader.Instance.LoadedScene == null) {
+				Menu.SetDeferred("visible", false);
+			}
 
-			// TODO: Lock player controls (except this one)
-			
 			await Instance.ToSignal(Instance.GetTree().CreateTimer(1.0f), "timeout");
-		}
-		else {
-			EndTransition();
-		}
 
-		Instance.GetTree().Paused = _helpVisible;
-
-		//ControlsPanel.CallDeferred("set_help_visible", _helpVisible);
+			Help.SetDeferred("visible", true);
+			Menu.SetDeferred("visible", false);
+			_helpVisible = true;
+		}
 	}
 
 	#endregion
@@ -289,4 +306,5 @@ public partial class UIManager : CanvasLayer {
 	#endregion
 
 	#endregion
+
 }
