@@ -30,20 +30,38 @@ public partial class InputManager : Node2D {
 	}
 
 	public override void _Process(double delta) {
-		if (Mode == InputModes.RTS) {
-			CallDeferred(nameof(ReceiveRTSInputs));
-		}
-
+		
+		// Exit Game
 		if (Input.IsActionJustReleased(Cancel)) _exitHoldTimer = 0f;
 		if (Input.IsActionPressed(Cancel)) {
-			_exitHoldTimer += (float)delta;
+			_exitHoldTimer += (float) delta;
 			if (_exitHoldTimer >= 2f) {
 				GetTree().Quit();
 			}
 		}
+
+		// Help/Pause Menu
+		if (Input.IsActionJustPressed(Help)) UIManager.ToggleHelp();
+
+		// Pause Inputs
+		if (Master.IsPaused) return;
+
+		// Main Menu Inputs
+		bool HasLoadedLevel = SceneLoader.Instance.LoadedScene is Level;
+		if (!HasLoadedLevel) {
+			if (Input.IsActionJustPressed(StartGame)) SceneLoader.LoadLevel(0);
+			return;
+		}
+
+		// Gameplay Inputs
+		if (Mode == InputModes.RTS) {
+			CallDeferred(nameof(ReceiveRTSInputs));
+		}
 	}
 
 	public override void _Input(InputEvent @event) {
+		if (Master.IsPaused) return;
+		
 		if (Mode == InputModes.RTS) {
 			ReceiveCameraInputs(@event);
 		}
@@ -74,6 +92,7 @@ public partial class InputManager : Node2D {
 	public const string DebugEndGame = "debug_end_game";
 	public const string Cancel = "cancel";
 	public const string Help = "help";
+	public const string StartGame = "start_game";
 
 	public static bool AllowOverride { get; set; } = true;
 
@@ -137,7 +156,7 @@ public partial class InputManager : Node2D {
 		// RTS Command Inputs
 		if (Input.IsActionJustPressed("select_1")) Commander.MoveAndSearch(mousePos);
 		if (Input.IsActionJustPressed("select_2")) Commander.MoveAndTarget(mousePos);
-		if (Input.IsActionJustPressed("halt")) Commander.StopSelectedUnits();
+		if (Input.IsActionJustPressed(Halt)) Commander.StopSelectedUnits();
 		
 		if (Input.IsActionJustPressed("select_all_units")) Commander.SelectAllUnits();
 		if (Input.IsActionJustPressed("deselect_all_units")) Commander.DeselectAllUnits();
@@ -152,14 +171,16 @@ public partial class InputManager : Node2D {
 
 		int selectedCount = Commander.GetSelectedUnitCount();
 		if (ctrlPressed && selectedCount >= 1) {
-			var unit = Commander.GetSelectedUnits().First();
+			StandardCharacter unit = Commander.GetSelectedUnits().First();
 			bool needRetarget = !_ctrlFocusActive || !ReferenceEquals(unit, _ctrlFocusedUnit);
+
 			if (needRetarget) {
 				_ctrlFocusActive = true;
 				_ctrlFocusedUnit = unit;
 				if (CameraMan.IsPathActive) CameraMan.FinishPathInstantly(skipFocus: true);
 				CameraMan.SetTarget(unit);
 			}
+
 			if (CameraMan.HasArrivedAtTarget()) _ctrlFocusLatched = true;
 		}
 		else {
