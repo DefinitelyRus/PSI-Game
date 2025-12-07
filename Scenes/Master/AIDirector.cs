@@ -59,9 +59,6 @@ public partial class AIDirector : Node2D {
         Instance = this;
 	}
 
-    public override void _Ready() {
-    }
-
     public override void _Process(double delta) {
     if (CurrentLevel != null) LevelElapsedTime += (float)delta;
     UpdatePerformanceMetrics(delta);
