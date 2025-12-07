@@ -27,13 +27,11 @@ public partial class Master : Node {
 
         if (SceneLoader == null) {
             Log.Err(() => "SceneLoader is not assigned. Cannot proceed.", LogReady);
-            DebugPause();
             return;
         }
 
         if (InputManager == null) {
             Log.Err(() => "InputManager is not assigned. Cannot proceed.", LogReady);
-            DebugPause();
             return;
         }
 
@@ -49,14 +47,7 @@ public partial class Master : Node {
 
     public static Master Instance { get; private set; } = null!;
 
-    public static void DebugPause() {
-        Log.Me(() => "Freezing game...");
-
-        Instance.GetTree().Paused = true;
-
-        Log.Me(() => "Done!");
-        return;
-    }
+    public static bool IsPaused { get; set; } = false;
 
     #endregion
 
