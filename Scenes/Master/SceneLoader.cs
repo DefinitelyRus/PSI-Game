@@ -84,6 +84,13 @@ public partial class SceneLoader : Node
             LoadLevel(DevScene);
 		}
 
+        else {
+            // Load Main Menu from UIManager
+            UIManager.SetHUDVisible(false, -1);
+            UIManager.SetHUDVisible(true);
+            UIManager.Menu.Visible = true;
+        }
+
         Log.Me(() => "Done!", LogReady);
 		return;
     }
@@ -156,7 +163,10 @@ public partial class SceneLoader : Node
         Instance.LoadedScene.QueueFree();
         Instance.LoadedScene = null!;
 
-        if (returnToMainMenu) Instance.Theatre.AddChild(Instance.MainMenu.Instantiate());
+        if (returnToMainMenu) {
+            // Load Main Menu from UIManager
+            UIManager.SetHUDVisible(true);
+        }
     }
 
 
