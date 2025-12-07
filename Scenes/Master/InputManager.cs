@@ -1,6 +1,5 @@
 global using IM = CommonScripts.InputManager;
 using System.Linq;
-using System.Reflection.Metadata;
 using Godot;
 namespace CommonScripts;
 
@@ -56,7 +55,7 @@ public partial class InputManager : Node2D {
 
 	#region Static Members
 
-	public static InputManager Instance { get; private set; } = null!;
+	public static IM Instance { get; private set; } = null!;
 
 	#region Input Handling
 
