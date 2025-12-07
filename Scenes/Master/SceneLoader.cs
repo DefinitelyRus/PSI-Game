@@ -48,11 +48,6 @@ public partial class SceneLoader : Node
             return;
         }
 
-        // if (MainMenu == null) {
-        //     Log.Err(() => "MainMenu is not assigned. Cannot proceed.");
-        //     return;
-        // }
-
         #endregion
 
         #region Level Checks
@@ -88,11 +83,6 @@ public partial class SceneLoader : Node
             if (!SuppressWarnings) Log.Warn(() => "Currently using `DevScene`. `MainMenu` will not be loaded.", LogReady);
             LoadLevel(DevScene);
 		}
-
-        else if (MainMenu != null) {
-            LoadedScene = MainMenu.Instantiate();
-            Theatre.AddChild(LoadedScene);
-        }
 
         Log.Me(() => "Done!", LogReady);
 		return;
