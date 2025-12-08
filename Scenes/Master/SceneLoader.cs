@@ -19,7 +19,9 @@ public partial class SceneLoader : Node
 
     [Export] public PackedScene[] Levels { get; private set; } = [];
 
-    [Export] public Node LoadedScene { get; private set; } = null!;
+    [Export] public Node? LoadedScene { get; private set; } = null;
+    
+    [Export] private AudioStream MainMenuAmbience = null!;
 
     #endregion
 
@@ -86,6 +88,7 @@ public partial class SceneLoader : Node
 
         else {
             // Load Main Menu from UIManager
+            AudioManager.StreamAudio(MainMenuAmbience, "AmbientAudio", AudioManager.AudioChannels.Ambient, 1.0f);
             UIManager.SetHUDVisible(false, -1);
             UIManager.SetHUDVisible(true);
             UIManager.Menu.Visible = true;

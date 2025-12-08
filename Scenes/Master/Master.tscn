@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://d3cvhjbvnx1a1"]
+[gd_scene load_steps=31 format=3 uid="uid://d3cvhjbvnx1a1"]
 
 [ext_resource type="Script" uid="uid://cdfonun0qopbr" path="res://Scenes/Master/Master.cs" id="1_o4rt4"]
 [ext_resource type="Script" uid="uid://bskjggdrqe3xx" path="res://Scenes/Master/SceneLoader.cs" id="2_7tgqy"]
@@ -29,6 +29,7 @@
 [ext_resource type="PackedScene" uid="uid://b2uvlodlqe2mk" path="res://Scenes/Levels/Release/Warehouse/Warehouse.tscn" id="15_xey05"]
 [ext_resource type="PackedScene" uid="uid://bop0jyofp0dce" path="res://Prefabs/UI/MovementMarker.tscn" id="16_0emmy"]
 [ext_resource type="PackedScene" uid="uid://d0ppjvnd47xrt" path="res://Scenes/Levels/Release/Datacenter/Datacenter.tscn" id="16_hw2j4"]
+[ext_resource type="AudioStream" uid="uid://o5hbwx5ij864" path="res://Audio/SFX/Ambience Underground Power Station Loop.mp3" id="29_kfhj5"]
 
 [node name="Master" type="Node" node_paths=PackedStringArray("SceneLoader", "InputManager")]
 process_mode = 3
@@ -107,6 +108,7 @@ script = ExtResource("2_7tgqy")
 Master = NodePath("..")
 Theatre = NodePath("../Theatre")
 Levels = [ExtResource("10_8ixx1"), ExtResource("13_0hine"), ExtResource("15_xey05"), ExtResource("16_hw2j4")]
+MainMenuAmbience = ExtResource("29_kfhj5")
 LogReady = true
 
 [node name="Theatre" type="Node" parent="."]
