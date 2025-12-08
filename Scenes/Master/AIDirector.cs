@@ -7,9 +7,7 @@ namespace CommonScripts;
 public partial class AIDirector : Node2D {
 
     #region Instance Members
-
     [Export] public SpawnMode Mode = SpawnMode.Static;
-
     [Export] public int SpawnpointSelectionCount = 10;
     [Export] public PackedScene[] EnemyScenes = [];
 
@@ -62,12 +60,15 @@ public partial class AIDirector : Node2D {
     public override void _Process(double delta) {
         if (Master.IsPaused) return;
 
-        if (CurrentLevel != null) LevelElapsedTime += (float)delta;
-    UpdatePerformanceMetrics(delta);
+        if (CurrentLevel != null) LevelElapsedTime += (float) delta;
+
+        UpdatePerformanceMetrics(delta);
+
         switch (Mode) {
             case SpawnMode.Static:
                 CallDeferred(nameof(UpdateStaticSpawning), delta);
                 break;
+
             case SpawnMode.Dynamic:
                 CallDeferred(nameof(UpdateDynamicSpawning), delta);
                 break;
@@ -83,25 +84,24 @@ public partial class AIDirector : Node2D {
     #region Static Members
 
     public static AIDirector Instance { get; private set; } = null!;
-
     private static Level? _currentLevel;
+
     public static Level CurrentLevel {
         get => _currentLevel!;
         set {
             if (!ReferenceEquals(_currentLevel, value)) {
                 Level? previous = _currentLevel;
                 _currentLevel = value;
-                if (previous != null) {
-                    FinalizeOptionalRatioFromPreviousLevel();
-                } else {
-                    Instance.OptionalRatioInstance = 1f;
-                }
+
+                if (previous != null) FinalizeOptionalRatioFromPreviousLevel();
+                else Instance.OptionalRatioInstance = 1f;
 
                 OptionalObjectivesCompleted = 0;
                 OptionalObjectivesTotal = 0;
                 _hasCompletedFirstRequiredObjective = false;
                 _paceUpdateAccumulator = 0f;
                 Instance.PaceRatioInstance = 1f;
+            
                 ResetWaveState();
             }
         }
@@ -254,6 +254,7 @@ public partial class AIDirector : Node2D {
 
         if (total <= 0f) {
             total = candidates.Count;
+
             for (int i = 0; i < candidates.Count; i++) {
                 candidates[i] = (candidates[i].enemy, 1f);
             }
@@ -262,9 +263,11 @@ public partial class AIDirector : Node2D {
         float pick = (float) GD.RandRange(0, total);
         for (int candIdx = 0; candIdx < candidates.Count; candIdx++) {
             pick -= candidates[candIdx].weight;
+
             if (pick <= 0f) {
                 for (int j = 0; j < candidates.Count; j++) {
                     if (j == candIdx) continue;
+
                     candidates[j].enemy.QueueFree();
                 }
 
@@ -280,7 +283,6 @@ public partial class AIDirector : Node2D {
     private static float ApplyExtremeSpawnGates(EnemyType type, float baseWeight) {
         float pace = Instance.PaceRatioInstance;
         float range = Instance.RangeRatioInstance;
-
         float veryLowPace = Instance.PaceVeryLowThresholdInstance;
         float cruisingMin = Instance.PaceCruisingMinInstance;
         float cruisingMax = Instance.PaceCruisingMaxInstance;
@@ -292,17 +294,21 @@ public partial class AIDirector : Node2D {
             case EnemyType.Juggernaut:
                 if (pace <= veryLowPace) return Mathf.Max(baseWeight, 1f);
                 return 0f;
+
             case EnemyType.Sentinel:
                 if (range >= veryHighRange) return Mathf.Max(baseWeight, 1f);
                 return 0f;
+
             case EnemyType.Drone:
                 if (pace >= cruisingMin && pace <= cruisingMax) return Mathf.Max(baseWeight, 1f);
                 if (pace < cruisingMin) return 0f;
                 if (pace >= mediumPace) return 0f;
                 return baseWeight;
+
             case EnemyType.Sentry:
                 if (pace >= veryHighPace) return Mathf.Max(baseWeight, 1f);
                 return 0f;
+
             default:
                 return baseWeight;
         }
@@ -362,24 +368,27 @@ public partial class AIDirector : Node2D {
         float activeNow = GetCurrentEnemyTokenValue();
         int deduction = Mathf.RoundToInt(activeNow * 0.5f);
         int before = _tokensLeftThisWave;
+
         _tokensLeftThisWave = Mathf.Max(0, _tokensLeftThisWave - deduction);
-        // Ensure minimum spend budget is respected after deduction
         _tokensLeftThisWave = Mathf.Max(CurrentLevel.MinSpendBudget, _tokensLeftThisWave);
         _lastWaveBudgetComputed = _tokensLeftThisWave;
+
         if (deduction > 0) {
             Log.Me(() => $"Wave budget adjusted: base={before}, activeTokens={activeNow:F0}, deduction(50%)={deduction}, final={_tokensLeftThisWave}");
         }
+
         _isWaveActive = true;
         _waveTimer = WaveDuration;
-    if (!_hasStartedAtLeastOneWave) _hasStartedAtLeastOneWave = true;
+
+        if (!_hasStartedAtLeastOneWave) _hasStartedAtLeastOneWave = true;
 
         Log.Me(() => "Starting new wave.");
         Log.Me(() => $"Wave metrics: Health={Instance.HealthRatioInstance:F2}, Pace={Instance.PaceRatioInstance:F2}, Range={Instance.RangeRatioInstance:F2}, Optional={Instance.OptionalRatioInstance:F2}. Budget={_tokensLeftThisWave}");
     }
 
     private static void EndWave() {
-    _isWaveActive = false;
-    Log.Me(() => "Ending current wave.");
+        _isWaveActive = false;
+        Log.Me(() => "Ending current wave.");
     }
 
     private static void UpdateWave(float delta) {
@@ -399,17 +408,19 @@ public partial class AIDirector : Node2D {
                 float nextBudget = ComputeNextWaveBudgetPreview();
                 float baseDelay = TimeUntilNextWave;
                 float ratio = 0f;
+
                 if (nextBudget > 0f) ratio = Mathf.Max(0f, currentTokens / nextBudget);
+
                 float addedDelay = baseDelay * ratio;
                 _waveCooldownTimer = baseDelay + addedDelay;
+
                 Log.Me(() => $"Starting inter-wave cooldown. baseDelay={baseDelay:F1}, activeTokens={currentTokens:F0}, nextBudget={nextBudget:F0}, ratio={ratio:F2}, totalDelay={_waveCooldownTimer:F1}");
+
                 return;
             }
 
             _waveCooldownTimer -= delta;
-            if (_waveCooldownTimer <= 0f) {
-                StartWave();
-            }
+            if (_waveCooldownTimer <= 0f) StartWave();
         }
     }
 
@@ -439,8 +450,11 @@ public partial class AIDirector : Node2D {
     private static readonly Queue<float> _killDistances = new();
     public static void RegisterKillDistance(float distance) {
         if (distance < 0f) return;
+
         _killDistances.Enqueue(distance);
+
         while (_killDistances.Count > KillDistanceWindow) _killDistances.Dequeue();
+
         if (_killDistances.Count == 1) Log.Me(() => $"First kill distance sample registered (distance={distance:F1}). Range metric will begin updating.");
     }
 
@@ -449,10 +463,12 @@ public partial class AIDirector : Node2D {
         PaceRatio = 1f;
         RangeRatio = 1f;
         LevelElapsedTime = 0f;
+
         _hasCompletedFirstRequiredObjective = false;
         _paceUpdateAccumulator = 0f;
         _requiredObjectiveCompletionTimes.Clear();
-    _killDistances.Clear();
+        _killDistances.Clear();
+
         RequiredObjectivesTotal = 0;
         RequiredObjectivesCompleted = 0;
         OptionalObjectivesTotal = 0;
@@ -476,12 +492,14 @@ public partial class AIDirector : Node2D {
             _hasCompletedFirstRequiredObjective = true;
             _paceUpdateAccumulator = 1f;
             Log.Me(() => "Pace unlocked: first required objective completion registered.");
-        } else {
+        }
+        
+        else {
             _paceUpdateAccumulator = 1f;
             Log.Me(() => "Pace timer reset after required objective completion.");
         }
 
-    _requiredObjectiveCompletionTimes.Add(LevelElapsedTime);
+        _requiredObjectiveCompletionTimes.Add(LevelElapsedTime);
     }
 
     public static void UpdatePerformanceMetrics(double delta) {
@@ -489,9 +507,9 @@ public partial class AIDirector : Node2D {
         if (units.Count == 0) return;
 
         float dt = (float)delta;
-    UpdateHealthMetric(units, dt);
-    UpdatePaceMetric(dt);
-    UpdateRangeMetric(dt);
+        UpdateHealthMetric(units, dt);
+        UpdatePaceMetric(dt);
+        UpdateRangeMetric(dt);
     }
 
     private static void UpdateHealthMetric(List<StandardCharacter> units, float delta) {
@@ -520,12 +538,13 @@ public partial class AIDirector : Node2D {
                 _requiredObjectiveCompletionTimes.RemoveAt(i);
             }
         }
+
         int countLastMinute = _requiredObjectiveCompletionTimes.Count;
         float opm = countLastMinute;
-
         float minOpm = Instance.PaceMinOpmInstance;
         float maxOpm = Instance.PaceMaxOpmInstance;
         float targetPace;
+
         if (opm <= minOpm) targetPace = 0f;
         else if (opm >= maxOpm) targetPace = 2f;
         else {
@@ -549,6 +568,7 @@ public partial class AIDirector : Node2D {
         float minDist = Instance.RangeMinDistanceInstance;
         float maxDist = Instance.RangeMaxDistanceInstance;
         float targetRange;
+
         if (avg <= minDist) targetRange = 0f;
         else if (avg >= maxDist) targetRange = 2f;
         else {
@@ -584,9 +604,6 @@ public partial class AIDirector : Node2D {
         if (OptionalObjectivesCompleted >= OptionalObjectivesTotal) return;
         OptionalObjectivesCompleted++;
     }
-
-
-
 
     #endregion
 
@@ -656,8 +673,8 @@ public partial class AIDirector : Node2D {
     #endregion
 
     public static void UpdateDynamicSpawning(double delta) {
-    if (!AllowSpawning) return;
-    if (CurrentLevel == null) return;
+        if (!AllowSpawning) return;
+        if (CurrentLevel == null) return;
 
         UpdateWave((float)delta);
         if (_isWaveActive) {
