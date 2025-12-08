@@ -104,6 +104,7 @@ public partial class ObjectiveL4EnterElevator : StandardPanel {
         IsEnabled = false;
         Activated = true;
 
+        GameManager.TimeRemaining = float.MaxValue;
         AudioManager.StopMusic("AmbientAudio");
         UIManager.StartTransition("Mission Complete");
         UIManager.SetHUDVisible(false);
@@ -111,8 +112,8 @@ public partial class ObjectiveL4EnterElevator : StandardPanel {
         await ToSignal(GetTree().CreateTimer(5.0f), "timeout");
 
         // Go to main menu
-        Commander.Initialize();
-        SceneLoader.LoadLevel(0);
+        UIManager.EndTransition();
+        SceneLoader.UnloadLevel(true);
     }
 
 }

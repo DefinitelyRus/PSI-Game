@@ -213,7 +213,8 @@ public partial class GameManager : Node2D {
             await Instance.ToSignal(Instance.GetTree().CreateTimer(4.0), "timeout");
 
             ResetGame();
-            SceneLoader.LoadLevel(0);
+            UIManager.EndTransition();
+            SceneLoader.UnloadLevel(true);
             return;
         }
     }

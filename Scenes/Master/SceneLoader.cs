@@ -164,8 +164,11 @@ public partial class SceneLoader : Node
         Instance.LoadedScene = null!;
 
         if (returnToMainMenu) {
-            // Load Main Menu from UIManager
-            UIManager.SetHUDVisible(true);
+            UIManager.SetHUDVisible(false, -1);
+            UIManager.Menu.Visible = true;
+            GameManager.ResetGame();
+
+            Instance.LoadedScene = null;
         }
     }
 

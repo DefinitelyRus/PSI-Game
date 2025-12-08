@@ -200,10 +200,13 @@ public partial class InputManager : Node2D {
 		AudioManager.StopMusic("AmbientAudio");
 		UIManager.StartTransition("Mission Complete");
 		UIManager.SetHUDVisible(false);
+		
 		if (SceneLoader.Instance.LoadedScene is Level lvl) DataManager.RecordLevelCompletion(lvl);
+
 		await ToSignal(GetTree().CreateTimer(5.0f), "timeout");
-		Commander.Initialize();
-		SceneLoader.LoadLevel(0);
+
+		UIManager.EndTransition();
+		SceneLoader.UnloadLevel(true);
 	}
 
 	private float _exitHoldTimer = 0f;
