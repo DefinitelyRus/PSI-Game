@@ -152,6 +152,7 @@ public partial class SceneLoader : Node
 
         await Instance.ToSignal(Instance.GetTree().CreateTimer(.5f), "timeout");
         GameManager.GameEnded = false;
+        Master.Instance.Background.Visible = false;
         UIManager.EndTransition();
         return;
 	}
@@ -169,7 +170,9 @@ public partial class SceneLoader : Node
         if (returnToMainMenu) {
             UIManager.SetHUDVisible(false, -1);
             UIManager.Menu.Visible = true;
+            Master.Instance.Background.Visible = true;
             GameManager.ResetGame();
+            CameraMan.Instance.GlobalPosition = Vector2.Zero;
 
             Instance.LoadedScene = null;
         }
