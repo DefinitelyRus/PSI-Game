@@ -123,6 +123,7 @@ public partial class InputManager : Node2D {
 		Vector2 mousePos = CameraMan.GetCleanMousePosition();
 		bool ctrlPressed = Input.IsActionPressed("ctrl_modifier");
 
+		// If camera is on a path, allow canceling it
 		if (Input.IsActionJustPressed(Cancel) && CameraMan.IsPathActive) {
 			CameraMan.FinishPathInstantly();
 			return;
@@ -153,11 +154,9 @@ public partial class InputManager : Node2D {
 			}
 		}
 
-		// RTS Command Inputs
+		// Unit Selection
 		if (Input.IsActionJustPressed("select_1")) Commander.MoveAndSearch(mousePos);
 		if (Input.IsActionJustPressed("select_2")) Commander.MoveAndTarget(mousePos);
-		if (Input.IsActionJustPressed(Halt)) Commander.StopSelectedUnits();
-		
 		if (Input.IsActionJustPressed("select_all_units")) Commander.SelectAllUnits();
 		if (Input.IsActionJustPressed("deselect_all_units")) Commander.DeselectAllUnits();
 
@@ -169,6 +168,10 @@ public partial class InputManager : Node2D {
 		if (Input.IsActionJustPressed("item_4")) Commander.SelectItem(3);
 		if (Input.IsActionJustPressed("item_5")) Commander.SelectItem(4);
 
+		// Unit Command Inputs
+		if (Input.IsActionJustPressed(Halt)) Commander.StopSelectedUnits();
+
+		// Ctrl-Focus Camera Logic
 		int selectedCount = Commander.GetSelectedUnitCount();
 		if (ctrlPressed && selectedCount >= 1) {
 			StandardCharacter unit = Commander.GetSelectedUnits().First();
@@ -183,6 +186,8 @@ public partial class InputManager : Node2D {
 
 			if (CameraMan.HasArrivedAtTarget()) _ctrlFocusLatched = true;
 		}
+
+		// Release Ctrl-Focus
 		else {
 			if (_ctrlFocusActive) {
 				_ctrlFocusActive = false;
@@ -191,6 +196,7 @@ public partial class InputManager : Node2D {
 			}
 		}
 
+		// Reset Latched State
 		if (Input.IsActionJustPressed(DebugNextLevel)) SceneLoader.NextLevel();
 		if (Input.IsActionJustPressed(DebugPrevLevel)) SceneLoader.PreviousLevel();
 		if (Input.IsActionJustPressed(DebugEndGame)) TriggerDebugEndGame();
