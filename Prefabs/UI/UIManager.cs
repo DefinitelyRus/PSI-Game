@@ -11,9 +11,10 @@ public partial class UIManager : CanvasLayer {
 
 	[Export] MarginContainer HUDNode = null!;
 	[Export] Control PopupNode = null!;
-	[Export] Control ControlsPanelNode = null!;
+	[Export] Control HelpNode = null!;
 	[Export] TextureRect Transition = null!;
 	[Export] Control OnScreenText = null!;
+	[Export] Control MainMenu = null!;
 	[Export] public float UnpoweredAlpha { get; private set; } = 0.5f;
 
 	#endregion
@@ -31,7 +32,7 @@ public partial class UIManager : CanvasLayer {
 			return;
 		}
 
-		if (ControlsPanelNode == null) {
+		if (HelpNode == null) {
 			Log.Err(() => "ControlsPanel is null in UIManager. Please assign it in the inspector.");
 			return;
 		}
@@ -46,6 +47,11 @@ public partial class UIManager : CanvasLayer {
 			return;
 		}
 
+		if (MainMenu == null) {
+			Log.Err(() => "MainMenu is null in UIManager. Please assign it in the inspector.");
+			return;
+		}
+
 		Instance = this;
 	}
 
@@ -53,8 +59,8 @@ public partial class UIManager : CanvasLayer {
 		SetItemIcon(0, (Texture2D)null!);
 		SetItemIcon(1, (Texture2D)null!);
 		SetItemIcon(2, (Texture2D)null!);
-		SetItemIcon(3, (Texture2D)null!);
-		SetItemIcon(4, (Texture2D)null!);
+		// SetItemIcon(3, (Texture2D)null!);
+		// SetItemIcon(4, (Texture2D)null!);
 
 		// Start with zero accessible slots until a character explicitly sets them
 		SetOpenSlots(0);
@@ -67,7 +73,6 @@ public partial class UIManager : CanvasLayer {
 	#region Static Members
 
 	public static UIManager Instance { get; private set; } = null!;
-	// Currently selected character whose data should drive HUD updates.
 	public static StandardCharacter? SelectedCharacter { get; private set; }
 
 	/// <summary>
@@ -87,7 +92,8 @@ public partial class UIManager : CanvasLayer {
 	private static MarginContainer HUD => Instance.HUDNode;
 	public static bool IsHUDVisible => Instance.HUDNode.Visible;
 	public static Control Popup => Instance.PopupNode;
-	private static Control ControlsPanel => Instance.ControlsPanelNode;
+	public static Control Help => Instance.HelpNode;
+	public static Control Menu => Instance.MainMenu;
 
 	public static void EnableUI(bool enable) {
 		Instance.Visible = enable;
@@ -121,25 +127,44 @@ public partial class UIManager : CanvasLayer {
 	private static bool _helpVisible = false;
 
 	public static async void ToggleHelp() {
-		//Pause game when help is visible
-		_helpVisible = !_helpVisible;
+		Log.Me(() => $"Setting help visibility to {!_helpVisible}.");
 
+		// Hide help
 		if (_helpVisible) {
+			_helpVisible = false;
+			Master.IsPaused = false;
+			Help.SetDeferred("visible", false);
+			EndTransition();
+
+			// Show main menu if no scene loaded
+			if (SceneLoader.Instance.LoadedScene == null) {
+				Menu.SetDeferred("visible", true);
+			}
+			
+			else {
+				HUD.SetDeferred("visible", true);
+			}
+		}
+
+		// Show help
+		else {
+			Master.IsPaused = true;
 			StartTransition();
 
-			// TODO: Pause game timer
+			// Hide main menu if no scene loaded
+			if (SceneLoader.Instance.LoadedScene == null) {
+				Menu.SetDeferred("visible", false);
+			}
 
-			// TODO: Lock player controls (except this one)
-			
+			else {
+                HUD.SetDeferred("visible", false);
+            }
+
 			await Instance.ToSignal(Instance.GetTree().CreateTimer(1.0f), "timeout");
-		}
-		else {
-			EndTransition();
-		}
 
-		Instance.GetTree().Paused = _helpVisible;
-
-		//ControlsPanel.CallDeferred("set_help_visible", _helpVisible);
+			Help.SetDeferred("visible", true);
+			_helpVisible = true;
+		}
 	}
 
 	#endregion
@@ -290,4 +315,5 @@ public partial class UIManager : CanvasLayer {
 	#endregion
 
 	#endregion
+
 }

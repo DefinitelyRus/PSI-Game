@@ -25,6 +25,8 @@ public partial class GameManager : Node2D {
     }
 
 	public override void _Process(double delta) {
+        if (Master.IsPaused) return;
+
         // Update timer text and color before checking lose conditions
         if (!GameEnded) {
             // Only update timer if time limit is active
@@ -211,7 +213,8 @@ public partial class GameManager : Node2D {
             await Instance.ToSignal(Instance.GetTree().CreateTimer(4.0), "timeout");
 
             ResetGame();
-            SceneLoader.LoadLevel(0);
+            UIManager.EndTransition();
+            SceneLoader.UnloadLevel(true);
             return;
         }
     }

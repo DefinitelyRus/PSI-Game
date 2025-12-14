@@ -267,6 +267,8 @@ public partial class UpgradeManager : Node {
     }
 
     public override void _Process(double delta) {
+        if (Master.IsPaused) return;
+
         if (IsOnCooldown) {
             _cooldownTimer -= delta;
             if (_cooldownTimer < 0d) _cooldownTimer = 0d;

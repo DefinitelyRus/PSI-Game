@@ -56,6 +56,8 @@ public partial class MovementMarker : Node2D {
     }
 
     public override void _Process(double delta) {
+        if (Master.IsPaused) return;
+
         if (SceneLoader.Instance.LoadedScene is not Level) return;
 
         bool ownerAlive = OwnerCharacter.IsAlive;

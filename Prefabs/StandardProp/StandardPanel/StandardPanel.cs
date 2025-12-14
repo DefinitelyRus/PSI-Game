@@ -1,6 +1,5 @@
 using System;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using Godot;
 namespace CommonScripts;
 
@@ -131,7 +130,9 @@ public partial class StandardPanel : StandardProp {
 	}
 
 	public override void _Process(double delta) {
-        ScanForPlayer();
+		if (Master.IsPaused) return;
+
+		ScanForPlayer();
 		HighlightPanel(delta);
     }
 

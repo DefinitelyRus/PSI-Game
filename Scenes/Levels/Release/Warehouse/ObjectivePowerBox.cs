@@ -66,6 +66,8 @@ public partial class ObjectivePowerBox : StandardPanel {
     }
 
     public override void _Process(double delta) {
+        if (Master.IsPaused) return;
+
         ScanForPlayer();
         HighlightPanel(delta);
     }

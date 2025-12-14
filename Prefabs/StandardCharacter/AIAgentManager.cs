@@ -361,6 +361,8 @@ public partial class AIAgentManager : Node2D {
 	}
 
 	public override void _PhysicsProcess(double delta) {
+		if (Master.IsPaused) return;
+
 		MoveTo();
 		RetargetEnemy(delta);
 	}

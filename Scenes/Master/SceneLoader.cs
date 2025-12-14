@@ -19,7 +19,9 @@ public partial class SceneLoader : Node
 
     [Export] public PackedScene[] Levels { get; private set; } = [];
 
-    [Export] public Node LoadedScene { get; private set; } = null!;
+    [Export] public Node? LoadedScene { get; private set; } = null;
+    
+    [Export] private AudioStream MainMenuAmbience = null!;
 
     #endregion
 
@@ -47,11 +49,6 @@ public partial class SceneLoader : Node
             Log.Err(() => "Theatre is not assigned. Nowhere to put loaded scenes into.");
             return;
         }
-
-        // if (MainMenu == null) {
-        //     Log.Err(() => "MainMenu is not assigned. Cannot proceed.");
-        //     return;
-        // }
 
         #endregion
 
@@ -89,9 +86,12 @@ public partial class SceneLoader : Node
             LoadLevel(DevScene);
 		}
 
-        else if (MainMenu != null) {
-            LoadedScene = MainMenu.Instantiate();
-            Theatre.AddChild(LoadedScene);
+        else {
+            // Load Main Menu from UIManager
+            AudioManager.StreamAudio(MainMenuAmbience, "AmbientAudio", AudioManager.AudioChannels.Ambient, 1.0f);
+            UIManager.SetHUDVisible(false, -1);
+            UIManager.SetHUDVisible(true);
+            UIManager.Menu.Visible = true;
         }
 
         Log.Me(() => "Done!", LogReady);
@@ -152,6 +152,7 @@ public partial class SceneLoader : Node
 
         await Instance.ToSignal(Instance.GetTree().CreateTimer(.5f), "timeout");
         GameManager.GameEnded = false;
+        Master.Instance.Background.Visible = false;
         UIManager.EndTransition();
         return;
 	}
@@ -166,7 +167,15 @@ public partial class SceneLoader : Node
         Instance.LoadedScene.QueueFree();
         Instance.LoadedScene = null!;
 
-        if (returnToMainMenu) Instance.Theatre.AddChild(Instance.MainMenu.Instantiate());
+        if (returnToMainMenu) {
+            UIManager.SetHUDVisible(false, -1);
+            UIManager.Menu.Visible = true;
+            Master.Instance.Background.Visible = true;
+            GameManager.ResetGame();
+            CameraMan.Instance.GlobalPosition = Vector2.Zero;
+
+            Instance.LoadedScene = null;
+        }
     }
 
 

@@ -532,6 +532,8 @@ public partial class StandardWeapon : StandardItem
 	}
 
 	public override void _Process(double delta) {
+		if (Master.IsPaused) return;
+
 		Log.Me(() => $"Processing {ItemID} as StandardWeapon.", LogProcess);
 
 		if (Control == null) {

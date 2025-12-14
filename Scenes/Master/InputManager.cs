@@ -1,6 +1,5 @@
 global using IM = CommonScripts.InputManager;
 using System.Linq;
-using System.Reflection.Metadata;
 using Godot;
 namespace CommonScripts;
 
@@ -31,20 +30,43 @@ public partial class InputManager : Node2D {
 	}
 
 	public override void _Process(double delta) {
-		if (Mode == InputModes.RTS) {
-			CallDeferred(nameof(ReceiveRTSInputs));
-		}
 
+		// Exit Game
 		if (Input.IsActionJustReleased(Cancel)) _exitHoldTimer = 0f;
 		if (Input.IsActionPressed(Cancel)) {
-			_exitHoldTimer += (float)delta;
+			_exitHoldTimer += (float) delta;
 			if (_exitHoldTimer >= 2f) {
 				GetTree().Quit();
 			}
 		}
+
+		// Help/Pause Menu
+		if (Input.IsActionJustPressed(Help)) UIManager.ToggleHelp();
+
+		// Pause Inputs
+		if (Master.IsPaused) return;
+
+		// Main Menu Inputs
+		bool HasLoadedLevel = SceneLoader.Instance.LoadedScene is Level;
+		if (!HasLoadedLevel) {
+			if (Input.IsActionJustPressed(StartGame)) {
+				UIManager.Menu.SetDeferred("visible", false);
+				UIManager.Instance.CallDeferred("SetHUDVisible", true, -1);
+				UIManager.Instance.CallDeferred("SetHUDVisible", true, 0);
+				SceneLoader.Instance.CallDeferred("LoadLevel", 0);
+			}
+			return;
+		}
+
+		// Gameplay Inputs
+		if (Mode == InputModes.RTS) {
+			CallDeferred(nameof(ReceiveRTSInputs));
+		}
 	}
 
 	public override void _Input(InputEvent @event) {
+		if (Master.IsPaused) return;
+
 		if (Mode == InputModes.RTS) {
 			ReceiveCameraInputs(@event);
 		}
@@ -56,7 +78,7 @@ public partial class InputManager : Node2D {
 
 	#region Static Members
 
-	public static InputManager Instance { get; private set; } = null!;
+	public static IM Instance { get; private set; } = null!;
 
 	#region Input Handling
 
@@ -75,6 +97,7 @@ public partial class InputManager : Node2D {
 	public const string DebugEndGame = "debug_end_game";
 	public const string Cancel = "cancel";
 	public const string Help = "help";
+	public const string StartGame = "start_game";
 
 	public static bool AllowOverride { get; set; } = true;
 
@@ -100,13 +123,9 @@ public partial class InputManager : Node2D {
 		Vector2 mousePos = CameraMan.GetCleanMousePosition();
 		bool ctrlPressed = Input.IsActionPressed("ctrl_modifier");
 
+		// If camera is on a path, allow canceling it
 		if (Input.IsActionJustPressed(Cancel) && CameraMan.IsPathActive) {
 			CameraMan.FinishPathInstantly();
-			return;
-		}
-
-		if (Input.IsActionJustPressed(Help)) {
-			UIManager.ToggleHelp();
 			return;
 		}
 
@@ -135,11 +154,9 @@ public partial class InputManager : Node2D {
 			}
 		}
 
-		// RTS Command Inputs
+		// Unit Selection
 		if (Input.IsActionJustPressed("select_1")) Commander.MoveAndSearch(mousePos);
 		if (Input.IsActionJustPressed("select_2")) Commander.MoveAndTarget(mousePos);
-		if (Input.IsActionJustPressed("halt")) Commander.StopSelectedUnits();
-		
 		if (Input.IsActionJustPressed("select_all_units")) Commander.SelectAllUnits();
 		if (Input.IsActionJustPressed("deselect_all_units")) Commander.DeselectAllUnits();
 
@@ -151,18 +168,26 @@ public partial class InputManager : Node2D {
 		if (Input.IsActionJustPressed("item_4")) Commander.SelectItem(3);
 		if (Input.IsActionJustPressed("item_5")) Commander.SelectItem(4);
 
+		// Unit Command Inputs
+		if (Input.IsActionJustPressed(Halt)) Commander.StopSelectedUnits();
+
+		// Ctrl-Focus Camera Logic
 		int selectedCount = Commander.GetSelectedUnitCount();
 		if (ctrlPressed && selectedCount >= 1) {
-			var unit = Commander.GetSelectedUnits().First();
+			StandardCharacter unit = Commander.GetSelectedUnits().First();
 			bool needRetarget = !_ctrlFocusActive || !ReferenceEquals(unit, _ctrlFocusedUnit);
+
 			if (needRetarget) {
 				_ctrlFocusActive = true;
 				_ctrlFocusedUnit = unit;
 				if (CameraMan.IsPathActive) CameraMan.FinishPathInstantly(skipFocus: true);
 				CameraMan.SetTarget(unit);
 			}
+
 			if (CameraMan.HasArrivedAtTarget()) _ctrlFocusLatched = true;
 		}
+
+		// Release Ctrl-Focus
 		else {
 			if (_ctrlFocusActive) {
 				_ctrlFocusActive = false;
@@ -171,6 +196,7 @@ public partial class InputManager : Node2D {
 			}
 		}
 
+		// Reset Latched State
 		if (Input.IsActionJustPressed(DebugNextLevel)) SceneLoader.NextLevel();
 		if (Input.IsActionJustPressed(DebugPrevLevel)) SceneLoader.PreviousLevel();
 		if (Input.IsActionJustPressed(DebugEndGame)) TriggerDebugEndGame();
@@ -180,10 +206,13 @@ public partial class InputManager : Node2D {
 		AudioManager.StopMusic("AmbientAudio");
 		UIManager.StartTransition("Mission Complete");
 		UIManager.SetHUDVisible(false);
+		
 		if (SceneLoader.Instance.LoadedScene is Level lvl) DataManager.RecordLevelCompletion(lvl);
+
 		await ToSignal(GetTree().CreateTimer(5.0f), "timeout");
-		Commander.Initialize();
-		SceneLoader.LoadLevel(0);
+
+		UIManager.EndTransition();
+		SceneLoader.UnloadLevel(true);
 	}
 
 	private float _exitHoldTimer = 0f;

@@ -65,7 +65,8 @@ public partial class StandardProjectileWeapon : StandardWeapon
 	}
 
 	public override void _Process(double delta) {
-		
+		if (Master.IsPaused) return;
+
 		Log.Me(() => $"Processing {ItemID} as StandardProjectileWeapon. Passing to StandardWeapon...", LogProcess);
 		base._Process(delta);
 
