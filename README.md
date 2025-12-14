@@ -13,7 +13,7 @@ Camera Controls:
 - W, A, S, D -> Move camera
 - Drag + Middle-click -> Move camera
 - Shift + 1, 2 -> Focus on unit
-
+- 
 Inventory Controls:
 - Z, X, C -> Toggle item power
 - Shift + Z, X, C -> Drop item
@@ -21,3 +21,7 @@ Inventory Controls:
 Others:
 - Hold ESC -> Exit game
 - [DEBUG] Alt + W + X + F4 -> Auto-win
+
+
+# Update Notice
+This project may possibly be reworked or entirely remade to apply the feedback provided during the data collection phase of the research. As such, the project may be moved into another repository and no longer follow the orginal vision for the game.
